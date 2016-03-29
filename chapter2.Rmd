@@ -1,0 +1,389 @@
+---
+title       : Portfolio performance evaluation [Chapter 2]
+description : Chapter 2
+
+--- type:VideoExercise lang:r xp:50 skills:1
+## The distribution of portfolio returns
+
+We have now mostly looked at time series plots of returns. For portfolio managers and investors the distribution of returns is important. This can be visualized by a histogram (function hist() in R) or by reporting summary statistics. The first important statistic is the mean return, showing the average portfolio performance. Usually, a higher average return comes at the price of a higher risk. The sample variance corresponding to the average squared deviations of the return with respect to the average return is the risk measure used in modern portfolio theory by Harry Markowitz. The square root of the variance, called standard deviation or volatility, is more easy to interpret because it is in the same units as the returns.
+*** =video_link
+//player.vimeo.com/video/108225030
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
+## Which return distribution is to be preferred?
+
+I show three normal distributions; A and B have the same mean, but A's volatility is lower. A and C have the same vol, but the mean return of C is higher. Which distribution is to be preferred?
+
+*** =instructions
+- option 1
+- option 2
+- option 3
+
+*** =hint
+hint
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sct
+```{r}
+test_mc(2) # if 2 is the correct option.
+```
+
+--- type:NormalExercise lang:r xp:100 skills:1
+## Analyzing the portfolio return distribution
+
+Plot the distribution of the equally weighted portfolio return using the function hist. Compute the mean and standard deviation. Suppose that by leveraging the portfolio, the returns are multiplied by 2. Define leveragedReturns as two times the returns. Verify that the mean and standard deviation of the leveraged returns is twice the mean and standard deviation of the original returns.
+
+*** =instructions
+- instruction 1
+- instruction 2
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sample_code
+```{r}
+# sample code
+```
+
+*** =solution
+```{r}
+# solution code
+```
+
+*** =sct
+```{r}
+# sct code
+```
+
+--- type:NormalExercise lang:r xp:100 skills:1
+## Annualized mean and volatility
+
+The mean and volatility of monthly returns corresponds to the average and standard deviation over a monthly investment horizon. Investors annualize those statistics by mutiplying the mean with 12, and the volatility with the square root of twelve. Compute the annualized mean and volatility of the portfolios.
+
+*** =instructions
+- instruction 1
+- instruction 2
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sample_code
+```{r}
+# sample code
+```
+
+*** =solution
+```{r}
+# solution code
+```
+
+*** =sct
+```{r}
+# sct code
+```
+
+--- type:VideoExercise lang:r xp:50 skills:1
+## The Sharpe ratio; A measure for risk adjusted performance
+
+The essence of investment is to balance risk and reward. Both can be measure in one statistic, namely the sharpe ratio correspoding to the average return (in excess of the risk free rate) per unit of portfolio volatility...
+*** =video_link
+//player.vimeo.com/video/108225030
+
+--- type:NormalExercise lang:r xp:100 skills:1
+## Annualized Portfolio Performance in R
+
+Standard code (mean, sd)
+
+*** =instructions
+- instruction 1
+- instruction 2
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sample_code
+```{r}
+# sample code
+```
+
+*** =solution
+```{r}
+# solution code
+```
+
+*** =sct
+```{r}
+# sct code
+```
+
+--- type:NormalExercise lang:r xp:100 skills:1
+## Annualized Portfolio Performance in R
+
+The function table.AnnualizedReturns in PerformanceAnalytics
+
+*** =instructions
+- instruction 1
+- instruction 2
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sample_code
+```{r}
+# sample code
+```
+
+*** =solution
+```{r}
+# solution code
+```
+
+*** =sct
+```{r}
+# sct code
+```
+
+--- type:VideoExercise lang:r xp:50 skills:1
+## Downside risk; skewness, kurtosis and value-at-risk
+
+The mean and volatility fully describe the return distribution, when the return distribution is normal. In practice, as can be seen also in the histogram, most financial return distributions are not-normal. They are asymmetric and have so-called heavy tails. This means that the tails are fatter than the ones of a normal distribution. The asymmetry is measured by skewness, which is the average value of the third power of the return deviations from their average, standardized by their volatility. If it is negative,.... Kurtosis; fourth power ... Excess kurtosis. When returns are non-normal, the volatility is not sufficient as a risk measure. A downside risk measure needs to be used, focusing on the probability of large losses. 5% value at risk; quantile ...  . Drawdowns.
+*** =video_link
+//player.vimeo.com/video/108225030
+
+--- type:NormalExercise lang:r xp:100 skills:1
+## Non-normality in the return distribution
+
+Exercise on computing skewness, kurtosis.
+
+*** =instructions
+- instruction 1
+- instruction 2
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sample_code
+```{r}
+# sample code
+```
+
+*** =solution
+```{r}
+# solution code
+```
+
+*** =sct
+```{r}
+# sct code
+```
+
+--- type:NormalExercise lang:r xp:100 skills:1
+## Downside risk measures
+
+The use of the VaR function to compute value at risk.
+
+*** =instructions
+- instruction 1
+- instruction 2
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sample_code
+```{r}
+# sample code
+```
+
+*** =solution
+```{r}
+# solution code
+```
+
+*** =sct
+```{r}
+# sct code
+```
+
+--- type:NormalExercise lang:r xp:100 skills:1
+## Drawdowns
+
+The use of the table.Drawdowns function in PerformanceAnalytics.
+
+*** =instructions
+- instruction 1
+- instruction 2
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sample_code
+```{r}
+# sample code
+```
+
+*** =solution
+```{r}
+# solution code
+```
+
+*** =sct
+```{r}
+# sct code
+```
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
+## The effect of leverage
+
+Suppose that by leveraging the portfolio, the returns are multiplied by 2. Different statements. Verify that the mean and standard deviation of the leveraged returns is twice the mean and standard deviation of the original returns. skewness kurtosis no effect. etc.
+
+*** =instructions
+- option 1
+- option 2
+- option 3
+
+*** =hint
+hint
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sct
+```{r}
+test_mc(2) # if 2 is the correct option.
+```
+
+--- type:VideoExercise lang:r xp:50 skills:1
+## time-variation in performance
+
+Time-variation in the return distribution. Not all information is equally predicitve. discuss  of time-variation in average return and volatility. Use of rolling window analysis to visualize this.
+*** =video_link
+//player.vimeo.com/video/108225030
+
+--- type:NormalExercise lang:r xp:100 skills:1
+## Rolling annualized mean and volatility
+
+charts.RollingPerformance on the portfolio return vector
+
+*** =instructions
+- instruction 1
+- instruction 2
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sample_code
+```{r}
+# sample code
+```
+
+*** =solution
+```{r}
+# solution code
+```
+
+*** =sct
+```{r}
+# sct code
+```
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
+## Effect of window length choice
+
+I show two plots, one with rolling windows of 6 months and one with rolling windows of 12 months. Which one is more persistent?
+
+*** =instructions
+- option 1
+- option 2
+- option 3
+
+*** =hint
+hint
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sct
+```{r}
+test_mc(2) # if 2 is the correct option.
+```
+
+--- type:NormalExercise lang:r xp:100 skills:1
+## Subset a zoo/xts time series using the function window and compare performance on a normal versus crisis period
+
+window()
+
+*** =instructions
+- instruction 1
+- instruction 2
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sample_code
+```{r}
+# sample code
+```
+
+*** =solution
+```{r}
+# solution code
+```
+
+*** =sct
+```{r}
+# sct code
+```
+

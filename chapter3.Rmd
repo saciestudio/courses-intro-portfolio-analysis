@@ -1,0 +1,178 @@
+---
+title       : Expected portfolio performance and portfolio matrix algebra [Chapter 3]
+description : Optimal financial decision making takes the risks that are worthwile. Portfolio expected returns and variance as a function of the mean vector and covariance matrix.
+
+--- type:VideoExercise lang:r xp:50 skills:1
+## Portfolio decisions; risk, return and diversification
+
+Case of two assets. expected return. expected variance.
+*** =video_link
+//player.vimeo.com/video/108225030
+
+--- type:NormalExercise lang:r xp:100 skills:1
+## The effect of portfolio weights on performance.
+
+Take two assets with mean, variance and correlation given. Make a table showing the portfolio mean and variance by changing the weights.
+
+*** =instructions
+- instruction 1
+- instruction 2
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sample_code
+```{r}
+# sample code
+```
+
+*** =solution
+```{r}
+# solution code
+```
+
+*** =sct
+```{r}
+# sct code
+```
+
+--- type:NormalExercise lang:r xp:100 skills:1
+## The effect of correlation on performance.
+
+Take two assets with mean, variance and weights given. Make a plot showing the variance by changing the correlation.
+
+*** =instructions
+- instruction 1
+- instruction 2
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sample_code
+```{r}
+# sample code
+```
+
+*** =solution
+```{r}
+# solution code
+```
+
+*** =sct
+```{r}
+# sct code
+```
+
+--- type:VideoExercise lang:r xp:50 skills:1
+## The multivariate approach to analyzing portfolio performance (i)
+
+N-dimensional vector of weights. N-dimensional vector of returns. The inner product is the portfolio return. The expected  portfolio is return the inner product of the portfolio weights and the expected returns of the portfolio components. The covariance matrix. The portfolio variance as w'sigmaw.
+*** =video_link
+//player.vimeo.com/video/108225030
+
+--- type:NormalExercise lang:r xp:100 skills:1
+## Portfolio expected return
+
+Use colMeans to compute the expected return vector. Then sum(weights*mu).
+
+*** =instructions
+- instruction 1
+- instruction 2
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sample_code
+```{r}
+# sample code
+```
+
+*** =solution
+```{r}
+# solution code
+```
+
+*** =sct
+```{r}
+# sct code
+```
+
+--- type:NormalExercise lang:r xp:100 skills:1
+## Portfolio volatility
+
+Use cov to compute the sample covariance matrix. use of %*% or StdDev in PerformanceAnalytics. to see.
+
+*** =instructions
+- instruction 1
+- instruction 2
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sample_code
+```{r}
+# sample code
+```
+
+*** =solution
+```{r}
+# solution code
+```
+
+*** =sct
+```{r}
+# sct code
+```
+
+--- type:NormalExercise lang:r xp:100 skills:1
+## Putting it together; comparing portfolios  and the Sharpe ratio
+
+Compare different portfolios; equal-weight and inverse volatility. what are their performance. etc
+
+*** =instructions
+- instruction 1
+- instruction 2
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sample_code
+```{r}
+# sample code
+```
+
+*** =solution
+```{r}
+# solution code
+```
+
+*** =sct
+```{r}
+# sct code
+```
+

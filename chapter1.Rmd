@@ -1,0 +1,373 @@
+---
+title       : Introduction to portfolio analysis [Chapter 1]
+description : The data analysis of a financial portfolio involves studying the individual asset values and returns, and their weight in the total portfolio. In this chapter you will learn about the key data inputs when analyzing portfolio performance in R; the portfolio weights, the underlying investment returns and the calculation of portfolio values.
+
+--- type:VideoExercise lang:r xp:50 skills:1
+## Portfolio weights
+
+It is not a good idea to put all your eggs in the same basket. In order to diversify her exposure to risk, the typical investor invests in multiple financial assets. This can vary from an investment in various types of stocks to exchange traded funds pursuing different investment styles or investments in different asset classes. The weight of an investment equals the value of that investment divided by total value of all investments. Suppose eg an investor has 1000 USD and she buys 200 USD of Apple and 800 USD of MSFT, then the weights are 20% and 80%. This is a simple example of two stocks. The general recommendation is to have at least 20 stocks in an equity portfolio, and to allocate your wealth across at least six asset classes (domestic equities, foreign equities, corporate bonds, government bonds, real estate and commodities).
+*** =video_link
+//player.vimeo.com/video/108225030
+
+--- type:NormalExercise lang:r xp:100 skills:1
+## Calculating portfolio weights when component values are given
+
+An investor has  4,000 USD invested in equities, 4,000 USD in bonds and 2,000 USD in commodities. Define the vector 'ComponentValue' as the vector holding these three values. Define the vector 'ComponentWeights' as the vector 'ComponentValue' divided by the total value.
+
+*** =instructions
+- instruction 1
+- instruction 2
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sample_code
+```{r}
+# sample code
+```
+
+*** =solution
+```{r}
+# solution code
+```
+
+*** =sct
+```{r}
+# sct code
+```
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
+## Defining the portfolio weights for an equally weighted portfolio
+
+I give several commands to define the portfolio weights of an equally weighted portfolio of N=100 assets. E.g. N=100; ComponentWeights = rep(1,N)/N. N=100; ComponentWeights = rep(1/N,N).   N=100; ComponentWeights = 1/N.  Which is one is wrong?
+
+*** =instructions
+- option 1
+- option 2
+- option 3
+
+*** =hint
+hint
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sct
+```{r}
+test_mc(2) # if 2 is the correct option.
+```
+
+--- type:NormalExercise lang:r xp:100 skills:1
+## Calculating characteristic-based portfolio weights
+
+In a characteristic-based portfolio, the weight is given by the asset's characteristic vaue divided by the sum of the characteristic values of all assets. A typical example is the market capitalization weighted portfolio. Define the vector 'Characteristics' as the sequence from 1 to 100 and compute the corresponding 'ComponentWeights' as 'Characteristics/sum(Characteristics)'.
+
+*** =instructions
+- instruction 1
+- instruction 2
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sample_code
+```{r}
+# sample code
+```
+
+*** =solution
+```{r}
+# solution code
+```
+
+*** =sct
+```{r}
+# sct code
+```
+
+--- type:NormalExercise lang:r xp:100 skills:1
+## Defining the weights of the equally-weighted portfolio
+
+In an equally weighted portfolio of N assets, the portfolio weights are 1/N characteristic-based portfolio, the weight is given by the asset's characteristic vaue divided by the sum of the characteristic values of all assets. A typical example is the market capitalization weighted portfolio. Define the vector 'Characteristics' as the sequence from 1 to 100 and compute the corresponding 'ComponentWeights' as 'Characteristics/sum(Characteristics)'. Visualize the portfolio weights using the function barplot().
+
+*** =instructions
+- instruction 1
+- instruction 2
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sample_code
+```{r}
+# sample code
+```
+
+*** =solution
+```{r}
+# solution code
+```
+
+*** =sct
+```{r}
+# sct code
+```
+
+--- type:VideoExercise lang:r xp:50 skills:1
+## Portfolio returns
+
+The value of investment changes. The investment return is the change in investment value, relatively to the initial investment. Suppose that, in our example of 1000 USD invested in Apple and 9000 USD in MSFT, the Apple investment rises to 1100 USD and the value of the MSFT position does not change, then the return in Apple is (1100-1000)/1000 = 10%, versus 0% for Apple. Clearly, the weight allocation will be influential for the portfolio performance. In general, the portfolio return equals the average of the returns of the component positions, each of them multiplied with their portfolio weight. On the slide I show a proof of this for two assets. Extends to the general case.
+*** =video_link
+//player.vimeo.com/video/108225030
+
+--- type:NormalExercise lang:r xp:100 skills:1
+## Calculation of portfolio returns
+
+The initial vector of component values is 'in.values=c(1000,5000,2000)'. Suppose that the value changes to 'fin.values=c(1100,4500,3000)'. Define 'in.weights = in.values/sum(in.values)' as the weights at the start of the investment horizon.  Define 'returns = (fin.values-in.values)/in.values' as the returns of the three components. Verify that the weighted average portfolio return ( 'sum(in.weights*returns)'  ) equals the percentage change in the total portfolio value (sum(fin.values)-sum(in.values))/sum(in.values).
+
+*** =instructions
+- instruction 1
+- instruction 2
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sample_code
+```{r}
+# sample code
+```
+
+*** =solution
+```{r}
+# solution code
+```
+
+*** =sct
+```{r}
+# sct code
+```
+
+--- type:NormalExercise lang:r xp:100 skills:1
+## Calculation of portfolio returns
+
+An alternative definition of return used in finance is log-returns. Let us now verify that log-returns do not have the portfolio aggregation property.  Define 'logreturns = log(fin.values)-log(in.values)' as the returns of the three components. Verify that the weighted average portfolio return ( 'sum(in.weights*logreturns)'  ) does not equal the log-return computed on the total portfolio value (log(sum(fin.values))-log(sum(in.values))).
+
+*** =instructions
+- instruction 1
+- instruction 2
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sample_code
+```{r}
+# sample code
+```
+
+*** =solution
+```{r}
+# solution code
+```
+
+*** =sct
+```{r}
+# sct code
+```
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
+## Defining the portfolio returns for an equally weighted portfolio
+
+I give several commands to define the portfolio returns of an equally weighted portfolio of N=100 assets with return vector y. EWreturns = mean(y); EWreturns = sum( rep(1/N,N)*y ) ; EWreturns = sum( y )/N ;  EWreturns= rep(mean(y),N).  Which one is wrong?
+
+*** =instructions
+- option 1
+- option 2
+- option 3
+
+*** =hint
+hint
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sct
+```{r}
+test_mc(2) # if 2 is the correct option.
+```
+
+--- type:VideoExercise lang:r xp:50 skills:1
+## A time series of portfolio returns
+
+Let us now consider a practical case of the 30 Dow Jones Industrial Average (DJIA) Constituents over the period xxxx. The corresponding monthly price data is available as a zoo (?) time series object. The corresponding multivariate return series can be easily computed using the function calculateReturns in PerformanceAnalytics. The first observation is NA, because there is no previous price available. We can remove the first row in returns using [(-1),].
+*** =video_link
+//player.vimeo.com/video/108225030
+
+--- type:NormalExercise lang:r xp:100 skills:1
+## From prices to returns and the equally weighted portfolio return
+
+Convert the DJIA price data into a return data. Use head( ) and tail( ) to print the first 6 and last 6 rows. Use table.CalandarReturns in PerformanceAnalytics to present as month x year.
+
+*** =instructions
+- instruction 1
+- instruction 2
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sample_code
+```{r}
+# sample code
+```
+
+*** =solution
+```{r}
+# solution code
+```
+
+*** =sct
+```{r}
+# sct code
+```
+
+--- type:NormalExercise lang:r xp:100 skills:1
+## The equally weighted portfolio return
+
+The equally  weighted portfolio has the return equal to the average. use rowMeans( ) to compute it and make a  time series plot.
+
+*** =instructions
+- instruction 1
+- instruction 2
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sample_code
+```{r}
+# sample code
+```
+
+*** =solution
+```{r}
+# solution code
+```
+
+*** =sct
+```{r}
+# sct code
+```
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
+## The asymmetric impact of gains and losses.
+
+Assume an investor with portfolio value 100 has a loss of 50%. What is the return needed to be at par again? 50%, 100%, 200%.
+
+*** =instructions
+- option 1
+- option 2
+- option 3
+
+*** =hint
+hint
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sct
+```{r}
+test_mc(2) # if 2 is the correct option.
+```
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
+## The asymmetric impact of gains and losses.
+
+Assume an investor with portfolio value 100 has a gain of 50%. Hom much can he lose to be at par again? 33.33%, 50%, 100%.
+
+*** =instructions
+- option 1
+- option 2
+- option 3
+
+*** =hint
+hint
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sct
+```{r}
+test_mc(2) # if 2 is the correct option.
+```
+
+--- type:NormalExercise lang:r xp:100 skills:1
+## Portfolio value
+
+Portfolio value as compounded gross returns. The function cumprod.
+
+*** =instructions
+- instruction 1
+- instruction 2
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sample_code
+```{r}
+# sample code
+```
+
+*** =solution
+```{r}
+# solution code
+```
+
+*** =sct
+```{r}
+# sct code
+```
+
