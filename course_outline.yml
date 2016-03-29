@@ -138,10 +138,8 @@
   
   -   type    : VideoExercise
       title   : Downside risk: skewness, kurtosis and value-at-risk
-      content : The mean and volatility fully describe the return distribution, when the return distribution is normal.
-      In practice, as can be seen also in the histogram, most financial return distributions are not-normal. They are asymmetric
-      and have so-called heavy tails. This means that the tails are fatter than the ones of a normal distribution.
-      The asymmetry is measured by skewness, which is the average value of the third power of the return deviations from their average, standardized
+      content : The mean and volatility fully describe the return distribution, when the return distribution is normal. In practice, as can be seen also in the histogram, most financial return distributions are not-normal. They are asymmetric
+      and have so-called heavy tails. This means that the tails are fatter than the ones of a normal distribution. The asymmetry is measured by skewness, which is the average value of the third power of the return deviations from their average, standardized
       by their volatility. If it is negative,.... Kurtosis: fourth power ... Excess kurtosis. When returns are non-normal, the volatility
       is not sufficient as a risk measure. A downside risk measure needs to be used, focusing on the probability of large losses.
       5% value at risk: quantile ...  . Drawdowns.   
@@ -160,8 +158,7 @@
    
   -   type    : MultipleChoiceExercise
       title   : The effect of leverage 
-      content : Suppose that by leveraging the portfolio, the returns are multiplied by 2. Different
-      statements. Verify that the mean and standard deviation of the leveraged returns is twice the mean and standard deviation of the 
+      content : Suppose that by leveraging the portfolio, the returns are multiplied by 2. Different statements. Verify that the mean and standard deviation of the leveraged returns is twice the mean and standard deviation of the 
       original returns. skewness kurtosis no effect. etc. 
       
   -   type    : VideoExercise
