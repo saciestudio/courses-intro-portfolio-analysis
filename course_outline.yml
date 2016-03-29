@@ -196,8 +196,7 @@
   
   -   type    : VideoExercise
       title   : The multivariate approach to analyzing portfolio performance (i)
-      content : N-dimensional vector of weights. N-dimensional vector of returns. The inner product is the portfolio return. The expected  portfolio is return the inner product of the portfolio weights and the expected returns of the portfolio
-      components. The covariance matrix. The portfolio variance as w'sigmaw.
+      content : N-dimensional vector of weights. N-dimensional vector of returns. The inner product is the portfolio return. The expected  portfolio is return the inner product of the portfolio weights and the expected returns of the portfolio components. The covariance matrix. The portfolio variance as w'sigmaw.
  
   -   type    : NormalExercise
       title   : Portfolio expected return 
