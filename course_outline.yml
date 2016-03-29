@@ -17,18 +17,18 @@
       content : An investor has  4,000 USD invested in equities, 4,000 USD in bonds and 2,000 USD in commodities. Define the vector 'ComponentValue' as the vector
       holding these three values. Define the vector 'ComponentWeights' as the vector 'ComponentValue' divided by the total value.   
       
-    -   type    : MultipleChoiceExercise
+  -   type    : MultipleChoiceExercise
       title   : Defining the portfolio weights for an equally weighted portfolio
       content : I give several commands to define the portfolio weights of an equally weighted portfolio of N=100 assets. E.g. N=100; ComponentWeights = rep(1,N)/N. 
       N=100; ComponentWeights = rep(1/N,N).   N=100; ComponentWeights = 1/N.  Which is one is wrong?
       
-   -   type    : NormalExercise
+  -   type    : NormalExercise
       title   : Calculating characteristic-based portfolio weights 
       content : In a characteristic-based portfolio, the weight is given by the asset's characteristic vaue divided by the sum of 
       the characteristic values of all assets. A typical example is the market capitalization weighted portfolio. Define the vector
       'Characteristics' as the sequence from 1 to 100 and compute the corresponding 'ComponentWeights' as 'Characteristics/sum(Characteristics)'.
          
-   -   type    : NormalExercise
+  -   type    : NormalExercise
       title   : Defining the weights of the equally-weighted portfolio
       content : In an equally weighted portfolio of N assets, the portfolio weights are 1/N characteristic-based portfolio, the weight is given by the asset's characteristic vaue divided by the sum of 
       the characteristic values of all assets. A typical example is the market capitalization weighted portfolio. Define the vector
@@ -52,14 +52,14 @@
       Verify that the weighted average portfolio return ( 'sum(in.weights*returns)'  ) equals the percentage change in the total
       portfolio value (sum(fin.values)-sum(in.values))/sum(in.values). 
   
-    -   type    : NormalExercise
+  -   type    : NormalExercise
       title   : Calculation of portfolio returns
       content : An alternative definition of return used in finance is log-returns. Let us now verify that log-returns do not have
       the portfolio aggregation property.  Define 'logreturns = log(fin.values)-log(in.values)' as the returns of the three components. 
       Verify that the weighted average portfolio return ( 'sum(in.weights*logreturns)'  ) does not equal the log-return
       computed on the total portfolio value (log(sum(fin.values))-log(sum(in.values))). 
       
-      -   type    : MultipleChoiceExercise
+  -   type    : MultipleChoiceExercise
       title   : Defining the portfolio returns for an equally weighted portfolio
       content : I give several commands to define the portfolio returns of an equally weighted portfolio of N=100 assets with
       return vector y. EWreturns = mean(y); EWreturns = sum( rep(1/N,N)*y ) ; EWreturns = sum( y )/N ;  EWreturns= rep(mean(y),N).  Which one is wrong?    
@@ -70,32 +70,31 @@
       price data is available as a zoo (?) time series object. The corresponding multivariate return series can be easily computed using the function calculateReturns in PerformanceAnalytics.
       The first observation is NA, because there is no previous price available. We can remove the first row in returns using [(-1),].        
       
-    -   type    : NormalExercise
+  -   type    : NormalExercise
       title   : From prices to returns and the equally weighted portfolio return
       content : Convert the DJIA price data into a return data. Use head( ) and tail( ) to print the first 6 and last 6 rows. 
       Use table.CalandarReturns in PerformanceAnalytics to present as month x year. 
  
-     -   type    : NormalExercise
+  -   type    : NormalExercise
       title   : The equally weighted portfolio return
       content : The equally  weighted portfolio has the return equal to the average. use rowMeans( ) to compute it and make a  time series plot. 
 
-    -   type    : MultipleChoiceExercise
+  -   type    : MultipleChoiceExercise
       title   : The asymmetric impact of gains and losses. 
       content : Assume an investor with portfolio value 100 has a loss of 50%. What is the return needed to be at par again?
       50%, 100%, 200%. 
       
-       -   type    : MultipleChoiceExercise
+  -   type    : MultipleChoiceExercise
       title   : The asymmetric impact of gains and losses. 
       content : Assume an investor with portfolio value 100 has a gain of 50%. Hom much can he lose to be at par again?
       33.33%, 50%, 100%.    
       
-             
-   -   type    : NormalExercise
+  -   type    : NormalExercise
       title   : Portfolio value
       content : Portfolio value as compounded gross returns. The function cumprod.   
  
-- chapter_title : Portfolio performance evaluation [Chapter 2]
-  exercises:
+-     chapter_title : Portfolio performance evaluation [Chapter 2]
+      exercises:
   -   type    : VideoExercise
       title   : The distribution of portfolio returns
       content : We have now mostly looked at time series plots of returns. For portfolio managers and investors the distribution
