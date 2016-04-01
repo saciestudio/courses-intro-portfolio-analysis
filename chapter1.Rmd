@@ -1,22 +1,22 @@
 ---
-title       : Introduction to portfolio analysis [Chapter 1]
-description : The data analysis of a financial portfolio involves studying the individual asset values and returns, and their weight in the total portfolio. In this chapter you will learn about the key data inputs when analyzing portfolio performance in R; the portfolio weights, the underlying investment returns and the calculation of portfolio values.
+title       : The building blocks
+description : Asset returns and portfolio weights; those are the building blocks of a portfolio return. In this chapter, you will learn the definition of a portfolio return and how to compute it in R. The exercises involve both simple two-asset cases and a real-life portfolio invested in the 30 Dow Jones Industrial Average stocks. The final exercises consist in linking portfolio returns to the nominal portfolio value and doing a multi-period analysis.   
 
 --- type:VideoExercise lang:r xp:50 skills:1
-## Portfolio weights
+## The power of portfolio diversification
 
-It is not a good idea to put all your eggs in the same basket. In order to diversify her exposure to risk, the typical investor invests in multiple financial assets. This can vary from an investment in various types of stocks to exchange traded funds pursuing different investment styles or investments in different asset classes. The weight of an investment equals the value of that investment divided by total value of all investments. Suppose eg an investor has 1000 USD and she buys 200 USD of Apple and 800 USD of MSFT, then the weights are 20% and 80%. This is a simple example of two stocks. The general recommendation is to have at least 20 stocks in an equity portfolio, and to allocate your wealth across at least six asset classes (domestic equities, foreign equities, corporate bonds, government bonds, real estate and commodities).
 *** =video_link
 //player.vimeo.com/video/108225030
 
 --- type:NormalExercise lang:r xp:100 skills:1
 ## Calculating portfolio weights when component values are given
 
-An investor has  4,000 USD invested in equities, 4,000 USD in bonds and 2,000 USD in commodities. Define the vector 'ComponentValue' as the vector holding these three values. Define the vector 'ComponentWeights' as the vector 'ComponentValue' divided by the total value.
+An investor has  4000 USD invested in equities, 4000 USD in bonds and 2000 USD in commodities. In order to compute the corresponding portfolio weights, define the vector `values` as the vector holding these three values. Then define the vector `weights` as the vector `values` divided by the total value (obtained by summing over the component values using the function `sum`).
 
 *** =instructions
-- instruction 1
-- instruction 2
+- Define the vector `values`.
+- Define the vector `weights`.
+- Print the vector `weights`.
 
 *** =hint
 hint comes here
@@ -28,12 +28,21 @@ hint comes here
 
 *** =sample_code
 ```{r}
-# sample code
+# Define the vector values
+
+# Define the vector weights
+
+# Print the resulting weights
 ```
 
 *** =solution
 ```{r}
-# solution code
+# Define the vector values
+values <- c(4000,2000,2000)
+# Define the vector weights
+weights <- values/sum(values)
+# Print the resulting weights
+print(weights)
 ```
 
 *** =sct
@@ -44,15 +53,15 @@ hint comes here
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1
 ## Defining the portfolio weights for an equally weighted portfolio
 
-I give several commands to define the portfolio weights of an equally weighted portfolio of N=100 assets. E.g. N=100; ComponentWeights = rep(1,N)/N. N=100; ComponentWeights = rep(1/N,N).   N=100; ComponentWeights = 1/N.  Which is one is wrong?
+The equally weighted portfolio is one of the most used portfolios. Suppose the portfolio is equally invested in $N$ assets. Let `N <- 100`. Which of the following commands does not define properly the portfolio weights for this vector. Which of the following commands I give several commands to define the portfolio weights of an equally weighted portfolio of N=100 assets. E.g. N=100; ComponentWeights = rep(1,N)/N. N=100; ComponentWeights = rep(1/N,N).   N=100; ComponentWeights = 1/N.  Which is one is wrong?
 
 *** =instructions
-- option 1
-- option 2
-- option 3
+- `weights <- rep(1,N)/N`
+- `weights <- 1/N`
+- `weights <- rep(1/N,N)`
 
 *** =hint
-hint
+The function `rep(arg1,arg2)` creates a vector in which `arg1` is replicated `arg2` times. 
 
 *** =pre_exercise_code
 ```{r}
@@ -67,14 +76,15 @@ test_mc(2) # if 2 is the correct option.
 --- type:NormalExercise lang:r xp:100 skills:1
 ## Calculating characteristic-based portfolio weights
 
-In a characteristic-based portfolio, the weight is given by the asset's characteristic vaue divided by the sum of the characteristic values of all assets. A typical example is the market capitalization weighted portfolio. Define the vector 'Characteristics' as the sequence from 1 to 100 and compute the corresponding 'ComponentWeights' as 'Characteristics/sum(Characteristics)'.
+In a characteristic-based portfolio, the weight is given by the asset's characteristic value divided by the sum of the characteristic values of all assets. A typical example is the market capitalization weighted portfolio. Define the vector `characteristics` as the sequence from 1 to 100 and compute the corresponding portfolio weights. Inspect the distribution of the portfolio weights using the function `summary()`.
 
 *** =instructions
-- instruction 1
-- instruction 2
+- Define `characteristics`
+- Define `weights`
+- Print `summary(weights)`
 
 *** =hint
-hint comes here
+`seq(arg1,arg2)` yields a vector holding elements `arg1, arg1+1, arg1+2,...,arg2`.
 
 *** =pre_exercise_code
 ```{r}
@@ -83,12 +93,22 @@ hint comes here
 
 *** =sample_code
 ```{r}
-# sample code
+# Define characteristics
+
+# Compute the weights
+
+# Inspect summary statistics
+
 ```
 
 *** =solution
 ```{r}
-# solution code
+# Define characteristics
+characteristics <- seq(1,100)
+# Compute the weights
+weights <- characteristics/sum(characteristics)
+# Inspect summary statistics
+print(summary(weights))
 ```
 
 *** =sct
@@ -96,42 +116,11 @@ hint comes here
 # sct code
 ```
 
---- type:NormalExercise lang:r xp:100 skills:1
-## Defining the weights of the equally-weighted portfolio
-
-In an equally weighted portfolio of N assets, the portfolio weights are 1/N characteristic-based portfolio, the weight is given by the asset's characteristic vaue divided by the sum of the characteristic values of all assets. A typical example is the market capitalization weighted portfolio. Define the vector 'Characteristics' as the sequence from 1 to 100 and compute the corresponding 'ComponentWeights' as 'Characteristics/sum(Characteristics)'. Visualize the portfolio weights using the function barplot().
-
-*** =instructions
-- instruction 1
-- instruction 2
-
-*** =hint
-hint comes here
-
-*** =pre_exercise_code
-```{r}
-# pec
-```
-
-*** =sample_code
-```{r}
-# sample code
-```
-
-*** =solution
-```{r}
-# solution code
-```
-
-*** =sct
-```{r}
-# sct code
-```
 
 --- type:VideoExercise lang:r xp:50 skills:1
-## Portfolio returns
+## Portfolio returns are the weighted average of the individual returns
 
-The value of investment changes. The investment return is the change in investment value, relatively to the initial investment. Suppose that, in our example of 1000 USD invested in Apple and 9000 USD in MSFT, the Apple investment rises to 1100 USD and the value of the MSFT position does not change, then the return in Apple is (1100-1000)/1000 = 10%, versus 0% for Apple. Clearly, the weight allocation will be influential for the portfolio performance. In general, the portfolio return equals the average of the returns of the component positions, each of them multiplied with their portfolio weight. On the slide I show a proof of this for two assets. Extends to the general case.
+
 *** =video_link
 //player.vimeo.com/video/108225030
 
@@ -244,6 +233,8 @@ hint comes here
 *** =pre_exercise_code
 ```{r}
 # pec
+library(xts)
+# load djia data
 ```
 
 *** =sample_code
