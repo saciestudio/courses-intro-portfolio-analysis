@@ -1,5 +1,5 @@
 ---
-title       : Optimizing portfolio weights [Chapter 4]
+title       : Optimizing portfolio weights 
 description : We have up to now considered the portfolio weights as given. Here we consider optimizing the portfolio weights. Markowitz mean variance optimized portfolios.
 
 --- type:VideoExercise lang:r xp:50 skills:1

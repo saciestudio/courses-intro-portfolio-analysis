@@ -1,5 +1,5 @@
 ---
-title       : Portfolio performance evaluation [Chapter 2]
+title       : Portfolio performance evaluation 
 description : Chapter 2
 
 --- type:VideoExercise lang:r xp:50 skills:1

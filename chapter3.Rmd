@@ -1,5 +1,5 @@
 ---
-title       : Expected portfolio performance and portfolio matrix algebra [Chapter 3]
+title       : The multivariate approach to portfolio analysis 
 description : Optimal financial decision making takes the risks that are worthwile. Portfolio expected returns and variance as a function of the mean vector and covariance matrix.
 
 --- type:VideoExercise lang:r xp:50 skills:1
