@@ -1,6 +1,6 @@
 # Video 1: The power of portfolio diversification
 
-Hi, I'm Kris. I'm a Professor of finance at the Solvay Business School in Brussels and an independent consultant for portfolio management companies. I will be your instructor for this course on analyzing portfolio returns in R. Let's get started by a simple example of the power of portfolio diversification. 
+Hi, I'm Kris. I am a Professor of finance at the Solvay Business School in Brussels and an expert in portfolio analysis. I will be your instructor for this course on analyzing portfolio returns in R. Let's get started by a simple example of the power of portfolio diversification. 
 
 ***
 
@@ -20,48 +20,48 @@ The resulting price evolution for the equally weighted portfolio is shown with a
 
 ***
 
+In this chapter, we'll break the portfolio value calculation down into a three step process: First, computing portfolio weights. Second, computing portfolio returns. Third, compounding portfolio returns to obtain the portfolio value evolution.  
 
 ***
 
-In this course, we'll break data cleaning down into a three step process: exploring your raw data, tidying your data, and preparing your data for analysis. Each of the first three chapters of this course will cover one of these steps in depth, then the fourth chapter will require you to use everything you've learned to take the weather data from raw to ready for analysis. 
-
-***
-
-Let's jump right in!
+The proof is in the pudding. Let's start off with the definition of portfolio weights. Either we observe portfolio weights directly as the percentage value invested. Or we decide on portfolio weights. In the exercises, we will consider the choice of equally weighting the assets in the portfolio ("the 1/N portfolio") and characteristic based portfolio investing, such as a market capitalizatio weighted portfolio. 
 
 ***
 
 # Video 2: Portfolio returns are the weighted average of the individual returns
 
-The portfolio weights thus express the percentage value invested in each portfolio component. The next step is to evaluate the performance of the investment for your choice of weights. This requires to compute the portfolio return. The portfolio return is the weighted average of the component returns. Understanding portfolio returns thus starts with understanding asset returns. 
+A crucial part of investing is dealing with the almost constant changes in prices. Price changes are usually expressed in relative terms. Those relative price changes are called returns. 
+
 
 ***
 
-There are two types of return definition in finance: log-returns and simple returns. For portfolio analysis, only the simple returns are relevant. 
+But how to compute portfolio returns? First we need to agree on which type of returns we will use. There are two types of return definitions in finance: log-returns and simple returns. When the return is computed as the change in the natural logarithm of the value, it is called a log-return. If it is computed as the percentage price change, then it is called a simple return. Log-returns and simple returns are typically very similar. A change of 100 USD to 110 USD is a 10% change in terms of simple returns and a 9.5% change in log-returns. 
 
 ***
 
-The value of investment changes. The investment return is the change in investment value, relatively to the initial investment. Suppose that, in our example of 1000 USD invested in Apple and 9000 USD in MSFT, the Apple investment rises to 1100 USD and the value of the MSFT position does not change, then the return in Apple is (1100-1000)/1000 = 10%, versus 0% for Apple. Clearly, the weight allocation will be influential for the portfolio performance. In general, the portfolio return equals the average of the returns of the component positions, each of them multiplied with their portfolio weight. On the slide I show a proof of this for two assets. Extends to the general case.
+For portfolio analysis we will work with simple returns. 
+The reason is twofold. First, simple returns are very intuitive. They are the percentage price change and also the type of returns used in daily life. Secondly, the calculation of portfolio returns using simple returns is...simple. It only requires to take the sum of the individidual returns, multiplied with their portfolio weights.
 
 ***
 
-Okay, so we're starting to get a feel for things, but let's dig deeper. The `str()` (for "structure") function is one of the most versatile and useful functions in the R language because it can be called on any object and will normally provide a useful and compact summary of its internal structure. When passed a data frame, as in this case, `str()` tells us how many rows and columns we have. Actually, the function refers to rows as observations and columns as variables, which, strictly speaking, is true in a tidy dataset, but not always the case as you'll see in the next chapter. In addition, you see the name of each column, followed by its data type and a preview of the data contained in it. The `lunch` dataset happens to be entirely integers and numerics. We'll have a closer look at these datatypes in chapter 3.
+In formula notation, the portfolio return thus equals the weighted average of the individual returns. The corresponding code in R is simple. It just involves a summation of the element in the vector obtained by multiplying the vector of portfolio weights with the vector of returns ( show formula: portfolio return = sum w[i] r[i] = sum( weights*returns ). 
 
 ***
 
-The dplyr package offers a slightly different flavor of `str()` called `glimpse()`, which offers the same information, but attempts to preview as much of each column as will fit neatly on your screen. So here, we first load dplyr with the `library()` command, then call `glimpse()` with a single argument, `lunch`.
+To put the theory in practice, there are now three exercises on computing portfolio returns.  
+
 
 ***
 
-Another extremely helpful function is `summary()`, which, when applied to a data frame, provides a useful summary of each column. Since the `lunch` data are entirely integers and numerics, we see a summary of the distribution of each column including the minimum and maximum, the mean, and the 25th, 50th, and 75th percent quartiles (also referred to as the first quartile, median, and third quartile, respectively.) As you'll soon see, when faced with character or factor variables, `summary()` will produce different summaries.
+# Video 2: A time series of portfolio returns
+
+A crucial part of investing is dealing with the almost constant changes in prices. Price changes are usually expressed in relative terms. Those relative price changes are called returns. 
+
 
 ***
 
-To review, you've seen how we can use the `class()` function to see the class of a dataset, the `dim()` function to view its dimensions, `names()` to see the column names, `str()` to view its structure, `glimpse()` to do the same in a slightly enhanced format, and `summary()` to see a helpful summary of each column.
+Let us now consider a practical case of the 30 Dow Jones Industrial Average (DJIA) Constituents over the period xxxx. The corresponding monthly price data is available as a xts time series object. The corresponding multivariate return series can be easily computed using the function calculateReturns in PerformanceAnalytics. The first observation is NA, because there is no previous price available. We can remove the first row in returns using [(-1),].
 
-***
-
-Time to practice!
 
 ***
 
