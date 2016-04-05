@@ -361,7 +361,7 @@ hint comes here
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1
-## The asymmetric impact of gains and losses.
+## The asymmetric impact of gains and losses
 
 It is important to be aware of the fact that a positive and negative return of the same magnitude do not compensate each other. Mathematically, this can be seen from the identity $(1+x)*(1-x)=1-x^2$, which is less than one. A 50% loss is thus not compensated by a 50% gain.  After a loss of 50%, what is the return needed to be at par again? 
 
