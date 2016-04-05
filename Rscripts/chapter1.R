@@ -17,3 +17,6 @@ summary(weights)
 
 library(xts)
 library(PerformanceAnalytics)
+
+
+load("djia.rdata")

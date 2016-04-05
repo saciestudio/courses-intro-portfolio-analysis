@@ -53,19 +53,20 @@ To put the theory in practice, there are now three exercises on computing portfo
 
 ***
 
-# Video 2: A time series of portfolio returns
+# Video 3: A realistic portfolio case: Investing in the 30 DJIA stocks over 25 years with monthly rebalancing
 
-A crucial part of investing is dealing with the almost constant changes in prices. Price changes are usually expressed in relative terms. Those relative price changes are called returns. 
-
+Let's now look at a realistic portfolio invested in the 30 Dow Jones Industrial Average stocks and track the portfolio performance
+over a period . Their symbols are summarized on this slide. 
 
 ***
 
+The end-of month prices of those 30 stocks are available in your datacamp session as a xts object. 
 Let us now consider a practical case of the 30 Dow Jones Industrial Average (DJIA) Constituents over the period xxxx. The corresponding monthly price data is available as a xts time series object. The corresponding multivariate return series can be easily computed using the function calculateReturns in PerformanceAnalytics. The first observation is NA, because there is no previous price available. We can remove the first row in returns using [(-1),].
 
 
 ***
 
-# Video 3: Exploring raw data (part 2)
+# Video 4: Exploring raw data (part 2)
 
 Okay, so we've seen some useful summaries of our data, but there's no substitute for just looking at it. The `head()` function shows us the first 6 rows by default. If you add one additional argument, `n`, you can control how many rows to display. For example, `head(lunch, n = 15)` will display the first 15 rows of the data.
 

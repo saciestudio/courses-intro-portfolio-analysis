@@ -69,5 +69,6 @@ monthly.prices = xts( monthly.prices , order.by = newdates )
 head(monthly.prices)
 
 djia_prices = monthly.prices
-djia_prices = djia_prices[,(-1)]
-save(djia_prices,file="djia_prices.Rdata")
+djia = window(djia_prices[,(-1)],start=as.Date("1990-12-31"),end=as.Date("2015-12-31"))
+head(djia)
+save(djia,file="djia.Rdata")

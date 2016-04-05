@@ -256,16 +256,16 @@ test_mc(2) # if 2 is the correct option.
 ```
 
 --- type:VideoExercise lang:r xp:50 skills:1
-## A time series of portfolio returns
+## A realistic portfolio case: Investing in the 30 DJIA stocks over 25 years with monthly rebalancing
 
 
 *** =video_link
 //player.vimeo.com/video/108225030
 
 --- type:NormalExercise lang:r xp:100 skills:1
-## From prices to returns and the equally weighted portfolio return
+## The multivariate time series of prices and returns and the equally weighted portfolio return
 
-Convert the DJIA price data into a return data. Use head( ) and tail( ) to print the first 6 and last 6 rows. Use table.CalandarReturns in PerformanceAnalytics to present as month x year.
+Convert the DJIA price data into a return data. Use head( ) and tail( ) to print the first 6 and last 6 rows. 
 
 *** =instructions
 - instruction 1
@@ -297,9 +297,9 @@ library(xts)
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1
-## The equally weighted portfolio return
+## Plotting and tabulating the time series of portfolio returns
 
-The equally  weighted portfolio has the return equal to the average. use rowMeans( ) to compute it and make a  time series plot.
+The equally  weighted portfolio has the return equal to the average. use rowMeans( ) to compute it and make a  time series plot. Use table.CalandarReturns in PerformanceAnalytics to present as month x year.
 
 *** =instructions
 - instruction 1
@@ -329,7 +329,7 @@ hint comes here
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1
-## Portfolio value
+## Computing the time series of total portfolio performance
 
 Portfolio value as compounded gross returns. The function cumprod.
 
@@ -363,10 +363,10 @@ hint comes here
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1
 ## The asymmetric impact of gains and losses.
 
-Assume an investor with portfolio value 100 has a loss of 50%. What is the return needed to be at par again? 
+It is important to be aware of the fact that a positive and negative return of the same magnitude do not compensate each other. Mathematically, this can be seen from the identity $(1+x)*(1-x)=1-x^2$, which is less than one. A 50% loss is thus not compensated by a 50% gain.  After a loss of 50%, what is the return needed to be at par again? 
 
 *** =instructions
-- 50%
+- 75%
 - 100%
 - 200%
 
@@ -383,28 +383,7 @@ hint
 test_mc(2) # if 2 is the correct option.
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
-## The asymmetric impact of gains and losses.
 
-Assume an investor with portfolio value 100 has a gain of 50%. How much must she lose to be at par again? 
-
-*** =instructions
-- 33.33%
-- 50%
-
-
-*** =hint
-hint
-
-*** =pre_exercise_code
-```{r}
-# pec
-```
-
-*** =sct
-```{r}
-test_mc(2) # if 2 is the correct option.
-```
 
 
 
