@@ -208,8 +208,8 @@ log.returns <-
 weights.vw <- in.values/sum(in.values)
 # Compute portfolio return using the portfolio return formula
 preturns.vw <- 
-# Verify that it matches with the percentage change in the portfolio value
-( preturns.vw == (sum(fin.values)-sum(in.values))/sum(in.values) )
+# Verify that it does not match with the log return of the portfolio value
+( preturns.vw != log(fin.values)-log(in.values) )
 ```
 
 *** =solution
@@ -223,8 +223,8 @@ log.returns <- log(fin.values) - log(in.values)
 weights.vw <- in.values/sum(in.values)
 # Compute portfolio return using the portfolio return formula
 preturns.vw <- sum( weights.vw * log.return )
-# Verify that it matches with the percentage change in the portfolio value
-( preturns.vw == (sum(fin.values)-sum(in.values))/sum(in.values) )
+# Verify that it does not match with the log return of the portfolio value
+( preturns.vw != log(fin.values)-log(in.values) )
 ```
 
 *** =sct
@@ -359,8 +359,8 @@ plot.zoo(preturns.ew)
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1
-## Computing the time series of total portfolio performance
-The function ``table.CalendarReturns` already reported in the last column the cumulative return performance per year. In order to obtain the cumulative investment value over a years, one needs to multiply the initial value value with $(1+R_1)*(1+R_2)*(1+R_3)*\ldots*(1+R_12),$ where $R_i$ is the return in month $i$. In R such a cumulative product is easily obtained using the function `cumprod(1+returns)` with returns the series of returns that needs to be compounded. Suppose the investor has $1 invested in the strategy of equally weighting all DJIA assets and monthly rebalancing. Plot the time series evolution of that investment over the full period available in the `preturns.ew` time series vectors. 
+## The evolution of portfolio value - The booms and busts of the stock market
+The function `table.CalendarReturns` already reported in the last column the cumulative return performance per year. In order to obtain the cumulative investment value over a years, one needs to multiply the initial value value with $(1+R_1)*(1+R_2)*(1+R_3)*\ldots*(1+R_{12}),$ where $R_i$ is the return in month $i$. In R such a cumulative product is easily obtained using the function `cumprod(1+returns)` with returns the series of returns that needs to be compounded. Suppose the investor has $1 invested in the strategy of equally weighting all DJIA assets and monthly rebalancing. Plot the time series evolution of that investment over the full period available in the `preturns.ew` time series vectors. 
 
 
 *** =instructions
@@ -379,7 +379,7 @@ hint comes here
 ```{r}
 # Define the time series holding the cumulative.value
 cumulative.value <-    
-# plot the wealth evoluation
+# plot the wealth evolution
 
 ```
 
@@ -387,7 +387,7 @@ cumulative.value <-
 ```{r}
 # Define the time series holding the cumulative.value
 cumulative.value <- cumprod(1+preturns.ew)
-# plot the wealth evoluation
+# plot the wealth evolution
 plot.zoo(cumulative.value)
 ```
 
