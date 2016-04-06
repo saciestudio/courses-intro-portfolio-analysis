@@ -264,12 +264,16 @@ test_mc(2) # if 2 is the correct option.
 
 --- type:NormalExercise lang:r xp:100 skills:1
 ## The multivariate time series of prices and returns and the equally weighted portfolio return
-
-Convert the DJIA price data into a return data. Use head( ) and tail( ) to print the first 6 and last 6 rows. 
+Let us now inspect the The xts file `prices` containing the end-of-month prices for the 30 Dow Jones Industrial Average constitutuents. 
+Make use of the `head(prices,1)` and `tail(prices,1)` functions to print the first and last rows of `prices` and verify that the price data runs from
+December 1990 to December 2015. Then compute the monthly returns using the function `returns <- Return.calculate(prices, method="simple")`. Print the 
+first 6 rows of returns and verify that the first row consists of NA's. Remove the first row from returns using `returns <- returns[(-1),]`. 
+Convert the DJIA price data into a return data. 
 
 *** =instructions
-- instruction 1
-- instruction 2
+- Print the first and last row using the `head` and `tail` functionality 
+- Define `returns` as the multivariate return series using  `Return.calculate` with the option of simple returns
+- Remove the firs observation in `returns`
 
 *** =hint
 hint comes here
@@ -278,17 +282,30 @@ hint comes here
 ```{r}
 # pec
 library(xts)
-# load djia data
+# load end-of-month price data
+load("prices.rdata")
 ```
 
 *** =sample_code
 ```{r}
-# sample code
+# First and last row
+head(prices,1)
+tail(prices,1)
+# Compute the simple returns based on the prices of DJIA stocks
+returns <- CalculateReturns(prices, method="simple")
+# Remove the first row
+returns <- returns[(-1),]
 ```
 
 *** =solution
 ```{r}
-# solution code
+# First and last row
+head(prices,1)
+tail(prices,1)
+# Compute the simple returns based on the prices of DJIA stocks
+returns <- 
+# Remove the first row
+returns <-
 ```
 
 *** =sct
@@ -299,28 +316,41 @@ library(xts)
 --- type:NormalExercise lang:r xp:100 skills:1
 ## Plotting and tabulating the time series of portfolio returns
 
-The equally  weighted portfolio has the return equal to the average. use rowMeans( ) to compute it and make a  time series plot. Use table.CalandarReturns in PerformanceAnalytics to present as month x year.
+Let us now consider the portfolio that invests equal amounts in each of the 30 stocks and the portfolio is rebalanced every month. The monthly portfolio return is therefore simply the average return over the month. It can be computed in R using the function `Return.portfolio`, which by default assumes equal investment
+weights for each period. This leads to time series of monthly portfolio returns. An effective way to tabule monthly data over saveral years is to use the function `table.CalandarReturns()` in PerformanceAnalytics to present it in the format year x month.  Note the large portfolio losses during the burst of the internet bubble in 2002 and the financial crisis of 2009.  Finally, plot the resulting time series using the function `plot.zoo()`. Note that the time series is centered around zero and that the magnitude of the variations in return changes over time, because of time-varying volatility. 
 
 *** =instructions
-- instruction 1
-- instruction 2
+- define `preturns.ew` as the time series of monthly returns on equally weighted portfolio of DJIA constituents
+- make a month x year table of the `preturns.ew`
+- use `plot.zoo()` to make a time series plot of `preturns.ew`
 
 *** =hint
 hint comes here
 
 *** =pre_exercise_code
 ```{r}
-# pec
+  
 ```
 
 *** =sample_code
 ```{r}
-# sample code
+# Define preturns.ew
+preturns.ew <- 
+
+# Tabulate those returns as year x month  
+
+# Make the time series plot
+
 ```
 
 *** =solution
 ```{r}
-# solution code
+# Define preturns.ew
+preturns.ew <- Return.portfolio( returns )
+# Tabulate those returns as year x month  
+table.CalendarReturns(preturns.ew)  
+# Make the time series plot
+plot.zoo(preturns.ew)
 ```
 
 *** =sct
@@ -330,12 +360,12 @@ hint comes here
 
 --- type:NormalExercise lang:r xp:100 skills:1
 ## Computing the time series of total portfolio performance
+The function ``table.CalendarReturns` already reported in the last column the cumulative return performance per year. In order to obtain the cumulative investment value over a years, one needs to multiply the initial value value with $(1+R_1)*(1+R_2)*(1+R_3)*\ldots*(1+R_12),$ where $R_i$ is the return in month $i$. In R such a cumulative product is easily obtained using the function `cumprod(1+returns)` with returns the series of returns that needs to be compounded. Suppose the investor has $1 invested in the strategy of equally weighting all DJIA assets and monthly rebalancing. Plot the time series evolution of that investment over the full period available in the `preturns.ew` time series vectors. 
 
-Portfolio value as compounded gross returns. The function cumprod.
 
 *** =instructions
-- instruction 1
-- instruction 2
+- Define `cumulative.value` as the cumulative product of the total returns 
+- Plot this wealth evolution using the function `plot.zoo' and note the drawdowns during the market crashes.
 
 *** =hint
 hint comes here
@@ -347,12 +377,18 @@ hint comes here
 
 *** =sample_code
 ```{r}
-# sample code
+# Define the time series holding the cumulative.value
+cumulative.value <-    
+# plot the wealth evoluation
+
 ```
 
 *** =solution
 ```{r}
-# solution code
+# Define the time series holding the cumulative.value
+cumulative.value <- cumprod(1+preturns.ew)
+# plot the wealth evoluation
+plot.zoo(cumulative.value)
 ```
 
 *** =sct

@@ -55,41 +55,36 @@ To put the theory in practice, there are now three exercises on computing portfo
 
 # Video 3: A realistic portfolio case: Investing in the 30 DJIA stocks over 25 years with monthly rebalancing
 
-Let's now look at a realistic portfolio invested in the 30 Dow Jones Industrial Average stocks and track the portfolio performance
-over a period . Their symbols are summarized on this slide. 
+Let's now look at a realistic portfolio invested in the 30 Dow Jones Industrial Average stocks and track the portfolio performance over a period . Their symbols are summarized on this slide. 
 
 ***
 
-The end-of month prices of those 30 stocks are available in your datacamp session as a xts object. 
-Let us now consider a practical case of the 30 Dow Jones Industrial Average (DJIA) Constituents over the period xxxx. The corresponding monthly price data is available as a xts time series object. The corresponding multivariate return series can be easily computed using the function calculateReturns in PerformanceAnalytics. The first observation is NA, because there is no previous price available. We can remove the first row in returns using [(-1),].
-
+It is important to understand the structure of the data. As you can see on the slide, each row correspond to the ending day of the month, each column to a stock. 
 
 ***
 
-# Video 4: Exploring raw data (part 2)
-
-Okay, so we've seen some useful summaries of our data, but there's no substitute for just looking at it. The `head()` function shows us the first 6 rows by default. If you add one additional argument, `n`, you can control how many rows to display. For example, `head(lunch, n = 15)` will display the first 15 rows of the data.
+We now thus need to convert this table of prices into a table of returns. This can be done using the function calculateReturns in the function PerformanceAnalytics. This leads to a table with the first row consisting of NA because there is no previous price available to compute the returns. In R, this first row can be easily removed by indexing that row with a minus 1 sign.
 
 ***
 
-We can also view the bottom of `lunch` with the `tail()` function, which displays the last 6 rows by default, but that behavior can be altered in the same way with the `n` argument.
+The resulting multivariate return series looks as follows.
 
 ***
 
-Viewing the top and bottom of your data only gets you so far. Sometimes the easiest way to identify issues with the data are to plot them. Here, we use `hist()` to plot a histogram of the percent free and reduced lunch column, which quickly gives us a sense of the distribution of this variable. It looks like the value of this variable falls between 50 and 60 for 20 out of the 46 years contained in the `lunch` dataset.
+Now we need to transform this into a time series of portfolio returns. For this the function Return.portfolio is interesting. For us the first two arguments are relevant. R is the xts file containing
+the multivariate return series. Weights is the optional argument containing the weights at the beginning of each month. 
+
+Remember from the formula that weights are crucial to definie the portfolio returns, and that it is the weights at the beginning of the investment period, here beginning of the month.
+
+
+
+*** 
+
+By default and if we thus do not specify the weights, the function Return.portfolio assumes equal weighting.  
+
+
+To understand what this means, consider the following sketch of the time line. Every tick denote the end of month, where the portfolio has a weight. By default, it is thus assumed that at the end of each month, the weights are reset to equal weights.  
 
 ***
 
-Finally, we can produce a scatter plot with the `plot()` function to look at the relationship between two variables. In this case, we clearly see that the percent of lunches that are either free or reduced price has been steadily rising over the years, going from roughly 15 to 70 percent between 1969 and 2014.
-
-***
-
-To review, `head()` and `tail()` can be used to view the top and bottom of your data, respectively. Of course, you can also just `print()` your data to the console, which may be okay when working with small datasets like `lunch`, but is definitely not recommended when working with larger datasets.
-
-***
-
-Lastly, `hist()` will show you a histogram of a single variable and `plot()` can be used to produce a scatter plot showing the relationship between two variables.
-
-***
-
-Time to practice!
+The next exercises show how to compute those equally weighted portfolio returns. By compounding the total returns, defined as 1+returns, we obtain the portfolio value evolution. Plotting this wealth evolution will reveal the booms and busts of the stock market over the past 25 years. 

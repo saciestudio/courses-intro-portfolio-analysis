@@ -72,3 +72,5 @@ djia_prices = monthly.prices
 djia = window(djia_prices[,(-1)],start=as.Date("1990-12-31"),end=as.Date("2015-12-31"))
 head(djia)
 save(djia,file="djia.Rdata")
+prices = djia
+save(prices,file="prices.Rdata")
