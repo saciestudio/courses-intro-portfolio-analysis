@@ -29,10 +29,11 @@ hint comes here
 *** =sample_code
 ```{r}
 # Define the vector values
-
+values <- 
 # Define the vector weights
-
+weights <- 
 # Print the resulting weights
+print(weights)
 ```
 
 *** =solution
@@ -48,6 +49,7 @@ print(weights)
 *** =sct
 ```{r}
 # sct code
+success_msg("Well done!")
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1
@@ -96,11 +98,11 @@ As an exercise, define the vector `characteristics` as the sequence from 1 to 50
 *** =sample_code
 ```{r}
 # Define characteristics
-
+characteristics <- 
 # Compute the weights
-
+weights <-
 # Inspect summary statistics
-
+summary(weights)
 ```
 
 *** =solution
@@ -110,12 +112,13 @@ characteristics <- seq(1,500)
 # Compute the weights
 weights <- characteristics/sum(characteristics)
 # Inspect summary statistics
-print(summary(weights))
+summary(weights)
 ```
 
 *** =sct
 ```{r}
 # sct code
+success_msg("Well done!")
 ```
 
 
@@ -178,6 +181,7 @@ preturns.vw <- sum(weights.vw*returns)
 *** =sct
 ```{r}
 # sct code
+success_msg("Well done!")
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1
@@ -230,6 +234,7 @@ preturns.vw <- sum( weights.vw * log.return )
 *** =sct
 ```{r}
 # sct code
+success_msg("Well done!")
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1
@@ -252,7 +257,7 @@ The portfolio return is a single number.
 
 *** =sct
 ```{r}
-test_mc(2) # if 2 is the correct option.
+test_mc(1) # if 2 is the correct option.
 ```
 
 --- type:VideoExercise lang:r xp:50 skills:1
@@ -317,6 +322,7 @@ returns <-
 *** =sct
 ```{r}
 # sct code
+success_msg("Well done!")
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1
@@ -362,6 +368,7 @@ plot.zoo(preturns.ew)
 *** =sct
 ```{r}
 # sct code
+success_msg("Well done!")
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1
@@ -400,6 +407,7 @@ plot.zoo(cumulative.value)
 *** =sct
 ```{r}
 # sct code
+success_msg("Well done!")
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1
