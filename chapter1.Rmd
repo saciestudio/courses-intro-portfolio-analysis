@@ -297,9 +297,9 @@ prices<- readRDS("prices.rds")
 head(prices,1)
 tail(prices,1)
 # Compute the simple returns based on the prices of DJIA stocks
-returns <- CalculateReturns(prices, method="simple")
+returns <- 
 # Remove the first row
-returns <- returns[(-1),]
+returns <- 
 ```
 
 *** =solution
@@ -308,9 +308,9 @@ returns <- returns[(-1),]
 head(prices,1)
 tail(prices,1)
 # Compute the simple returns based on the prices of DJIA stocks
-returns <- 
+returns <- CalculateReturns(prices, method="simple")
 # Remove the first row
-returns <-
+returns <-returns[(-1),]
 ```
 
 *** =sct
