@@ -226,7 +226,7 @@ log.returns <- log(fin.values) - log(in.values)
 # Compute value weighed portolio weights
 weights.vw <- in.values/sum(in.values)
 # Compute portfolio return using the portfolio return formula
-preturns.vw <- sum( weights.vw * log.return )
+preturns.vw <- sum( weights.vw * log.returns )
 # Verify that it does not match with the log return of the portfolio value
 ( preturns.vw != log(fin.values)-log(in.values) )
 ```
