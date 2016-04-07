@@ -74,3 +74,7 @@ head(djia)
 save(djia,file="djia.Rdata")
 prices = djia
 save(prices,file="prices.Rdata")
+
+saveRDS(prices,file="prices.rds")
+
+# rm(prices); prices <- readRDS("prices.rds")

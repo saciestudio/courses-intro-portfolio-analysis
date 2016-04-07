@@ -1,6 +1,20 @@
 # Video 1: The power of portfolio diversification
 
-Hi, I'm Kris. I am a Professor of finance at the Solvay Business School in Brussels and an expert in portfolio analysis. I will be your instructor for this course on analyzing portfolio returns in R. Let's get started by a simple example of the power of portfolio diversification. 
+Hi, I'm Kris. I am a Professor of finance at the Solvay Business School in Brussels and an expert in portfolio analysis. I will be your instructor for this course on analyzing portfolio returns in R. 
+
+
+***
+
+Pitch why it is important. 
+
+Explain concepts.
+
+Characteristic eruit laten? 
+
+Uitleggen wat de market capitalization is. 
+
+
+Let's get started by a simple example of the power of portfolio diversification. 
 
 ***
 

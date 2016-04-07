@@ -277,7 +277,7 @@ December 1990 to December 2015. Then compute the monthly returns using the funct
 *** =instructions
 - Print the first and last row using the `head` and `tail` functionality 
 - Define `returns` as the multivariate return series using  `Return.calculate` with the option of simple returns
-- Remove the firs observation in `returns`
+- Remove the first observation in `returns`
 
 *** =hint
 hint comes here
@@ -290,12 +290,16 @@ hint comes here
 #download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.Rdata", destfile="prices.Rdata")
 #load("prices.Rdata")
 library(xts)
-library(RCurl)
 library(PerformanceAnalytics)
-url="http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.Rdata"
-bin = getBinaryURL(url, verbose = TRUE,
-                   ftp.use.epsv = TRUE)
-load(rawConnection(bin))
+download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
+prices<- readRDS("prices.rds")
+#library(xts)
+#library(RCurl)
+#library(PerformanceAnalytics)
+#url="http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.Rdata"
+#bin = getBinaryURL(url, verbose = TRUE,
+#                   ftp.use.epsv = TRUE)
+#load(rawConnection(bin))
 ```
 
 *** =sample_code
@@ -343,12 +347,9 @@ hint comes here
 *** =pre_exercise_code
 ```{r}
 library(xts)
-library(RCurl)
 library(PerformanceAnalytics)
-url="http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.Rdata"
-bin = getBinaryURL(url, verbose = TRUE,
-                   ftp.use.epsv = TRUE)
-load(rawConnection(bin))  
+download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
+prices<- readRDS("prices.rds") 
 ```
 
 *** =sample_code
@@ -394,12 +395,9 @@ hint comes here
 ```{r}
 # pec
 library(xts)
-library(RCurl)
 library(PerformanceAnalytics)
-url="http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.Rdata"
-bin = getBinaryURL(url, verbose = TRUE,
-                   ftp.use.epsv = TRUE)
-load(rawConnection(bin))
+download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
+prices<- readRDS("prices.rds")
 ```
 
 *** =sample_code
