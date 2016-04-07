@@ -263,12 +263,11 @@ test_mc(2) # if 2 is the correct option.
 //player.vimeo.com/video/108225030
 
 --- type:NormalExercise lang:r xp:100 skills:1
-## The multivariate time series of prices and returns and the equally weighted portfolio return
+## The multivariate time series of prices and returns 
 Let us now inspect the The xts file `prices` containing the end-of-month prices for the 30 Dow Jones Industrial Average constitutuents. 
 Make use of the `head(prices,1)` and `tail(prices,1)` functions to print the first and last rows of `prices` and verify that the price data runs from
-December 1990 to December 2015. Then compute the monthly returns using the function `returns <- Return.calculate(prices, method="simple")`. Print the 
-first 6 rows of returns and verify that the first row consists of NA's. Remove the first row from returns using `returns <- returns[(-1),]`. 
-Convert the DJIA price data into a return data. 
+December 1990 to December 2015. Then compute the monthly returns using the function `returns <- Return.calculate(prices, method="simple")`. Print the first 6 rows of returns and verify that the first row consists of NA's. Remove the first row from returns using `returns <- returns[(-1),]`. 
+
 
 *** =instructions
 - Print the first and last row using the `head` and `tail` functionality 
@@ -281,10 +280,10 @@ hint comes here
 *** =pre_exercise_code
 ```{r}
 # pec
-library(xts)
+#library(xts)
 # load end-of-month price data
-download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.Rdata", destfile="prices.Rdata")
-load("prices.Rdata")
+#download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.Rdata", destfile="prices.Rdata")
+#load("prices.Rdata")
 library(xts)
 library(RCurl)
 url="http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.Rdata"
