@@ -283,7 +283,14 @@ hint comes here
 # pec
 library(xts)
 # load end-of-month price data
-load("prices.rdata")
+download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.Rdata", destfile="prices.Rdata")
+load("prices.Rdata")
+library(xts)
+library(RCurl)
+url="http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.Rdata"
+bin = getBinaryURL(url, verbose = TRUE,
+                   ftp.use.epsv = TRUE)
+load(rawConnection(bin))
 ```
 
 *** =sample_code
