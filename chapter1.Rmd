@@ -351,6 +351,7 @@ library(PerformanceAnalytics)
 download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
 prices<- readRDS("prices.rds") 
 returns <- CalculateReturns(prices, method="simple")
+returns <- returns[(-1),]
 ```
 
 *** =sample_code
