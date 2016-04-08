@@ -1,16 +1,15 @@
 # Video 1: The power of portfolio diversification
-
-Hi, my name is Kris Boudt. I am a Professor of finance and an expert in portfolio analysis. At datacamp you learn to analyze data. This in important skill for investors, since the analysis of prices and returns is crucial to make investment profits without taking excessive risks. 
+Hi, my name is Kris Boudt. I am a Professor of finance and an expert in portfolio analysis. At Datacamp you learn to analyze data. This in important skill for investors, since the analysis of prices and returns is crucial to make investment profits without taking excessive risks. 
 
 ***
 
-Indeed, whenever you buy a stock or bond at some price, this price will change in the future. If it increases, you make a profit. If it decreases, you make a loss. The value of the price change is uncertain, and, importantly, it of course depends on the asset. By optimizing the investments and by monitoring the returns, it becomes possible to reduce the uncertainty about future returns and increase the expected payoff. This is the essence of rational investing: you only take the risks that are worthwile. 
+Indeed, whenever you buy a stock or bond at some price, this price will change in the future. If it increases, you make a profit. If it decreases, you make a loss. The value of the price change is uncertain, and, importantly, it of course depends on the asset. By optimizing the investments and by monitoring the returns, it becomes possible to reduce the uncertainty about future returns and increase the expected payoff. This is the essence of rational investing: you only take the risks that are worthwhile. 
 
 ***
 
 To avoid excessive risks it is important not to concentrate all the investments in one single asset, but to spread your investment over a portfolio of multiple assets. This is called portfolio diversification. It aims at reducing the risk of making severe losses by investing in different assets.  
 
-Let's now visualize these gains of diverisication with a numeric example.  
+Let's now visualize these gains of diversification with a numeric example.  
 
 
 ***
@@ -35,27 +34,23 @@ In this chapter, we'll break the portfolio value calculation down into a three s
 
 ***
 
-The proof is in the pudding. Let's start off with the definition of portfolio weights. Either we observe portfolio weights directly as the percentage value invested. Or we decide on portfolio weights. In the exercises, we will consider the choice of equally weighting the assets in the portfolio ("the 1/N portfolio") and characteristic based portfolio investing, such as a market capitalizatio weighted portfolio. 
+The proof is in the pudding. Let's start off with the definition of portfolio weights. Either we observe portfolio weights directly as the percentage value invested. Or we decide on portfolio weights. In this chapter, we will focus on the choice of equally weighting the assets in the portfolio. This means that if we have e.g. 10 assets, each asset receives a weight of 10%. When investing in stocks, another popular choice of weighting is to set the weights as a function of the total market value of the firm’s equity. This is called market capitalization weighting and sets the weight equal to the market capitalization of the firm, divided by the total market capitalization of all the assets in the portfolio. 
 
 ***
 
-# Video 2: Portfolio returns are the weighted average of the individual returns
+# Video 2: One-period portfolio returns are the weighted average of the individual returns
 
-A crucial part of investing is dealing with the almost constant changes in prices. Price changes are usually expressed in relative terms. Those relative price changes are called returns. 
-
-
+Welcome to the second video of this chapter. This video will be about quantifying the relative changes in the value of your portfolios. We will use simple returns as the measure of the relative price changes and show that portfolio returns can be easily computed as the weighted average of the individual returns.  
 ***
-
-But how to compute portfolio returns? First we need to agree on which type of returns we will use. There are two types of return definitions in finance: log-returns and simple returns. When the return is computed as the change in the natural logarithm of the value, it is called a log-return. If it is computed as the percentage price change, then it is called a simple return. Log-returns and simple returns are typically very similar. A change of 100 USD to 110 USD is a 10% change in terms of simple returns and a 9.5% change in log-returns. 
-
+In order to compute portfolio returns, we thus first need the returns on the single assets in the portfolio. Those returns are defined as the percentage price change. The slide shows the formula, when the initial price is P at time t, the next price is P at time t+1. Then the return over the period t to t+1, is the difference between P at time t+1 and P at time t, divided by the price at time t.  As an example, suppose the price increases from 100 USD to 110 USD, then the simple return equals 10%.  
 ***
-
-For portfolio analysis we will work with simple returns. 
-The reason is twofold. First, simple returns are very intuitive. They are the percentage price change and also the type of returns used in daily life. Secondly, the calculation of portfolio returns using simple returns is...simple. It only requires to take the sum of the individidual returns, multiplied with their portfolio weights.
-
+Similarly, suppose we have a portfolio of two assets and the invested value of those three assets at the beginning of the period is 200 and 300. The end value is 180 and 330. The total initial portfolio value is thus 500. The total end value is 510. Then the simple return on the portfolio is: (510-500)/500 =  2%.  (show with a table)
+Note that the portfolio weights of assets 1 and 2 40% and 60%, and the individual returns are -10% and   +10%. Note that the sum over the weights multiplied by the returns gives the portfolio return of 2%: 40% times -10% is -4%. 60% times 10% is +6%. The sum is 2%. 
 ***
-
 In formula notation, the portfolio return thus equals the weighted average of the individual returns. The corresponding code in R is simple. It just involves a summation of the element in the vector obtained by multiplying the vector of portfolio weights with the vector of returns ( show formula: portfolio return = sum w[i] r[i] = sum( weights*returns ). 
+
+***
+Once we know the portfolio return over one period (e.g. a month), we could also be interested in the returns over multiple periods (e.g. one year). To compute this reason, we need to compound the individual returns over the multiple periods. Suppose there are k period. The price at time t+k equals the price at time t, reinvested at the single-period returns: that is price at t times 1+the return at t+1, 1+the return at t+2, etc. It follows that computing the multiperiod return involves taking the product of 1+the one-period returns and subtracting one from that value.  (show on slide) 
 
 ***
 
@@ -82,10 +77,9 @@ The resulting multivariate return series looks as follows.
 
 ***
 
-Now we need to transform this into a time series of portfolio returns. For this the function Return.portfolio is interesting. For us the first two arguments are relevant. R is the xts file containing
-the multivariate return series. Weights is the optional argument containing the weights at the beginning of each month. 
+Now we need to transform this into a time series of portfolio returns. For this the function Return.portfolio is interesting. (show syntax) For us the first two arguments are relevant. R is the xts file containing the multivariate return series. Weights is the optional argument containing the weights at the beginning of each month. 
 
-Remember from the formula that weights are crucial to definie the portfolio returns, and that it is the weights at the beginning of the investment period, here beginning of the month.
+Remember from the formula that weights are crucial to define the portfolio returns, and that it is the weights at the beginning of the investment period, here beginning of the month.
 
 
 
@@ -98,4 +92,4 @@ To understand what this means, consider the following sketch of the time line. E
 
 ***
 
-The next exercises show how to compute those equally weighted portfolio returns. By compounding the total returns, defined as 1+returns, we obtain the portfolio value evolution. Plotting this wealth evolution will reveal the booms and busts of the stock market over the past 25 years. 
+The next exercises show how to compute those equally weighted portfolio returns. By compounding the total returns, defined as 1+returns, we obtain the portfolio value evolution. Plotting this wealth evolution will reveal the booms and busts of the stock market over the past 25 years.
