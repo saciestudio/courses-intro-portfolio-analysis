@@ -1,20 +1,17 @@
 # Video 1: The power of portfolio diversification
 
-Hi, I'm Kris. I am a Professor of finance at the Solvay Business School in Brussels and an expert in portfolio analysis. I will be your instructor for this course on analyzing portfolio returns in R. 
-
+Hi, my name is Kris Boudt. I am a Professor of finance and an expert in portfolio analysis. At datacamp you learn to analyze data. This in important skill for investors, since the analysis of prices and returns is crucial to make investment profits without taking excessive risks. 
 
 ***
 
-Pitch why it is important. 
+Indeed, whenever you buy a stock or bond at some price, this price will change in the future. If it increases, you make a profit. If it decreases, you make a loss. The value of the price change is uncertain, and, importantly, it of course depends on the asset. By optimizing the investments and by monitoring the returns, it becomes possible to reduce the uncertainty about future returns and increase the expected payoff. This is the essence of rational investing: you only take the risks that are worthwile. 
 
-Explain concepts.
+***
 
-Characteristic eruit laten? 
+To avoid excessive risks it is important not to concentrate all the investments in one single asset, but to spread your investment over a portfolio of multiple assets. This is called portfolio diversification. It aims at reducing the risk of making severe losses by investing in different assets.  
 
-Uitleggen wat de market capitalization is. 
+Let's now visualize these gains of diverisication with a numeric example.  
 
-
-Let's get started by a simple example of the power of portfolio diversification. 
 
 ***
 

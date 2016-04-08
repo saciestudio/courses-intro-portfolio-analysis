@@ -76,19 +76,21 @@ test_mc(2) # if 2 is the correct option.
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1
-## Defining the weights of a characteristic-based portfolio
+## Defining the weights of a market capitalization weighted portfolio
 
-In a characteristic-based portfolio, the weight is given by the asset's characteristic value divided by the sum of the characteristic values of all assets. A typical example is a market capitalization weighted portfolio such as the S&P 500 invested in the 500 largest companies listed on the US stock exchanges (NYSE, Nasdaq). The stock's weight in the S&P 500 is the stock's market capitalization, dividided by the total market capitalization of all 500 stocks. Note that dividing by the total value of the characteristic across all assets guarantees that the portfolio weights sum up to unity. 
+In a market capitalization weighted portfolio, the weight is given by the asset's market capitalization divided by the sum of the market capitalization of all assets. A typical example is the S&P 500 invested in the 500 largest companies listed on the US stock exchanges (NYSE, Nasdaq).  Note that dividing by the total value of the characteristic across all assets guarantees that the portfolio weights sum up to unity. 
 
-As an exercise, define the vector `characteristics` as the sequence from 1 to 500 and compute the corresponding characteristic-based portfolio weights. Inspect the distribution of the portfolio weights using the function `summary()`.
+As an exercise, inspect the distribution of market capitalization based weights when the portfolio is invested in 10 stocks and the market capitalizations are 5, 8, 9, 20, 25, 100, 100, 500, 700 and 2000 million USD. 
+
+ofdefine the vector `marketcaps` as the sequence from 1 to 500 and compute the corresponding market capitalization based portfolio weights. Inspect the distribution of the portfolio weights using the function `summary()`.
 
 *** =instructions
-- Define `characteristics`
+- Define the vector `marketcaps` holding the market capitalization
 - Define `weights`
-- Print `summary(weights)`
+- Print `summary(weights)` and make a histogram
 
 *** =hint
-`seq(arg1,arg2)` yields a vector holding elements `arg1, arg1+1, arg1+2,...,arg2`.
+A histogram in R can be made usin the function `hist`.
 
 *** =pre_exercise_code
 ```{r}
@@ -97,8 +99,8 @@ As an exercise, define the vector `characteristics` as the sequence from 1 to 50
 
 *** =sample_code
 ```{r}
-# Define characteristics
-characteristics <- 
+# Define marketcaps
+marketcaps <- c(5, 8, 9, 20, 25, 100, 100, 500, 700, 2000)
 # Compute the weights
 weights <-
 # Inspect summary statistics
@@ -107,10 +109,10 @@ summary(weights)
 
 *** =solution
 ```{r}
-# Define characteristics
-characteristics <- seq(1,500)
+# Define marketcaps
+marketcaps <- c(5, 8, 9, 20, 25, 100, 100, 500, 700, 2000)
 # Compute the weights
-weights <- characteristics/sum(characteristics)
+weights <- marketcaps/sum(marketcaps)
 # Inspect summary statistics
 summary(weights)
 ```
@@ -184,58 +186,6 @@ preturns.vw <- sum(weights.vw*returns)
 success_msg("Well done!")
 ```
 
---- type:NormalExercise lang:r xp:100 skills:1
-## Log-return do not aggregate into portfolio returns
-
-An alternative definition of return used in finance is log-returns. Let us now verify that, for the same example, log-returns do not have the portfolio aggregation property.  Define `logreturns <- log(fin.values)-log(in.values)` as the vector holding the log-returns of the three component assets. Verify that the weighted average portfolio return ( `sum(in.weights*logreturns)`  ) does not equal the log-return computed on the total portfolio value (`log(sum(fin.values))-log(sum(in.values))`). 
-
-*** =instructions
-- Define the vector of log-returns
-- Compute the value weighted portfolio returns
-
-*** =hint
-hint comes here
-
-*** =pre_exercise_code
-```{r}
-# pec
-```
-
-*** =sample_code
-```{r}
-# Initial and final values of the assets
-in.values <- c(1000,5000,2000)
-fin.values <- c(1100,4500,3000)
-# Compute simple returns 
-log.returns <- 
-# Compute value weighed portolio weights
-weights.vw <- in.values/sum(in.values)
-# Compute portfolio return using the portfolio return formula
-preturns.vw <- 
-# Verify that it does not match with the log return of the portfolio value
-( preturns.vw != log(fin.values)-log(in.values) )
-```
-
-*** =solution
-```{r}
-# Initial and final values of the assets
-in.values <- c(1000,5000,2000)
-fin.values <- c(1100,4500,3000)
-# Compute simple returns 
-log.returns <- log(fin.values) - log(in.values)
-# Compute value weighed portolio weights
-weights.vw <- in.values/sum(in.values)
-# Compute portfolio return using the portfolio return formula
-preturns.vw <- sum( weights.vw * log.returns )
-# Verify that it does not match with the log return of the portfolio value
-( preturns.vw != log(fin.values)-log(in.values) )
-```
-
-*** =sct
-```{r}
-# sct code
-success_msg("Well done!")
-```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1
 ## Defining the portfolio returns for an equally weighted portfolio
@@ -259,6 +209,41 @@ The portfolio return is a single number.
 ```{r}
 test_mc(1) # if 2 is the correct option.
 ```
+
+
+--- type:NormalExercise lang:r xp:100 skills:1
+## Multiperiod returns
+
+Suppose an investor realizes monthly returns of 2.5%, 3%,-2.1%,0.5%,1%,-0.4%,2%,1%,4%,-5%,3%,2%. How much is the annual return? 
+
+*** =instructions
+- Compute the annual return by compounding the monthly returns
+
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sample_code
+```{r}
+
+```
+
+*** =solution
+```{r}
+(1+0.025)*(1+0.03)*(1-0.021)*(1+0.005)*(1+0.01)*(1-0.004)*(1+0.02)*(1+0.01)*(1+0.04)*(1-0.05)*(1+0.03)*(1+0.02)-1
+```
+
+*** =sct
+```{r}
+# sct code
+success_msg("Well done!")
+```
+
 
 --- type:VideoExercise lang:r xp:50 skills:1
 ## A realistic portfolio case: Investing in the 30 DJIA stocks over 25 years with monthly rebalancing
