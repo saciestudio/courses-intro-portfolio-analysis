@@ -1,36 +1,37 @@
-# Video 1: The power of portfolio diversification
+# Video 1: The distribution of portfolio returns
 
-Hi, I'm Kris. I am a Professor of finance at the Solvay Business School in Brussels and an expert in portfolio analysis. I will be your instructor for this course on analyzing portfolio returns in R. Let's get started by a simple example of the power of portfolio diversification. 
 
-***
-
-Here you see the value evolution of a stock price index, a real estate index and a commodities index. They all show variability due to the risky nature of the asset returns and the performance is very different. If we had perfect foresight, the best investment would be to invest all your money in ... . In reality, future prices are uncertain. 
-
-(Slides should show the price evolution of a winning, losing and at par position.)
+Investing implies taking risks. But how much risk? This question can be answered by graphical analysis of the portfolio returns and by computing statistics, such as the portfolio standard deviation or its value-at-risk.
 
 ***
 
-In order to mitigate the individual risks of each of the assets, it may be wiser to invest in all three assets at the same time. It we invest the same amount in each of them (e.g. 1000 UUSD), then we have an equally weighted portfolio with weights one third. 
+Let me start with the graphical approach and consider here the histogram of the past portfolio returns on the equally weighted portfolio invested in the 30 Dow Jones Industrial Average stocks. The histogram shows for the range of past returns how likely each return was to occur. The higher the bar, the more likely the return. In this case, we see that the most likely return is slightly higher than zero. This positive return is to be traded-off against the risk that the return will be different from that expected return. 
 
-(Slide should show the formula: W_i = 1000/(1000+1000+1000) = 1/3)
-
-***
-
-The resulting price evolution for the equally weighted portfolio is shown with a purple line. Note that the line is more smooth and the performance is the average of the two extremes. This shows the limits and the gains of diversification. In order to avoid extreme losses, it is definitely not a good idea to put all your eggs in the same basket. At the same time, you may lose upside potential by spreading too much the portfolio weights. The key questions are thus: (i) Which investments to choose and (ii) How to monitor the portfolio performance to make sure it does what you expect it to do. In this course you will learns the tools to answer these challenging questions in R. 
+Looking at the minimum and maximum values in the histogram we see that all returns were between .... and .... 
 
 ***
 
-In this chapter, we'll break the portfolio value calculation down into a three step process: First, computing portfolio weights. Second, computing portfolio returns. Third, compounding portfolio returns to obtain the portfolio value evolution.  
+In addition to the graphical analysis, investors routinely discuss performance statistics. The most used ones are the portfolio mean return and the return standard deviation. See the slides for their precise definition in case of a sample of  $T$ returns, $R_1$,...,$R_t$.
+
+The mean return indicates the average portfolio performance, while the standard deviation measures the spread of the returns across the mean. The higher the standard deviation, the more risk of large losses.
+
+Usually, a higher average return comes at the price of a higher risk. The sample variance corresponding to the average squared deviations of the return with respect to the average return is the risk measure used in modern portfolio theory by Harry Markowitz. The square root of the variance, called standard deviation or volatility, is more easy to interpret because it is in the same units as the returns.
 
 ***
 
-The proof is in the pudding. Let's start off with the definition of portfolio weights. Either we observe portfolio weights directly as the percentage value invested. Or we decide on portfolio weights. In the exercises, we will consider the choice of equally weighting the assets in the portfolio ("the 1/N portfolio") and characteristic based portfolio investing, such as a market capitalizatio weighted portfolio. 
+The essence of investment is to balance risk and reward. Both can be measure in one statistic, namely the sharpe ratio correspoding to the average return (in excess of the risk free rate) per unit of portfolio volatility...
+
 
 ***
 
-# Video 2: Portfolio returns are the weighted average of the individual returns
+Annualizing 
 
-A crucial part of investing is dealing with the almost constant changes in prices. Price changes are usually expressed in relative terms. Those relative price changes are called returns. 
+
+***
+
+# Video 2: Downside risk; skewness, kurtosis and value-at-risk
+
+The mean and volatility fully describe the return distribution, when the return distribution is normal. In practice, as can be seen also in the histogram, most financial return distributions are not-normal. They are asymmetric and have so-called heavy tails. This means that the tails are fatter than the ones of a normal distribution. The asymmetry is measured by skewness, which is the average value of the third power of the return deviations from their average, standardized by their volatility. If it is negative,.... Kurtosis; fourth power ... Excess kurtosis. When returns are non-normal, the volatility is not sufficient as a risk measure. A downside risk measure needs to be used, focusing on the probability of large losses. 5% value at risk; quantile ...  . Drawdowns.
 
 
 ***

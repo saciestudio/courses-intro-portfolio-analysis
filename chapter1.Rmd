@@ -290,14 +290,13 @@ success_msg("Well done!")
 
 --- type:NormalExercise lang:r xp:100 skills:1
 ## The multivariate time series of prices and returns 
-Let us now inspect the The xts file `prices` containing the end-of-month prices for the 30 Dow Jones Industrial Average constitutuents. 
-Make use of the `head(prices,1)` and `tail(prices,1)` functions to print the first and last rows of `prices` and verify that the price data runs from
-December 1990 to December 2015. Then compute the monthly returns using the function `returns <- Return.calculate(prices, method="simple")`. Print the first 6 rows of returns and verify that the first row consists of NA's. Remove the first row from returns using `returns <- returns[(-1),]`. 
+Let us now inspect the xts file `prices` containing the end-of-month prices for the 30 Dow Jones Industrial Average constitutuents. 
+Make use of the `head(prices,1)` and `tail(prices,1)` functions to print the first and last rows of `prices` and verify that the price data runs from December 1990 to December 2015. Then compute the monthly returns using the R command `Return.calculate(prices, method="simple")`. Print the first 6 rows of returns and verify that the first row consists of NA's. Remove the first row from returns using `returns <- returns[(-1),]`. 
 
 
 *** =instructions
-- Print the first and last row using the `head` and `tail` functionality 
-- Define `returns` as the multivariate return series using  `Return.calculate` with the option of simple returns
+- Print the first and last row of `prices`
+- Define `returns` as the multivariate return series 
 - Remove the first observation in `returns`
 
 *** =hint
@@ -315,8 +314,7 @@ prices<- readRDS("prices.rds")
 *** =sample_code
 ```{r}
 # First and last row
-head(prices,1)
-tail(prices,1)
+ 
 # Compute the simple returns based on the prices of DJIA stocks
 returns <- 
 # Remove the first row
