@@ -1,6 +1,20 @@
 # Video 1: The power of portfolio diversification
 
 
+Welcome! Welcome to this course on portfolio analysis in R. My name is Kris Boudt. I am a Professor of finance at the free university of Brussel and Amsterdam. Besides my teaching and research, I also advise investment companies about best practices in portfolio management. 
+
+My princicpal advice is to take investment decisions seriously and be aware of the risks involved in investing. Whenever you buy a stock or bond at some price, this price will change in the future. If it increases, you make a profit. If it decreases, you make a loss. 
+
+***
+There are some simple tricks to reduce the risk of making large losses. 
+
+The first one is to seek for portfolio risk diversification. This means that one should avoid investing in one single asset, because by choosing intelligent combinations of investments, it becomes possible to increase return and reduce the risk. 
+
+***
+
+***
+
+
 To kick off this course, I want to first convince you with a data example of the power of diversification. 
 
 Indeed, whenever you buy a stock or bond at some price, this price will change in the future. If it increases, you make a profit. If it decreases, you make a loss. The value of the price change is uncertain, and, importantly, it depends on the asset. By optimizing the investments and by monitoring the returns, it becomes possible to reduce the uncertainty about future returns and increase the expected payoff. This is the essence of rational investing: you only take the risks that are worthwhile. 

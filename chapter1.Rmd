@@ -253,6 +253,42 @@ success_msg("Well done!")
 //player.vimeo.com/video/108225030
 
 --- type:NormalExercise lang:r xp:100 skills:1
+## The packages xts and PerformanceAnalytics
+Up to now, we have done simple calculations in R. In the future we will need more complex functionality, which is available in the R packages `xts` (for time series analysis in general) and `PerformanceAnalytics` (for portfolio analysis in particular). Load this two packages in your R session.
+
+
+*** =instructions
+- Load the packages
+
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sample_code
+```{r}
+# Load packages
+
+```
+
+*** =solution
+```{r}
+# Load packages
+library(xts)
+library(PerformanceAnalytics)
+```
+
+*** =sct
+```{r}
+# sct code
+success_msg("Well done!")
+```
+
+--- type:NormalExercise lang:r xp:100 skills:1
 ## The multivariate time series of prices and returns 
 Let us now inspect the The xts file `prices` containing the end-of-month prices for the 30 Dow Jones Industrial Average constitutuents. 
 Make use of the `head(prices,1)` and `tail(prices,1)` functions to print the first and last rows of `prices` and verify that the price data runs from
