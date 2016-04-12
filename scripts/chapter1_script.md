@@ -1,9 +1,9 @@
 # Video 1: The power of portfolio diversification
-Hi, my name is Kris Boudt. I am a Professor of finance and an expert in portfolio analysis. At Datacamp you learn to analyze data. This in important skill for investors, since the analysis of prices and returns is crucial to make investment profits without taking excessive risks. 
 
-***
 
-Indeed, whenever you buy a stock or bond at some price, this price will change in the future. If it increases, you make a profit. If it decreases, you make a loss. The value of the price change is uncertain, and, importantly, it of course depends on the asset. By optimizing the investments and by monitoring the returns, it becomes possible to reduce the uncertainty about future returns and increase the expected payoff. This is the essence of rational investing: you only take the risks that are worthwhile. 
+To kick off this course, I want to first convince you with a data example of the power of diversification. 
+
+Indeed, whenever you buy a stock or bond at some price, this price will change in the future. If it increases, you make a profit. If it decreases, you make a loss. The value of the price change is uncertain, and, importantly, it depends on the asset. By optimizing the investments and by monitoring the returns, it becomes possible to reduce the uncertainty about future returns and increase the expected payoff. This is the essence of rational investing: you only take the risks that are worthwhile. 
 
 ***
 

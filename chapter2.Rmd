@@ -1,6 +1,6 @@
 ---
 title       : Portfolio performance evaluation 
-description : Chapter 2
+description : The history of portfolio returns contains valuable information on how much the investor can expect to gain of loss. The information can be extracted in several ways. In the first chapter, we used time series plots. In this chapter, we see the different returns as possible realizations of the future portfolio return and 
 
 --- type:VideoExercise lang:r xp:50 skills:1
 ## The distribution of portfolio returns
