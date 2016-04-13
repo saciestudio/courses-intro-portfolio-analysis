@@ -345,9 +345,9 @@ Let us now consider the portfolio that invests equal amounts in each of the 30 s
 weights for each period. This leads to time series of monthly portfolio returns. An effective way to tabule monthly data over saveral years is to use the function `table.CalandarReturns()` in PerformanceAnalytics to present it in the format year x month.  Note the large portfolio losses during the burst of the internet bubble in 2002 and the financial crisis of 2009.  Finally, plot the resulting time series using the function `plot.zoo()`. Note that the time series is centered around zero and that the magnitude of the variations in return changes over time, because of time-varying volatility. 
 
 *** =instructions
-- define `preturns.ew` as the time series of monthly returns on equally weighted portfolio of DJIA constituents
-- make a month x year table of the `preturns.ew`
-- use `plot.zoo()` to make a time series plot of `preturns.ew`
+- define the variable `preturns` 
+- make a month x year table of the `preturns`
+- use `plot.zoo()` to make a time series plot of `preturns`
 
 *** =hint
 hint comes here
@@ -364,8 +364,8 @@ returns <- returns[(-1),]
 
 *** =sample_code
 ```{r}
-# Define preturns.ew
-preturns.ew <- 
+# Define preturns
+preturns <- 
 
 # Tabulate those returns as year x month  
 
@@ -375,12 +375,12 @@ preturns.ew <-
 
 *** =solution
 ```{r}
-# Define preturns.ew
-preturns.ew <- Return.portfolio( returns )
+# Define preturns
+preturns <- Return.portfolio( returns )
 # Tabulate those returns as year x month  
-table.CalendarReturns(preturns.ew)  
+table.CalendarReturns(preturns)  
 # Make the time series plot
-plot.zoo(preturns.ew)
+plot.zoo(preturns)
 ```
 
 *** =sct
@@ -391,7 +391,7 @@ success_msg("Well done!")
 
 --- type:NormalExercise lang:r xp:100 skills:1
 ## The evolution of portfolio value - The booms and busts of the stock market
-The function `table.CalendarReturns` already reported in the last column the cumulative return performance per year. In order to obtain the cumulative investment value over a years, one needs to multiply the initial value value with $(1+R_1)*(1+R_2)*(1+R_3)*\ldots*(1+R_{12}),$ where $R_i$ is the return in month $i$. In R such a cumulative product is easily obtained using the function `cumprod(1+returns)` with returns the series of returns that needs to be compounded. Suppose the investor has $1 invested in the strategy of equally weighting all DJIA assets and monthly rebalancing. Plot the time series evolution of that investment over the full period available in the `preturns.ew` time series vectors. 
+The function `table.CalendarReturns` already reported in the last column the cumulative return performance per year. In order to obtain the cumulative investment value over a years, one needs to multiply the initial value value with $(1+R_1)*(1+R_2)*(1+R_3)*\ldots*(1+R_{12}),$ where $R_i$ is the return in month $i$. In R such a cumulative product is easily obtained using the function `cumprod(1+returns)` with returns the series of returns that needs to be compounded. Suppose the investor has $1 invested in the strategy of equally weighting all DJIA assets and monthly rebalancing. Plot the time series evolution of that investment over the full period available in the `preturns` time series vectors. 
 
 
 *** =instructions
@@ -409,7 +409,8 @@ library(PerformanceAnalytics)
 download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
 prices<- readRDS("prices.rds")
 returns <- CalculateReturns(prices, method="simple")
-preturns.ew <- Return.portfolio( returns )
+returns <- returns[(-1),]
+preturns <- Return.portfolio( returns )
 ```
 
 *** =sample_code
@@ -423,7 +424,7 @@ cumulative.value <-
 *** =solution
 ```{r}
 # Define the time series holding the cumulative.value
-cumulative.value <- cumprod(1+preturns.ew)
+cumulative.value <- cumprod(1+preturns)
 # plot the wealth evolution
 plot.zoo(cumulative.value)
 ```

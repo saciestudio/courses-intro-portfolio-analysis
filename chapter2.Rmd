@@ -25,7 +25,7 @@ hint
 *** =pre_exercise_code
 ```{r}
 # pec
-par(mfrow=c(3,1),mar=c(3,1,1,1))
+par(mfrow=c(3,1),mar=c(3,3,1,1),cex.axis=1.2)
 vx = seq(-0.5,0.5,0.001)
 plot( vx , dnorm(vx,mean=0,sd=0.10),type="l")
 abline(v=0,lty=3)
@@ -43,11 +43,11 @@ test_mc(3) # if 3 is the correct option.
 --- type:NormalExercise lang:r xp:100 skills:1
 ## Analyzing the portfolio return distribution
 
-Plot the distribution of the equally weighted portfolio return using the function hist. Compute the mean and standard deviation. Suppose that by leveraging the portfolio, the returns are multiplied by 2. Define leveragedReturns as two times the returns. Verify that the mean and standard deviation of the leveraged returns is twice the mean and standard deviation of the original returns.
+The variable `preturns` contains the monthly returns on the equally-weighted portfolio of Dow Jones Industrial Average stocks over the period 1991-2015. Compute first the mean and standard deviation of these returns, as well as their minimum and maximum value. Then plot the histogram of these returns.
 
 *** =instructions
-- instruction 1
-- instruction 2
+- Compute summary statistics using the functions `mean`, `sd`, `min` and `max`
+- Plot the histogram and expriment with the argument `breaks` in `hist` to make the intervals smaller
 
 *** =hint
 hint comes here
@@ -61,21 +61,36 @@ download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-anal
 prices<- readRDS("prices.rds") 
 returns <- CalculateReturns(prices, method="simple")
 returns <- returns[(-1),]
+preturns <- Return.portfolio( returns )
 ```
 
 *** =sample_code
 ```{r}
-# sample code
+# Summary statistics
+
+
+
+
+# Histogram
+
+
 ```
 
 *** =solution
 ```{r}
-# solution code
+# Summary statistics
+mean(preturns)
+sd(preturns)
+min(preturns)
+max(preturns)
+# Histogram
+hist(preturns,breaks=10)
 ```
 
 *** =sct
 ```{r}
 # sct code
+success_msg("Well done!")
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1
@@ -84,9 +99,9 @@ returns <- returns[(-1),]
 The mean and volatility of monthly returns corresponds to the average and standard deviation over a monthly investment horizon. Investors annualize those statistics by mutiplying the mean with 12, and the volatility with the square root of twelve. Compute the annualized mean and volatility of the portfolios.
 
 *** =instructions
-- instruction 1
-- instruction 2
-
+- Print the annualized mean
+- Print the annualized standard deviation
+- Verify that the functions `Return.annualized` and `StdDev.annualized` report the same numbers
 *** =hint
 hint comes here
 
@@ -99,21 +114,34 @@ download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-anal
 prices<- readRDS("prices.rds") 
 returns <- CalculateReturns(prices, method="simple")
 returns <- returns[(-1),]
+preturns <- Return.portfolio( returns )
 ```
 
 *** =sample_code
 ```{r}
-# sample code
+# Annualized mean
+
+# Annualized standard deviation
+
+# Same answer?
+
 ```
 
 *** =solution
 ```{r}
-# solution code
+# Annualized mean
+12*mean(preturns)
+# Annualized standard deviation
+sqrt(12)*sd(preturns)
+# Same answer?
+Return.annualized(preturns)
+StdDev.annualized(preturns)
 ```
 
 *** =sct
 ```{r}
 # sct code
+success_msg("Well done!")
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1
@@ -146,6 +174,7 @@ hint comes here
 *** =sct
 ```{r}
 # sct code
+success_msg("Well done!")
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1
@@ -163,6 +192,13 @@ hint comes here
 *** =pre_exercise_code
 ```{r}
 # pec
+library(xts)
+library(PerformanceAnalytics)
+download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
+prices<- readRDS("prices.rds") 
+returns <- CalculateReturns(prices, method="simple")
+returns <- returns[(-1),]
+preturns <- Return.portfolio( returns )
 ```
 
 *** =sample_code
@@ -202,6 +238,13 @@ hint comes here
 *** =pre_exercise_code
 ```{r}
 # pec
+library(xts)
+library(PerformanceAnalytics)
+download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
+prices<- readRDS("prices.rds") 
+returns <- CalculateReturns(prices, method="simple")
+returns <- returns[(-1),]
+preturns <- Return.portfolio( returns )
 ```
 
 *** =sample_code
@@ -217,6 +260,7 @@ hint comes here
 *** =sct
 ```{r}
 # sct code
+success_msg("Well done!")
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1
@@ -234,6 +278,13 @@ hint comes here
 *** =pre_exercise_code
 ```{r}
 # pec
+library(xts)
+library(PerformanceAnalytics)
+download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
+prices<- readRDS("prices.rds") 
+returns <- CalculateReturns(prices, method="simple")
+returns <- returns[(-1),]
+preturns <- Return.portfolio( returns )
 ```
 
 *** =sample_code
@@ -249,6 +300,7 @@ hint comes here
 *** =sct
 ```{r}
 # sct code
+success_msg("Well done!")
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1
@@ -266,6 +318,13 @@ hint comes here
 *** =pre_exercise_code
 ```{r}
 # pec
+library(xts)
+library(PerformanceAnalytics)
+download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
+prices<- readRDS("prices.rds") 
+returns <- CalculateReturns(prices, method="simple")
+returns <- returns[(-1),]
+preturns <- Return.portfolio( returns )
 ```
 
 *** =sample_code
@@ -281,29 +340,59 @@ hint comes here
 *** =sct
 ```{r}
 # sct code
+success_msg("Well done!")
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
-## The effect of leverage
+--- type:NormalExercise lang:r xp:100 skills:1
+## he effect of leverage
 
-Suppose that by leveraging the portfolio, the returns are multiplied by 2. Different statements. Verify that the mean and standard deviation of the leveraged returns is twice the mean and standard deviation of the original returns. skewness kurtosis no effect. etc.
+Suppose that by leveraging the portfolio, the returns are multiplied by 2. Verify that the mean and standard deviation of the leveraged returns is twice the mean and standard deviation of the original returns and that the skewness and kurtosis are not affected by the levarage. 
 
 *** =instructions
-- option 1
-- option 2
-- option 3
+- Define the variable `lpreturns`
+- Compute for `preturns` and `lpereturns` the vector holding the mean, standard deviation, skewness and kurtosis
+
+
 
 *** =hint
-hint
+hint comes here
 
 *** =pre_exercise_code
 ```{r}
 # pec
+library(xts)
+library(PerformanceAnalytics)
+download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
+prices<- readRDS("prices.rds") 
+returns <- CalculateReturns(prices, method="simple")
+returns <- returns[(-1),]
+preturns <- Return.portfolio( returns )
+```
+
+*** =sample_code
+```{r}
+# Define lpreturns
+
+# Vector with mean, sd, skewness and excess kurtosis for preturns
+c(  ,   ,   ,  )
+# Vector with mean, sd, skewness and excess kurtosis for lpreturns
+c(  ,   ,   ,  )
+```
+
+*** =solution
+```{r}
+# Define lpreturns
+lpreturns = 2*preturns
+# Vector with mean, sd, skewness and excess kurtosis for preturns
+c(  mean(preturns) , sd(preturns)   , skewness(preturns)  , kurtosis(preturns)  )
+# Vector with mean, sd, skewness and kurtosis for lpreturns
+c(  mean(lpreturns) , sd(lpreturns)   , skewness(lpreturns)  , kurtosis(lpreturns)  )
 ```
 
 *** =sct
 ```{r}
-test_mc(2) # if 2 is the correct option.
+# sct code
+success_msg("Well done!")
 ```
 
 --- type:VideoExercise lang:r xp:50 skills:1
@@ -328,21 +417,37 @@ hint comes here
 *** =pre_exercise_code
 ```{r}
 # pec
+library(xts)
+library(PerformanceAnalytics)
+download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
+prices<- readRDS("prices.rds") 
+returns <- CalculateReturns(prices, method="simple")
+returns <- returns[(-1),]
+preturns <- Return.portfolio( returns )
 ```
 
 *** =sample_code
 ```{r}
 # sample code
+chart.RollingPerformance(R=preturns , width=12,
+                         FUN="Return.annualized",scale=12)
+chart.RollingPerformance(R=preturns , width=12,
+                         FUN="sd.annualized",scale=12)
 ```
 
 *** =solution
 ```{r}
 # solution code
+chart.RollingPerformance(R=preturns , width=12,
+                         FUN="Return.annualized",scale=12)
+chart.RollingPerformance(R=preturns , width=12,
+                         FUN="sd.annualized",scale=12)
 ```
 
 *** =sct
 ```{r}
 # sct code
+success_msg("Well done!")
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1
@@ -351,9 +456,8 @@ hint comes here
 I show two plots, one with rolling windows of 6 months and one with rolling windows of 12 months. Which one is more persistent?
 
 *** =instructions
-- option 1
-- option 2
-- option 3
+- Annualized volatility on rolling window of 6 months
+- Annualized volatility on rolling window of 12 months
 
 *** =hint
 hint
@@ -361,6 +465,18 @@ hint
 *** =pre_exercise_code
 ```{r}
 # pec
+library(xts)
+library(PerformanceAnalytics)
+download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
+prices<- readRDS("prices.rds") 
+returns <- CalculateReturns(prices, method="simple")
+returns <- returns[(-1),]
+preturns <- Return.portfolio( returns )
+par(mfrow = c(2,1))
+chart.RollingPerformance(R=preturns , width=6,
+                         FUN="sd.annualized",scale=12)
+chart.RollingPerformance(R=preturns , width=12,
+                         FUN="sd.annualized",scale=12)
 ```
 
 *** =sct
@@ -371,11 +487,15 @@ test_mc(2) # if 2 is the correct option.
 --- type:NormalExercise lang:r xp:100 skills:1
 ## Subset a zoo/xts time series using the function window and compare performance on a normal versus crisis period
 
-window()
+Let us now consider the time-variation in the return distribution. Define `preturns.2008` as the portfolio returns in 2008, obtained
+with the function `window`, having as first argument the return series that needs to be subset, then the start data and end date
+in the format `YYYY-MM-DD`. Compare the histogram of `preturns` with `preturns.2008` and well as the annualized volatility. 
+
 
 *** =instructions
-- instruction 1
-- instruction 2
+-  Define `preturns.2008`
+-  Plot the histograms
+-  Commpute annualized volatility
 
 *** =hint
 hint comes here
@@ -383,20 +503,45 @@ hint comes here
 *** =pre_exercise_code
 ```{r}
 # pec
+library(xts)
+library(PerformanceAnalytics)
+download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
+prices<- readRDS("prices.rds") 
+returns <- CalculateReturns(prices, method="simple")
+returns <- returns[(-1),]
+preturns <- Return.portfolio( returns )
+DJIA <- cumprod(1+preturns)
 ```
 
 *** =sample_code
 ```{r}
-# sample code
+# Define preturns.2008
+preturns.2008 <- window(preturns,startdate = as.Date(" "), enddate = as.Date(" ")  )
+# plotting
+par( mfrow = c(2,1) , mar=c(3,2,2,2))
+
+# annualized volatility
+
 ```
 
 *** =solution
 ```{r}
 # solution code
+# Define preturns2008
+preturns2008 <- window(preturns,startdate = as.Date("2008-01-01"), enddate = as.Date("2008-12-31 ")  )
+# plotting
+par( mfrow = c(2,1) , mar=c(3,2,2,2))
+hist(preturns2008)
+hist(preturns)
+# annualized volatility
+sqrt(12)*sd(preturns2008)
+sqrt(12)*sd(preturns)         
+
 ```
 
 *** =sct
 ```{r}
 # sct code
+success_msg("Well done!")
 ```
 
