@@ -1,6 +1,6 @@
 ---
 title       : The multivariate approach to portfolio analysis 
-description : Optimal financial decision making takes the risks that are worthwile. Portfolio expected returns and variance as a function of the mean vector and covariance matrix.
+description : For optimizing the portfolio investment decisions and understanding the sources of performance and risk, it is crucial to understand the multivariate nature of the return distribution of the risky assets. We assume to have $N$ assets, and thus we have a $Nx1$vector of asset returns, a $Nx1$ vector of expected returns and a $N*N$ covariance matrix. In this chapter, you learn how to estimate these matrices and connect them to the portfolio return distribution. 
 
 --- type:VideoExercise lang:r xp:50 skills:1
 ## Portfolio decisions; risk, return and diversification
