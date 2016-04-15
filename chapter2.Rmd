@@ -214,6 +214,7 @@ preturns <- Return.portfolio( returns )
 *** =sct
 ```{r}
 # sct code
+success_msg("Well done!")
 ```
 
 --- type:VideoExercise lang:r xp:50 skills:1
