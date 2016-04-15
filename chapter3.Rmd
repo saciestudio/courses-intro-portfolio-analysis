@@ -39,6 +39,7 @@ hint comes here
 *** =sct
 ```{r}
 # sct code
+success_msg("Well done!")
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1
@@ -71,6 +72,7 @@ hint comes here
 *** =sct
 ```{r}
 # sct code
+success_msg("Well done!")
 ```
 
 --- type:VideoExercise lang:r xp:50 skills:1
@@ -110,6 +112,7 @@ hint comes here
 *** =sct
 ```{r}
 # sct code
+success_msg("Well done!")
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1
@@ -142,6 +145,7 @@ hint comes here
 *** =sct
 ```{r}
 # sct code
+success_msg("Well done!")
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1
@@ -174,5 +178,6 @@ hint comes here
 *** =sct
 ```{r}
 # sct code
+success_msg("Well done!")
 ```
 
