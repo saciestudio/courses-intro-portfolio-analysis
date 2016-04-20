@@ -3,20 +3,124 @@ title       : The building blocks
 description : Asset returns and portfolio weights; those are the building blocks of a portfolio return. In this chapter, you will first learn about computing portfolio weights in R. Next we will see how to combine portfolio weights and asset returns into the calculation of portfolio returns. The exercises involve both simple two-asset cases and a real-life portfolio invested in the 30 Dow Jones Industrial Average stocks. The final exercises consist in linking portfolio returns to the nominal portfolio value and doing a multi-period analysis.   
 
 --- type:VideoExercise lang:r xp:50 skills:1
-## The power of portfolio diversification
+## Welcome to the course
 
 *** =video_link
 //player.vimeo.com/video/108225030
 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
+## Risk and return
+
+Which of the following statements is wrong:
+
+*** =instructions
+- Because most investors do not like risk, risky stocks sell on average at lower market prices
+- Investment risk is static: it does not change over time
+- If all assets have the same expected return and risk, an investor is better off by investing in a portfolio with many assets than a portfolio invested in just a few assets
+
+*** =hint
+
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sct
+```{r}
+test_mc(2) # if 2 is the correct option.
+```
+
+--- type:NormalExercise lang:r xp:100 skills:1
+## Get a feel for the data
+
+The choice of investment matters, even when the underlying risky asset are similar. To illustrate this, let's download the daily adjusted close price history for the Coca-Cola company and Pepsi Cola and compare in a time series plot the value evolution of one dollar invested in each of them. We see that over the period 2004-2016 an investment in PepsiCola nearly trippled the initial investment value while a one dollar investment in the Coca-Cola Company's share has an end value of 2.38.
+
+Modify the R script in order to compare, over the period starting on New Year's day of 2010 and ending on today's date, the value evolution of a one dollar investment in Apple (ticker `AAPL`) and IBM (ticker `IBM`)). 
+
+*** =instructions
+- Understand the steps in the given R code.
+- Replace the ticker names and interpret the results. 
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+options(warn=-1)
+library(tseries)# Its function get.hist.quote allows to download prices from Yahoo!Finance
+library(xts) # Its function plot.zoo make simple, but attractive, time series plots
+# download adjusted close prices (that is corrected for dividend payments and stock splits)
+# dates have the format "YYYY-MM-DD"
+KO <- get.hist.quote(instrument="KO",start=as.Date("2003-12-31"),end=as.Date("2015-12-31"),quote="AdjClose",quiet=T)
+PEP <- get.hist.quote(instrument="PEP",start=as.Date("2003-12-31"),end=as.Date("2015-12-31"),quote="AdjClose",quiet=T)
+# 
+KO <- KO/as.numeric(KO[1])
+PEP <- PEP/as.numeric(PEP[1])
+#
+plot.zoo(KO, ylim=c( min(c(min(KO),min(PEP))) ,  max(c(max(KO),max(PEP))) ) , ylab="")
+lines(PEP,col="red",)
+legend("topleft", legend=c("Coca-Cola","PepsiCo") , col=c("black","red") , lwd = 1 )
+```
+
+*** =sample_code
+```{r}
+library(tseries)# Its function get.hist.quote allows to download prices from Yahoo!Finance
+library(xts) # Its function plot.zoo make simple, but attractive, time series plots
+# download adjusted close prices (that is corrected for dividend payments and stock splits)
+# dates have the format "YYYY-MM-DD"
+AAPL <- get.hist.quote(instrument="KO",start=as.Date("2003-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T)
+MSFT <-  
+# 
+AAPL <- AAPL/as.numeric(AAPL[1])
+PEP <- PEP/as.numeric(PEP[1])
+#
+plot.zoo(  , ylim=c( min(c(min(AAPL),min(MSFT))) ,  max(c(max(AAPL),max(MSFT))) ) , ylab="")
+lines(MSFT,col="red", )
+legend("topleft", legend=c("Apple","Microsoft") , col=c("black","red") , lwd = 1 )
+```
+
+*** =solution
+```{r}
+library(tseries)# Its function get.hist.quote allows to download prices from Yahoo!Finance
+library(xts) # Its function plot.zoo make simple, but attractive, time series plots
+# download adjusted close prices (that is corrected for dividend payments and stock splits)
+# dates have the format "YYYY-MM-DD"
+AAPL <- get.hist.quote(instrument="AAPL",start=as.Date("2010-01-01"),end=Sys.Date(),quote="AdjClose",quiet=T)
+MSFT <- get.hist.quote(instrument="MSFT",start=as.Date("2010-01-01"),end=Sys.Date(),quote="AdjClose",quiet=T)
+# 
+AAPL <- AAPL/as.numeric(AAPL[1])
+MSFT <- MSFT/as.numeric(MSFT[1])
+#
+plot.zoo(AAPL, ylim=c( min(c(min(AAPL),min(MSFT))) ,  max(c(max(AAPL),max(MSFT))) ) , ylab="")
+lines(MSFT,col="red",)
+legend("topleft", legend=c("Apple","Microsoft") , col=c("black","red") , lwd = 1 )
+```
+
+*** =sct
+```{r}
+# sct code
+success_msg("Well done!")
+```
+
+
+
+--- type:VideoExercise lang:r xp:50 skills:1
+## The investment decision in a portfolio context
+
+*** =video_link
+//player.vimeo.com/video/108225030
+
+
 --- type:NormalExercise lang:r xp:100 skills:1
 ## Calculating portfolio weights when component values are given
 
-An investor has  4000 USD invested in equities, 4000 USD in bonds and 2000 USD in commodities. In order to compute the corresponding portfolio weights, define the vector `values` as the vector holding these three values. Then define the vector `weights` as the vector `values` divided by the total value (obtained by summing over the component values using the function `sum`).
+An investor has  4000 USD invested in equities, 4000 USD in bonds and 2000 USD in commodities. Compute the weights as the proportion invested in each of those three assets. In order to compute the corresponding portfolio weights, define the vector `values` as the vector holding these three values. Then define the vector `weights` as the vector `values` divided by the total value (obtained by summing over the component values using the function `sum`).
 
 *** =instructions
-- Define the vector `values`.
-- Define the vector `weights`.
-- Print the vector `weights`.
+- Define the vector `values` as the vector holding these three values.
+- Print the vector `weights` as the vector `values` divided by the total value (obtained by summing over the component values using the function `sum`).
 
 *** =hint
 hint comes here
@@ -33,13 +137,13 @@ values <-
 # Define the vector weights
 weights <- 
 # Print the resulting weights
-print(weights)
+
 ```
 
 *** =solution
 ```{r}
 # Define the vector values
-values <- c(4000,2000,2000)
+values <- c(4000,4000,2000)
 # Define the vector weights
 weights <- values/sum(values)
 # Print the resulting weights
@@ -82,15 +186,13 @@ In a market capitalization weighted portfolio, the weight is given by the asset'
 
 As an exercise, inspect the distribution of market capitalization based weights when the portfolio is invested in 10 stocks and the market capitalizations are 5, 8, 9, 20, 25, 100, 100, 500, 700 and 2000 million USD. 
 
-ofdefine the vector `marketcaps` as the sequence from 1 to 500 and compute the corresponding market capitalization based portfolio weights. Inspect the distribution of the portfolio weights using the function `summary()`.
-
 *** =instructions
 - Define the vector `marketcaps` holding the market capitalization
 - Define `weights`
 - Print `summary(weights)` and make a histogram
 
 *** =hint
-A histogram in R can be made usin the function `hist`.
+A histogram in R can be made using the function [hist()](http://www.rdocumentation.org/packages/graphics/functions/hist).
 
 *** =pre_exercise_code
 ```{r}

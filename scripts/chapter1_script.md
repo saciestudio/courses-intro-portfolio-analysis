@@ -1,4 +1,4 @@
-# Video 1: The power of portfolio diversification
+# Video 1: Welcome to the course
 
 
 Welcome! Welcome to this course on portfolio analysis in R. My name is Kris Boudt. I am a Professor of finance at the free university of Brussel and Amsterdam. Besides my teaching and research, I also advise investment companies about best practices in portfolio management. 
@@ -6,53 +6,75 @@ Welcome! Welcome to this course on portfolio analysis in R. My name is Kris Boud
 My princicpal advice is to take investment decisions seriously and be aware of the risks involved in investing. Whenever you buy a stock or bond at some price, this price will change in the future. If it increases, you make a profit. If it decreases, you make a loss. 
 
 ***
+***
 There are some simple tricks to reduce the risk of making large losses. 
 
 The first one is to seek for portfolio risk diversification. This means that one should avoid investing in one single asset, because by choosing intelligent combinations of investments, it becomes possible to increase return and reduce the risk. 
 
 ***
 
-***
-
-
-To kick off this course, I want to first convince you with a data example of the power of diversification. 
-
-Indeed, whenever you buy a stock or bond at some price, this price will change in the future. If it increases, you make a profit. If it decreases, you make a loss. The value of the price change is uncertain, and, importantly, it depends on the asset. By optimizing the investments and by monitoring the returns, it becomes possible to reduce the uncertainty about future returns and increase the expected payoff. This is the essence of rational investing: you only take the risks that are worthwhile. 
+Another golden  rule in investing is to always test the portfolio strategy on historical data. And, once you are trading the strategy, to constantly monitor its performance. For this reason Datacamp is one of the best ways to learn portfolio analysis: I will teach you the theory in short videos and provide you the R instructions to do the portfolio analysis in practice. 
 
 ***
 
-To avoid excessive risks it is important not to concentrate all the investments in one single asset, but to spread your investment over a portfolio of multiple assets. This is called portfolio diversification. It aims at reducing the risk of making severe losses by investing in different assets.  
+The course proceeds in four chapters. 
+
+In Chapter 1 I will show you how to compute portfolio returns in R. 
+
+Chapter 2 is about your skills to evaluate the portfolio performance. 
+
+Chapters 3 and 4 are about optimizing the portfolio decision. This requires a multivariate view. Chapter 3 shows how the portfolio variance is a function of the assets individual volatility and all the correlations between the returns of the different assets. Chapter 4 then provides the tools to optimize portfolio decisions and choose portfolios that are efficient. It is not possible to have a higher return with less risk, or a lower risk with higher return. 
+
+***
+
+All together, these four chapters learn you to analyse portfolio return in R, which is a crucial skill to make investment profits without taking excessive risks. 
+
+ 
+# Video 2: The investment decision in a portfolio context
+
+
+The previous exercise has shown how different the performance can be across stocks. This is true for all types of investments, whether it is a stock, a real estate property or a bond, its future value is uncertain. This does not mean that the uncertainty should be ignored! Instead of randomly choosing investments, like a monkey trader would do (show cartoon), a responsible portfolio manager does the efforts of data analysis. By analyzing past returns, it becomes possible to characterize the uncertainty in terms of future gains and losses. This step of estimating the investment risk and return is essential for rational investing: you only take the risks that are worthwhile. (slide should show quote from Robert Engle's Nobel prize)  
+
+***
+
+A key factor in avoiding unnecessary risks is to exploit the gains of portfolio diversification. This means that one should avoid investing in one single asset, because by choosing intelligent combinations of investments, it becomes possible to increase at the same time expected return and reduce the risk, compare to buy-and-hold investments in a single asset.  
+
 
 Let's now visualize these gains of diversification with a numeric example.  
 
 
 ***
 
-Here you see the value evolution of a stock price index, a real estate index and a commodities index. They all show variability due to the risky nature of the asset returns and the performance is very different. If we had perfect foresight, the best investment would be to invest all your money in ... . In reality, future prices are uncertain. 
+Here you see the value evolution of the four stocks considered already (KO, PEP, MSFT en AAPL). They all show variability due to the risky nature of the asset returns and the performance is very different. If we had perfect foresight, the best investment would be to invest all your money in ... . In reality, future prices are uncertain. 
 
 (Slides should show the price evolution of a winning, losing and at par position.)
 
 ***
 
-In order to mitigate the individual risks of each of the assets, it may be wiser to invest in all three assets at the same time. It we invest the same amount in each of them (e.g. 1000 UUSD), then we have an equally weighted portfolio with weights one third. 
+In order to mitigate the individual risks of each of the assets, it may be wiser to invest in all three assets at the same time. It we invest the same amount in each of them (e.g. 1000 UUSD), then we have an equally weighted portfolio with weights one fourth. 
 
-(Slide should show the formula: W_i = 1000/(1000+1000+1000) = 1/3)
-
-***
-
-The resulting price evolution for the equally weighted portfolio is shown with a purple line. Note that the line is more smooth and the performance is the average of the two extremes. This shows the limits and the gains of diversification. In order to avoid extreme losses, it is definitely not a good idea to put all your eggs in the same basket. At the same time, you may lose upside potential by spreading too much the portfolio weights. The key questions are thus: (i) Which investments to choose and (ii) How to monitor the portfolio performance to make sure it does what you expect it to do. In this course you will learns the tools to answer these challenging questions in R. 
+(Slide should show the formula: W_i = 1000/(1000+1000+1000+1000) = 1/4)
 
 ***
 
-In this chapter, we'll break the portfolio value calculation down into a three step process: First, computing portfolio weights. Second, computing portfolio returns. Third, compounding portfolio returns to obtain the portfolio value evolution.  
+The resulting price evolution for the equally weighted portfolio is shown with a purple line. Note that the line is more smooth and the performance is the average of the two extremes. 
 
 ***
 
-The proof is in the pudding. Let's start off with the definition of portfolio weights. Either we observe portfolio weights directly as the percentage value invested. Or we decide on portfolio weights. In this chapter, we will focus on the choice of equally weighting the assets in the portfolio. This means that if we have e.g. 10 assets, each asset receives a weight of 10%. When investing in stocks, another popular choice of weighting is to set the weights as a function of the total market value of the firm’s equity. This is called market capitalization weighting and sets the weight equal to the market capitalization of the firm, divided by the total market capitalization of all the assets in the portfolio. 
+An alternative approach to portfolio weighting is to mimick the economy's endowment and set the personal portfolio weights equal to the relative value of the asset with respect to the total value of all traded assets in the economy. This leads to the approach of setting weights proportional to the asset's market capitalization, measured by the number of shares outstanding multiplied by their price. In our example, this could lead to the line ... 
+
+*** 
+
+Our final plot shows the limits and the gains of diversification. In order to avoid extreme losses, it is definitely not a good idea to put all your eggs in the same basket. At the same time, you may lose upside potential by spreading too much the portfolio weights. The key questions are thus: (i) Which investments to choose and (ii) How to monitor the portfolio performance to make sure it does what you expect it to do. 
 
 ***
 
-# Video 2: One-period portfolio returns are the weighted average of the individual returns
+The answer to these question start by understand portfolio performance figures. In this chapter, we'll break the portfolio value calculation down into a three step process: First, computing portfolio weights. Second, computing portfolio returns. Third, compounding portfolio returns to obtain the portfolio value evolution.  
+
+
+***
+
+# Video 3: One-period portfolio returns are the weighted average of the individual returns
 
 Welcome to the second video of this chapter. This video will be about quantifying the relative changes in the value of your portfolios. We will use simple returns as the measure of the relative price changes and show that portfolio returns can be easily computed as the weighted average of the individual returns.  
 ***
@@ -73,9 +95,9 @@ To put the theory in practice, there are now three exercises on computing portfo
 
 ***
 
-# Video 3: A realistic portfolio case: Investing in the 30 DJIA stocks over 25 years with monthly rebalancing
+# Video 4: A realistic portfolio case: Investing in the 30 DJIA stocks over 25 years with monthly rebalancing
 
-Let's now look at a realistic portfolio invested in the 30 Dow Jones Industrial Average stocks and track the portfolio performance over a period . Their symbols are summarized on this slide. 
+Let's now look at a realistic portfolio invested in the 30 Dow Jones Industrial Average stocks and track the portfolio performance over a period. Their symbols are summarized on this slide. 
 
 ***
 
