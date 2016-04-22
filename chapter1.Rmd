@@ -32,15 +32,19 @@ test_mc(2) # if 2 is the correct option.
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1
-## Get a feel for the data
+## Get a feel for the data (i)
 
-The choice of investment matters, even when the underlying risky asset are similar. To illustrate this, let's download the daily adjusted close price history for the Coca-Cola company and Pepsi Cola and compare in a time series plot the value evolution of one dollar invested in each of them. We see that over the period 2004-2016 an investment in PepsiCola nearly trippled the initial investment value while a one dollar investment in the Coca-Cola Company's share has an end value of 2.38.
+The choice of investment matters, even when the underlying risky assets are similar. As a first example, let us consider the stock price of the Coca Cola Company and the PepsiCo company from Januari 2003 till today. 
 
-Modify the R script in order to compare, over the period starting on New Year's day of 2010 and ending on today's date, the value evolution of a one dollar investment in Apple (ticker `AAPL`) and IBM (ticker `IBM`)). 
+The time series plot shows you the value evolution of one dollar invested in each of them. 
 
 *** =instructions
-- Understand the steps in the given R code.
-- Replace the ticker names and interpret the results. 
+- The price series are available in the R environment as the variables `KO` and `IBM` 
+- Define `KOvsIBM` as the ratio between `KO` and `IBM`
+- Use `plot.zoo` to visualize the daily variation in this ratio 
+- Note that, when the value of the ratio increases, `KO` outperforms `IBM` and vice versa
+- Note also that, When the value of the ratio is larger than one, the cumulative performance of `KO` since Jan 2003 is higher than that of `IBM`. Thereofre, as a reference line, use `abline` to include a horizontal line at `h=1`.
+
 
 *** =hint
 hint comes here
@@ -53,49 +57,30 @@ library(tseries)# Its function get.hist.quote allows to download prices from Yah
 library(xts) # Its function plot.zoo make simple, but attractive, time series plots
 # download adjusted close prices (that is corrected for dividend payments and stock splits)
 # dates have the format "YYYY-MM-DD"
-KO <- get.hist.quote(instrument="KO",start=as.Date("2003-12-31"),end=as.Date("2015-12-31"),quote="AdjClose",quiet=T)
-PEP <- get.hist.quote(instrument="PEP",start=as.Date("2003-12-31"),end=as.Date("2015-12-31"),quote="AdjClose",quiet=T)
+KO <- get.hist.quote(instrument="KO",start=as.Date("2003-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T)
+PEP <- get.hist.quote(instrument="PEP",start=as.Date("2003-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T)
+
 # 
 KO <- KO/as.numeric(KO[1])
 PEP <- PEP/as.numeric(PEP[1])
+
 #
 plot.zoo(KO, ylim=c( min(c(min(KO),min(PEP))) ,  max(c(max(KO),max(PEP))) ) , ylab="")
-lines(PEP,col="red",)
+lines(PEP,col="red")
 legend("topleft", legend=c("Coca-Cola","PepsiCo") , col=c("black","red") , lwd = 1 )
 ```
 
 *** =sample_code
 ```{r}
-library(tseries)# Its function get.hist.quote allows to download prices from Yahoo!Finance
-library(xts) # Its function plot.zoo make simple, but attractive, time series plots
-# download adjusted close prices (that is corrected for dividend payments and stock splits)
-# dates have the format "YYYY-MM-DD"
-AAPL <- get.hist.quote(instrument="KO",start=as.Date("2003-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T)
-MSFT <-  
-# 
-AAPL <- AAPL/as.numeric(AAPL[1])
-PEP <- PEP/as.numeric(PEP[1])
-#
-plot.zoo(  , ylim=c( min(c(min(AAPL),min(MSFT))) ,  max(c(max(AAPL),max(MSFT))) ) , ylab="")
-lines(MSFT,col="red", )
-legend("topleft", legend=c("Apple","Microsoft") , col=c("black","red") , lwd = 1 )
+KOvsIBM <- 
+  
 ```
 
 *** =solution
 ```{r}
-library(tseries)# Its function get.hist.quote allows to download prices from Yahoo!Finance
-library(xts) # Its function plot.zoo make simple, but attractive, time series plots
-# download adjusted close prices (that is corrected for dividend payments and stock splits)
-# dates have the format "YYYY-MM-DD"
-AAPL <- get.hist.quote(instrument="AAPL",start=as.Date("2010-01-01"),end=Sys.Date(),quote="AdjClose",quiet=T)
-MSFT <- get.hist.quote(instrument="MSFT",start=as.Date("2010-01-01"),end=Sys.Date(),quote="AdjClose",quiet=T)
-# 
-AAPL <- AAPL/as.numeric(AAPL[1])
-MSFT <- MSFT/as.numeric(MSFT[1])
-#
-plot.zoo(AAPL, ylim=c( min(c(min(AAPL),min(MSFT))) ,  max(c(max(AAPL),max(MSFT))) ) , ylab="")
-lines(MSFT,col="red",)
-legend("topleft", legend=c("Apple","Microsoft") , col=c("black","red") , lwd = 1 )
+KOvsIBM <- KO/IBM
+plot.zoo(KOvsIBM)
+abline(h=1)
 ```
 
 *** =sct
@@ -104,6 +89,60 @@ legend("topleft", legend=c("Apple","Microsoft") , col=c("black","red") , lwd = 1
 success_msg("Well done!")
 ```
 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
+## Risk and return
+
+A buy and hold investment versus daily rebalancing
+
+The choice of investment matters, even when the underlying risky assets are similar. As a second example, let us now consider the stock price of Apple and Microsoft from Januari 2006 till today. 
+
+The time series plot shows you the value evolution of one dollar invested in each of them. In addition, it shows the value evolution for an investor who invested, in January 2003, 50 cents in Apple and 50 cents in Microsoft. Since the investor does not change the portfolio allocation, we call this a buy and hold allocation. At the other extreme, one could consider the objective of investing, at the close of each day, half of the investor's wealth in the shares of Microsoft and half in the shares of Apple. We say that this portfolio is daily rebalanced.  
+
+Which of the following statements is wrong
+
+*** =instructions
+- By investing in a portfolio of risky assets, the portfolio payoff will be in between the minimum and maximum of the payoff of the underlying risky assets.
+- By investing in a portfolio of risky assets, the risk of the portfolio payoff will be less than the maximum risk of the underlying risky assets.
+- An investor needs to have a lot of capital to be able to invest in a portfolio of many assets. 
+- Because the prices of Microsoft and Apple have evolved differently, the investor who spent initially half of his wealth on Microsoft and Apple ends up with a portfolio that is no longer equally invested. 
+
+*** =hint
+
+
+*** =pre_exercise_code
+```{r}
+# pec
+options(warn=-1)
+library(tseries)# Its function get.hist.quote allows to download prices from Yahoo!Finance
+library(xts) # Its function plot.zoo make simple, but attractive, time series plots
+library(PerformanceAnalytics)
+# download adjusted close prices (that is corrected for dividend payments and stock splits)
+# dates have the format "YYYY-MM-DD"
+AAPL <- get.hist.quote(instrument="AAPL",start=as.Date("2005-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T)
+MSFT <- get.hist.quote(instrument="MSFT",start=as.Date("2005-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T)
+# 
+AAPL <- AAPL/as.numeric(AAPL[1])
+MSFT <- MSFT/as.numeric(MSFT[1])
+mixed <- 0.5*AAPL + 0.5*MSFT
+
+a <- Return.calculate(AAPL, method="simple")
+b <- Return.calculate(MSFT, method="simple")
+ab <- 0.5*(a+b)
+ab[1] <- 0
+ew <- cumprod(1+ab)
+time(ew) <- time(AAPL)
+#
+plot.zoo(AAPL, ylim=c( min(c(min(AAPL),min(MSFT),min(ew),min(ab))) ,  max(c(max(AAPL),max(MSFT),max(ew),max(ab))) ) , ylab="", xlab="")
+lines(MSFT,col="red")
+lines(mixed,col="blue")
+lines(ew,col="purple")
+legend("topleft", legend=c("Apple","Microsoft","50-50 buy and hold","50-50 rebalanced") , col=c("black","red","blue","purple") , lwd = 1 )
+```
+
+*** =sct
+```{r}
+test_mc(3) # if 2 is the correct option.
+```
 
 
 --- type:VideoExercise lang:r xp:50 skills:1
