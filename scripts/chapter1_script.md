@@ -6,7 +6,6 @@ Welcome! Welcome to this course on portfolio analysis in R. My name is Kris Boud
 My princicpal advice is to take investment decisions seriously and be aware of the risks involved in investing. Whenever you buy a stock or bond at some price, this price will change in the future. If it increases, you make a profit. If it decreases, you make a loss. 
 
 ***
-***
 There are some simple tricks to reduce the risk of making large losses. 
 
 The first one is to seek for portfolio risk diversification. This means that one should avoid investing in one single asset, because by choosing intelligent combinations of investments, it becomes possible to increase return and reduce the risk. 
@@ -51,7 +50,7 @@ Here you see the value evolution of the four stocks considered already (KO, PEP,
 
 ***
 
-In order to mitigate the individual risks of each of the assets, it may be wiser to invest in all three assets at the same time. It we invest the same amount in each of them (e.g. 1000 UUSD), then we have an equally weighted portfolio with weights one fourth. 
+In order to mitigate the individual risks of each of the assets, it may be wiser to invest in all four assets at the same time. It we invest the same amount in each of them (e.g. 1000 UUSD), then we have an equally weighted portfolio with weights one fourth. 
 
 (Slide should show the formula: W_i = 1000/(1000+1000+1000+1000) = 1/4)
 
@@ -76,7 +75,8 @@ The answer to these question start by understand portfolio performance figures. 
 
 # Video 3: One-period portfolio returns are the weighted average of the individual returns
 
-Welcome to the second video of this chapter. This video will be about quantifying the relative changes in the value of your portfolios. We will use simple returns as the measure of the relative price changes and show that portfolio returns can be easily computed as the weighted average of the individual returns.  
+You win some, you lose some, but on average a succesful investor wins more than she loses. To achieve this, it is important to quantify your gains and losses. This video will be about quantifying the relative changes in the value of your portfolios. We will use simple returns as the measure of the relative price changes and show that portfolio returns can be easily computed as the weighted average of the individual returns.
+
 ***
 In order to compute portfolio returns, we thus first need the returns on the single assets in the portfolio. Those returns are defined as the percentage price change. The slide shows the formula, when the initial price is P at time t, the next price is P at time t+1. Then the return over the period t to t+1, is the difference between P at time t+1 and P at time t, divided by the price at time t.  As an example, suppose the price increases from 100 USD to 110 USD, then the simple return equals 10%.  
 ***

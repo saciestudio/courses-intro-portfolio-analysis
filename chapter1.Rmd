@@ -155,11 +155,11 @@ test_mc(3) # if 2 is the correct option.
 --- type:NormalExercise lang:r xp:100 skills:1
 ## Calculating portfolio weights when component values are given
 
-An investor has  4000 USD invested in equities, 4000 USD in bonds and 2000 USD in commodities. Compute the weights as the proportion invested in each of those three assets. In order to compute the corresponding portfolio weights, define the vector `values` as the vector holding these three values. Then define the vector `weights` as the vector `values` divided by the total value (obtained by summing over the component values using the function `sum`).
+An investor has  4000 USD invested in equities, 4000 USD in bonds and 2000 USD in commodities. Compute the weights as the proportion invested in each of those three assets. 
 
 *** =instructions
 - Define the vector `values` as the vector holding these three values.
-- Print the vector `weights` as the vector `values` divided by the total value (obtained by summing over the component values using the function `sum`).
+- Print the vector `weights` as the vector `values` divided by the total value (obtained by summing over the component values using the function `sum`.
 
 *** =hint
 hint comes here
@@ -241,11 +241,11 @@ A histogram in R can be made using the function [hist()](http://www.rdocumentati
 *** =sample_code
 ```{r}
 # Define marketcaps
-marketcaps <- c(5, 8, 9, 20, 25, 100, 100, 500, 700, 2000)
+marketcaps <-  
 # Compute the weights
 weights <-
 # Inspect summary statistics
-summary(weights)
+ 
 ```
 
 *** =solution
@@ -254,8 +254,9 @@ summary(weights)
 marketcaps <- c(5, 8, 9, 20, 25, 100, 100, 500, 700, 2000)
 # Compute the weights
 weights <- marketcaps/sum(marketcaps)
-# Inspect summary statistics
+# Inspect summary statistics 
 summary(weights)
+hist(weights)
 ```
 
 *** =sct
@@ -275,13 +276,15 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1
 ## Calculation of portfolio returns
 
-As first exercise, we verify that the portfolio return can be computed as the weighted average of the component returns. We do this for the simple case of three assets and assume the porfolio weights to be value-weighted. 
+As first exercise, we verify that the portfolio return can be computed as the weighted average of the component returns. We do this for the simple case of three assets. 
 
-Assume further that the initial vector of component values is given by `in.values <- c(1000,5000,2000)`. We further suppose that the value changes to `fin.values <- c(1100,4500,3000)`. Define the value weighted portfolio weights as `weights.vw <- in.values/sum(in.values)` compute the component returns using the formula of simple returns. Verify that the weighted average portfolio return ( `sum(in.weights*returns)`  ) equals the percentage change in the total portfolio value ( `sum(fin.values)-sum(in.values))/sum(in.values)` ).
 
 *** =instructions
+- Assume an investment in three assets, for which the initial values are given by `in.values <- c(1000,5000,2000)`.
+- Suppose further that the value changes to 1100, 4500 and 3000, respectively. 
 - Use the simple return definition to compute the vector of returns on the three component assets
 - Use the portfolio return formula to compute the (simple) portfolio return
+- Verify that the weighted average portfolio return  equals the percentage change in the total portfolio value.
 
 *** =hint
 hint comes here
@@ -294,12 +297,10 @@ hint comes here
 *** =sample_code
 ```{r}
 # Initial and final values of the assets
-in.values <- c(1000,5000,2000)
-fin.values <- c(1100,4500,3000)
+in.values <-  
+fin.values <-  
 # Compute simple returns 
-returns <- (fin.values-in.values)/in.values
-# Compute value weighed portolio weights
-weights.vw <- in.values/sum(in.values)
+returns <-  
 # Compute portfolio return using the portfolio return formula
 preturns.vw <- 
 # Verify that it matches with the percentage change in the portfolio value
@@ -312,9 +313,7 @@ preturns.vw <-
 in.values <- c(1000,5000,2000)
 fin.values <- c(1100,4500,3000)
 # Compute simple returns 
-returns <- 
-# Compute value weighed portolio weights
-weights.vw <- in.values/sum(in.values)
+returns <- (fin.values-in.values)/in.values
 # Compute portfolio return using the portfolio return formula
 preturns.vw <- sum(weights.vw*returns)
 # Verify that it matches with the percentage change in the portfolio value
