@@ -32,7 +32,7 @@ test_mc(2) # if 2 is the correct option.
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1
-## Get a feel for the data (i)
+## Get a feel for the data
 
 The choice of investment matters, even when the underlying risky assets are similar. As a first example, let us consider the stock price of the Coca Cola Company and the PepsiCo company from Januari 2003 till today. 
 
@@ -90,13 +90,13 @@ success_msg("Well done!")
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1
-## Risk and return
+## A first portfolio
 
 A buy and hold investment versus daily rebalancing
 
-The choice of investment matters, even when the underlying risky assets are similar. As a second example, let us now consider the stock price of Apple and Microsoft from Januari 2006 till today. 
+The choice of investment matters, even when the underlying risky assets are similar. As a second example, let us now consider the stock price of Apple and Microsoft from Januari 2006 till today. The time series plot shows you the value evolution of one dollar invested in each of them. 
 
-The time series plot shows you the value evolution of one dollar invested in each of them. In addition, it shows the value evolution for an investor who invested, in January 2003, 50 cents in Apple and 50 cents in Microsoft. Since the investor does not change the portfolio allocation, we call this a buy and hold allocation. At the other extreme, one could consider the objective of investing, at the close of each day, half of the investor's wealth in the shares of Microsoft and half in the shares of Apple. We say that this portfolio is daily rebalanced.  
+It is time to consider our first portfolio. The portfolio approach that we consider is to invest in January 2003, half of the investment budget in Apple and the other half in Microsoft. Since the portfolio weights will change, the investor has two choices. The first one is to be passive and not buy or trade anymore. This is called the a buy and hold investment strategy. Another possibility is to buy and trade at the close of each day in such a way that every day the portfolio is equally invested in the shares of Microsoft and the shares of Apple. We say that this portfolio is daily rebalanced.  
 
 Which of the following statements is wrong
 
@@ -198,7 +198,7 @@ success_msg("Well done!")
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1
 ## Defining the weights of an equally weighted portfolio
 
-The equally weighted portfolio is one of the most used portfolios. Suppose the portfolio is equally invested in $N$ assets. Let `N <- 100`. Which of the following commands does not define properly the weights for the equally-weighted portfolio.  
+The equally weighted portfolio is one of the most used portfolios. Suppose the portfolio is equally invested in $N$ assets. Let `N <- 100`. By testing this in the R console, find out which of the following commands does not define properly the weights for the equally-weighted portfolio.  
 
 *** =instructions
 - `weights <- rep(1,N)/N`
