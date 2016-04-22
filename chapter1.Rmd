@@ -39,11 +39,11 @@ The choice of investment matters, even when the underlying risky assets are simi
 The time series plot shows you the value evolution of one dollar invested in each of them. 
 
 *** =instructions
-- The price series are available in the R environment as the variables `KO` and `IBM` 
-- Define `KOvsIBM` as the ratio between `KO` and `IBM`
+- The price series are available in the R environment as the variables `KO` and `PEP` 
+- Define `KOvsPEP` as the ratio between `KO` and `PEP`
 - Use `plot.zoo` to visualize the daily variation in this ratio 
-- Note that, when the value of the ratio increases, `KO` outperforms `IBM` and vice versa
-- Note also that, When the value of the ratio is larger than one, the cumulative performance of `KO` since Jan 2003 is higher than that of `IBM`. Thereofre, as a reference line, use `abline` to include a horizontal line at `h=1`.
+- Note that, when the value of the ratio increases, `KO` outperforms `PEP` and vice versa
+- Note also that, When the value of the ratio is larger than one, the cumulative performance of `KO` since Jan 2003 is higher than that of `PEP`. Thereofre, as a reference line, use `abline` to include a horizontal line at `h=1`.
 
 
 *** =hint
@@ -72,14 +72,14 @@ legend("topleft", legend=c("Coca-Cola","PepsiCo") , col=c("black","red") , lwd =
 
 *** =sample_code
 ```{r}
-KOvsIBM <- 
+KOvsPEP <- 
   
 ```
 
 *** =solution
 ```{r}
-KOvsIBM <- KO/IBM
-plot.zoo(KOvsIBM)
+KOvsPEP <- KO/PEP
+plot.zoo(KOvsPEP)
 abline(h=1)
 ```
 
