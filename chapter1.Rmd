@@ -302,6 +302,7 @@ fin.values <-
 # Compute simple returns 
 returns <-  
 # Compute portfolio return using the portfolio return formula
+weights <-
 preturns.vw <- 
 # Verify that it matches with the percentage change in the portfolio value
 ( preturns.vw == (sum(fin.values)-sum(in.values))/sum(in.values) )
@@ -315,6 +316,7 @@ fin.values <- c(1100,4500,3000)
 # Compute simple returns 
 returns <- (fin.values-in.values)/in.values
 # Compute portfolio return using the portfolio return formula
+weights <- (fin.values - in.values)/in.values
 preturns.vw <- sum(weights.vw*returns)
 # Verify that it matches with the percentage change in the portfolio value
 ( preturns.vw == (sum(fin.values)-sum(in.values))/sum(in.values) )
