@@ -1,5 +1,7 @@
 # Video 1: The distribution of portfolio returns
 
+You win some, you lose some, but on average a successful investor wins more than she loses. 
+
 
 Investing implies taking risks. But how much risk? This question can be answered by graphical analysis of the portfolio returns and by computing statistics, such as the portfolio standard deviation or its value-at-risk.
 

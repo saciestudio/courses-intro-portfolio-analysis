@@ -125,8 +125,8 @@ AAPL <- AAPL/as.numeric(AAPL[1])
 MSFT <- MSFT/as.numeric(MSFT[1])
 mixed <- 0.5*AAPL + 0.5*MSFT
 
-a <- Return.calculate(AAPL, method="simple")
-b <- Return.calculate(MSFT, method="simple")
+a <- CalculateReturns(AAPL, method="simple")
+b <- CalculateReturns(MSFT, method="simple")
 ab <- 0.5*(a+b)
 ab[1] <- 0
 ew <- cumprod(1+ab)
@@ -330,7 +330,7 @@ success_msg("Well done!")
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1
 ## Defining the portfolio returns for an equally weighted portfolio
 
-Below you find three commands to compute the portfolio return of an equally weighted portfolio of `N <- 100` assets with return vector `returns`. Which command is wrong? 
+Below you find three commands to compute the portfolio return of an equally weighted portfolio of `N <- 100` assets with return vector `returns`. By testing this in the R console, find out which of the following commands is wrong.
 
 *** =instructions
 - `preturn.ew <- mean( returns )`
@@ -351,13 +351,25 @@ test_mc(1) # if 2 is the correct option.
 ```
 
 
+
+
+
+--- type:VideoExercise lang:r xp:50 skills:1
+## A realistic portfolio case: Investing in the 30 DJIA stocks over 25 years with monthly rebalancing
+
+
+*** =video_link
+//player.vimeo.com/video/108225030
+
 --- type:NormalExercise lang:r xp:100 skills:1
 ## Multiperiod returns
 
-Suppose an investor realizes monthly returns of 2.5%, 3%,-2.1%,0.5%,1%,-0.4%,2%,1%,4%,-5%,3%,2%. How much is the annual return? 
+A $k$-period return can be easily computed from the one-period returns using the formula $\prod_{j=1}^k (1+R_1)(1+R_2)\cdots(1+R_k)-1$.
+
 
 *** =instructions
-- Compute the annual return by compounding the monthly returns
+- Define the vector returns with the following twelve monthly returns:  2.5%, 3%, -2.1%, 0.5%, 1%, -0.4%, 2%, 1%, 4%, -5%, 3% and 2%.
+- Use `cumprod` to compute the total return over those 12 months.
 
 
 *** =hint
@@ -370,12 +382,14 @@ hint comes here
 
 *** =sample_code
 ```{r}
-
+returns <- 
+  
 ```
 
 *** =solution
 ```{r}
-(1+0.025)*(1+0.03)*(1-0.021)*(1+0.005)*(1+0.01)*(1-0.004)*(1+0.02)*(1+0.01)*(1+0.04)*(1-0.05)*(1+0.03)*(1+0.02)-1
+returns <- c(0.025 , 0.03 , -0.021 , 0.005 , 0.01 , -0.004, 0.02 , 0.01, 0.04 , -0.05, 0.03 , 0.02)
+tail( cumprod(1+returns) , 1)-1
 ```
 
 *** =sct
@@ -384,17 +398,9 @@ hint comes here
 success_msg("Well done!")
 ```
 
-
---- type:VideoExercise lang:r xp:50 skills:1
-## A realistic portfolio case: Investing in the 30 DJIA stocks over 25 years with monthly rebalancing
-
-
-*** =video_link
-//player.vimeo.com/video/108225030
-
 --- type:NormalExercise lang:r xp:100 skills:1
 ## The packages xts and PerformanceAnalytics
-Up to now, we have done simple calculations in R. In the future we will need more complex functionality, which is available in the R packages `xts` (for time series analysis in general) and `PerformanceAnalytics` (for portfolio analysis in particular). Load this two packages in your R session.
+Up to now, we have done simple calculations in R. In the future we will need more complex functionality, which is available in the R packages [xts](http://www.rdocumentation.org/packages/xts/functions/xts-package) (for time series analysis in general) and [PerformanceAnalytics](http://www.rdocumentation.org/packages/performanceanalytics/functions/performanceanalytics-package) (for portfolio analysis in particular). Load this two packages in your R session.
 
 
 *** =instructions
@@ -431,13 +437,14 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1
 ## The multivariate time series of prices and returns 
 Let us now inspect the xts file `prices` containing the end-of-month prices for the 30 Dow Jones Industrial Average constitutuents. 
-Make use of the `head(prices,1)` and `tail(prices,1)` functions to print the first and last rows of `prices` and verify that the price data runs from December 1990 to December 2015. Then compute the monthly returns using the R command `Return.calculate(prices, method="simple")`. Print the first 6 rows of returns and verify that the first row consists of NA's. Remove the first row from returns using `returns <- returns[(-1),]`. 
+
 
 
 *** =instructions
-- Print the first and last row of `prices`
-- Define `returns` as the multivariate return series 
-- Remove the first observation in `returns`
+- Make use of the `head(prices,1)` and `tail(prices,1)` functions to print the first and last rows of `prices` and verify that the price data runs from December 1990 to December 2015. 
+- Define `returns` as the multivariate return series using the R command `CalculateReturns(prices, method="simple")`
+- Print the first 6 rows of returns and verify that the first row consists of NA's. 
+- Redefine returns as the returns variable in which the first row has been removed.  
 
 *** =hint
 hint comes here
