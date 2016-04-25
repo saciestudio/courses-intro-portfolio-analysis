@@ -317,7 +317,7 @@ fin.values <- c(1100,4500,3000)
 returns <- (fin.values-in.values)/in.values
 # Compute portfolio return using the portfolio return formula
 weights <- (fin.values - in.values)/in.values
-preturns.vw <- sum(weights.vw*returns)
+preturns.vw <- sum(weights*returns)
 # Verify that it matches with the percentage change in the portfolio value
 ( preturns.vw == (sum(fin.values)-sum(in.values))/sum(in.values) )
 ```
