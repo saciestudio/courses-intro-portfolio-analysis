@@ -366,17 +366,6 @@ The portfolio return is a single number.
 test_mc(1) # if 2 is the correct option.
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
-## The PerformanceAnalytics package
-
-Computing the returns for one data is thus straightforward to do in R. When the returns need to be calculated for different dates, I recommend to use the functions  'CalculateReturns' and `Return.portfolio' in the R package [PerformanceAnalytics](http://www.rdocumentation.org/packages/performanceanalytics/functions/performanceanalytics-package). It requires the input data to be of the [xts](http://www.rdocumentation.org/packages/xts/functions/xts-package)-time series class.
-
-Let us explore this functionality in the case of a portfolio invested in the Apple stock and Microsoft stock, for which the prices are available in the variables `aapl` and `msft` in the R environment.  
-
-
-*** =instructions
-- Load this two packages in your R session.
-
 
 --- type:NormalExercise lang:r xp:100 skills:1
 ## PerformanceAnalytics for computing the time series of portfolio returns
@@ -387,7 +376,7 @@ Let us explore this functionality in the case of a portfolio invested in the App
 
 
 *** =instructions
-- Load in the libraries `xts` and `PerformanceAnalytics`.
+- Load ithe packages `xts` and `PerformanceAnalytics` in your R session.
 - Use the function [merge](http://www.rdocumentation.org/packages/xts/functions/merge) to bind the variables `aapl` and `msft` by row names (here: the dates) and call this `prices`.
 - Print the first and last six row of `prices` using `head` and `tail`.
 - Use the function [CalculateReturns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.calculate) with as only argument `prices` to compute for each date the return as the percentage change in the price compared to the previous date.
