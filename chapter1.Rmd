@@ -333,7 +333,7 @@ weights <-  in_values/sum(in_values)
 # Compute portfolio return using the portfolio return formula
 preturn  <- sum(weights*returns)
 # Verify that it matches with the percentage change in the portfolio value
-all.equal( preturn   , (sum(fin.values)-sum(in.values))/sum(in.values) )
+all.equal( preturn   , (sum(fin_values)-sum(in_values))/sum(in_values) )
 ```
 
 *** =sct
@@ -366,7 +366,33 @@ The portfolio return is a single number.
 test_mc(1) # if 2 is the correct option.
 ```
 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
 
+## From simple to gross returns and the asymmetric impact of gains and losses  
+
+The simple return $R$ expresses the percentage change in value of an investment. The corresponding so-called "gross" return is defined as the future value of $1 invested in the asset for one period, and is thus equal to $1+R$. 
+
+Suppose the investor now has a horizon of two periods and in the first period, she makes a 10% return, but in the second period a loss of 5%. Verify in the R console that the end value of the investment equals $1.045$ (obtained by multipying the end-value of 1.1 after period one with the gross return of 0.95 of the second period).
+
+It is important to be aware of the fact that a positive and negative return of the same magnitude do not compensate each other. Mathematically, this can be seen from the identity $(1+x)*(1-x)=1-x^2$, which is less than one. A 50% loss is thus not compensated by a 50% gain.  After a loss of 50%, what is the return needed to be at par again? Verify your answer in the R console.
+
+*** =instructions
+- 75%
+- 100%
+- 200%
+
+*** =hint
+hint
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sct
+```{r}
+test_mc(2) # if 2 is the correct option.
+```
 --- type:NormalExercise lang:r xp:100 skills:1
 ## PerformanceAnalytics for computing the time series of portfolio returns
 
@@ -376,7 +402,7 @@ Let us explore this functionality in the case of a portfolio invested in the App
 
 
 *** =instructions
-- Load ithe packages `xts` and `PerformanceAnalytics` in your R session.
+- Load   the packages `xts` and `PerformanceAnalytics` in your R session.
 - Use the function [merge](http://www.rdocumentation.org/packages/xts/functions/merge) to bind the variables `aapl` and `msft` by row names (here: the dates) and call this `prices`.
 - Print the first and last six row of `prices` using `head` and `tail`.
 - Use the function [CalculateReturns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.calculate) with as only argument `prices` to compute for each date the return as the percentage change in the price compared to the previous date.
@@ -412,11 +438,11 @@ returns <-
 # remove the first row
 returns <- returns[-1,]
 # define the vector of equally-weighted portfolio weights
-weights <- c(0.5,0.5)
+weights <-  
 # compute portfolio return for each date
-preturns <- Return.portfolio(returns, weights)
+preturns <-  
 # plot the time series of portfolio returns
-plot.zoo(preturns)
+ 
 ```
 
 *** =solution
@@ -508,6 +534,31 @@ Return.cumulative(preturns["2008-09"])
 success_msg("Well done!")
 ```
 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
+
+## Multi-perid returns
+
+The simple return $R$ expresses the percentage change in value of an investment. The corresponding so-called "gross" return is the future value of $1 invested in the asset for one period, and is thus equal to $1+R$. Suppose the investor now has a horizon of two periods and in the first period, she makes a 10% return, but in the second period a loss of 5%. Verify in the R console that the end value of the investment equals $1.045$ (obtained by multipying the end-value of 1.1 after period one with the gross return of 0.95 of the second period).
+
+It is important to be aware of the fact that a positive and negative return of the same magnitude do not compensate each other. Mathematically, this can be seen from the identity $(1+x)*(1-x)=1-x^2$, which is less than one. A 50% loss is thus not compensated by a 50% gain.  After a loss of 50%, what is the return needed to be at par again? Verify your answer in the R console.
+
+*** =instructions
+- 75%
+- 100%
+- 200%
+
+*** =hint
+hint
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sct
+```{r}
+test_mc(2) # if 2 is the correct option.
+```
 --- type:VideoExercise lang:r xp:50 skills:1
 ## Multiperiod returns and a sneak preview to the road ahead
 
