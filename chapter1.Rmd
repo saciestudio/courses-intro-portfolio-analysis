@@ -1,6 +1,6 @@
 ---
 title       : The building blocks 
-description : Asset returns and portfolio weights; those are the building blocks of a portfolio return. In this chapter, you will first learn about computing portfolio weights in R. Next we will see how to combine portfolio weights and asset returns into the calculation of portfolio returns. The exercises involve both simple two-asset cases and a real-life portfolio invested in the 30 Dow Jones Industrial Average stocks. The final exercises consist in linking portfolio returns to the nominal portfolio value and doing a multi-period analysis.   
+description : Asset returns and portfolio weights; those are the building blocks of a portfolio return. This chapter is about computing those portfolio weights and returns in R.  
 
 --- type:VideoExercise lang:r xp:50 skills:1
 ## Welcome to the course
