@@ -44,7 +44,7 @@ of the share price of PepsiCo
 - Use `plot.zoo` to visualize the daily variation in this ratio. 
 - use `abline` to include a horizontal line at `h=1`.
 - Note that, when the value of the ratio increases, `ko` outperforms `pep` and vice versa
-- Note also that, When the value of the ratio is larger than one, the cumulative performance of `KO` since Jan 2003 is higher than that of `PEP`. Thereofre, as a reference line, use `abline` to include a horizontal line at `h=1`.
+- Note also that, When the value of the ratio is larger than one, the total accumulated performance of `ko` since Jan 2003 is higher than that of `pep`. Therefore, as a reference line, use `abline` to include a horizontal line at `h=1`.
 
 
 *** =hint
