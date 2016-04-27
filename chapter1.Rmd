@@ -407,7 +407,7 @@ Let us explore this functionality in the case of a portfolio invested in the App
 - Print the first and last six row of `prices` using `head` and `tail`.
 - Use the function [CalculateReturns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.calculate) with as only argument `prices` to compute for each date the return as the percentage change in the price compared to the previous date.
 - Define `weights` as the vector of equal weights for a portfolio fully invested in two assets. 
-- Use the function [Return.portfolio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio) with as first argument `prices` and second argument `weights` to compute for each date the return of a portfolio for which the weights on each date or set to `weights`.
+- Use the function [Return.portfolio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio) with as first argument `prices`, as second argument `weights` and as third argument , `rebalance_on="days"`  to compute for each date the return of a portfolio for which the weights on each day are set to `weights`.
 - Make a time series plot of the portfolio returns. 
 
 *** =hint
@@ -459,7 +459,7 @@ returns <- returns[-1,]
 # define the vector of equally-weighted portfolio weights
 weights <- c(0.5,0.5)
 # compute portfolio return for each date
-preturns <- Return.portfolio(returns, weights)
+preturns <- Return.portfolio(returns, weights,rebalance_on="days")
 # plot the time series of portfolio returns
 plot.zoo(preturns)
 ```
@@ -468,6 +468,52 @@ plot.zoo(preturns)
 ```{r}
 # sct code
 success_msg("Well done!")
+```
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
+
+## The effect of rebalancing 
+
+Rebalancing means re-setting the weights to the objective weights. The more frequent the rebalancing is, the more transactions the portfolio manager does, and thus the higher the costs. The less frequent the rebalancing is, the more the investor is exposed to style drift: the portfolio is different allocated to the portfolio weights. 
+
+As an illustration, I plot the following absolute differences in portfolio return between a less frequent rebalanced portfolio and the  daily rebalanced portfolio. To which R command corresponds the first plot?
+
+*** =instructions
+- ``plot.zoo( abs( Return.portfolio(returns, weights,rebalance_on="years") - Return.portfolio(returns, weights,rebalance_on="days")))``
+- ``plot.zoo( abs( Return.portfolio(returns, weights) - Return.portfolio(returns, weights,rebalance_on="days")))``
+- ``plot.zoo( abs( Return.portfolio(returns, weights,rebalance_on="months") - Return.portfolio(returns, weights,rebalance_on="days")))`` 
+
+*** =hint
+hint
+
+*** =pre_exercise_code
+```{r}
+# pec
+options(warn=-1)
+library(tseries)
+aapl <- get.hist.quote(instrument="AAPL",start=as.Date("2005-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T)
+msft <- get.hist.quote(instrument="MSFT",start=as.Date("2005-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T)
+library(xts)
+library(PerformanceAnalytics)
+# define prices as the merged time series of aapl and msft
+prices <-  merge(aapl,msft)
+# print the first and last six rows of prices
+returns <-  CalculateReturns(prices)  
+# remove the first row
+returns <- returns[-1,]
+# define the vector of equally-weighted portfolio weights
+weights <- c(0.5,0.5)
+# compute portfolio return for each date
+par(mfrow=c(3,1),mar=c(3,2,2,2),cex.axis=1.3)
+z1 = abs( Return.portfolio(returns, weights) - Return.portfolio(returns, weights,rebalance_on="days"))
+plot.zoo( abs( Return.portfolio(returns, weights,rebalance_on="years") - Return.portfolio(returns, weights,rebalance_on="days")),ylab="",xlab="",ylim=c(0,max(z1)))
+plot.zoo( abs( Return.portfolio(returns, weights) - Return.portfolio(returns, weights,rebalance_on="days")),ylab="",xlab="",ylim=c(0,max(z1)))
+plot.zoo( abs( Return.portfolio(returns, weights,rebalance_on="months") - Return.portfolio(returns, weights,rebalance_on="days")),ylab="",xlab="",ylim=c(0,max(z1))) 
+```
+
+*** =sct
+```{r}
+test_mc(1) # if 2 is the correct option.
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1
@@ -501,7 +547,7 @@ returns <- returns[-1,]
 # define the vector of equally-weighted portfolio weights
 weights <- c(0.5,0.5)
 # compute portfolio return for each date
-preturns <- Return.portfolio(returns, weights)
+preturns <- Return.portfolio(returns, weights,rebalance_on="days")
 ```
 
 *** =sample_code
