@@ -391,6 +391,7 @@ hint comes here
 ```{r}
 # pec
 options(warn=-1)
+library(tseries)
 aapl <- get.hist.quote(instrument="AAPL",start=as.Date("2005-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T)
 msft <- get.hist.quote(instrument="MSFT",start=as.Date("2005-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T)
 ```
@@ -450,7 +451,7 @@ We have now plotted the daily return series. In practice, portfolio managers rar
 
 *** =instructions
 - Print the daily returns in September 2008 using `preturns["2008-09"]`.
-- In order to see how a one dollar investment evolved over that month, print `cumprod(1+preturns["2008-09"])`. Its $k$th observation  corresponds to the chain $1*(1+R_1)*(1+R_2)*\ldots*(1+R_K),$ with $R_i$ the $i$ th return of that month
+- In order to see how a one dollar investment evolved over that month, print `cumprod(1+preturns["2008-09"])`. Its $k$-th observation  corresponds to the chain $$(1+R_1)*(1+R_2)*...*(1+R_K),$$ with $R_i$ the $i$-th return of that month
 - Compute the return over this month as the simple percentage change between the final and initial value of this one-dollar investment.
 - Verify that you obtain the same number as when using the function `Return.cumulative(preturns["2008-09"])]`.
 
@@ -459,6 +460,9 @@ hint comes here
 
 *** =pre_exercise_code
 ```{r}
+library(tseries)
+aapl <- get.hist.quote(instrument="AAPL",start=as.Date("2005-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T)
+msft <- get.hist.quote(instrument="MSFT",start=as.Date("2005-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T)
 # load the packages xts and PerformanceAnalytics 
 library(xts)
 library(PerformanceAnalytics)
