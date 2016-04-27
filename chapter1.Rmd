@@ -451,7 +451,7 @@ We have now plotted the daily return series. In practice, portfolio managers rar
 
 *** =instructions
 - Print the daily returns in September 2008 using `preturns["2008-09"]`.
-- In order to see how a one dollar investment evolved over that month, print `cumprod(1+preturns["2008-09"])`. Its $k$-th observation  corresponds to the chain $$(1+R_1)*(1+R_2)*...*(1+R_K),$$ with $R_i$ the $i$-th return of that month
+- In order to see how a one dollar investment evolved over that month, print `cumprod(1+preturns["2008-09"])`. Its $k$-th observation  corresponds to the chain $(1+R_1)*(1+R_2)*...*(1+R_K),$ with $R_i$ the $i$-th return of that month
 - Compute the return over this month as the simple percentage change between the final and initial value of this one-dollar investment.
 - Verify that you obtain the same number as when using the function `Return.cumulative(preturns["2008-09"])]`.
 
@@ -476,8 +476,6 @@ returns <- returns[-1,]
 weights <- c(0.5,0.5)
 # compute portfolio return for each date
 preturns <- Return.portfolio(returns, weights)
-# plot the time series of portfolio returns
-plot.zoo(preturns)
 ```
 
 *** =sample_code
