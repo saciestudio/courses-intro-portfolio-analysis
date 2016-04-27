@@ -65,27 +65,18 @@ Note that the portfolio weights of assets 1 and 2 40% and 60%, and the individua
 In formula notation, the portfolio return thus equals the weighted average of the individual returns. The corresponding code in R is simple. It just involves a summation of the element in the vector obtained by multiplying the vector of portfolio weights with the vector of returns ( show formula: portfolio return = sum w[i] r[i] = sum( weights*returns ). 
 ***
 
-To put the theory in practice, there are now three exercises on computing portfolio returns.  
+The next exercises put this theory in practice. First, we consider computing the portfolio return for one period, then I will introduce you to the wonderful package PerformanceAnalytics for analyzing  portfolio returns.  
 
-# Video 4: Multiperiod returns and a sneak preview to the road ahead
+# Video 4: Sneak preview of the fin and fun ahead
 
-We have up to now considered toy examples of portfolio analysis: portfolio with less than 10 investments and a single period investment horizon. A well-diversified portfolio is typically invested in at least 20 risky assets and the investment period runs over several years, possibly with intermediate changes in the portfolio allocation. 
+We have up to now considered toy examples of portfolio analysis: portfolio with less than 10 investments and a single period investment horizon. A well-diversified portfolio is typically invested in at least 20 risky assets and the investment period runs over several years, possibly with intermediate changes in the portfolio allocation. We have focussed mostly on performance and not discusses the risks of investments. In this video I will give you a sneak preview on the cool tables and figures that we will make.    
 ***
-In this video I will explain in detail the steps in aggregating returns from single periods to multiperiods. I will then show you a sneak preview on the cool tables and figures that we will make in the next chapter for a realistic portfolio of thirty large US stocks. 
+Yearxmonth
+Table with the performance AND risk measures. 
 ***
-But first, let us investigate how a one-period return can be computed to obtain multi-period returns. The setting is as follows. There is a mismatch between the frequency at which returns are available (e.g. daily, weekly or monthly) and the longer investment horizon over which the return needs to be computed (e.g. one year). 
+The scatter plot of return and risk of the individual stocks
+The efficient frontier. 
 ***
-To compute this return, we need to compound the individual returns over the multiple periods. Suppose there are K periods and thus K one-period returns: R1, R2,…,RK. We can now do two calculations.
-The first calculation is to compute the final value if the initial value is Vi. After one period we have: Vi*(1+R1). After two periods…  etc. 
-It follows from the formula of compounding returns that the total return over K periods is given by  the product of 1+the one-period returns and subtracting one from that value.  
-***
-As an example to do this in R using the function cumprod, suppose we have the vector of 5 single period returns. The cumulative product of these returns is given by cumprod(1+returns). The total return over the five returns is obtain as the last element of the cumulative product – 1. 
-
-***
-Let's now look at a realistic portfolio invested in the 30 Dow Jones Industrial Average stocks.  Their symbols are summarized on this slide. 
-***
-We wish to evaluate the performance of a portfolio invested in those 30 stocks over the period December 1990 till December 2015. 
-
 TO BE COMLETED.
 
 

@@ -560,7 +560,7 @@ hint
 test_mc(2) # if 2 is the correct option.
 ```
 --- type:VideoExercise lang:r xp:50 skills:1
-## Multiperiod returns and a sneak preview to the road ahead
+## Sneak preview of the fin and fun ahead
 
 
 *** =video_link
