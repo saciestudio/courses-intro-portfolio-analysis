@@ -11,7 +11,7 @@ description : Asset returns and portfolio weights; those are the building blocks
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1
 ## Risk and return
 
-Which of the following statements is wrong:
+Which of the following statements is false:
 
 *** =instructions
 - Because most investors do not like risk, risky stocks sell on average at lower market prices
@@ -110,7 +110,7 @@ The choice of investment matters, even when the underlying risky assets are simi
 
 It is time to consider our first portfolio. The portfolio approach that we consider is to invest in January 2003, half of the investment budget in Apple and the other half in Microsoft. Since the portfolio weights will change, the investor has two choices. The first one is to be passive and not buy or trade anymore. This is called the a buy and hold investment strategy. Another possibility is to buy and trade at the close of each day in such a way that every day the portfolio is equally invested in the shares of Microsoft and the shares of Apple. We say that this portfolio is daily rebalanced.  
 
-Which of the following statements is wrong
+Which of the following statements is false?
 
 *** =instructions
 - By investing in a portfolio of risky assets, the portfolio payoff will be in between the minimum and maximum of the payoff of the underlying risky assets.
@@ -346,12 +346,12 @@ success_msg("Well done!")
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1
 ## Defining the portfolio returns for an equally weighted portfolio
 
-Below you find three commands to compute the portfolio return of an equally weighted portfolio of `N <- 100` assets with return vector `returns`. By testing this in the R console, find out which of the following commands is wrong.
+Below you find three commands to compute the portfolio return of an equally weighted portfolio of `N <- 100` assets with return vector `returns`. By testing this in the R console, find out which of the following commands is false.
 
 *** =instructions
-- `preturn  <- mean( returns )`
-- `preturn  <- sum( rep(1/N,N)*returns )`
-- `preturn  <- rep( mean(returns),N )`
+- `preturn  <- mean(returns)`
+- `preturn  <- sum(rep(1/N,N)*returns)`
+- `preturn  <- rep(mean(returns), N)`
 
 *** =hint
 The portfolio return is a single number. 
@@ -372,9 +372,32 @@ test_mc(1) # if 2 is the correct option.
 
 The simple return $R$ expresses the percentage change in value of an investment. The corresponding so-called "gross" return is defined as the future value of $1 invested in the asset for one period, and is thus equal to $1+R$. 
 
-Suppose the investor now has a horizon of two periods and in the first period, she makes a 10% return, but in the second period a loss of 5%. Verify in the R console that the end value of the investment equals $1.045$ (obtained by multipying the end-value of 1.1 after period one with the gross return of 0.95 of the second period).
+Suppose the investor now has a horizon of two periods and in the first period, she makes a 10% return, but in the second period a loss of 5%. Use the R console to compute the end value of an initial investment of $1000 investment.  Which of the three following answers do you obtain?
 
-It is important to be aware of the fact that a positive and negative return of the same magnitude do not compensate each other. Mathematically, this can be seen from the identity $(1+x)*(1-x)=1-x^2$, which is less than one. A 50% loss is thus not compensated by a 50% gain.  After a loss of 50%, what is the return needed to be at par again? Verify your answer in the R console.
+
+*** =instructions
+- 1155
+- 1045
+- 1050
+
+*** =hint
+If $R_1$ is the return in the first period and $R_2$ is the return in the second period, then the end-value of a $1 investment is $(1+R_1)*(1+R_2)$.
+
+*** =pre_exercise_code
+```{r}
+# pec
+```
+
+*** =sct
+```{r}
+test_mc(2) # if 2 is the correct option.
+```
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
+
+## The asymmetric impact of gains and losses  
+
+It is important to be aware of the fact that a positive and negative return of the same magnitude do not compensate each other in terms of terminal wealth. Mathematically, this can be seen from the identity $(1+x)*(1-x)=1-x^2$, which is less than one. A 50% loss is thus not compensated by a 50% gain.  After a loss of 50%, what is the return needed to be at par again? Verify your answer in the R console.
 
 *** =instructions
 - 75%
@@ -393,10 +416,11 @@ hint
 ```{r}
 test_mc(2) # if 2 is the correct option.
 ```
+
 --- type:NormalExercise lang:r xp:100 skills:1
 ## PerformanceAnalytics for computing the time series of portfolio returns
 
-Computing the returns for one date is thus straightforward to do in R. When the returns need to be calculated for different dates, I recommend to avoid using loops and to make use of the functions  'CalculateReturns' and `Return.portfolio' in the R package [PerformanceAnalytics](http://www.rdocumentation.org/packages/performanceanalytics/functions/performanceanalytics-package). It requires the input data to be of the [xts](http://www.rdocumentation.org/packages/xts/functions/xts-package)-time series class.
+Computing the returns for one periods is thus straightforward to do in R. When the returns need to be calculated for different dates, I recommend to avoid using loops and to make use of the functions  'CalculateReturns' and `Return.portfolio' in the R package [PerformanceAnalytics](http://www.rdocumentation.org/packages/performanceanalytics/functions/performanceanalytics-package). It requires the input data to be of the [xts](http://www.rdocumentation.org/packages/xts/functions/xts-package)-time series class.
 
 Let us explore this functionality in the case of a portfolio invested in the Apple stock and Microsoft stock, for which the prices are available in the variables `aapl` and `msft` in the R environment.  
 
