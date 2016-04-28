@@ -368,7 +368,7 @@ test_mc(1) # if 2 is the correct option.
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1
 
-## From simple to gross returns and the asymmetric impact of gains and losses  
+## From simple to gross returns   
 
 The simple return $R$ expresses the percentage change in value of an investment. The corresponding so-called "gross" return is defined as the future value of $1 invested in the asset for one period, and is thus equal to $1+R$. 
 
@@ -636,7 +636,7 @@ hint
 test_mc(2) # if 2 is the correct option.
 ```
 --- type:VideoExercise lang:r xp:50 skills:1
-## Sneak preview of the fin and fun ahead
+## Sneak preview of the portfolio fin and fun ahead
 
 
 *** =video_link
