@@ -500,7 +500,7 @@ success_msg("Well done!")
 
 Rebalancing means re-setting the weights to the objective weights. The more frequent the rebalancing is, the more transactions the portfolio manager does, and thus the higher the costs. The less frequent the rebalancing is, the more the investor is exposed to style drift: the portfolio is different allocated to the portfolio weights. 
 
-The default behavior of the function Return.portfolio is that is does not rebalance, which corresponds to a buy-and-hold investment. 
+The default behavior of the function [Return.portfolio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio) is that is does not rebalance, which corresponds to a buy-and-hold investment. 
 
 As an illustration, I plot the  absolute differences in portfolio return between a less frequent rebalanced portfolio and the  daily rebalanced portfolio. To which R command corresponds the first  plot?
 
