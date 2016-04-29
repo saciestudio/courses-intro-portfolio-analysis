@@ -89,10 +89,18 @@ This is a trade-off between avoiding that the portfolio weights deviate from you
 
 ***
 
-The function that we will be using next is the function Return.portfolio. The following three arguments are relevant to us:
-(1) R: this is the xts file containing in row the returns for the different assets;
-(2) weights: the vector of portfolio weights
-(3) rebalance_on: defining the frequency at which the portfolio weights are reset to the portfolio weights. 
+The function that we will be using next is the function Return.portfolio. The following three arguments are relevant to us: the return data file R, the weights vector and the argument that specifies whether and how frequent the portfolio needs to be rebalanced.  Let me discuss them in more detail.
+
+***
+First, the return data file R this is a table containing as many columns as there are assets and each columns is the time series of returns on the corresonding asset. The table needs to be a so-called xts-object, which means that the rows of the tables are order by time. Here you see an example of such a xts-variable. 
+
+***
+
+The second argument is the variable weights. It should specify for eech period, the portfolio weights to be used. Alternatively, when the target weights are the same for each period or when the portfolio weights do not have to be rebalanced, it can be a vector. This vector needs of course to have the same length as the number of columns in the return data file. 
+
+***
+
+The third argument relevant for us is the argument rebalance_on. It defines whether and at which frequency the portfolio weights are reset to the portfolio weights. 
 
 The default is that the portfolio does not rebalance, which corresponds to the buy and hold strategy, in which the winning stocks receive relatively higher weighter. When the rebalancing argument is set to "years", "quarters", "months" or "days", the portfolio weights are reset to the target weight at the chosen frequency. In between two rebalancing dates, the portfolio weights of course deviate again from the target weights.
 

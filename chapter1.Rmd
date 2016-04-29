@@ -443,7 +443,7 @@ test_mc(1) # if 2 is the correct option.
 
 
 --- type:VideoExercise lang:r xp:50 skills:1
-## The timing of the portfolio decisions
+## The PerformanceAnalytics package
 
 
 *** =video_link
@@ -451,11 +451,11 @@ test_mc(1) # if 2 is the correct option.
 
 
 --- type:NormalExercise lang:r xp:100 skills:1
-## PerformanceAnalytics for computing the time series of portfolio returns
+## Computing the time series of the constant mix portfolio returns
 
 Computing the returns for one periods is thus straightforward to do in R. When the returns need to be calculated for different dates, I recommend to avoid using loops and to make use of the functions  'CalculateReturns' and `Return.portfolio' in the R package [PerformanceAnalytics](http://www.rdocumentation.org/packages/performanceanalytics/functions/performanceanalytics-package). It requires the input data to be of the [xts](http://www.rdocumentation.org/packages/xts/functions/xts-package)-time series class.
 
-Let us explore this functionality in the case of a portfolio invested in the Apple stock and Microsoft stock, for which the prices are available in the variables `aapl` and `msft` in the R environment.  
+Let us explore this functionality in the case of a portfolio invested in the Apple stock and Microsoft stock, for which the prices are available in the variables `aapl` and `msft` in the R environment. The target weights are the same for each rebalancing data. We call this the constant mix portfolio allocation strategy.   
 
 
 *** =instructions
