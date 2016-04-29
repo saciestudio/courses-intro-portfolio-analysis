@@ -44,7 +44,7 @@ The answer to these question starts by understanding portfolio performance figur
 
 ***
 
-# Video 3: One-period portfolio returns are the weighted average of the individual returns
+# Video 3: The return of a portfolio is the weighted average return
 
 The investment decision involves defining the portfolio weights. But, what matters for the investor, are not the weights, but the change in the portfolio value over the investment period. The backward looking questions are: Did it increase enough, compared to the risk taken? If it lost value, could it have been avoided? The forward looking question is: Are the weights such that the reward is high enough for the risk taken? Isn’t possible to find weights with a higher reward for the same risk? 
 ***
@@ -67,7 +67,40 @@ In formula notation, the portfolio return thus equals the weighted average of th
 
 The next exercises put this theory in practice. First, we consider computing the portfolio return for one period, then I will introduce you to the wonderful package PerformanceAnalytics for analyzing  portfolio returns.  
 
-# Video 4: Sneak preview of the fin and fun ahead
+
+# Video 4: The PerformanceAnalytics package
+
+***
+The answer to the previous question is 2/3 for IBM and 1/3 for Apple. This follows from the definition of portfolio weights as the value of the position dividend by the total value of all porfolio positions. For simplicity, suppose the investor has initially $2 of which he invesed $1 in IBM and $1 in Apple. The initial weights are thus 50% for each each. At the end of the period over which IBM doubled in value to $2 and Apple stayed at $1, the weight of IBM is its value of $2 divided by the total value of $2+$1, and thus 2/3. For Apple it is 1/3. 
+
+***
+Differences in performance between the portfolio positions can thus lead to end-of-period weights that are substantially different from the initial weights. A practical consequence is that, to compute the portfolio return for the next period, we need to recalculate the portfolio weights. This is not so simple to do, especially if we need to do so for large porfolios and many time periods. Fortunately for us, there is the package PerformanceAnalytics that has all the functionality needed to rapidly compute and analyze portfolio returns. 
+
+***
+This package has been written by Peter Carl and Brian Peterson. They are two smart quants from the city of Chicago and one of the leading people in the R and Finance community. Together, we published several influential paper on portfolio optimization and risk analysis. 
+
+***
+
+One of the important conclusions of our research is that there are economic benefits to dynamically changing portfolio weights. It is for this reason that the portfolio return calculation function in the PerformanceAnalytics package allows you to periodically change the portfolio weights. But how frequently? 
+
+***
+
+This is a trade-off between avoiding that the portfolio weights deviate from your target weights and the fact that, every time you change the portfolio weights, you have to pay transaction costs. 
+
+***
+
+The function that we will be using next is the function Return.portfolio. The following three arguments are relevant to us:
+(1) R: this is the xts file containing in row the returns for the different assets;
+(2) weights: the vector of portfolio weights
+(3) rebalance_on: defining the frequency at which the portfolio weights are reset to the portfolio weights. 
+
+The default is that the portfolio does not rebalance, which corresponds to the buy and hold strategy, in which the winning stocks receive relatively higher weighter. When the rebalancing argument is set to "years", "quarters", "months" or "days", the portfolio weights are reset to the target weight at the chosen frequency. In between two rebalancing dates, the portfolio weights of course deviate again from the target weights.
+
+
+   
+***
+
+# Video 5: Sneak preview of the fin and fun ahead
 
 We have up to now considered toy examples of portfolio analysis: portfolio with less than 10 investments and a single period investment horizon. A well-diversified portfolio is typically invested in at least 20 risky assets and the investment period runs over several years, possibly with intermediate changes in the portfolio allocation. We have focussed mostly on performance and not discusses the risks of investments. In this video I will give you a sneak preview on the cool tables and figures that we will make.    
 ***
