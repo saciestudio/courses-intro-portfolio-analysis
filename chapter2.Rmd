@@ -1,16 +1,10 @@
 ---
-title       : Portfolio performance evaluation 
-description : The history of portfolio returns contains valuable information on how much the investor can expect to gain of lose. In the first chapter, we used time series plots to visualize the past prices and returns. The advantage of the time series plot is that it shows the dependence over time. In this chapter, we will first ignore the time series properties and pool all the observations in one sample for which the we make use of the histogram and performance statistics to extract the relevant information embedded in the portfolio returns. These statistics are useful to describe the average performance over long investment periods. But, for active investors and risk managers, the key question is to predict the distribution of returns over the next period. For doing this, it is important to take the time series dependence into account. The practioner approach for doing this is to use rolling window analysis and comput the performance measures (mean, volatility, Sharpe ratio) on rolling samples of e.g. six months. This chapter concludes by an investigation in the non-normality of the return series of investments and provides tools to characterize the financial risks and rewards that that takes this non-normality into account. 
+title       : Portfolio risk and return  
+description : The history of portfolio returns contains valuable information on how much the investor can expect to gain or lose. Investors summarize these numbers graphically in terms of distribution plots and through statics expressing average return, risk and risk-adjusted return over rolling estimation samples. This chapter concludes by an investigation in the non-normality of the return series of investments and provides tools to characterize the financial risks and rewards that that takes this non-normality into account. 
 
---- type:VideoExercise lang:r xp:50 skills:1
-## The distribution of portfolio returns
-
-
-*** =video_link
-//player.vimeo.com/video/108225030
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1
-## Which return distribution is to be preferred?
+## Balancing risk and reward 
 
 In the right panel, you see see three normal distribution. The returns in the upper and middle panel have the same mean. The returns in the upper and bottom plot have the same standard deviation. Which distribution is to be preferred? 
 
@@ -41,50 +35,57 @@ test_mc(3) # if 3 is the correct option.
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1
-## Analyzing the portfolio return distribution
+## The returns on the S&P 500 portfolio
 
-The variable `preturns` contains the monthly returns on the equally-weighted portfolio of Dow Jones Industrial Average stocks over the period 1991-2015. Compute first the mean and standard deviation of these returns, as well as their minimum and maximum value. Then plot the histogram of these returns.
+In US equities investing, one of the most common portfolio choices is to invest in the 500 largest stocks and set weights proportional to the stocks' market capitalization. This is the S&P 500 portfolio, for which you see the end-of-month value evolution in the top figure and the monthly returns in the bottom figure. There returns are available in the R console as the variable `sp500_returns`.
 
 *** =instructions
-- Compute summary statistics using the functions `mean`, `sd`, `min` and `max`
-- Plot the histogram and expriment with the argument `breaks` in `hist` to make the intervals smaller
-
+- Compute the mean value of the return series.
+- Compute the standard deviation of the return series. 
+- Compute the risk-adjusted return given by the mean return divided by the standard deviation.
+- Use the function [table.CalandarReturns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.CalandarReturns)` in PerformanceAnalytics to present the monthly return data in the visually attractive format year x month. 
 *** =hint
-hint comes here
+
 
 *** =pre_exercise_code
 ```{r}
 # pec
-library(xts)
+options(warn=-1)
+library(tseries)# Its function get.hist.quote allows to download prices from Yahoo!Finance
+library(xts) # Its function plot.zoo make simple, but attractive, time series plots
+# download adjusted close prices (that is corrected for dividend payments and stock splits)
+# dates have the format "YYYY-MM-DD"
+sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1950-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
 library(PerformanceAnalytics)
-download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
-prices<- readRDS("prices.rds") 
-returns <- CalculateReturns(prices, method="simple")
-returns <- returns[(-1),]
-preturns <- Return.portfolio( returns )
+sp500_returns <-  xts(CalculateReturns(sp500))[-1]
+names(sp500_returns) <- "sp500"
+par(mfrow=c(2,1),mar=c(3,2,2,2),cex.axis=0.7)
+plot.zoo(sp500 , main="Value of the S&P 500 portfolio",ylab="", xlab="")
+plot.zoo(sp500_returns , main="Monthly returns of the S&P 500 portfolio",ylab="", xlab="",type="h")
 ```
 
 *** =sample_code
 ```{r}
-# Summary statistics
+# Compute the mean monthly returns 
 
+# Compute the standard deviation
+  
+# Compute the mean return divided by the return standard deviation
 
-
-
-# Histogram
-
+# Produce the year x month table
 
 ```
 
 *** =solution
 ```{r}
-# Summary statistics
-mean(preturns)
-sd(preturns)
-min(preturns)
-max(preturns)
-# Histogram
-hist(preturns,breaks=10)
+# Compute the mean monthly returns 
+mean(sp500_returns)
+# Compute the standard deviation
+sd(sp500_returns)  
+# Compute the mean return divided by the return standard deviation
+mean(sp500_returns)/sd(sp500_returns)
+# Produce the year x month table
+table.CalendarReturns(sp500_returns)
 ```
 
 *** =sct
@@ -93,28 +94,38 @@ hist(preturns,breaks=10)
 success_msg("Well done!")
 ```
 
+
+--- type:VideoExercise lang:r xp:50 skills:1
+## The distribution of portfolio returns
+
+
+*** =video_link
+//player.vimeo.com/video/108225030
+
+
 --- type:NormalExercise lang:r xp:100 skills:1
 ## Annualized mean and volatility
 
 The mean and volatility of monthly returns corresponds to the average and standard deviation over a monthly investment horizon. Investors annualize those statistics by mutiplying the mean with 12, and the volatility with the square root of twelve. Compute the annualized mean and volatility of the portfolios.
 
 *** =instructions
-- Print the annualized mean
-- Print the annualized standard deviation
-- Verify that the functions `Return.annualized` and `StdDev.annualized` report the same numbers
+- Print the annualized mean of `sp500_returns`.
+- Print the annualized standard deviation of `sp500_returns`.
+- Verify that the functions `Return.annualized` and `StdDev.annualized` report the same numbers.
 *** =hint
 hint comes here
 
 *** =pre_exercise_code
 ```{r}
-# pec
-library(xts)
+options(warn=-1)
+library(tseries)# Its function get.hist.quote allows to download prices from Yahoo!Finance
+library(xts) # Its function plot.zoo make simple, but attractive, time series plots
+# download adjusted close prices (that is corrected for dividend payments and stock splits)
+# dates have the format "YYYY-MM-DD"
+sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1950-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
 library(PerformanceAnalytics)
-download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
-prices<- readRDS("prices.rds") 
-returns <- CalculateReturns(prices, method="simple")
-returns <- returns[(-1),]
-preturns <- Return.portfolio( returns )
+sp500_returns <-  xts(CalculateReturns(sp500))[-1]
+names(sp500_returns) <- "sp500"
 ```
 
 *** =sample_code
@@ -144,37 +155,28 @@ StdDev.annualized(preturns)
 success_msg("Well done!")
 ```
 
---- type:NormalExercise lang:r xp:100 skills:1
-## Annualized Portfolio Performance in R
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1
+## The annualized Sharpe ratio
 
-Standard code (mean, sd)
+The Sharpe ratio is the average excess return per unit of portfolio volatility. Suppose the average excess return and portfolio volatility are computed on monthly returns. What is the effect of using annualized mean excess returns and volatility on the Sharpe ratio? 
 
 *** =instructions
-- instruction 1
-- instruction 2
+- The annualized Sharpe ratio and the monthly Sharpe ratio are identical.
+- The annualized Sharpe ratio is 12 times the monhtly Sharpe ratio.
+- The annualized Sharpe ratio is $\sqrt{12}$ times the monhtly Sharpe ratio.
 
 *** =hint
-hint comes here
+hint
 
 *** =pre_exercise_code
 ```{r}
 # pec
-```
 
-*** =sample_code
-```{r}
-# sample code
-```
-
-*** =solution
-```{r}
-# solution code
 ```
 
 *** =sct
 ```{r}
-# sct code
-success_msg("Well done!")
+test_mc(3) # if 3 is the correct option.
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1
@@ -366,6 +368,63 @@ sqrt(12)*sd(preturns)
 # sct code
 success_msg("Well done!")
 ```
+
+--- type:NormalExercise lang:r xp:100 skills:1
+## Analyzing the portfolio return distribution
+
+The variable `preturns` contains the monthly returns on the equally-weighted portfolio of Dow Jones Industrial Average stocks over the period 1991-2015. Compute first the mean and standard deviation of these returns, as well as their minimum and maximum value. Then plot the histogram of these returns.
+
+*** =instructions
+- Compute summary statistics using the functions `mean`, `sd`, `min` and `max`
+- Plot the histogram and expriment with the argument `breaks` in `hist` to make the intervals smaller
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+library(xts)
+library(PerformanceAnalytics)
+download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
+prices<- readRDS("prices.rds") 
+returns <- CalculateReturns(prices, method="simple")
+returns <- returns[(-1),]
+preturns <- Return.portfolio( returns )
+```
+
+*** =sample_code
+```{r}
+# Summary statistics
+
+
+
+
+# Histogram
+
+
+```
+
+*** =solution
+```{r}
+# Summary statistics
+mean(preturns)
+sd(preturns)
+min(preturns)
+max(preturns)
+# Histogram
+hist(preturns,breaks=10)
+```
+
+*** =sct
+```{r}
+# sct code
+success_msg("Well done!")
+```
+
+
+
+
 
 --- type:VideoExercise lang:r xp:50 skills:1
 ## Downside risk; skewness, kurtosis and value-at-risk

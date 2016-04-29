@@ -1,57 +1,29 @@
-# Video 4: Multiperiod returns and a sneak preview to the road ahead
+# Video 1: Why computing average performance statistics?
 
-We have up to now considered toy examples of portfolio analysis: portfolio with less than 10 investments and a single period investment horizon. A well-diversified portfolio is typically invested in at least 20 risky assets and the investment period runs over several years, possibly with intermediate changes in the portfolio allocation. 
-***
-In this video I will explain in detail the steps in aggregating returns from single periods to multiperiods. I will then show you a sneak preview on the cool tables and figures that we will make in the next chapter for a realistic portfolio of thirty large US stocks. 
-***
-But first, let us investigate how a one-period return can be computed to obtain multi-period returns. The setting is as follows. There is a mismatch between the frequency at which returns are available (e.g. daily, weekly or monthly) and the longer investment horizon over which the return needs to be computed (e.g. one year). 
-***
-To compute this return, we need to compound the individual returns over the multiple periods. Suppose there are K periods and thus K one-period returns: R1, R2,…,RK. We can now do two calculations.
-The first calculation is to compute the final value if the initial value is Vi. After one period we have: Vi*(1+R1). After two periods…  etc. 
-It follows from the formula of compounding returns that the total return over K periods is given by  the product of 1+the one-period returns and subtracting one from that value.  
-***
-As an example to do this in R using the function cumprod, suppose we have the vector of 5 single period returns. The cumulative product of these returns is given by cumprod(1+returns). The total return over the five returns is obtain as the last element of the cumulative product – 1. 
+Don't be fooled by randomness! The monthly return on an investment can be high by chance. But, that several returns in a row are high, is less likely to happen and probably evidence of a truely higher return on that investment. This is why performance is often analyzed in terms of averages. The mean and variance of the returns are the most used averages. 
 
 ***
-Let's now look at a realistic portfolio invested in the 30 Dow Jones Industrial Average stocks.  Their symbols are summarized on this slide. 
-***
-We wish to evaluate the performance of a portfolio invested in those 30 stocks over the period December 1990 till December 2015. 
+The mean return expressing the average reward of an investment. To  be compared with the alternative of a risk free investment. This then leads to the mean excess return.
 
-TO BE COMLETED
-
-The corresponding close prices for each month are available in the R environment of this course as the variable ‘prices’. This variable is a xts-object, meaning that the observations are ordered by time.  As you can see on the slide, each row correspond to the ending day of the month, each column to a stock.
-***
-Let us now  convert this table of prices into a table of returns. This can be done using the function calculateReturns in the function PerformanceAnalytics. This leads to a table with the first row consisting of NA because there is no previous price available to compute the returns. In R, this first row can be easily removed by indexing that row with a minus 1 sign.
+Usually, a higher average excess return comes at the price of a higher risk. In the modern portfolio theory by Harry Markowitz, the sample variance is used as risk measure.
 
 ***
 
-The resulting multivariate return series looks as follows.
+
+The variance is the  average squared deviation of the return with respect to that mean return. The variance expresses the risk that the return deviates from what you expect. Most often not the variance is used, but its square root, namely the standard devation. In investing, we call the standard deviation of the returns also the return volatility.  
 
 ***
 
-Now we need to transform this into a time series of portfolio returns. For this the function Return.portfolio is interesting. (show syntax) For us the first two arguments are relevant. R is the xts file containing the multivariate return series. Weights is the optional argument containing the weights at the beginning of each month. 
-
-Remember from the formula that weights are crucial to define the portfolio returns, and that it is the weights at the beginning of the investment period, here beginning of the month.
-
-
-
-*** 
-
-By default and if we thus do not specify the weights, the function Return.portfolio assumes equal weighting.  
-
-
-To understand what this means, consider the following sketch of the time line. Every tick denote the end of month, where the portfolio has a weight. By default, it is thus assumed that at the end of each month, the weights are reset to equal weights.  
+The average excess return and the portfolio volatility can be combined to obtain a measure of risk-adjusted performance, called the Sharpe ratio. This ratio is the mean excess return, divided by the portfolio volatility and thus shows the reward per unit of risk taken.  
 
 ***
 
-The next exercises show how to compute those equally weighted portfolio returns. By compounding the total returns, defined as 1+returns, we obtain the portfolio value evolution. Plotting this wealth evolution will reveal the booms and busts of the stock market over the past 25 years.
+In the interpretation we need to be careful with the frequency at which the returns are computed. Often the returns are computed on a daily or monthly frequency, but the performance measure is discussed in annualized terms. In case of monthly returns, the annualized mean return is obtained by multiplying with 22, which is the average number of trading days in a month. The annualized standard deviation is obtained by multiplying with the square root of 22. This is the so called "square-root-of-time rule".
 
-# Video 1: The distribution of portfolio returns
+***
+In case of daily returns, annualized numbers are obtained using a factor of 252, corresponding to the average number of trading days in a year. The annualized yearly average return is thus ...
 
-You win some, you lose some, but on average a successful investor wins more than she loses. 
 
-
-Investing implies taking risks. But how much risk? This question can be answered by graphical analysis of the portfolio returns and by computing statistics, such as the portfolio standard deviation or its value-at-risk.
 
 ***
 
