@@ -1,29 +1,50 @@
-# Video 1: Why computing average performance statistics?
+# Video 1:  Evaluating portfolio performance is an estimation problem
 
-Don't be fooled by randomness! The monthly return on an investment can be high by chance. But, that several returns in a row are high, is less likely to happen and probably evidence of a truely higher return on that investment. This is why performance is often analyzed in terms of averages. The mean and variance of the returns are the most used averages. 
 
-***
-The mean return expressing the average reward of an investment. To  be compared with the alternative of a risk free investment. This then leads to the mean excess return.
-
-Usually, a higher average excess return comes at the price of a higher risk. In the modern portfolio theory by Harry Markowitz, the sample variance is used as risk measure.
+Don't forget: the return that we observed is only one of the possible outcomes. We could have had a higher of lower return, just by chance. This is also the reason why sellers of investment products always put the warning that "past performance is not a predictor of future results". 
 
 ***
 
-
-The variance is the  average squared deviation of the return with respect to that mean return. The variance expresses the risk that the return deviates from what you expect. Most often not the variance is used, but its square root, namely the standard devation. In investing, we call the standard deviation of the returns also the return volatility.  
-
-***
-
-The average excess return and the portfolio volatility can be combined to obtain a measure of risk-adjusted performance, called the Sharpe ratio. This ratio is the mean excess return, divided by the portfolio volatility and thus shows the reward per unit of risk taken.  
+Statistically speaking, the uncertainty comes from the fact that the portfolio return is a random variable. Each time we observe the portfolio return it is a draw from a random variable. What we care about is to learn from the past what the portfolio return distribution will be. This requires some of "startionarity", meaning that the distribution that generated the past returns will also generate the returns of the future. 
 
 ***
 
-In the interpretation we need to be careful with the frequency at which the returns are computed. Often the returns are computed on a daily or monthly frequency, but the performance measure is discussed in annualized terms. In case of monthly returns, the annualized mean return is obtained by multiplying with 22, which is the average number of trading days in a month. The annualized standard deviation is obtained by multiplying with the square root of 22. This is the so called "square-root-of-time rule".
+But what is the portfolio return distribution? There is no perfect answer for this question. We need to guess it, partly by making assumptions and partly by estimating. For now, let us assume the portfolio return distribution is normal with a mean parameter that I denote as mu and a standard deviation that I denote as sigma. 
+
+Under this assumption, we know that there is 95% probability that the return will be between mu +- 2*sigma. The larger is the standard deviation, the more spread the possible outcomes can be. In finance, the standard deviation is also called volatility. The square of the volatility is the variance.  
 
 ***
-In case of daily returns, annualized numbers are obtained using a factor of 252, corresponding to the average number of trading days in a year. The annualized yearly average return is thus ...
+
+The mean and variance are parameters. They are unknown, but once we have  a sample of past returns, it becomes possible to estimate them. Suppose e.g. that we have T observations: R1, R2,...,RT. Then the sample mean is the average of those returns (show formula on slide). The sample variance is the average squared difference between the return and the sample mean (show formula on slide). The sample standard deviation or volatility is the square root of this number. 
+
+***
+
+Average returns in itself are difficult to interpret. Is an average of 5% a high return? It depends on the alternatives. Suppose e.g. that there is a risk free investment offerening 4%. Then, by taking risks, the investor only has a 1 percentage point higher average return. 
+
+The Sharpe ratio summarizes this balance. It is the ratio obtained by taking the average difference between the portfolio return and the return the investor would have from a risk free investment and dividing this number with the portfolio standard deviation.
+
+The Sharpe ratio thus shows the reward per unit of risk taken.  
 
 
+***
+
+Let's consider an example. Suppose we have the returns for the past 12 months, together with their risk free rate. Computing the average excess returns gives us..., the standard deviation is ... . Hence the portfolio Sharpe ratio over those 12 months is ...
+
+***
+These are thus the average, standard deviation and Sharpe ratio for the returns over a one-month investment horizon. We could do something similar using daily returns and obtain then average, standard deviation and Sharpe ratio for the returns over a one-month investment horizon. In practice, these performance measures computed on daily or weekly returns are presented 
+in annualized terms. 
+
+In case of monthly returns, the annualized mean return is obtained by multiplying with 22, which is the average number of trading days in a month. The annualized standard deviation is obtained by multiplying with the square root of 22. This is the so called "square-root-of-time rule". For daily returns, the factor used for annualizing the mean is 252, corresponding to the average number of trading days in a year. 
+
+
+# Video 2:  Time-variation in portfolio performance
+
+
+
+
+
+
+*************************************************************************************
 
 ***
 

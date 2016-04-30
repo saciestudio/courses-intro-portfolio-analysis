@@ -1,17 +1,27 @@
 ---
-title       : Portfolio risk and return  
+title       : Interpreting portfolio returns 
 description : The history of portfolio returns contains valuable information on how much the investor can expect to gain or lose. Investors summarize these numbers graphically in terms of distribution plots and through statics expressing average return, risk and risk-adjusted return over rolling estimation samples. This chapter concludes by an investigation in the non-normality of the return series of investments and provides tools to characterize the financial risks and rewards that that takes this non-normality into account. 
+
+--- type:VideoExercise lang:r xp:50 skills:1
+## Evaluating portfolio performance is an estimation problem
+
+
+*** =video_link
+//player.vimeo.com/video/108225030
+
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1
 ## Balancing risk and reward 
 
-In the right panel, you see see three normal distribution. The returns in the upper and middle panel have the same mean. The returns in the upper and bottom plot have the same standard deviation. Which distribution is to be preferred? 
+The portfolio return is a random variable. The range of possible outcomes and the likelihood of each of those outcomes can be visualized through the density plots of return distribution. The center of the density plot indicates the return you may expect on average, while the width of the density plot shows you how far off the returns can be from this average return expectation. Throughout, we make the realistic assumption that investors are risk-averse: if two investments offer the same expected return, the investor will prefer the investment with the lowest risk. 
+
+In the right panel, you see see the density plots for the returns on three possible investments. The returns in the upper and middle panel have the same mean. The returns in the upper and bottom plot have the same standard deviation. Which distribution is to be preferred? 
 
 *** =instructions
-- Distribution in the upper plot
-- Distribuion in the middle plot
-- Distribution in the lower plot
+- Distribution in the upper plot.
+- Distribuion in the middle plot.
+- Distribution in the lower plot.
 
 *** =hint
 hint
@@ -37,13 +47,17 @@ test_mc(3) # if 3 is the correct option.
 --- type:NormalExercise lang:r xp:100 skills:1
 ## The returns on the S&P 500 portfolio
 
-In US equities investing, one of the most common portfolio choices is to invest in the 500 largest stocks and set weights proportional to the stocks' market capitalization. This is the S&P 500 portfolio, for which you see the end-of-month value evolution in the top figure and the monthly returns in the bottom figure. There returns are available in the R console as the variable `sp500_returns`.
+In practice, the mean and standard deviation of the returns is unknown and needs to be estimated, e.g. using the sample mean and standard deviation. Let us now use the functions `mean` and `sd` to estimate the mean and standard deviation on a US equity portfolios. 
+
+Of all possible portfolios, we consider here the most common choice in US equities investing, namely the S&P 500 portfolio, which invests in the 500 largest publicly listed US stocks and set weights proportional to the stocks' market capitalization.
+
+In the graphics envioronment, you can see the time series plot for the end-of-month value evolution in the top figure and the time series plot of monthly returns in the bottom figure. These returns are available in the R console as the variable `sp500_returns`.
 
 *** =instructions
 - Compute the mean value of the return series.
 - Compute the standard deviation of the return series. 
 - Compute the risk-adjusted return given by the mean return divided by the standard deviation.
-- Use the function [table.CalandarReturns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.CalandarReturns)` in PerformanceAnalytics to present the monthly return data in the visually attractive format year x month. 
+- Use the function [table.CalandarReturns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.CalandarReturns) in PerformanceAnalytics to present the monthly return data in the visually attractive format year x month. 
 *** =hint
 
 
@@ -95,13 +109,6 @@ success_msg("Well done!")
 ```
 
 
---- type:VideoExercise lang:r xp:50 skills:1
-## The distribution of portfolio returns
-
-
-*** =video_link
-//player.vimeo.com/video/108225030
-
 
 --- type:NormalExercise lang:r xp:100 skills:1
 ## Annualized mean and volatility
@@ -111,7 +118,8 @@ The mean and volatility of monthly returns corresponds to the average and standa
 *** =instructions
 - Print the annualized mean of `sp500_returns`.
 - Print the annualized standard deviation of `sp500_returns`.
-- Verify that the functions `Return.annualized` and `StdDev.annualized` report the same numbers.
+- Assume the risk free rate is 0. What is the portfolio's Sharpe ratio?
+- Verify that the functions [Return.annualized](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.annualized), [StdDev.annualized](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/StdDev.annualized)  and [table.AnnualizedReturns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.AnnualizedReturns) report the same numbers.
 *** =hint
 hint comes here
 
@@ -141,12 +149,13 @@ names(sp500_returns) <- "sp500"
 *** =solution
 ```{r}
 # Annualized mean
-12*mean(preturns)
+12*mean(sp500_returns)
 # Annualized standard deviation
-sqrt(12)*sd(preturns)
+sqrt(12)*sd(sp500_returns)
 # Same answer?
-Return.annualized(preturns)
-StdDev.annualized(preturns)
+Return.annualized(sp500_returns)
+StdDev.annualized(sp500_returns)
+table.AnnualizedReturns(sp500_returns)
 ```
 
 *** =sct
@@ -179,38 +188,58 @@ hint
 test_mc(3) # if 3 is the correct option.
 ```
 
---- type:NormalExercise lang:r xp:100 skills:1
-## Annualized Portfolio Performance in R
 
-The function table.AnnualizedReturns in PerformanceAnalytics
+--- type:NormalExercise lang:r xp:100 skills:1
+## Don't be fooled by randomness
+
+It is important to be aware of the limitations of estimation. It is almost sure that the estimates of the mean and volatility will be different from the true mean and standard deviation.
+
+Familiarize now yourself with the uncertainty in estimation by drawing random samples from a normal distribution with mean of 5% and standard deviation of 10%, and how this uncertainty is reduced when the sample size grows.  
 
 *** =instructions
-- instruction 1
-- instruction 2
-
+-  Set the variable `returns` to the sample of 12 observations obtained by using the function `rnorm` to sample from the normal  distribution with mean 5% and standard deviation of 10%.  
+- Compute the mean and standard deviation of the return series. 
+- Repeat the first two instructions and see how different the numbers are for a different sample. 
+- Repeat the first three instructions but for a sample of 60 observations.  
 *** =hint
-hint comes here
+
 
 *** =pre_exercise_code
 ```{r}
 # pec
-library(xts)
-library(PerformanceAnalytics)
-download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
-prices<- readRDS("prices.rds") 
-returns <- CalculateReturns(prices, method="simple")
-returns <- returns[(-1),]
-preturns <- Return.portfolio( returns )
+
 ```
 
 *** =sample_code
 ```{r}
-# sample code
+# Draw the random sample
+
+# Compute the mean and standard deviation
+  
+# Repeat the above
+
+# Repeat the above for a sample of 1000 observations
+
 ```
 
 *** =solution
 ```{r}
-# solution code
+# Draw the random sample
+returns <- rnorm(12,mean=0.05,sd=0.10)
+# Compute the mean and standard deviation
+mean(returns)
+sd(returns)
+# Repeat the above
+returns <- rnorm(12,mean=0.05,sd=0.10)
+mean(returns)
+sd(returns)
+# Repeat the above for a sample of 1000 observations
+returns <- rnorm(60,mean=0.05,sd=0.10)
+mean(returns)
+sd(returns)
+returns <- rnorm(60,mean=0.05,sd=0.10)
+mean(returns)
+sd(returns)
 ```
 
 *** =sct
@@ -220,7 +249,7 @@ success_msg("Well done!")
 ```
 
 --- type:VideoExercise lang:r xp:50 skills:1
-## time-variation in performance
+## Time-variation in portfolio performance
 
 Time-variation in the return distribution. Not all information is equally predicitve. discuss  of time-variation in average return and volatility. Use of rolling window analysis to visualize this.
 *** =video_link
