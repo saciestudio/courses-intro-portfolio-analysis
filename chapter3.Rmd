@@ -1,5 +1,5 @@
 ---
-title       : The ingredients for portfolio allocation 
+title       : Ingredients for the allocation decision
 description : For optimizing the portfolio investment decisions and understanding the sources of performance and risk, it is crucial to understand the multivariate nature of the return distribution of the risky assets.  In this chapter, you learn how to estimate the vector of expected return and the covariance matrix and to connect them to the portfolio return distribution. 
 
 --- type:VideoExercise lang:r xp:50 skills:1

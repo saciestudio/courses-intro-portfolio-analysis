@@ -633,7 +633,7 @@ success_msg("Well done!")
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1
 
-## Multi-perid returns
+## Multi-period returns
 
 The simple return $R$ expresses the percentage change in value of an investment. The corresponding so-called "gross" return is the future value of $1 invested in the asset for one period, and is thus equal to $1+R$. Suppose the investor now has a horizon of two periods and in the first period, she makes a 10% return, but in the second period a loss of 5%. Verify in the R console that the end value of the investment equals $1.045$ (obtained by multipying the end-value of 1.1 after period one with the gross return of 0.95 of the second period).
 
