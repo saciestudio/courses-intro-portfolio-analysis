@@ -2,13 +2,13 @@
 title       : The building blocks 
 description : Asset returns and portfolio weights; those are the building blocks of a portfolio return. This chapter is about computing those portfolio weights and returns in R.  
 
---- type:VideoExercise lang:r xp:50 skills:1
+--- type:VideoExercise lang:r xp:50 skills:1 key:b1edf0455cddc24b5691f41bc0bb1b0e9f7e4c1a
 ## Welcome to the course
 
 *** =video_link
 //player.vimeo.com/video/108225030
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:5df9cc8be3e5717ab2d100eb52a85328bc27d243
 ## Risk and return
 
 Which of the following statements is false:
@@ -31,7 +31,7 @@ Which of the following statements is false:
 test_mc(2) # if 2 is the correct option.
 ```
 
---- type:NormalExercise lang:r xp:100 skills:1
+--- type:NormalExercise lang:r xp:100 skills:1 key:3eba4bd8de6fe4123ea68cc159aa5e8a117fc27d
 ## Get a feel for the data
 
 The choice of investment matters, even when the underlying risky assets are similar. As a first example, let us consider the stock price of the Coca Cola Company and the PepsiCo company from Januari 2003 till today.  
@@ -103,7 +103,7 @@ abline(h=1)
 success_msg("Well done!")
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:d2c7c64108eb91da5a95275fe980d5b4aee3be95
 ## A first portfolio: buy-and-hold versus daily rebalancing
 
 The choice of investment matters, even when the underlying risky assets are similar. As a second example, let us now consider the stock price of Apple and Microsoft from Januari 2006 till today. The time series plot shows you the value evolution of one dollar invested in each of them. 
@@ -157,14 +157,14 @@ test_mc(3) # if 2 is the correct option.
 ```
 
 
---- type:VideoExercise lang:r xp:50 skills:1
+--- type:VideoExercise lang:r xp:50 skills:1 key:8edc78ed1db55bc7450ceaeb586c9c5f4be2ffb2
 ## The investment decision in a portfolio context
 
 *** =video_link
 //player.vimeo.com/video/108225030
 
 
---- type:NormalExercise lang:r xp:100 skills:1
+--- type:NormalExercise lang:r xp:100 skills:1 key:85a3e5f4f4ca30b9944167e9cbf5eb13692aa7bc
 ## Calculating portfolio weights when component values are given
 
 An investor has  4000 USD invested in equities, 4000 USD in bonds and 2000 USD in commodities. Compute the weights as the proportion invested in each of those three assets. 
@@ -207,7 +207,7 @@ print(weights)
 success_msg("Well done!")
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:ca2625a363bea895fda8cc4f1d12f3a2cca25da3
 ## Defining the weights of an equally weighted portfolio
 
 The equally weighted portfolio is one of the most used portfolios. Suppose the portfolio is equally invested in $N$ assets. Let `N <- 100`. By testing this in the R console, find out which of the following commands does not define properly the weights for the equally-weighted portfolio.  
@@ -230,7 +230,7 @@ The function `rep(arg1,arg2)` creates a vector in which `arg1` is replicated `ar
 test_mc(2) # if 2 is the correct option.
 ```
 
---- type:NormalExercise lang:r xp:100 skills:1
+--- type:NormalExercise lang:r xp:100 skills:1 key:ccb1301f85e423d2c1f28ba595bf9e688611fff5
 ## Defining the weights of a market capitalization weighted portfolio
 
 In a market capitalization weighted portfolio, the weight is given by the asset's market capitalization divided by the sum of the market capitalization of all assets. A typical example is the S&P 500 invested in the 500 largest companies listed on the US stock exchanges (NYSE, Nasdaq).  Note that dividing by the total value of the characteristic across all assets guarantees that the portfolio weights sum up to unity. 
@@ -279,14 +279,14 @@ success_msg("Well done!")
 
 
 
---- type:VideoExercise lang:r xp:50 skills:1
+--- type:VideoExercise lang:r xp:50 skills:1 key:e8205bb01833692ce3cb610117bb029180e68ee8
 ## The return of a portfolio is the weighted average return
    
 
 *** =video_link
 //player.vimeo.com/video/108225030
 
---- type:NormalExercise lang:r xp:100 skills:1
+--- type:NormalExercise lang:r xp:100 skills:1 key:7a2a60bffa8920ebf2121e0ec548f767197060f0
 ## Calculation of portfolio returns
 
 As first exercise, we verify that the portfolio return can be computed as the weighted average of the component returns. We do this for the simple case of three assets. 
@@ -344,7 +344,7 @@ success_msg("Well done!")
 ```
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:f40515851bfc2aae1bb2f094ba4f5b8d51c5d272
 ## Defining the portfolio returns for an equally weighted portfolio
 
 Below you find three commands to compute the portfolio return of an equally weighted portfolio of `N <- 100` assets with return vector `returns`. By testing this in the R console, find out which of the following commands is false.
@@ -367,7 +367,7 @@ The portfolio return is a single number.
 test_mc(1) # if 2 is the correct option.
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:6fda9fa37a19f2326c9e7164c8617f1936dc7124
 
 ## From simple to gross returns   
 
@@ -394,7 +394,7 @@ If $R_1$ is the return in the first period and $R_2$ is the return in the second
 test_mc(2) # if 2 is the correct option.
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:a189cd245c6e378938cab1356e5c01fcebd9b358
 
 ## The asymmetric impact of gains and losses  
 
@@ -418,7 +418,7 @@ hint
 test_mc(2) # if 2 is the correct option.
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:ab11f86ce025ff80e97eec8d935df13b4ecd1aa0
 ## Time-variation of portfolio weights
 
 Suppose a two-asset portfolio invested initially at equal weights in IBM and Apple. Over the next period IBM doubles in value, while Apple's price remains flat. What are the weights at the end of the period?   
@@ -442,7 +442,7 @@ test_mc(1) # if 2 is the correct option.
 ```
 
 
---- type:VideoExercise lang:r xp:50 skills:1
+--- type:VideoExercise lang:r xp:50 skills:1 key:c9e758551130f685dc22840b3ede8cefc4642902
 ## The PerformanceAnalytics package
 
 
@@ -450,7 +450,7 @@ test_mc(1) # if 2 is the correct option.
 //player.vimeo.com/video/108225030
 
 
---- type:NormalExercise lang:r xp:100 skills:1
+--- type:NormalExercise lang:r xp:100 skills:1 key:1d4270da1d39343116d0e77f9b897e6b2127914f
 ## Computing the time series of the constant mix portfolio returns
 
 Computing the returns for one periods is thus straightforward to do in R. When the returns need to be calculated for different dates, I recommend to avoid using loops and to make use of the functions  'CalculateReturns' and `Return.portfolio' in the R package [PerformanceAnalytics](http://www.rdocumentation.org/packages/performanceanalytics/functions/performanceanalytics-package). It requires the input data to be of the [xts](http://www.rdocumentation.org/packages/xts/functions/xts-package)-time series class.
@@ -527,7 +527,7 @@ plot.zoo(preturns)
 success_msg("Well done!")
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:40af4858a53e35594a991c1e6797fc7a824041f3
 
 ## The effect of the frequency of rebalancing 
 
@@ -567,7 +567,7 @@ plot.zoo( rebalance[,3]  , ylab="",xlab="",ylim=c(0,max(rebalance[,2])))
 test_mc(1) # if 1 is the correct option.
 ```
 
---- type:NormalExercise lang:r xp:100 skills:1
+--- type:NormalExercise lang:r xp:100 skills:1 key:e2b13d9ade5d7b168bb6157909da1cffbc6729e1
 ## From daily to monthly portfolio returns
 
 We have now plotted the daily return series. In practice, portfolio managers rarely communicate their daily returns, but focus on the monthly or yearly performance. In the next video, I will explain how multi-period returns are obtained. But let us first touch intuition by focussing on the returns in September 2008. This was an exceptional month for investors, with the bankruptcy of Lehman Brother on September 15 as an important turning point.  
@@ -631,7 +631,7 @@ Return.cumulative(preturns["2008-09"])
 success_msg("Well done!")
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:308716c378c9cabd4b35fbe042d9d1f521c68015
 
 ## Multi-period returns
 
@@ -656,7 +656,7 @@ hint
 ```{r}
 test_mc(2) # if 2 is the correct option.
 ```
---- type:VideoExercise lang:r xp:50 skills:1
+--- type:VideoExercise lang:r xp:50 skills:1 key:9953e9ca351425f91036a223de3ba9ee04c5a282
 ## Sneak preview of the portfolio fin and fun ahead
 
 
