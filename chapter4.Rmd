@@ -3,7 +3,7 @@ title       : Optimizing the portfolio
 description : We have up to now considered the portfolio weights as given. Here we consider optimizing the portfolio weights. Markowitz mean variance optimized portfolios.
 
 
---- type:NormalExercise lang:r xp:100 skills:1
+--- type:NormalExercise lang:r xp:100 skills:1 key:374e6c506d8c450ec408e8550ba804df4f67e8b9
 ## DJIA
 
 The function table.AnnualizedReturns in PerformanceAnalytics
@@ -43,14 +43,14 @@ preturns <- Return.portfolio( returns )
 success_msg("Well done!")
 ```
 
---- type:VideoExercise lang:r xp:50 skills:1
+--- type:VideoExercise lang:r xp:50 skills:1 key:2d45c303bc2e49767a9cd744f15a31938a2ec7d9
 ## Mean-variance efficiency and minimum variance portfolio under return target and weight constraints
 
 Concept of minimizing variance given a return target
 *** =video_link
 //player.vimeo.com/video/108225030
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:139d7eabbd827860709b29f2a8d968614d1e3cb0
 ## Mean variance efficient portfolio
 
 Give examples. Which one is dominated.
@@ -73,7 +73,7 @@ hint
 test_mc(2) # if 2 is the correct option.
 ```
 
---- type:NormalExercise lang:r xp:100 skills:1
+--- type:NormalExercise lang:r xp:100 skills:1 key:c066b2d5f610d13afdb48831249d18142590def7
 ## Find the mean-variance efficient portfolio with target equal to EW (step i)
 
 Obtain the optimized portfolio weights using portfolio.optim(), plot the portfolio weights using barplot()
@@ -106,7 +106,7 @@ hint comes here
 success_msg("Well done!")
 ```
 
---- type:NormalExercise lang:r xp:100 skills:1
+--- type:NormalExercise lang:r xp:100 skills:1 key:6f3df5bc7125d675f226ddc4c69639e2cf24d23c
 ## Find the mean-variance efficient portfolio with target equal to EW (step ii)
 
 Interpretation of the output (achieved mean return, portfolio variance).
@@ -139,14 +139,14 @@ hint comes here
 success_msg("Well done!")
 ```
 
---- type:VideoExercise lang:r xp:50 skills:1
+--- type:VideoExercise lang:r xp:50 skills:1 key:461436d2ee4b426f97b3c95b6ee39836ae38b34f
 ## Efficient frontier
 
 Concept of minimizing variance given a sequence of return targets starting from the lowest to highest expected returns
 *** =video_link
 //player.vimeo.com/video/108225030
 
---- type:NormalExercise lang:r xp:100 skills:1
+--- type:NormalExercise lang:r xp:100 skills:1 key:2c03a87fc29fb66e35d8cdbf244b3dcf41305824
 ## Plotting the efficient frontier in R using a loop (step i)
 
 Define the grid of target returns. Initialize the portfolio weights, means and sd to be saved.
@@ -179,7 +179,7 @@ hint comes here
 success_msg("Well done!")
 ```
 
---- type:NormalExercise lang:r xp:100 skills:1
+--- type:NormalExercise lang:r xp:100 skills:1 key:5cd26622b81e29df3e9a1636d88d48ed0ae3c3c5
 ## Plotting the efficient frontier in R using a loop (step ii)
 
 Write the loop. for(), portfolio.optim()
@@ -212,7 +212,7 @@ hint comes here
 success_msg("Well done!")
 ```
 
---- type:NormalExercise lang:r xp:100 skills:1
+--- type:NormalExercise lang:r xp:100 skills:1 key:c0483cbbf9a142a2e4541614bbeb9b8b407328d5
 ## lotting the efficient frontier in R using a loop (step iii)
 
 WPlot the results
@@ -245,14 +245,14 @@ hint comes here
 success_msg("Well done!")
 ```
 
---- type:VideoExercise lang:r xp:50 skills:1
+--- type:VideoExercise lang:r xp:50 skills:1 key:ca405aabc3c21c142aaae409da6302b77b5210ef
 ## The risk of error maximization
 
 Optimizing portfolios based on the estimated mean and covariance matrix is senstivitive to errors in estimation. The estimated mean and covariance matrix have estimation errors. Optimizing portfolio weights based on those noisy inputs leads to noisy portfolio weights, that may be suboptimal. Risk of error maximization. The insample estimated mean and variance of the optimized portfolios versus the out of sample.  Important to be aware of this by analyzing performance out of sample. Distinghuish estimation window from evaluation window;
 *** =video_link
 //player.vimeo.com/video/108225030
 
---- type:NormalExercise lang:r xp:100 skills:1
+--- type:NormalExercise lang:r xp:100 skills:1 key:69f72e3a22916ec2ef924a7f212d354f28022366
 ## Split sample in two and compare realized returns and volatilities of assets with predicted ones
 
 Estimation window, out of sample evaluation window. Estimation error
@@ -285,7 +285,7 @@ hint comes here
 success_msg("Well done!")
 ```
 
---- type:NormalExercise lang:r xp:100 skills:1
+--- type:NormalExercise lang:r xp:100 skills:1 key:6d3bdc717d87317d8c4ccf468836039b35f78440
 ## Split sample in two and compare EW vs Inverse vol vs mean variance optimized portfolio
 
 Estimation window, out of sample evaluation window. Compare in sample estimated performance with out of sample realized performance.
@@ -318,7 +318,7 @@ hint comes here
 success_msg("Well done!")
 ```
 
---- type:VideoExercise lang:r xp:50 skills:1
+--- type:VideoExercise lang:r xp:50 skills:1 key:75eb737c24e2ba235ee1de43c66a6324a9282b08
 ## Congratulations, you know how to analyze portfolio returns!
 
 summary and extensions.
