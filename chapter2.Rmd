@@ -178,7 +178,6 @@ table.CalendarReturns(sp500_returns)
 success_msg("Well done!")
 ```
 
-
 --- type:NormalExercise lang:r xp:100 skills:1
 
 ## Excess returns and the Sharpe ratio of the S&P 500 returns 
