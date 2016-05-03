@@ -178,7 +178,7 @@ table.CalendarReturns(sp500_returns)
 success_msg("Well done!")
 ```
 
-<<<<<<< HEAD
+
 --- type:NormalExercise lang:r xp:100 skills:1
 
 ## Excess returns and the Sharpe ratio of the S&P 500 returns 
@@ -236,9 +236,6 @@ rf <- 0.01/12
 success_msg("Well done!")
 ```
 --- type:NormalExercise lang:r xp:100 skills:1
-=======
---- type:NormalExercise lang:r xp:100 skills:1 key:ba9671b063deaba2de08399422178002f679c0f5
->>>>>>> e39c7fec8725776a6727040260fd3dc17ec5b1ea
 ## Annualized mean and volatility
 
 The mean and volatility of monthly returns corresponds to the average and standard deviation over a monthly investment horizon. Investors annualize those statistics by mutiplying the mean with 12, and the volatility with the square root of twelve. Compute the annualized mean and volatility of the portfolios.
