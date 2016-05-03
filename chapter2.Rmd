@@ -66,6 +66,7 @@ Our interest is in describing the monthly performance. This exercise is about ag
 - Print the first six rows of `sp500_monthly` and note that the aggregation has resulted in a table of four columns, holding the
 opening, lowest, highest and close price of `sp500` for each month. 
 - Define the variable `sp500_returns` as the close-to-close monthly returns. 
+- Make the time series plot of the monthly returns.
 - Use the function [table.CalandarReturns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.CalandarReturns) in PerformanceAnalytics to present the monthly return data in the visually attractive format year x month. 
 *** =hint
 
@@ -93,7 +94,9 @@ plot.zoo(sp500 , main="Value of the S&P 500 portfolio",ylab="", xlab="")
 # Print first six rows
 
 # Return calculation
-  
+
+# Time series plot
+
 # Produce the year x month table
 
 ```
@@ -106,6 +109,8 @@ sp500_monthly = to.monthly(sp500)
 head(sp500_monthly)
 # Return calculation
 sp500_returns <-  xts(CalculateReturns(sp500_monthly[,4]))  
+# Time series plot
+plot.zoo(sp500_returns)
 # Produce the year x month table
 table.CalendarReturns(sp500_returns)
 ```
@@ -143,9 +148,6 @@ sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1950-12-31"),end=Sys.D
 library(PerformanceAnalytics)
 sp500_returns <-  xts(CalculateReturns(sp500))[-1]
 names(sp500_returns) <- "sp500"
-par(mfrow=c(2,1),mar=c(3,2,2,2),cex.axis=0.7)
-plot.zoo(sp500 , main="Value of the S&P 500 portfolio",ylab="", xlab="")
-plot.zoo(sp500_returns , main="Monthly returns of the S&P 500 portfolio",ylab="", xlab="",type="h")
 ```
 
 *** =sample_code
@@ -176,6 +178,62 @@ table.CalendarReturns(sp500_returns)
 success_msg("Well done!")
 ```
 
+--- type:NormalExercise lang:r xp:100 skills:1
+
+## Excess returns and the Sharpe ratio of the S&P 500 returns 
+
+Average returns in itself are difficult to interpret. Is an average of 5% a high return? It depends on the alternatives. Suppose e.g. that there is a risk free investment offerening 4%. Then, by taking risks, the investor only has a 1 percentage point higher average return. The solution is to consider returns in excess of the risk-free investment. Those are called the excess return. They can be interpreted as the return on the self-financed investment of buying the risky portfolio and borrowing at the risk free rate.  
+
+The Sharpe ratio summarizes the balance between the excess portfolio return and the risk taken. It is the ratio obtained by taking the average difference between the portfolio return and the return the investor would have from a risk free investment and dividing this number with the portfolio standard deviation.The Sharpe ratio thus shows the reward per unit of risk taken.  
+
+A good proxy for the risk free rate is the yield of a 1-month Treasury Bill. This Tbill rate is available in the console as the variable `rf` (TO DO: make time series).  The S&P 500 portfolio returns are still available as `sp500_returns`.  
+The Sharpe ratio of a portfolio When we take the average excess portfolio return and divide it by the portfolio volatility
+
+
+
+*** =instructions
+- Compute the series of excess portfolio return `sp500_excess`.
+- Compute the Sharpe ratio
+*** =hint
+The functions `mean` and `sd` are standard functions in R to estimate the mean and standard deviation.
+
+*** =pre_exercise_code
+```{r}
+# pec
+options(warn=-1)
+library(tseries)# Its function get.hist.quote allows to download prices from Yahoo!Finance
+library(xts) # Its function plot.zoo make simple, but attractive, time series plots
+# download adjusted close prices (that is corrected for dividend payments and stock splits)
+# dates have the format "YYYY-MM-DD"
+sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1950-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+library(PerformanceAnalytics)
+sp500_returns <-  xts(CalculateReturns(sp500))[-1]
+names(sp500_returns) <- "sp500"
+rf <- 0.01/12
+```
+
+*** =sample_code
+```{r}
+# Compute the series of excess portfolio return `sp500_excess`.
+
+# Compute the Sharpe ratio
+  
+
+```
+
+*** =solution
+```{r}
+# Compute the series of excess portfolio return `sp500_excess`.
+
+# Compute the Sharpe ratio
+  
+```
+
+*** =sct
+```{r}
+# sct code
+success_msg("Well done!")
+```
 --- type:NormalExercise lang:r xp:100 skills:1
 ## Annualized mean and volatility
 
