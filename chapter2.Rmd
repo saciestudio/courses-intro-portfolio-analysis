@@ -178,8 +178,9 @@ table.CalendarReturns(sp500_returns)
 success_msg("Well done!")
 ```
 
---- type:NormalExercise lang:r xp:100 skills:1
-
+ 
+--- type:NormalExercise lang:r xp:100 skills:1 key:c14e2a1a3a
+ 
 ## Excess returns and the Sharpe ratio of the S&P 500 returns 
 
 Average returns in itself are difficult to interpret. Is an average of 5% a high return? It depends on the alternatives. Suppose e.g. that there is a risk free investment offerening 4%. Then, by taking risks, the investor only has a 1 percentage point higher average return. The solution is to consider returns in excess of the risk-free investment. Those are called the excess return. They can be interpreted as the return on the self-financed investment of buying the risky portfolio and borrowing at the risk free rate.  
@@ -234,7 +235,14 @@ rf <- 0.01/12
 # sct code
 success_msg("Well done!")
 ```
+<<<<<<< HEAD
 --- type:NormalExercise lang:r xp:100 skills:1
+=======
+--- type:NormalExercise lang:r xp:100 skills:1 key:2ef9530240
+=======
+--- type:NormalExercise lang:r xp:100 skills:1 key:ba9671b063deaba2de08399422178002f679c0f5
+>>>>>>> e39c7fec8725776a6727040260fd3dc17ec5b1ea
+>>>>>>> 575a26f0a0db9a54b12964ddc5ac6d2f02ae3220
 ## Annualized mean and volatility
 
 The mean and volatility of monthly returns corresponds to the average and standard deviation over a monthly investment horizon. Investors annualize those statistics by mutiplying the mean with 12, and the volatility with the square root of twelve. Compute the annualized mean and volatility of the portfolios.
