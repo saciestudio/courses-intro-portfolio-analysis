@@ -37,41 +37,19 @@ Once we have the average return and volatility, we can start interpreting portfo
 
 # Video 2:  Time-variation in portfolio performance
 
-The functions We are now experts in compute the average return and volatility over 
 
-The sample average and the variance of the past returns gives us a picture of how the return and risk has been in the past. It averages out periods of booms and busts in the asset prices, as well as periods of high and low volatility. 
+The sample average and the standard deviation of the past returns gives us a picture of how the return and volatility have been on averagein the past. It averages out periods of booms and busts in the asset prices, as well as periods of high and low volatility. The fact that this performance is not constant over time, but time-varying is crucial for the investor. 
 
-
-When investing we care about the risk and  return in the future, and just like the econonomic activity, the asset return and volatility evolves through cycles. 
+When investing today, the investor cares about the risk and  return over her investment period. Then the average return and risk is irrelevant, what matters is the prediction of future return and risk. This implies giving more weights to the more recent observations than the distant observations.
 
 ***
 
-There are the 
+The practioner approach of doing so is by the use of rolling estimation samples. 
 
-and the sample the squared centered returns te
-When investing
+ 
+***
 
-Time-variation in the return distribution. Not all information is equally predicitve. discuss  of time-variation in average return and volatility. Use of rolling window analysis to visualize this.
-
-
-
-
-The first important insight is that to evaluate portfolio performance, we are studying past performance. But not all past data is useful as a predictor of future performance. The key question in deciding on which data to use is the question of stationarity: will the past data on that variable be repeated in the future? 
-
-
-
-The emphasis will be on those measures that are predictive of of future performance 
-
-
-
-Many investors mistakenly base the success of their portfolios on returns alone. Few consider the risk that they took to achieve those returns. Since the 1960s, investors have known how to quantify and measure risk with the variability of returns, but no single measure actually looked at both risk and return together.
-
-
-
-
-
-
-# Video 1:  Evaluating portfolio performance is an estimation problem
+# Video 3: Downside risk; skewness, kurtosis and value-at-risk
 
 
 Don't forget: the return that we observed is only one of the possible outcomes. We could have had a higher of lower return, just by chance. This is also the reason why sellers of investment products always put the warning that "past performance is not a predictor of future results". 
@@ -82,76 +60,9 @@ Statistically speaking, the uncertainty comes from the fact that the portfolio r
 
 ***
 
-But what is the portfolio return distribution? There is no perfect answer for this question. We need to guess it, partly by making assumptions and partly by estimating. For now, let us assume the portfolio return distribution is normal with a mean parameter that I denote as mu and a standard deviation that I denote as sigma. 
+But what is the portfolio return distribution? There is no perfect answer for this question. We need to guess it, partly by making assumptions and partly by estimating. 
 
-Under this assumption, we know that there is 95% probability that the return will be between mu +- 2*sigma. The larger is the standard deviation, the more spread the possible outcomes can be. In finance, the standard deviation is also called volatility. The square of the volatility is the variance.  
-
-***
-
-The mean and variance are parameters. They are unknown, but once we have  a sample of past returns, it becomes possible to estimate them. Suppose e.g. that we have T observations: R1, R2,...,RT. Then the sample mean is the average of those returns (show formula on slide). The sample variance is the average squared difference between the return and the sample mean (show formula on slide). The sample standard deviation or volatility is the square root of this number. 
-
-***
-
-Average returns in itself are difficult to interpret. Is an average of 5% a high return? It depends on the alternatives. Suppose e.g. that there is a risk free investment offerening 4%. Then, by taking risks, the investor only has a 1 percentage point higher average return. 
-
-The Sharpe ratio summarizes this balance. It is the ratio obtained by taking the average difference between the portfolio return and the return the investor would have from a risk free investment and dividing this number with the portfolio standard deviation.
-
-The Sharpe ratio thus shows the reward per unit of risk taken.  
-
-
-***
-
-Let's consider an example. Suppose we have the returns for the past 12 months, together with their risk free rate. Computing the average excess returns gives us..., the standard deviation is ... . Hence the portfolio Sharpe ratio over those 12 months is ...
-
-***
-These are thus the average, standard deviation and Sharpe ratio for the returns over a one-month investment horizon. We could do something similar using daily returns and obtain then average, standard deviation and Sharpe ratio for the returns over a one-month investment horizon. In practice, these performance measures computed on daily or weekly returns are presented 
-in annualized terms. 
-
-In case of monthly returns, the annualized mean return is obtained by multiplying with 22, which is the average number of trading days in a month. The annualized standard deviation is obtained by multiplying with the square root of 22. This is the so called "square-root-of-time rule". For daily returns, the factor used for annualizing the mean is 252, corresponding to the average number of trading days in a year. 
-
-
-
-
-
-
-*************************************************************************************
-
-***
-
-Let me start with the graphical approach and consider here the histogram of the past portfolio returns on the equally weighted portfolio invested in the 30 Dow Jones Industrial Average stocks. The histogram shows for the range of past returns how likely each return was to occur. The higher the bar, the more likely the return. In this case, we see that the most likely return is slightly higher than zero. This positive return is to be traded-off against the risk that the return will be different from that expected return. 
-
-Looking at the minimum and maximum values in the histogram we see that all returns were between .... and .... 
-
-***
-
-In addition to the graphical analysis, investors routinely discuss performance statistics. The most used ones are the portfolio mean return and the return standard deviation. See the slides for their precise definition in case of a sample of  $T$ returns, $R_1$,...,$R_t$.
-
-The mean return indicates the average portfolio performance, while the standard deviation measures the spread of the returns across the mean. The higher the standard deviation, the more risk of large losses.
-
-Usually, a higher average return comes at the price of a higher risk. The sample variance corresponding to the average squared deviations of the return with respect to the average return is the risk measure used in modern portfolio theory by Harry Markowitz. The square root of the variance, called standard deviation or volatility, is more easy to interpret because it is in the same units as the returns.
-
-***
-
-The essence of investment is to balance risk and reward. Both can be measure in one statistic, namely the sharpe ratio correspoding to the average return (in excess of the risk free rate) per unit of portfolio volatility...
-
-
-***
-
-Annualizing 
-
-
-***
-
-# Video 2: Time-variation in portfolio performance
-
-Time-variation in the return distribution. Not all information is equally predicitve. discuss  of time-variation in average return and volatility. Use of rolling window analysis to visualize this.
-
-
-***
-
-# Video 3: Downside risk; skewness, kurtosis and value-at-risk
-
-The mean and volatility fully describe the return distribution, when the return distribution is normal. In practice, as can be seen also in the histogram, most financial return distributions are not-normal. They are asymmetric and have so-called heavy tails. This means that the tails are fatter than the ones of a normal distribution. The asymmetry is measured by skewness, which is the average value of the third power of the return deviations from their average, standardized by their volatility. If it is negative,.... Kurtosis; fourth power ... Excess kurtosis. When returns are non-normal, the volatility is not sufficient as a risk measure. A downside risk measure needs to be used, focusing on the probability of large losses. 5% value at risk; quantile ...  . Drawdowns.
+Until now, we have been working with the mean and volatility only. This is correct if the portfolio return distribution is normal.  In practice, as can be seen also in the histogram, most financial return distributions are not-normal. They are asymmetric and have so-called heavy tails. This means that the tails are fatter than the ones of a normal distribution. The asymmetry is measured by skewness, which is the average value of the third power of the return deviations from their average, standardized by their volatility. If it is negative,.... Kurtosis; fourth power ... Excess kurtosis. When returns are non-normal, the volatility is not sufficient as a risk measure. A downside risk measure needs to be used, focusing on the probability of large losses. 5% value at risk; quantile ...  . Drawdowns.
 
 
 ***
