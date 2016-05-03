@@ -123,7 +123,7 @@ success_msg("Well done!")
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:8c05172eb2
 
-## The monthly mean and volatility of S&P 500 returns 
+## The monthly mean and volatility  
 
 In this exercise, you need to do a descriptive analysis of the mean and volatility of the monthly S&P 500 returns. These returns are available in the R console as the variable `sp500_returns`. 
 
@@ -181,7 +181,7 @@ success_msg("Well done!")
  
 --- type:NormalExercise lang:r xp:100 skills:1 key:c14e2a1a3a
  
-## Excess returns and the Sharpe ratio of the S&P 500 returns 
+## Excess returns and the portfolio's Sharpe ratio  
 
 Average returns in itself are difficult to interpret. Is an average of 5% a high return? It depends on the alternatives. Suppose e.g. that there is a risk free investment offerening 4%. Then, by taking risks, the investor only has a 1 percentage point higher average return. The solution is to consider returns in excess of the risk-free investment. Those are called the excess return. They can be interpreted as the return on the self-financed investment of buying the risky portfolio and borrowing at the risk free rate.  
 
