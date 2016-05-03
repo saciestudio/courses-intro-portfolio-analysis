@@ -32,18 +32,29 @@ Most often, we do not use the sample variance itself, but its square root, calle
 
 Once we have the average return and volatility, we can start interpreting portfolio performance. In the next exercises, I will first test your understanding of how the mean and volatility are linked to the portfolio return distribution. Then, we will move on the evaluating in practice the performance of the S&P 500 portfolio, which is  generally considered as the most important benchmark portfolio for investors in US investors equities. This portfolio is invested in the 500 largest publicly listed US stocks  and set weights proportional to the stocks' market capitalization. 
 
+*******************
 
 
+# Video 2:  Time-variation in portfolio performance
+
+The functions We are now experts in compute the average return and volatility over 
+
+The sample average and the variance of the past returns gives us a picture of how the return and risk has been in the past. It averages out periods of booms and busts in the asset prices, as well as periods of high and low volatility. 
 
 
+When investing we care about the risk and  return in the future, and just like the econonomic activity, the asset return and volatility evolves through cycles. 
 
 ***
 
-In all cases, we aim at infer from the past returns relevant information on performance. It is important to remember that when doing this we expose ourselves to estimation errors. We will never be able to quantify true performance, we can only make a guess about it from the past returns. 
+There are the 
 
- 
+and the sample the squared centered returns te
+When investing
 
-***
+Time-variation in the return distribution. Not all information is equally predicitve. discuss  of time-variation in average return and volatility. Use of rolling window analysis to visualize this.
+
+
+
 
 The first important insight is that to evaluate portfolio performance, we are studying past performance. But not all past data is useful as a predictor of future performance. The key question in deciding on which data to use is the question of stationarity: will the past data on that variable be repeated in the future? 
 
@@ -99,23 +110,6 @@ in annualized terms.
 In case of monthly returns, the annualized mean return is obtained by multiplying with 22, which is the average number of trading days in a month. The annualized standard deviation is obtained by multiplying with the square root of 22. This is the so called "square-root-of-time rule". For daily returns, the factor used for annualizing the mean is 252, corresponding to the average number of trading days in a year. 
 
 
-# Video 2:  Time-variation in portfolio performance
-
-The functions We are now experts in compute the average return and volatility over 
-
-The sample average and the variance of the past returns gives us a picture of how the return and risk has been in the past. It averages out periods of booms and busts in the asset prices, as well as periods of high and low volatility. 
-
-
-When investing we care about the risk and  return in the future, and just like the econonomic activity, the asset return and volatility evolves through cycles. 
-
-***
-
-There are the 
-
-and the sample the squared centered returns te
-When investing
-
-Time-variation in the return distribution. Not all information is equally predicitve. discuss  of time-variation in average return and volatility. Use of rolling window analysis to visualize this.
 
 
 

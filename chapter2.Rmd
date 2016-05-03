@@ -316,7 +316,7 @@ test_mc(3) # if 3 is the correct option.
 --- type:NormalExercise lang:r xp:100 skills:1 key:9d2eb4bc6c13e8cdabe71c739978050d8809058c
 ## Don't be fooled by randomness
 
-It is important to be aware of the limitations of estimation. It is almost sure that the estimates of the mean and volatility will be different from the true mean and standard deviation.
+In all cases, we aim at inferring from the past returns relevant information on performance. It is important to remember that when doing this we expose ourselves to estimation errors. We will never be able to quantify true performance, we can only make a guess about it from the past returns.  This is the limitations of any estimation approach. It is almost sure that the estimates of the mean and volatility will be different from the true mean and standard deviation.
 
 Familiarize now yourself with the uncertainty in estimation by drawing random samples from a normal distribution with mean of 5% and standard deviation of 10%, and how this uncertainty is reduced when the sample size grows.  
 
