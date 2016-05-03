@@ -3,25 +3,21 @@ title       : Interpreting portfolio returns
 description : The history of portfolio returns contains valuable information on how much the investor can expect to gain or lose. Investors summarize these numbers graphically in terms of distribution plots and through statics expressing average return, risk and risk-adjusted return over rolling estimation samples. This chapter concludes by an investigation in the non-normality of the return series of investments and provides tools to characterize the financial risks and rewards that that takes this non-normality into account. 
 
 --- type:VideoExercise lang:r xp:50 skills:1
-## Evaluating portfolio performance is an estimation problem
-
-
-*** =video_link
-//player.vimeo.com/video/108225030
-
+## The different dimensions of portfolio performance
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1
 ## Balancing risk and reward 
 
-The portfolio return is a random variable. The range of possible outcomes and the likelihood of each of those outcomes can be visualized through the density plots of return distribution. The center of the density plot indicates the return you may expect on average, while the width of the density plot shows you how far off the returns can be from this average return expectation. Throughout, we make the realistic assumption that investors are risk-averse: if two investments offer the same expected return, the investor will prefer the investment with the lowest risk. 
+Here you see three return distributions. Note that the distributions are symmetric and the center of the distribution thus corresponds to the average return. Return distributions A and B have the same expected return, but for distribution B the volatility is higher, and therefore the range of possible outcomes is much wider. This indicates that the risk of a large deviation from the mean return is higher for investing in B than when investing in A. Distribution C has the same level of volatility as distribution A but a higher return. 
 
-In the right panel, you see see the density plots for the returns on three possible investments. The returns in the upper and middle panel have the same mean. The returns in the upper and bottom plot have the same standard deviation. Which distribution is to be preferred? 
+Consider the typical investor who likes returns, but dislikes risk. Which distribution does she prefer? 
+
 
 *** =instructions
-- Distribution in the upper plot.
-- Distribuion in the middle plot.
-- Distribution in the lower plot.
+- Distribution A.
+- Distribution B.
+- Distribution C.
 
 *** =hint
 hint
@@ -30,12 +26,21 @@ hint
 ```{r}
 # pec
 par(mfrow=c(3,1),mar=c(3,3,1,1),cex.axis=1.2)
+vd_A <- dnorm(vx,mean=0,sd=0.10)
+vd_B <- dnorm(vx,mean=0,sd=0.20)
+vd_C <-dnorm(vx,mean=0.10,sd=0.10)
+ylims = c(0,max(c(vd_A,vd_B,vd_C)))
 vx = seq(-0.5,0.5,0.001)
-plot( vx , dnorm(vx,mean=0,sd=0.10),type="l")
+plot( vx , vd_A,type="l",ylim=ylims,ylab="")
 abline(v=0,lty=3)
-plot( vx , dnorm(vx,mean=0,sd=0.20),type="l")
+text(x=-0.4,y=3,labels="Investment A")
+#arrows(x0=-2*0.1,y0=dnorm(-2*0.1),x1=2*0.1,y1=dnorm( 2*0.1),lty=3)
+#arrows(x0=2*0.1,y0=dnorm(-2*0.1),x1=-2*0.1,y1=dnorm( 2*0.1),lty=3)
+plot( vx , vd_B,type="l",ylim=ylims,ylab="")
 abline(v=0,lty=3)
-plot( vx , dnorm(vx,mean=0.10,sd=0.10),type="l")
+text(x=-0.4,y=3,labels="Investment B")
+plot( vx , vd_C,type="l",ylim=ylims,ylab="")
+text(x=-0.4,y=3,labels="Investment C")
 abline(v=0.10,lty=3)
 ```
 
@@ -44,22 +49,87 @@ abline(v=0.10,lty=3)
 test_mc(3) # if 3 is the correct option.
 ```
 
+
 --- type:NormalExercise lang:r xp:100 skills:1
-## The returns on the S&P 500 portfolio
 
-In practice, the mean and standard deviation of the returns is unknown and needs to be estimated, e.g. using the sample mean and standard deviation. Let us now use the functions `mean` and `sd` to estimate the mean and standard deviation on a US equity portfolios. 
+## Exploring the monthly S&P 500 returns 
 
-Of all possible portfolios, we consider here the most common choice in US equities investing, namely the S&P 500 portfolio, which invests in the 500 largest publicly listed US stocks and set weights proportional to the stocks' market capitalization.
+Let us now examine the monthly performance of the S&P 500 portfolio. 
 
-In the graphics envioronment, you can see the time series plot for the end-of-month value evolution in the top figure and the time series plot of monthly returns in the bottom figure. These returns are available in the R console as the variable `sp500_returns`.
+A picture is worth a thousand word. This is why most analyses of performance start by analyzing the time series plot of the value of the investment. For the S&P 500 this is shown in the upper plot for the period 1950 to current data. Each observation is the end-of-day value. Note the booms and busts in the value of this portfolio. Do you see why the 2000s are often called the lost decade of investing?
+
+These prices are available in the R console as the variable `sp500`. It is of the xts time series class.  
+Our interest is in describing the monthly performance. This exercise is about aggregation daily price series to end-of-month prices and then computing monthly returns and visualize them in an attractive table.  
+
+*** =instructions
+- Define the variable `sp500_monthly` as the output of applying the function [to.monthly]() to `sp500`.
+- Print the first six rows of `sp500_monthly` and note that the aggregation has resulted in a table of four columns, holding the
+opening, lowest, highest and close price of `sp500` for each month. 
+- Define the variable `sp500_returns` as the close-to-close monthly returns. 
+- Use the function [table.CalandarReturns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.CalandarReturns) in PerformanceAnalytics to present the monthly return data in the visually attractive format year x month. 
+*** =hint
+
+
+*** =pre_exercise_code
+```{r}
+# pec
+options(warn=-1)
+library(tseries)# Its function get.hist.quote allows to download prices from Yahoo!Finance
+library(xts) # Its function plot.zoo make simple, but attractive, time series plots
+# download adjusted close prices (that is corrected for dividend payments and stock splits)
+# dates have the format "YYYY-MM-DD"
+sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1950-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="d")
+library(PerformanceAnalytics)
+sp500 <- xts(sp500)
+#par(mfrow=c(2,1),mar=c(3,2,2,2),cex.axis=0.7)
+plot.zoo(sp500 , main="Value of the S&P 500 portfolio",ylab="", xlab="")
+#plot.zoo(sp500_returns , main="Monthly returns of the S&P 500 portfolio",ylab="", xlab="",type="h")
+```
+
+*** =sample_code
+```{r}
+# Time aggregation
+
+# Print first six rows
+
+# Return calculation
+  
+# Produce the year x month table
+
+```
+
+*** =solution
+```{r}
+# Time aggregation
+sp500_monthly = to.monthly(sp500)
+# Print first six rows
+head(sp500_monthly)
+# Return calculation
+sp500_returns <-  xts(CalculateReturns(sp500_monthly[,4]))  
+# Produce the year x month table
+table.CalendarReturns(sp500_returns)
+```
+
+*** =sct
+```{r}
+# sct code
+success_msg("Well done!")
+```
+
+--- type:NormalExercise lang:r xp:100 skills:1
+
+## The monthly mean and volatility of S&P 500 returns 
+
+In this exercise, you need to do a descriptive analysis of the mean and volatility of the monthly S&P 500 returns. These returns are available in the R console as the variable `sp500_returns`. 
+
+We will also compare the returns with
 
 *** =instructions
 - Compute the mean value of the return series.
 - Compute the standard deviation of the return series. 
 - Compute the risk-adjusted return given by the mean return divided by the standard deviation.
-- Use the function [table.CalandarReturns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.CalandarReturns) in PerformanceAnalytics to present the monthly return data in the visually attractive format year x month. 
 *** =hint
-
+The functions `mean` and `sd` are standard functions in R to estimate the mean and standard deviation.
 
 *** =pre_exercise_code
 ```{r}
@@ -86,8 +156,6 @@ plot.zoo(sp500_returns , main="Monthly returns of the S&P 500 portfolio",ylab=""
   
 # Compute the mean return divided by the return standard deviation
 
-# Produce the year x month table
-
 ```
 
 *** =solution
@@ -107,8 +175,6 @@ table.CalendarReturns(sp500_returns)
 # sct code
 success_msg("Well done!")
 ```
-
-
 
 --- type:NormalExercise lang:r xp:100 skills:1
 ## Annualized mean and volatility
@@ -251,7 +317,7 @@ success_msg("Well done!")
 --- type:VideoExercise lang:r xp:50 skills:1
 ## Time-variation in portfolio performance
 
-Time-variation in the return distribution. Not all information is equally predicitve. discuss  of time-variation in average return and volatility. Use of rolling window analysis to visualize this.
+
 *** =video_link
 //player.vimeo.com/video/108225030
 

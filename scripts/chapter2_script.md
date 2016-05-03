@@ -1,3 +1,65 @@
+# Video 1:  The different dimensions of portfolio performance
+
+
+This chapter is about studying the past returns to make sensible conclusions about past portfolio performance and making reliable predictions about future portfolio performance. 
+
+***
+
+Such a study requires to define clearly what is meant in terms of portfolio performance. 
+
+***
+
+The first dimension to specify is to horizon over which we need describe the portfolio performance : Is it the performance over a short horizion such as one day or one month? Or is it the performance over a longer horizon, such as one quarter or a year. 
+
+
+Secondly, we need to distinguish the objective of the analysis: (i) Is it a backward looking investigation of past performance; (ii) or is it a forward looking prediction of future performance. 
+
+In the first case, we will be treating all past returns as equally important and the analysis is descriptive. In the second case, the more recently observed returns are of higher importance, since they are more predictive about future performance than the distant past returns. 
+
+A third important distinction that we need to make is the type of performance. Is it the performance in terms of accumulating a maximum level of wealth (reward). Or is it the performance in terms of avoiding extreme losses (risk). Or is it a combination of both: achieving a high expected return at a low level of risk? 
+
+***
+
+The standard choice is to use the average return as a measure of reward and the standard deviation of the returns as a measure of risk.
+
+More formally, suppose we T observations: R1, R2,...,RT. 
+Then the sample mean is the average of those returns (show formula on slide). 
+The sample variance is the average squared difference between the return and the sample mean (show formula on slide). 
+
+Most often, we do not use the sample variance itself, but its square root, called the sample standard deviation, which in finance, is also called the portfolio volatility.  
+
+***
+
+Once we have the average return and volatility, we can start interpreting portfolio performance. In the next exercises, I will first test your understanding of how the mean and volatility are linked to the portfolio return distribution. Then, we will move on the evaluating in practice the performance of the S&P 500 portfolio, which is  generally considered as the most important benchmark portfolio for investors in US investors equities. This portfolio is invested in the 500 largest publicly listed US stocks  and set weights proportional to the stocks' market capitalization. 
+
+
+
+
+
+
+***
+
+In all cases, we aim at infer from the past returns relevant information on performance. It is important to remember that when doing this we expose ourselves to estimation errors. We will never be able to quantify true performance, we can only make a guess about it from the past returns. 
+
+ 
+
+***
+
+The first important insight is that to evaluate portfolio performance, we are studying past performance. But not all past data is useful as a predictor of future performance. The key question in deciding on which data to use is the question of stationarity: will the past data on that variable be repeated in the future? 
+
+
+
+The emphasis will be on those measures that are predictive of of future performance 
+
+
+
+Many investors mistakenly base the success of their portfolios on returns alone. Few consider the risk that they took to achieve those returns. Since the 1960s, investors have known how to quantify and measure risk with the variability of returns, but no single measure actually looked at both risk and return together.
+
+
+
+
+
+
 # Video 1:  Evaluating portfolio performance is an estimation problem
 
 
@@ -39,7 +101,21 @@ In case of monthly returns, the annualized mean return is obtained by multiplyin
 
 # Video 2:  Time-variation in portfolio performance
 
+The functions We are now experts in compute the average return and volatility over 
 
+The sample average and the variance of the past returns gives us a picture of how the return and risk has been in the past. It averages out periods of booms and busts in the asset prices, as well as periods of high and low volatility. 
+
+
+When investing we care about the risk and  return in the future, and just like the econonomic activity, the asset return and volatility evolves through cycles. 
+
+***
+
+There are the 
+
+and the sample the squared centered returns te
+When investing
+
+Time-variation in the return distribution. Not all information is equally predicitve. discuss  of time-variation in average return and volatility. Use of rolling window analysis to visualize this.
 
 
 
@@ -72,7 +148,14 @@ Annualizing
 
 ***
 
-# Video 2: Downside risk; skewness, kurtosis and value-at-risk
+# Video 2: Time-variation in portfolio performance
+
+Time-variation in the return distribution. Not all information is equally predicitve. discuss  of time-variation in average return and volatility. Use of rolling window analysis to visualize this.
+
+
+***
+
+# Video 3: Downside risk; skewness, kurtosis and value-at-risk
 
 The mean and volatility fully describe the return distribution, when the return distribution is normal. In practice, as can be seen also in the histogram, most financial return distributions are not-normal. They are asymmetric and have so-called heavy tails. This means that the tails are fatter than the ones of a normal distribution. The asymmetry is measured by skewness, which is the average value of the third power of the return deviations from their average, standardized by their volatility. If it is negative,.... Kurtosis; fourth power ... Excess kurtosis. When returns are non-normal, the volatility is not sufficient as a risk measure. A downside risk measure needs to be used, focusing on the probability of large losses. 5% value at risk; quantile ...  . Drawdowns.
 
