@@ -465,7 +465,7 @@ test_mc(2) # if 2 is the correct option.
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:012c07fe20924387617cef2df90e9ac6458f6fa8
-## Subset a zoo/xts time series using the function window and compare performance on a normal versus crisis period
+## Subperiod performance analysis and the function window 
 
 Let us now consider the time-variation in the return distribution. Define `preturns.2008` as the portfolio returns in 2008, obtained
 with the function `window`, having as first argument the return series that needs to be subset, then the start data and end date
@@ -583,14 +583,14 @@ success_msg("Well done!")
 
 
 --- type:VideoExercise lang:r xp:50 skills:1 key:1c105a499d956a288a91e9884d2f1765c20a025f
-## Downside risk; skewness, kurtosis and value-at-risk
+## Interpreting the non-normality of the return distribution 
 
 
 *** =video_link
 //player.vimeo.com/video/108225030
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:dfd18e3152bb168fd30148d4b418df9383e2fa19
-## Non-normality in the return distribution
+## Skewness and kurtosis
 
 Exercise on computing skewness, kurtosis.
 
@@ -672,7 +672,7 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:20cda1434c7729ec212810fc6317b96b99c1b0ec
 ## Drawdowns
 
-The use of the table.Drawdowns function in PerformanceAnalytics.
+The use of the [table.Drawdowns]() function in PerformanceAnalytics.
 
 *** =instructions
 - instruction 1
