@@ -58,11 +58,11 @@ Let us now examine the monthly performance of the S&P 500 portfolio.
 
 A picture is worth a thousand word. This is why most analyses of performance start by analyzing the time series plot of the value of the investment. For the S&P 500 this is shown in the upper plot for the period 1950 to current data. Each observation is the end-of-day value. Note the booms and busts in the value of this portfolio. Do you see why the 2000s are often called the lost decade of investing?
 
-These prices are available in the R console as the variable `sp500`. It is of the xts time series class.  
+These prices are available in the R console as the variable `sp500`, which is of the xts time series class.  
 Our interest is in describing the monthly performance. This exercise is about aggregation daily price series to end-of-month prices and then computing monthly returns and visualize them in an attractive table.  
 
 *** =instructions
-- Define the variable `sp500_monthly` as the output of applying the function [to.monthly]() to `sp500`.
+- Define the variable `sp500_monthly` as the output of applying the function [to.monthly](http://www.rdocumentation.org/packages/xts/functions/to.period) to `sp500`.
 - Print the first six rows of `sp500_monthly` and note that the aggregation has resulted in a table of four columns, holding the
 opening, lowest, highest and close price of `sp500` for each month. 
 - Define the variable `sp500_returns` as the close-to-close monthly returns. 
@@ -445,18 +445,20 @@ hint
 *** =pre_exercise_code
 ```{r}
 # pec
-library(xts)
+options(warn=-1)
+library(tseries)# Its function get.hist.quote allows to download prices from Yahoo!Finance
+library(xts) # Its function plot.zoo make simple, but attractive, time series plots
+# download adjusted close prices (that is corrected for dividend payments and stock splits)
+# dates have the format "YYYY-MM-DD"
+sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1950-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
 library(PerformanceAnalytics)
-download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
-prices<- readRDS("prices.rds") 
-returns <- CalculateReturns(prices, method="simple")
-returns <- returns[(-1),]
-preturns <- Return.portfolio( returns )
+sp500_returns <-  xts(CalculateReturns(sp500))[-1]
+names(sp500_returns) <- "sp500"
 par(mfrow = c(2,1))
-chart.RollingPerformance(R=preturns , width=6,
-                         FUN="sd.annualized",scale=12)
-chart.RollingPerformance(R=preturns , width=12,
-                         FUN="sd.annualized",scale=12)
+chart.RollingPerformance(R=sp500_returns , width=6,
+                         FUN="sd.annualized",scale=12,main="6-months rolling annualized volatility S&P 500")
+chart.RollingPerformance(R=sp500_returns , width=12,
+                         FUN="sd.annualized",scale=12,main="12-months rolling annualized volatility S&P 500")
 ```
 
 *** =sct
@@ -467,9 +469,7 @@ test_mc(2) # if 2 is the correct option.
 --- type:NormalExercise lang:r xp:100 skills:1 key:012c07fe20924387617cef2df90e9ac6458f6fa8
 ## Subperiod performance analysis and the function window 
 
-Let us now consider the time-variation in the return distribution. Define `preturns.2008` as the portfolio returns in 2008, obtained
-with the function `window`, having as first argument the return series that needs to be subset, then the start data and end date
-in the format `YYYY-MM-DD`. Compare the histogram of `preturns` with `preturns.2008` and well as the annualized volatility. 
+Let us now consider the time-variation in the return distribution. Define `sp500_returns_2008` as the S&P 500 portfolio returns in 2008, obtained with the function `window`, having as first argument the return series that needs to be subset, then the start data and end date in the format `YYYY-MM-DD`. Compare the histogram of `sp500_returns` with `sp500_returns_2008` and well as the annualized volatility. 
 
 
 *** =instructions
@@ -483,20 +483,21 @@ hint comes here
 *** =pre_exercise_code
 ```{r}
 # pec
-library(xts)
+options(warn=-1)
+library(tseries)# Its function get.hist.quote allows to download prices from Yahoo!Finance
+library(xts) # Its function plot.zoo make simple, but attractive, time series plots
+# download adjusted close prices (that is corrected for dividend payments and stock splits)
+# dates have the format "YYYY-MM-DD"
+sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1950-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
 library(PerformanceAnalytics)
-download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
-prices<- readRDS("prices.rds") 
-returns <- CalculateReturns(prices, method="simple")
-returns <- returns[(-1),]
-preturns <- Return.portfolio( returns )
-DJIA <- cumprod(1+preturns)
+sp500_returns <-  xts(CalculateReturns(sp500))[-1]
+names(sp500_returns) <- "sp500"
 ```
 
 *** =sample_code
 ```{r}
 # Define preturns.2008
-preturns.2008 <- window(preturns,startdate = as.Date(" "), enddate = as.Date(" ")  )
+sp500_returns_2008 <- window(sp500_returns,startdate = as.Date(" "), enddate = as.Date(" ")  )
 # plotting
 par( mfrow = c(2,1) , mar=c(3,2,2,2))
 
@@ -508,14 +509,14 @@ par( mfrow = c(2,1) , mar=c(3,2,2,2))
 ```{r}
 # solution code
 # Define preturns2008
-preturns2008 <- window(preturns,startdate = as.Date("2008-01-01"), enddate = as.Date("2008-12-31 ")  )
+sp500_returns_2008 <- window(sp500_returns,startdate = as.Date("2008-01-01"), enddate = as.Date("2008-12-31 ")  )
 # plotting
 par( mfrow = c(2,1) , mar=c(3,2,2,2))
-hist(preturns2008)
+hist(sp500_returns_2008)
 hist(preturns)
 # annualized volatility
-sqrt(12)*sd(preturns2008)
-sqrt(12)*sd(preturns)         
+sqrt(12)*sd(sp500_returns_2008)
+sqrt(12)*sd(sp500_returns)         
 
 ```
 
