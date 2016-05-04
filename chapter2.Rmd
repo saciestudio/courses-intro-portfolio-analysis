@@ -1,6 +1,6 @@
 ---
 title       : Interpreting portfolio returns 
-description : The history of portfolio returns contains valuable information about how much the investor can expect to gain or lose. This chapter introduces the R functionality to analyze the investment performance based on a statisical analysis of the portfolio returns. It includes graphical analysis and the calculation of performance statistics expressing average return, risk and risk-adjusted return over rolling estimation samples. This chapter concludes by an investigation in the non-normality of the return distribution aand provides tools to characterize the financial risks and rewards in a non-normal world. 
+description : The history of portfolio returns contains valuable information about how much the investor can expect to gain or lose. This chapter introduces the R functionality to analyze the investment performance based on a statisical analysis of the portfolio returns. It includes graphical analysis and the calculation of performance statistics expressing average return, risk and risk-adjusted return over rolling estimation samples. This chapter concludes by an investigation in the non-normality of the return distribution and provides the tools to characterize the financial risks and rewards in a non-normal world. 
 
 
 --- type:VideoExercise lang:r xp:50 skills:1 key:c4b994ff53
