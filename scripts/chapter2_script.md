@@ -82,7 +82,7 @@ The optimal choice of window is thus a trade-off between recensy and estimation 
 
 ***
 
-# Video 3: Downside risk; skewness, kurtosis and value-at-risk
+# Video 3: The non-normality of the return distribution 
 
 
 Don't forget: the return that we observed is only one of the possible outcomes. We could have had a higher of lower return, just by chance. This is also the reason why sellers of investment products always put the warning that "past performance is not a predictor of future results". 

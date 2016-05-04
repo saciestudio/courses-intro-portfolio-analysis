@@ -1,6 +1,6 @@
 ---
 title       : Interpreting portfolio returns 
-description : The history of portfolio returns contains valuable information on how much the investor can expect to gain or lose. This chapter introduces the R functionality to analyze the investment performance based on a statisical analysis of the portfolio returns. It includes graphical analysis and the calculation of performance statistics expressing average return, risk and risk-adjusted return over rolling estimation samples. This chapter concludes by an investigation in the non-normality of the return distribution aand provides tools to characterize the financial risks and rewards in a non-normal world. 
+description : The history of portfolio returns contains valuable information about how much the investor can expect to gain or lose. This chapter introduces the R functionality to analyze the investment performance based on a statisical analysis of the portfolio returns. It includes graphical analysis and the calculation of performance statistics expressing average return, risk and risk-adjusted return over rolling estimation samples. This chapter concludes by an investigation in the non-normality of the return distribution aand provides tools to characterize the financial risks and rewards in a non-normal world. 
 
 
 --- type:VideoExercise lang:r xp:50 skills:1 key:c4b994ff53
@@ -543,14 +543,158 @@ test_mc(2) # if 2 is the correct option.
 ## Subperiod performance analysis and the function window 
 
 We have now computed the performance measure on each possible sample of a fixed size that can be obtained by rolling through time. Often we are interest in the performance over one particular subwindow.  Obtaining a subset of a time series in R is straightforward using the function the function [window](http://www.rdocumentation.org/packages/zoo/functions/window.zoo), having as first argument the return series that needs to be subset, then the start data and end date in the format `YYYY-MM-DD`.
-
-[chart.Hist](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Histogram)
-
-
+In this exercise, we will be working with the daily S&P 500 returns, available as the variable `sp500_returns`.
+ 
 *** =instructions
 -  Define the `sp500_2008` and `sp500_2014` as the S&P 500 portfolio returns in 2008 and 2014 by subsetting the variable `sp500_returns`.
--  Compare the histograms of the returns in those two years. 
+-  Plot the histograms of the returns in those two years, using the function [chart.Histogram](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Histogram), where the argument `methods`is set `c( "add.density", "add.normal")` to visualize the non-parameteric estimate of the denisty and the one obtained under the assumption of a normal distribution. 
 
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+options(warn=-1)
+library(tseries)# Its function get.hist.quote allows to download prices from Yahoo!Finance
+library(xts) # Its function plot.zoo make simple, but attractive, time series plots
+# download adjusted close prices (that is corrected for dividend payments and stock splits)
+# dates have the format "YYYY-MM-DD"
+sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1985-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="d")
+plot.zoo(sp500)
+library(PerformanceAnalytics)
+sp500_returns <-  xts(CalculateReturns(sp500))[-1]
+names(sp500_returns) <- "sp500"
+```
+
+*** =sample_code
+```{r}
+# subsetting
+sp500_2008 <- window(sp500_returns,start  = as.Date(" "), end  = as.Date(" ")  )
+sp500_2014 <- 
+# plotting
+par( mfrow = c(1,2) , mar=c(3,2,2,2))
+names(sp500_2008) <- "sp500_2008"
+names(sp500_2014) <- "sp500_2014"
+# histogram 2008
+
+# histogram 2014
+
+
+```
+
+*** =solution
+```{r}
+# solution code
+# subsetting
+sp500_2008 <- window(sp500_returns,start  = as.Date("2008-01-01"), end  = as.Date("2008-12-31 ")  )
+sp500_2014 <- window(sp500_returns,start  = as.Date("2014-01-01"), end  = as.Date("2014-12-31 ")  )
+# plotting
+par( mfrow = c(1,2) , mar=c(3,2,2,2))
+names(sp500_2008) <- "sp500_2008"
+names(sp500_2014) <- "sp500_2014"
+# histogram 2008
+chart.Histogram(sp500_2008,methods = c( "add.density", "add.normal"))
+# histogram 2014
+chart.Histogram(sp500_2014, methods = c( "add.density", "add.normal"))
+```
+
+*** =sct
+```{r}
+# sct code
+success_msg("Well done!")
+```
+
+--- type:VideoExercise lang:r xp:50 skills:1 key:1c105a499d956a288a91e9884d2f1765c20a025f
+## The non-normality of the return distribution 
+
+
+*** =video_link
+//player.vimeo.com/video/108225030
+
+--- type:NormalExercise lang:r xp:100 skills:1 key:dfd18e3152bb168fd30148d4b418df9383e2fa19
+## Detecting non-normality using skewness and kurtosis
+
+Performance evaluation is highly sensitive to the investment horizon. We already notice the time-variation and the properties of mean-reversion in returns and volatility. By the central limit theorem, it turns out that the longer the horizon over which a return is compute, the more normal its distribution is. This property of aggregational Gaussianity is illustrated in the plot environment showing comparing the histogram of the monthly and daily return of the S&P 500 over the period 1986 till current date. 
+
+Let us verify whether the [skewness](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/skewness) and [kurtosis](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/kurtosis) statistics confirm this graphical analysis. By default, the [kurtosis](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/kurtosis)  reports the excess kurtosis (that is, the kurtosis minus three). Let us then use the [jarque.bera.test](http://www.rdocumentation.org/packages/tseries/functions/jarque.bera.test) to see whether the null hypothesis of a normal distribution can be rejected at a significance level of 5%. 
+ 
+
+*** =instructions
+- Compute the skewness and excess kurtois of `sp500_daily` and `sp500_monthly`.
+- Test for normality in the two series using the Jarque Bera test. 
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+options(warn=-1)
+library(tseries)# Its function get.hist.quote allows to download prices from Yahoo!Finance
+library(xts) # Its function plot.zoo make simple, but attractive, time series plots
+# download adjusted close prices (that is corrected for dividend payments and stock splits)
+# dates have the format "YYYY-MM-DD"
+sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1985-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="d")
+plot.zoo(sp500)
+library(PerformanceAnalytics)
+sp500_daily <-  xts(CalculateReturns(sp500))[-1]
+names(sp500_daily) <- "sp500_daily"
+
+sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1985-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+plot.zoo(sp500)
+library(PerformanceAnalytics)
+sp500_monthly <-  xts(CalculateReturns(sp500))[-1]
+names(sp500_monthly) <- "sp500_monthly"
+par( mfrow = c(1,2) , mar=c(3,2,2,2))
+chart.Histogram(sp500_daily, methods = c( "add.density", "add.normal"))
+chart.Histogram(sp500_monthly, methods = c( "add.density", "add.normal"))
+```
+
+*** =sample_code
+```{r}
+#  Compute the skewness 
+  
+
+# excess kurtois 
+
+
+# jarque bera test 
+
+
+```
+
+*** =solution
+```{r}
+#  Compute the skewness 
+skewness(sp500_daily)
+skewness(sp500_monthly)
+# excess kurtois 
+kurtosis(sp500_daily)
+kurtosis(sp500_monthly)
+# jarque bera test 
+jarque.bera.test(sp500_daily)
+jarque.bera.test(sp500_monthly) 
+```
+
+*** =sct
+```{r}
+# sct code
+success_msg("Well done!")
+```
+
+--- type:NormalExercise lang:r xp:100 skills:1 key:774962285dd78c6a424e6a1eebc8c1cea5949cd3
+## Downside risk measures
+
+The standard deviation gives equal weight to positive and negative returns in calcuting the return variability. 
+When the return distribution is asymmetric, investors use additional risk measures that focus on describing the potential losses. One such measure of downside risk is the [SemiDeviation](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/DownsideDeviation.html) computing the standard deviation of the negative returns. A further popular measure is the so-called `Value-at-Risk` at a pre-definity loss probability of e.g. 5%. Loosely speaking, it corresponds to the 5% quantile of the return distribution, such that a more negative return can only happen with a probability of 5%. The expected shortfall at 5% is the average return when the return is below this 5% quantile. 
+
+Use the default implementation in the function [VaR](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/VaR.html) and [ES](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/ES.html) to compute those downside risk estimates for the monthly return series `sp500_monthly`, and verify that they match with what you would expect from the histogram. 
+
+*** =instructions
+- Estimate the 2.5% and 5% value-at-risk of a monthly investment in S&P 500 returns. 
+- Estimate the 2.5% and 5% expected shortfall of a monthly investment in S&P 500 returns.
 
 *** =hint
 hint comes here
@@ -566,182 +710,27 @@ library(xts) # Its function plot.zoo make simple, but attractive, time series pl
 sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1985-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
 plot.zoo(sp500)
 library(PerformanceAnalytics)
-sp500_returns <-  xts(CalculateReturns(sp500))[-1]
-names(sp500_returns) <- "sp500"
+sp500_monthly <-  xts(CalculateReturns(sp500))[-1]
+names(sp500_monthly) <- "sp500_monthly"
+chart.Histogram(sp500_monthly, methods = c( "add.density", "add.normal"))
 ```
 
 *** =sample_code
 ```{r}
-# subsetting
-sp500_2008 <- window(sp500_returns,startdate = as.Date(" "), enddate = as.Date(" ")  )
-sp500_2014 <- 
-# plotting
-par( mfrow = c(1,2) , mar=c(3,2,2,2))
-# histogram 2008
+# compute value at risk
 
-# histogram 2014
-
+# compute expected shortfal
 
 ```
 
 *** =solution
 ```{r}
-# solution code
-# subsetting
-sp500_2008 <- window(sp500_returns,startdate = as.Date("2008-01-01"), enddate = as.Date("2008-12-31 ")  )
-sp500_2014 <- window(sp500_returns,startdate = as.Date("2014-01-01"), enddate = as.Date("2014-12-31 ")  )
-# plotting
-par( mfrow = c(1,2) , mar=c(3,2,2,2))
-# histogram 2008
-
-# histogram 2014
-
-       
-
-```
-
-*** =sct
-```{r}
-# sct code
-success_msg("Well done!")
-```
-
---- type:NormalExercise lang:r xp:100 skills:1 key:c694fec6bc34ed0db1ccf2eea79660404a3a1e55
-## Analyzing the portfolio return distribution
-
-The variable `preturns` contains the monthly returns on the equally-weighted portfolio of Dow Jones Industrial Average stocks over the period 1991-2015. Compute first the mean and standard deviation of these returns, as well as their minimum and maximum value. Then plot the histogram of these returns.
-
-*** =instructions
-- Compute summary statistics using the functions `mean`, `sd`, `min` and `max`
-- Plot the histogram and expriment with the argument `breaks` in `hist` to make the intervals smaller
-
-*** =hint
-hint comes here
-
-*** =pre_exercise_code
-```{r}
-# pec
-library(xts)
-library(PerformanceAnalytics)
-download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
-prices<- readRDS("prices.rds") 
-returns <- CalculateReturns(prices, method="simple")
-returns <- returns[(-1),]
-preturns <- Return.portfolio( returns )
-```
-
-*** =sample_code
-```{r}
-# Summary statistics
-
-
-
-
-# Histogram
-
-
-```
-
-*** =solution
-```{r}
-# Summary statistics
-mean(preturns)
-sd(preturns)
-min(preturns)
-max(preturns)
-# Histogram
-hist(preturns,breaks=10)
-```
-
-*** =sct
-```{r}
-# sct code
-success_msg("Well done!")
-```
-
-
-
-
-
---- type:VideoExercise lang:r xp:50 skills:1 key:1c105a499d956a288a91e9884d2f1765c20a025f
-## Interpreting the non-normality of the return distribution 
-
-
-*** =video_link
-//player.vimeo.com/video/108225030
-
---- type:NormalExercise lang:r xp:100 skills:1 key:dfd18e3152bb168fd30148d4b418df9383e2fa19
-## Skewness and kurtosis
-
-Exercise on computing skewness, kurtosis.
-
-*** =instructions
-- instruction 1
-- instruction 2
-
-*** =hint
-hint comes here
-
-*** =pre_exercise_code
-```{r}
-# pec
-library(xts)
-library(PerformanceAnalytics)
-download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
-prices<- readRDS("prices.rds") 
-returns <- CalculateReturns(prices, method="simple")
-returns <- returns[(-1),]
-preturns <- Return.portfolio( returns )
-```
-
-*** =sample_code
-```{r}
-# sample code
-```
-
-*** =solution
-```{r}
-# solution code
-```
-
-*** =sct
-```{r}
-# sct code
-success_msg("Well done!")
-```
-
---- type:NormalExercise lang:r xp:100 skills:1 key:774962285dd78c6a424e6a1eebc8c1cea5949cd3
-## Downside risk measures
-
-The use of the VaR function to compute value at risk.
-
-*** =instructions
-- instruction 1
-- instruction 2
-
-*** =hint
-hint comes here
-
-*** =pre_exercise_code
-```{r}
-# pec
-library(xts)
-library(PerformanceAnalytics)
-download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
-prices<- readRDS("prices.rds") 
-returns <- CalculateReturns(prices, method="simple")
-returns <- returns[(-1),]
-preturns <- Return.portfolio( returns )
-```
-
-*** =sample_code
-```{r}
-# sample code
-```
-
-*** =solution
-```{r}
-# solution code
+# compute value at risk
+VaR(sp500_monthly,p=0.05)
+VaR(sp500_monthly,p=0.025)
+# compute expected shortfal
+ES(sp500_monthly,p=0.05)
+ES(sp500_monthly,p=0.025)
 ```
 
 *** =sct
@@ -751,9 +740,10 @@ success_msg("Well done!")
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:20cda1434c7729ec212810fc6317b96b99c1b0ec
-## Drawdowns
+## Drawdowns due to buying high, selling low
 
-The use of the [table.Drawdowns]() function in PerformanceAnalytics.
+Buy low sell high. but what if we bought high sold low?Monthly When do you step in ... timing
+The use of the [table.Drawdowns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.Drawdowns) function in PerformanceAnalytics.
 
 *** =instructions
 - instruction 1
@@ -790,56 +780,6 @@ preturns <- Return.portfolio( returns )
 success_msg("Well done!")
 ```
 
---- type:NormalExercise lang:r xp:100 skills:1 key:d3d74e3f4e43c9444ca582ded3a6d7f2dc8746e1
-## The effect of leverage
-
-Suppose that by leveraging the portfolio, the returns are multiplied by 2. Verify that the mean and standard deviation of the leveraged returns is twice the mean and standard deviation of the original returns and that the skewness and kurtosis are not affected by the levarage. 
-
-*** =instructions
-- Define the variable `lpreturns`
-- Compute for `preturns` and `lpereturns` the vector holding the mean, standard deviation, skewness and kurtosis
-
-
-
-*** =hint
-hint comes here
-
-*** =pre_exercise_code
-```{r}
-# pec
-library(xts)
-library(PerformanceAnalytics)
-download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
-prices<- readRDS("prices.rds") 
-returns <- CalculateReturns(prices, method="simple")
-returns <- returns[(-1),]
-preturns <- Return.portfolio( returns )
-```
-
-*** =sample_code
-```{r}
-# Define lpreturns
-
-# Vector with mean, sd, skewness and excess kurtosis for preturns
-c(  ,   ,   ,  )
-# Vector with mean, sd, skewness and excess kurtosis for lpreturns
-c(  ,   ,   ,  )
-```
-
-*** =solution
-```{r}
-# Define lpreturns
-lpreturns = 2*preturns
-# Vector with mean, sd, skewness and excess kurtosis for preturns
-c(  mean(preturns) , sd(preturns)   , skewness(preturns)  , kurtosis(preturns)  )
-# Vector with mean, sd, skewness and kurtosis for lpreturns
-c(  mean(lpreturns) , sd(lpreturns)   , skewness(lpreturns)  , kurtosis(lpreturns)  )
-```
-
-*** =sct
-```{r}
-# sct code
-success_msg("Well done!")
-```
+ 
 
 
