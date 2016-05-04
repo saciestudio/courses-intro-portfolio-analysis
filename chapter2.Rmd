@@ -688,13 +688,14 @@ success_msg("Well done!")
 ## Downside risk measures
 
 The standard deviation gives equal weight to positive and negative returns in calcuting the return variability. 
-When the return distribution is asymmetric, investors use additional risk measures that focus on describing the potential losses. One such measure of downside risk is the [SemiDeviation](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/DownsideDeviation.html) computing the standard deviation of the negative returns. A further popular measure is the so-called `Value-at-Risk` at a pre-definity loss probability of e.g. 5%. Loosely speaking, it corresponds to the 5% quantile of the return distribution, such that a more negative return can only happen with a probability of 5%. The expected shortfall at 5% is the average return when the return is below this 5% quantile. 
+When the return distribution is asymmetric, investors use additional risk measures that focus on describing the potential losses. One such measure of downside risk is the [SemiDeviation](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/DownsideDeviation.html) computing the standard deviation of the negative returns.  The corrresponding risk-adjusted return is the Sortino ratio, defined as the average portfolio return, divided by the semideviation. It is an alternative for the Sharpe ratio that takes the non-normality of the return distribution into account by using the semideviation as risk measure rather than the standard deviation. 
 
-Use the default implementation in the function [VaR](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/VaR.html) and [ES](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/ES.html) to compute those downside risk estimates for the monthly return series `sp500_monthly`, and verify that they match with what you would expect from the histogram. 
+A further popular measure is the so-called `Value-at-Risk` at a pre-definity loss probability of e.g. 5%. Loosely speaking, it corresponds to the 5% quantile of the return distribution, such that a more negative return can only happen with a probability of 5%. The expected shortfall at 5% is the average return when the return is below this 5% quantile. 
 
 *** =instructions
-- Estimate the 2.5% and 5% value-at-risk of a monthly investment in S&P 500 returns. 
-- Estimate the 2.5% and 5% expected shortfall of a monthly investment in S&P 500 returns.
+- Compute the [SortinoRatio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/SortinoRatio) of the monthly returns.
+- Use the default implementation in the function [VaR](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/VaR.html) to estimate the 2.5% and 5% value-at-risk of a monthly investment in S&P 500 returns. 
+- Use the default implementation in the function [ES](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/ES.html)  to estimate the 2.5% and 5% expected shortfall of a monthly investment in S&P 500 returns. 
 
 *** =hint
 hint comes here
@@ -716,7 +717,9 @@ chart.Histogram(sp500_monthly, methods = c( "add.density", "add.normal"))
 ```
 
 *** =sample_code
-```{r}
+```
+# compute the Sortino ratio
+
 # compute value at risk
 
 # compute expected shortfal
@@ -725,6 +728,8 @@ chart.Histogram(sp500_monthly, methods = c( "add.density", "add.normal"))
 
 *** =solution
 ```{r}
+# compute the Sortino ratio
+SortinoRatio(sp500_monthly)
 # compute value at risk
 VaR(sp500_monthly,p=0.05)
 VaR(sp500_monthly,p=0.025)
@@ -742,12 +747,11 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:20cda1434c7729ec212810fc6317b96b99c1b0ec
 ## Drawdowns due to buying high, selling low
 
-Buy low sell high. but what if we bought high sold low?Monthly When do you step in ... timing
-The use of the [table.Drawdowns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.Drawdowns) function in PerformanceAnalytics.
+The volatility, semideviation, value-at-risk and expected shortfall are risk measures that have in common that they describe the risk over one 1 period. They don't describe well the worst case risk of buying at the peak and selling at the trough. This risk can quantified by analyzing the portfolio's drawdowns, defined as the peak-to-trough decline in terms of cumulative return. The function [table.Drawdowns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.Drawdowns) in PerformanceAnalytics reports describing by default the five largest drawdown episodes over the sample. 
 
 *** =instructions
-- instruction 1
-- instruction 2
+- Compute the five largest drawdowns of the S&P 500 using `sp500_monthly`.
+- Use the function [chart.Drawdown](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Drawdown) to visualize the time-series evoluation of the drawdowns from each peak attained through time. 
 
 *** =hint
 hint comes here
@@ -755,23 +759,32 @@ hint comes here
 *** =pre_exercise_code
 ```{r}
 # pec
-library(xts)
+options(warn=-1)
+library(tseries)# Its function get.hist.quote allows to download prices from Yahoo!Finance
+library(xts) # Its function plot.zoo make simple, but attractive, time series plots
+# download adjusted close prices (that is corrected for dividend payments and stock splits)
+# dates have the format "YYYY-MM-DD"
+sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1985-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+plot.zoo(sp500)
 library(PerformanceAnalytics)
-download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
-prices<- readRDS("prices.rds") 
-returns <- CalculateReturns(prices, method="simple")
-returns <- returns[(-1),]
-preturns <- Return.portfolio( returns )
+sp500_monthly <-  xts(CalculateReturns(sp500))[-1]
+names(sp500_monthly) <- "sp500_monthly"
 ```
 
 *** =sample_code
 ```{r}
-# sample code
+# Table of drawdowns
+
+# Plot of drawdowns
+
 ```
 
 *** =solution
 ```{r}
-# solution code
+# Table of drawdowns
+table.Drawdowns(sp500_monthly)
+# Plot of drawdowns
+chart.Drawdown(sp500_monthly)
 ```
 
 *** =sct

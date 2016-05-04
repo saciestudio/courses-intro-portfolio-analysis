@@ -85,49 +85,50 @@ The optimal choice of window is thus a trade-off between recensy and estimation 
 # Video 3: The non-normality of the return distribution 
 
 
-Don't forget: the return that we observed is only one of the possible outcomes. We could have had a higher of lower return, just by chance. This is also the reason why sellers of investment products always put the warning that "past performance is not a predictor of future results". 
+Financial returns are typically non-normally distributed. They tend to be asymmetric and fat tailed. This can be seen in the histogram of the S&P 500 daily returns.
 
 ***
 
-Statistically speaking, the uncertainty comes from the fact that the portfolio return is a random variable. Each time we observe the portfolio return it is a draw from a random variable. What we care about is to learn from the past what the portfolio return distribution will be. This requires some of "startionarity", meaning that the distribution that generated the past returns will also generate the returns of the future. 
+We first of all see that the distribution plot is not symmetric. For most investments, the distribution tends to be skewed to the left: this means large negative returns are more likely than large positive returns of the same magnitude. 
 
 ***
 
-But what is the portfolio return distribution? There is no perfect answer for this question. We need to guess it, partly by making assumptions and partly by estimating. 
+If we zoom in on the tails and compare them with tails under the normal distribution, we further see that the financial return distribution tend to be heavy tailed: there are more extreme returns happening than is possible under a normal distribution. 
 
-Until now, we have been working with the mean and volatility only. This is correct if the portfolio return distribution is normal.  In practice, as can be seen also in the histogram, most financial return distributions are not-normal. They are asymmetric and have so-called heavy tails. This means that the tails are fatter than the ones of a normal distribution. The asymmetry is measured by skewness, which is the average value of the third power of the return deviations from their average, standardized by their volatility. If it is negative,.... Kurtosis; fourth power ... Excess kurtosis. When returns are non-normal, the volatility is not sufficient as a risk measure. A downside risk measure needs to be used, focusing on the probability of large losses. 5% value at risk; quantile ...  . Drawdowns.
-
-
+(to be improved)
 
 ***
 
-# Video 3: A realistic portfolio case: Investing in the 30 DJIA stocks over 25 years with monthly rebalancing
+The non-normality of the return distribution can be diagnosed using statistics, such as skewness and kurtosis. Those statistics are computed on the standardized returns, obained by subtracting the mean return, and dividing by the return standard deviation. (show formula)
+Note that, by construction, the standardized return have mean zero and standard deviation equal to one. More interesting is their third and fourth moment.
 
-Let's now look at a realistic portfolio invested in the 30 Dow Jones Industrial Average stocks and track the portfolio performance over a period . Their symbols are summarized on this slide. 
+The skewness is the average of the third power of the standardized returns and indicates the asymmetry of the return distribution. In fact, if the distribution is symmetric, then the skewness is zero. This is because every positive return is compensated by a negative return of the same magnitude, as can be seen on the slide. However, if the distribution is left skewed, meaning that there are large negative returns, then the skewness is dominated by those large negative returns and the skewness will be negative. 
 
-***
-
-It is important to understand the structure of the data. As you can see on the slide, each row correspond to the ending day of the month, each column to a stock. 
-
-***
-
-We now thus need to convert this table of prices into a table of returns. This can be done using the function calculateReturns in the function PerformanceAnalytics. This leads to a table with the first row consisting of NA because there is no previous price available to compute the returns. In R, this first row can be easily removed by indexing that row with a minus 1 sign.
+In the opposite case, where the distribution is right-skewed, the skewness will be positive. 
 
 ***
 
-The resulting multivariate return series looks as follows.
- 
-
-*** 
-
-hat we assume the portfolio to be rebalanced every month. So, if we sketch the time line, we define the portfolio weight at the beginning of the investment horizon. This is also the weight needed to compute the portfolio return over the one month investment period starting on that date. 
+The fourth centered moment is called the kurtosis. It treats positive and negative returns equally, but, because of taking the fourth moment, it is even more dominated by the extreme returns. For the normal distribution, it can be shown that the kurtosis is equal to three. We say that whenever the kurtosis is higher than three, that the distribution is fat tailed. Often people use the excess kurtosis equal to the kurtosis in excess of the normal kurtosis. 
 
 ***
 
-As an example, suppose the portfolio is equally weighted. Then return in each month is the mean value of the returns of that month. 
+For a normal distribution, the thrue skewness and excess kurtosis are both 0. But, because of the estimation uncertainty, the estimated skewness and excess kurtosis will be different from 0, but still very close to 0. 
 
-The end-of month prices of those 30 stocks are available in your datacamp session as a xts object.  
-Let us now consider a practical case of the 30 Dow Jones Industrial Average (DJIA) Constituents over the period xxxx. The corresponding monthly price data is available as a xts time series object. The corresponding multivariate return series can be easily computed using the function calculateReturns in PerformanceAnalytics. The first observation is NA, because there is no previous price available. We can remove the first row in returns using [(-1),].
+This has inspired two french researchers, .. Jarque and ... Bera, to develop a test of normality based on the observed skewness and kurtosis. Their test statistic is given by the scaled sum of the squared skewness and excess kurtosis and should be chi-squared distributed with two degrees of freedom when the returns come frome a normal distribution.
 
+If the p-value of this test is less than 5% we reject this hypothesis at the 5% significance level and conclude that the distribution is normal.  
 
 ***
+
+What is the consequency of the non-normality for performance evaluation? It implies that if the distribution is heavy-tailed and negatively skewed, there is large probability of extreme negative returns, which is not visible in the standard deviation. We should thus use risk measures that focus only on the risk of losing money, called the downside risk.
+
+In this plot, I show three such risk measures:
+(i) semideviation ....
+(ii) value at risk
+(iii) expected shortfall...
+
+***
+
+Conclusion: non-normalilty is a typical feature of the return distribution and should be taken into account in the performance analysis. This will be illustrated in the following exercises. 
+
+
