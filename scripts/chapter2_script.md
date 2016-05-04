@@ -38,15 +38,48 @@ Once we have the average return and volatility, we can start interpreting portfo
 # Video 2:  Time-variation in portfolio performance
 
 
-The sample average and the standard deviation of the past returns gives us a picture of how the return and volatility have been on averagein the past. It averages out periods of booms and busts in the asset prices, as well as periods of high and low volatility. The fact that this performance is not constant over time, but time-varying is crucial for the investor. 
+The probabilistic interpretation of portfolio returns is thus that each return is one possible outcome of a corresponding random variable. The ordered series of those random variables is called the portfolio return time series process. 
 
-When investing today, the investor cares about the risk and  return over her investment period. Then the average return and risk is irrelevant, what matters is the prediction of future return and risk. This implies giving more weights to the more recent observations than the distant observations.
+The features of this process are likely to change over time. They are driven by the business cycle, by unexpected events, news report and, also, the market psychology. 
+
+In terms of the market direction, there are the bull market regimes in which stock prices tend to increase, and there are the bear market regimes in which stock prices tend to fall. 
+
+In terms of volatility, there are the calm market regime with persistently low volatility, and there are the more stressed regime with big spikes in volatility.
 
 ***
 
-The practioner approach of doing so is by the use of rolling estimation samples. 
+As, an investor, should we care about this time-variation? Well, for both returns and volatility, there tends to be mean-reversion, meaning that episodes of exceptionally extremely large positive or negative returns tend to be followed by more moderately sized returns. 
+
+In that sense, two types of analysis are relevant:
+(i) The analysis of long-run, average performance
+(ii) The conditional analysis of the performance at a given point in time. 
+
+***
+
+The long run analysis is what we have done until now. By computing the sample average and the standard deviation of the past returns, we obtained a picture of how the return and volatility have been on average in the past. It averages out periods of booms and busts in the asset prices, as well as periods of high and low volatility. 
+
+***
+
+When investing today or for the evaluation of the current investment risk, the investor cares about the risk and  return at current date. It requires to do a conditional analysis and give more weight to the more recent observations than the distant observations.
+
+***
+
+The practioner approach of doing so is by the use of rolling estimation samples. Instead of estimating the performance measures on the full sample, we only take the $K$ most recent observations. So, the performance estimate at time $t$, is given by the performance computed on the returns $t$, $t-1$,...,$t-K+1$. The next one uses the observations $t+1$ till $t-K$. As such, we roll through time by adding the most recent observation and discarding the most distant one. 
+
+***
+
+Rolling window estimation works for any type of performance measure. For the mean return, it requires to compute moving averages of the returns for the mean, while for the variance, it corresponds to calculating moving averages of the squared centered returns (show formula's). 
+
+***
+
+A practical important question is the choice of window length. We need to have a sufficiently large number of observations to reduce the effect of noise on the performance estimate. But, the longer the subperiod, the more it smooths over peaks and troughs, and the more similar it will be to the static view. 
+
+***
+
+The optimal choice of window is thus a trade-off between recensy and estimation precision. In the next exercises, you will get a feeling for this trade-off.  
 
  
+
 ***
 
 # Video 3: Downside risk; skewness, kurtosis and value-at-risk
@@ -64,23 +97,6 @@ But what is the portfolio return distribution? There is no perfect answer for th
 
 Until now, we have been working with the mean and volatility only. This is correct if the portfolio return distribution is normal.  In practice, as can be seen also in the histogram, most financial return distributions are not-normal. They are asymmetric and have so-called heavy tails. This means that the tails are fatter than the ones of a normal distribution. The asymmetry is measured by skewness, which is the average value of the third power of the return deviations from their average, standardized by their volatility. If it is negative,.... Kurtosis; fourth power ... Excess kurtosis. When returns are non-normal, the volatility is not sufficient as a risk measure. A downside risk measure needs to be used, focusing on the probability of large losses. 5% value at risk; quantile ...  . Drawdowns.
 
-
-***
-
-But how to compute portfolio returns? First we need to agree on which type of returns we will use. There are two types of return definitions in finance: log-returns and simple returns. When the return is computed as the change in the natural logarithm of the value, it is called a log-return. If it is computed as the percentage price change, then it is called a simple return. Log-returns and simple returns are typically very similar. A change of 100 USD to 110 USD is a 10% change in terms of simple returns and a 9.5% change in log-returns. 
-
-***
-
-For portfolio analysis we will work with simple returns. 
-The reason is twofold. First, simple returns are very intuitive. They are the percentage price change and also the type of returns used in daily life. Secondly, the calculation of portfolio returns using simple returns is...simple. It only requires to take the sum of the individidual returns, multiplied with their portfolio weights.
-
-***
-
-In formula notation, the portfolio return thus equals the weighted average of the individual returns. The corresponding code in R is simple. It just involves a summation of the element in the vector obtained by multiplying the vector of portfolio weights with the vector of returns ( show formula: portfolio return = sum w[i] r[i] = sum( weights*returns ). 
-
-***
-
-To put the theory in practice, there are now three exercises on computing portfolio returns.  
 
 
 ***
@@ -100,14 +116,7 @@ We now thus need to convert this table of prices into a table of returns. This c
 ***
 
 The resulting multivariate return series looks as follows.
-
-***
-
-Now we need to transform this into a time series of portfolio returns.
-
-An important point is to have the portfolio weights available at each time. 
-
-CHECK WHETHER I CAN HAVE MARKET CAP WEIGHTS: AVOID ROWMEANS...!!!
+ 
 
 *** 
 

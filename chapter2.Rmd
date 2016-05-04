@@ -1,6 +1,7 @@
 ---
 title       : Interpreting portfolio returns 
-description : The history of portfolio returns contains valuable information on how much the investor can expect to gain or lose. Investors summarize these numbers graphically in terms of distribution plots and through statics expressing average return, risk and risk-adjusted return over rolling estimation samples. This chapter concludes by an investigation in the non-normality of the return series of investments and provides tools to characterize the financial risks and rewards that that takes this non-normality into account. 
+description : The history of portfolio returns contains valuable information on how much the investor can expect to gain or lose. This chapter introduces the R functionality to analyze the investment performance based on a statisical analysis of the portfolio returns. It includes graphical analysis and the calculation of performance statistics expressing average return, risk and risk-adjusted return over rolling estimation samples. This chapter concludes by an investigation in the non-normality of the return distribution aand provides tools to characterize the financial risks and rewards in a non-normal world. 
+
 
 --- type:VideoExercise lang:r xp:50 skills:1 key:c4b994ff53
 ## The different dimensions of portfolio performance
@@ -56,7 +57,7 @@ test_mc(3) # if 3 is the correct option.
 
 Let us now examine the monthly performance of the S&P 500 portfolio. 
 
-A picture is worth a thousand word. This is why most analyses of performance start by analyzing the time series plot of the value of the investment. For the S&P 500 this is shown in the upper plot for the period 1950 to current data. Each observation is the end-of-day value. Note the booms and busts in the value of this portfolio. Do you see why the 2000s are often called the lost decade of investing?
+A picture is worth a thousand word. This is why most analyses of performance start by studying the time series plot of the value of the investment. For the S&P 500 this is shown in the upper plot for the period 1986 to current date. Each observation is the end-of-day value. Note the booms and busts in the value of this portfolio. Do you see why the 2000s are often called the lost decade of investing?
 
 These prices are available in the R console as the variable `sp500`, which is of the xts time series class.  
 Our interest is in describing the monthly performance. This exercise is about aggregation daily price series to end-of-month prices and then computing monthly returns and visualize them in an attractive table.  
@@ -79,7 +80,7 @@ library(tseries)# Its function get.hist.quote allows to download prices from Yah
 library(xts) # Its function plot.zoo make simple, but attractive, time series plots
 # download adjusted close prices (that is corrected for dividend payments and stock splits)
 # dates have the format "YYYY-MM-DD"
-sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1950-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="d")
+sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1985-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="d")
 library(PerformanceAnalytics)
 sp500 <- xts(sp500)
 #par(mfrow=c(2,1),mar=c(3,2,2,2),cex.axis=0.7)
@@ -144,7 +145,7 @@ library(tseries)# Its function get.hist.quote allows to download prices from Yah
 library(xts) # Its function plot.zoo make simple, but attractive, time series plots
 # download adjusted close prices (that is corrected for dividend payments and stock splits)
 # dates have the format "YYYY-MM-DD"
-sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1950-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1985-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
 library(PerformanceAnalytics)
 sp500_returns <-  xts(CalculateReturns(sp500))[-1]
 names(sp500_returns) <- "sp500"
@@ -187,16 +188,17 @@ Average returns in itself are difficult to interpret. Is an average of 5% a high
 
 The Sharpe ratio summarizes the balance between the excess portfolio return and the risk taken. It is the ratio obtained by taking the average difference between the portfolio return and the return the investor would have from a risk free investment and dividing this number with the portfolio standard deviation.The Sharpe ratio thus shows the reward per unit of risk taken.  
 
-A good proxy for the risk free rate is the yield of a 1-month Treasury Bill. This Tbill rate is available in the console as the variable `rf` (TO DO: make time series).  The S&P 500 portfolio returns are still available as `sp500_returns`.  
+A good proxy for the risk free rate is the one-month Treasury bill rate. This Tbill rate is available in the console as the variable `rf`.  The S&P 500 portfolio returns are still available as `sp500_returns`.  
 The Sharpe ratio of a portfolio When we take the average excess portfolio return and divide it by the portfolio volatility
 
 
 
 *** =instructions
-- Compute the series of excess portfolio return `sp500_excess`.
-- Compute the Sharpe ratio
+- Compute the annualized risk free using the compound intrest formula and plot this series. 
+- Compute the series of excess monthly portfolio return `sp500_excess` and compare its mean return with that of the raw monthly returns.
+- Compute the corresponding monthly Sharpe ratio. 
 *** =hint
-The functions `mean` and `sd` are standard functions in R to estimate the mean and standard deviation.
+If $R$ is the monthly interest rate. The yearly compounded intrest is given by $(1+R)^{12}$.
 
 *** =pre_exercise_code
 ```{r}
@@ -206,16 +208,39 @@ library(tseries)# Its function get.hist.quote allows to download prices from Yah
 library(xts) # Its function plot.zoo make simple, but attractive, time series plots
 # download adjusted close prices (that is corrected for dividend payments and stock splits)
 # dates have the format "YYYY-MM-DD"
-sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1950-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1985-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
 library(PerformanceAnalytics)
 sp500_returns <-  xts(CalculateReturns(sp500))[-1]
 names(sp500_returns) <- "sp500"
-rf <- 0.01/12
+
+# The URL for the data.
+ff.url <-"http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/ftp/F-F_Research_Data_Factors_TXT.zip"
+f <- tempfile()
+download.file(ff.url, f)
+file.list <- unzip(f, list=TRUE)
+ff <- read.fwf(unzip(f, files=as.character(file.list[1,1])), 
+                             widths=c(8,8,8,8,10), header=FALSE,stringsAsFactors=FALSE, skip=5)[,c(1,5)]
+ff <- ff[!is.na(ff[,1]),]
+rowannual <- c(1:nrow(ff))[as.character(ff[,1])==" Annual "]
+ff <- ff[1:(rowannual-1),]
+colnames(ff) <- c("date", "rf")
+rf <- as.numeric(ff[,2])/100
+dates <- as.Date(ff[!is.na(rf),1], format="%Y%M")
+rf<- xts(na.omit(rf),dates)
+newdates <- seq(as.Date(time(rf))[2], length=nrow(rf), by="1 month") - 1
+rf <-  xts( rf , order.by = newdates )
+
+rf <- rf[time(sp500_returns )]
+sp500_returns <- sp500_returns[time(rf )]
 ```
 
 *** =sample_code
 ```{r}
-# Compute the series of excess portfolio return `sp500_excess`.
+# Annualized risk free rate
+
+# Compute the series of excess portfolio returns 
+
+# Compare the mean
 
 # Compute the Sharpe ratio
   
@@ -224,10 +249,15 @@ rf <- 0.01/12
 
 *** =solution
 ```{r}
-# Compute the series of excess portfolio return `sp500_excess`.
-
+# Annualized risk free rate
+plot.zoo( (1+rf)^12 )
+# Compute the series of excess portfolio returns 
+sp500_excess <- sp500_returns - rf
+# Compare the mean
+mean(sp500_excess)
+mean(sp500_returns)
 # Compute the Sharpe ratio
-  
+mean(sp500_excess)/sd(sp500_returns)  
 ```
 
 *** =sct
@@ -257,7 +287,7 @@ library(tseries)# Its function get.hist.quote allows to download prices from Yah
 library(xts) # Its function plot.zoo make simple, but attractive, time series plots
 # download adjusted close prices (that is corrected for dividend payments and stock splits)
 # dates have the format "YYYY-MM-DD"
-sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1950-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1985-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
 library(PerformanceAnalytics)
 sp500_returns <-  xts(CalculateReturns(sp500))[-1]
 names(sp500_returns) <- "sp500"
@@ -319,7 +349,9 @@ test_mc(3) # if 3 is the correct option.
 --- type:NormalExercise lang:r xp:100 skills:1 key:9d2eb4bc6c13e8cdabe71c739978050d8809058c
 ## Don't be fooled by randomness
 
-In all cases, we aim at inferring from the past returns relevant information on performance. It is important to remember that when doing this we expose ourselves to estimation errors. We will never be able to quantify true performance, we can only make a guess about it from the past returns.  This is the limitations of any estimation approach. It is almost sure that the estimates of the mean and volatility will be different from the true mean and standard deviation.
+The probabilistic view of portfolio performance evaluation considers that the time series of returns is driven by an underlying process. Performance evaluation then aims at inferring from the past returns relevant information about this return generation process. It tries to answer questions like: (i) what is on average the value of the return that will be generated by the process, and (ii) what will be the standard deviation of the returns? 
+
+It is important to remember that, when trying to aswer those questions, we expose ourselves to estimation errors. We will never be able to know exactly the underlying process. We can only make a guess about it from the past returns.  This is the limitation of any estimation approach. It is almost sure that the estimates of the mean and volatility will be different from the true mean and standard deviation.
 
 Familiarize now yourself with the uncertainty in estimation by drawing random samples from a normal distribution with mean of 5% and standard deviation of 10%, and how this uncertainty is reduced when the sample size grows.  
 
@@ -385,43 +417,85 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:737157d7421c452d9ab7cb48fc219403c4db82ff
 ## Rolling annualized mean and volatility
 
-charts.RollingPerformance on the portfolio return vector
+The function [chart.RollingPerformance](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.RollingPerformance) makes it easy to visualize the rolling estimates of performance in R. Familiarize yourself first with the syntax of this function. It requires to specify the time series of portfolio returns (by setting the argument `R`), the length of the window (`width`) and the function used to compute the performance (argument `FUN`).
 
 *** =instructions
-- instruction 1
-- instruction 2
-
+- Print the annualized mean, standard deviation and Sharpe ratio of the monthly S&P 500 returns in `sp500_returns` obtained using the functions `Return.annualized`, `sd.annualized` and [SharpeRatio.annualized](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/SharpeRatio.annualized). For the latter, you can use the time series of monthly risk free rates in `rf`
+- Plot the rolling 12-month estimates of the annualized mean, and as a reference include the horizontal line showing the unconditional long run estimate of the annualized return. 
+- Plot the rolling 12-month estimates of the annualized volatility of the S&P 500 returns, and as a reference include the horizontal line showing the unconditional long run estimate of the annualized return.  
+- Plot the rolling 12-month estimates of the annualized Sharpe ratio of the S&P 500 returns. Include in the `chart.RollingPerformance` the additional argument that `Rf=rf`. As a reference include in the plot the horizontal line showing the unconditional long run estimate of the annualized return. 
+- To see all three plots together, now use the function [charts.RollingPerformance](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/charts.RollingPerformance).
 *** =hint
 hint comes here
 
 *** =pre_exercise_code
 ```{r}
 # pec
-library(xts)
+options(warn=-1)
+library(tseries)# Its function get.hist.quote allows to download prices from Yahoo!Finance
+library(xts) # Its function plot.zoo make simple, but attractive, time series plots
+# download adjusted close prices (that is corrected for dividend payments and stock splits)
+# dates have the format "YYYY-MM-DD"
+sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1985-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
 library(PerformanceAnalytics)
-download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
-prices<- readRDS("prices.rds") 
-returns <- CalculateReturns(prices, method="simple")
-returns <- returns[(-1),]
-preturns <- Return.portfolio( returns )
+sp500_returns <-  xts(CalculateReturns(sp500))[-1]
+names(sp500_returns) <- "sp500"
+
+# The URL for the data.
+ff.url <-"http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/ftp/F-F_Research_Data_Factors_TXT.zip"
+f <- tempfile()
+download.file(ff.url, f)
+file.list <- unzip(f, list=TRUE)
+ff <- read.fwf(unzip(f, files=as.character(file.list[1,1])), 
+                             widths=c(8,8,8,8,10), header=FALSE,stringsAsFactors=FALSE, skip=5)[,c(1,5)]
+ff <- ff[!is.na(ff[,1]),]
+rowannual <- c(1:nrow(ff))[as.character(ff[,1])==" Annual "]
+ff <- ff[1:(rowannual-1),]
+colnames(ff) <- c("date", "rf")
+rf <- as.numeric(ff[,2])/100
+dates <- as.Date(ff[!is.na(rf),1], format="%Y%M")
+rf<- xts(na.omit(rf),dates)
+newdates <- seq(as.Date(time(rf))[2], length=nrow(rf), by="1 month") - 1
+rf <-  xts( rf , order.by = newdates )
+
+rf <- rf[time(sp500_returns )]
+sp500_returns <- sp500_returns[time(rf )]
 ```
 
 *** =sample_code
 ```{r}
-# sample code
-chart.RollingPerformance(R=preturns , width=12,
-                         FUN="Return.annualized",scale=12)
-chart.RollingPerformance(R=preturns , width=12,
-                         FUN="sd.annualized",scale=12)
+# unconditional mean, vol and sharpe
+
+# plotting the 12-month rolling annualized mean
+
+# plotting the 12-month rolling annualized standard deviation
+
+# plotting the 12-month rolling annualized Sharpe ratio
+
+# all three plots together
+
 ```
 
 *** =solution
 ```{r}
-# solution code
-chart.RollingPerformance(R=preturns , width=12,
-                         FUN="Return.annualized",scale=12)
-chart.RollingPerformance(R=preturns , width=12,
-                         FUN="sd.annualized",scale=12)
+# unconditional mean and vol
+Return.annualized(sp500_returns)
+sd.annualized(sp500_returns)
+SharpeRatio.annualized(sp500_returns,Rf=rf)
+# plotting the 12-month rolling annualized mean
+chart.RollingPerformance(R=sp500_returns , width=12,
+                         FUN="Return.annualized" )
+abline(h=Return.annualized(sp500_returns))
+# plotting the 12-month rolling annualized standard deviation
+chart.RollingPerformance(R=sp500_returns , width=12,
+                         FUN="sd.annualized" )
+abline(h=sd.annualized(sp500_returns))
+# plotting the 12-month rolling annualized Sharpe ratio
+chart.RollingPerformance(R=sp500_returns , width=12,
+                         FUN="SharpeRatio.annualized",Rf=rf )
+abline(h=SharpeRatio.annualized(sp500_returns,Rf=rf))
+# all three plots together
+charts.RollingPerformance(R=sp500_returns , width=12,Rf=rf )
 ```
 
 *** =sct
@@ -432,7 +506,6 @@ success_msg("Well done!")
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:2169b00c723410a1ee9217836b284bf4cdd7dc2c
 ## Effect of window length choice
-
 I show two plots, one with rolling windows of 6 months and one with rolling windows of 12 months. Which one is more persistent?
 
 *** =instructions
@@ -450,7 +523,7 @@ library(tseries)# Its function get.hist.quote allows to download prices from Yah
 library(xts) # Its function plot.zoo make simple, but attractive, time series plots
 # download adjusted close prices (that is corrected for dividend payments and stock splits)
 # dates have the format "YYYY-MM-DD"
-sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1950-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1985-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
 library(PerformanceAnalytics)
 sp500_returns <-  xts(CalculateReturns(sp500))[-1]
 names(sp500_returns) <- "sp500"
@@ -469,13 +542,15 @@ test_mc(2) # if 2 is the correct option.
 --- type:NormalExercise lang:r xp:100 skills:1 key:012c07fe20924387617cef2df90e9ac6458f6fa8
 ## Subperiod performance analysis and the function window 
 
-Let us now consider the time-variation in the return distribution. Define `sp500_returns_2008` as the S&P 500 portfolio returns in 2008, obtained with the function `window`, having as first argument the return series that needs to be subset, then the start data and end date in the format `YYYY-MM-DD`. Compare the histogram of `sp500_returns` with `sp500_returns_2008` and well as the annualized volatility. 
+We have now computed the performance measure on each possible sample of a fixed size that can be obtained by rolling through time. Often we are interest in the performance over one particular subwindow.  Obtaining a subset of a time series in R is straightforward using the function the function [window](http://www.rdocumentation.org/packages/zoo/functions/window.zoo), having as first argument the return series that needs to be subset, then the start data and end date in the format `YYYY-MM-DD`.
+
+[chart.Hist](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Histogram)
 
 
 *** =instructions
--  Define `preturns.2008`
--  Plot the histograms
--  Commpute annualized volatility
+-  Define the `sp500_2008` and `sp500_2014` as the S&P 500 portfolio returns in 2008 and 2014 by subsetting the variable `sp500_returns`.
+-  Compare the histograms of the returns in those two years. 
+
 
 *** =hint
 hint comes here
@@ -488,7 +563,8 @@ library(tseries)# Its function get.hist.quote allows to download prices from Yah
 library(xts) # Its function plot.zoo make simple, but attractive, time series plots
 # download adjusted close prices (that is corrected for dividend payments and stock splits)
 # dates have the format "YYYY-MM-DD"
-sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1950-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1985-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+plot.zoo(sp500)
 library(PerformanceAnalytics)
 sp500_returns <-  xts(CalculateReturns(sp500))[-1]
 names(sp500_returns) <- "sp500"
@@ -496,27 +572,31 @@ names(sp500_returns) <- "sp500"
 
 *** =sample_code
 ```{r}
-# Define preturns.2008
-sp500_returns_2008 <- window(sp500_returns,startdate = as.Date(" "), enddate = as.Date(" ")  )
+# subsetting
+sp500_2008 <- window(sp500_returns,startdate = as.Date(" "), enddate = as.Date(" ")  )
+sp500_2014 <- 
 # plotting
-par( mfrow = c(2,1) , mar=c(3,2,2,2))
+par( mfrow = c(1,2) , mar=c(3,2,2,2))
+# histogram 2008
 
-# annualized volatility
+# histogram 2014
+
 
 ```
 
 *** =solution
 ```{r}
 # solution code
-# Define preturns2008
-sp500_returns_2008 <- window(sp500_returns,startdate = as.Date("2008-01-01"), enddate = as.Date("2008-12-31 ")  )
+# subsetting
+sp500_2008 <- window(sp500_returns,startdate = as.Date("2008-01-01"), enddate = as.Date("2008-12-31 ")  )
+sp500_2014 <- window(sp500_returns,startdate = as.Date("2014-01-01"), enddate = as.Date("2014-12-31 ")  )
 # plotting
-par( mfrow = c(2,1) , mar=c(3,2,2,2))
-hist(sp500_returns_2008)
-hist(preturns)
-# annualized volatility
-sqrt(12)*sd(sp500_returns_2008)
-sqrt(12)*sd(sp500_returns)         
+par( mfrow = c(1,2) , mar=c(3,2,2,2))
+# histogram 2008
+
+# histogram 2014
+
+       
 
 ```
 
