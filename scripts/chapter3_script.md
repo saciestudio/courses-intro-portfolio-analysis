@@ -1,93 +1,138 @@
-# Video 1: The distribution of portfolio returns
+# Video 1: The inputs in case of two assets
 
 
-Investing implies taking risks. But how much risk? This question can be answered by graphical analysis of the portfolio returns and by computing statistics, such as the portfolio standard deviation or its value-at-risk.
-
-***
-
-Let me start with the graphical approach and consider here the histogram of the past portfolio returns on the equally weighted portfolio invested in the 30 Dow Jones Industrial Average stocks. The histogram shows for the range of past returns how likely each return was to occur. The higher the bar, the more likely the return. In this case, we see that the most likely return is slightly higher than zero. This positive return is to be traded-off against the risk that the return will be different from that expected return. 
-
-Looking at the minimum and maximum values in the histogram we see that all returns were between .... and .... 
+This chapter bridges the material for analyzing portfolio performance in chapter 2 and the functionality to determine the portfolio allocation for which the predicted portfolio performance is optimal. 
 
 ***
 
-In addition to the graphical analysis, investors routinely discuss performance statistics. The most used ones are the portfolio mean return and the return standard deviation. See the slides for their precise definition in case of a sample of  $T$ returns, $R_1$,...,$R_t$.
-
-The mean return indicates the average portfolio performance, while the standard deviation measures the spread of the returns across the mean. The higher the standard deviation, the more risk of large losses.
-
-Usually, a higher average return comes at the price of a higher risk. The sample variance corresponding to the average squared deviations of the return with respect to the average return is the risk measure used in modern portfolio theory by Harry Markowitz. The square root of the variance, called standard deviation or volatility, is more easy to interpret because it is in the same units as the returns.
+The decision process can be visualized as follows. First of all, the investor needs to specify her objectives and constraints. We will be considering a portfolio whose preferences are completely described by the mean and variance of the portfolio return over the investment horizon. Since the future return is a random variable, the relevant definition of the mean is the expectation of the portfolio return, and the variance is the expectation of the portfolio squared centered return. 
 
 ***
 
-The essence of investment is to balance risk and reward. Both can be measure in one statistic, namely the sharpe ratio correspoding to the average return (in excess of the risk free rate) per unit of portfolio volatility...
+Both the portfolio mean and variance depend on the portfolio weights. In this video, we will work out the case of two assets. In the next video, the general case will be presented. 
 
 
 ***
 
-Annualizing 
+OK, suppose that we have two assets, say equities and bonds, and the weights of equities in the portfolio is w. The portfolio is fully invested such that (1-w) is the allocation to bonds. The portfolio return is then given by w times the return on the equities + (1-w) times the bond return. 
+
+If we then work out the expected portfolio return, and using that the expected value of a sum is the sum of the expected values, we obtain that the  portfolio mean is the weighted average of the component means.
+
+Suppose e.g. that the portfolio is equally weighted and the expected returns are 6% for equities and 4% for bonds, then the portfolio expected return is 5%. If the portfolio is 60/40 weighted than the expected portfolio return is 5.6%.  
+
+***
+
+The impact of the weights on the portfolio variance is slightly more complex because the centered returns are squared, implying that we will need to take the expectation of the cross-products into account. 
+
+Doing this in the 2-asset case yields that the portfolio variance equals the sum of the squared weights their variance plus the product of the weights and the exected value of the product of the centered returns. The latter is called the covarians and equals the products of the standard deviation and the correlation. 
+
+***
+
+The correlation measures the degree of comovement of the two assets. If they are unrelated, then the correlation is zero. If there is on average a positive linear relatioship between both, then the correlation will be positive: when one is above average, the other also tends to be below average. If the average relationhip is the reverse, namely that if one is above avarage, then the other one tends to be below average, then the correlation will be negative.
+
+[illustrate with plots]
+ 
+
+***
+
+So what determines the portfolio variance. From the formula, we thus see that the portfolio variance will tend to be higher when the weight on the relatively more risky asset is higher and when the correlation between the two assets is higher.
+
+***
+
+As a conclusion, optimal portfolio allocation requires to determine the weights for which the portfolio expected return and variance are optimized. This will require three important types of input in the analysis:
+* expected returns
+* the variances of the returns
+* and the correlation between the returns.
+
+***
+
+In the next exercises will consider estimators for these three inputs.
+
+# Video 2: The general case using matrix notation
+
+
+In the general case, we have N assets and N can vary from 2 to over a thousand. We denote then the portfolio weights as a column vector with each element being the weights of the corresponding asset. The portfolio is fully invested such that the sum of the portfolio weights equal to one. 
+
+***
+
+We further stack the returns of each asset in a column-vector $R$. The is now a vector of random variables, and thus called a random vector. Its expected value mu is the vector of expected returns of each of the assets. 
+
+***
+
+Because it is a vector of returns, its variance is not one number, but a table, called the covariance matrix. The elements on the diagonal are the variances of each of the returns.
+
+***
+
+Outside of the diagonal are the covariances, which can be rewritten as the products of the standard deviations and the correlations. Since the element in row i, column j is identical to the element in row j, column i, the covariance matrix is symmetric. 
+
+***
+
+We thus have the following matrices: a column-vector of portfolio weights, a column-vector of expected returns and a covariance matrix. 
+
+In order to relate those multivariate objects to the portfolio return, we use the following important result.
+
+Since the portfolio return is the weighted average of the component returns, this is equivalent, to defining the portfolio return as the inner product of the portfolio vector and the vector of returns. 
+
+***
+
+It then follows that the expected return is the inner product of the weights and the vector of expected returns. Working this out, it gives us that the expected portfolio return is the weighted average of the expected returns on the different assets.
+
+***
+
+The portfolio variance is the quadratic function of the weights in terms of the variance covariance matrix. If we work this out, we obtain that the portfolio variance is the sum of the individual component variances multiplied by their squared weights and the different covariances multiplied with their weights.
+
+***
+
+This can be easily verfi
+The decision process can be visualized as follows. First of all, the investor needs to specify her objectives and constraints. We will be considering a portfolio whose preferences are completely described by the mean and variance of the portfolio return over the investment horizon. Since the future return is a random variable, the relevant definition of the mean is the expectation of the portfolio return, and the variance is the expectation of the portfolio squared centered return. 
+
+***
+
+Both the portfolio mean and variance depend on the portfolio weights. In this video, we will work out the case of two assets. In the next video, the general case will be presented. 
 
 
 ***
 
-# Video 2: Downside risk; skewness, kurtosis and value-at-risk
+OK, suppose that we have two assets, say equities and bonds, and the weights of equities in the portfolio is w. The portfolio is fully invested such that (1-w) is the allocation to bonds. The portfolio return is then given by w times the return on the equities + (1-w) times the bond return. 
 
-The mean and volatility fully describe the return distribution, when the return distribution is normal. In practice, as can be seen also in the histogram, most financial return distributions are not-normal. They are asymmetric and have so-called heavy tails. This means that the tails are fatter than the ones of a normal distribution. The asymmetry is measured by skewness, which is the average value of the third power of the return deviations from their average, standardized by their volatility. If it is negative,.... Kurtosis; fourth power ... Excess kurtosis. When returns are non-normal, the volatility is not sufficient as a risk measure. A downside risk measure needs to be used, focusing on the probability of large losses. 5% value at risk; quantile ...  . Drawdowns.
+If we then work out the expected portfolio return, and using that the expected value of a sum is the sum of the expected values, we obtain that the  portfolio mean is the weighted average of the component means.
 
-
-***
-
-But how to compute portfolio returns? First we need to agree on which type of returns we will use. There are two types of return definitions in finance: log-returns and simple returns. When the return is computed as the change in the natural logarithm of the value, it is called a log-return. If it is computed as the percentage price change, then it is called a simple return. Log-returns and simple returns are typically very similar. A change of 100 USD to 110 USD is a 10% change in terms of simple returns and a 9.5% change in log-returns. 
+Suppose e.g. that the portfolio is equally weighted and the expected returns are 6% for equities and 4% for bonds, then the portfolio expected return is 5%. If the portfolio is 60/40 weighted than the expected portfolio return is 5.6%.  
 
 ***
 
-For portfolio analysis we will work with simple returns. 
-The reason is twofold. First, simple returns are very intuitive. They are the percentage price change and also the type of returns used in daily life. Secondly, the calculation of portfolio returns using simple returns is...simple. It only requires to take the sum of the individidual returns, multiplied with their portfolio weights.
+The impact of the weights on the portfolio variance is slightly more complex because the centered returns are squared, implying that we will need to take the expectation of the cross-products into account. 
+
+Doing this in the 2-asset case yields that the portfolio variance equals the sum of the squared weights their variance plus the product of the weights and the exected value of the product of the centered returns. The latter is called the covarians and equals the products of the standard deviation and the correlation. 
 
 ***
 
-In formula notation, the portfolio return thus equals the weighted average of the individual returns. The corresponding code in R is simple. It just involves a summation of the element in the vector obtained by multiplying the vector of portfolio weights with the vector of returns ( show formula: portfolio return = sum w[i] r[i] = sum( weights*returns ). 
+The correlation measures the degree of comovement of the two assets. If they are unrelated, then the correlation is zero. If there is on average a positive linear relatioship between both, then the correlation will be positive: when one is above average, the other also tends to be below average. If the average relationhip is the reverse, namely that if one is above avarage, then the other one tends to be below average, then the correlation will be negative.
+
+[illustrate with plots]
+ 
 
 ***
 
-To put the theory in practice, there are now three exercises on computing portfolio returns.  
-
-
-***
-
-# Video 3: A realistic portfolio case: Investing in the 30 DJIA stocks over 25 years with monthly rebalancing
-
-Let's now look at a realistic portfolio invested in the 30 Dow Jones Industrial Average stocks and track the portfolio performance over a period . Their symbols are summarized on this slide. 
+So what determines the portfolio variance. From the formula, we thus see that the portfolio variance will tend to be higher when the weight on the relatively more risky asset is higher and when the correlation between the two assets is higher.
 
 ***
 
-It is important to understand the structure of the data. As you can see on the slide, each row correspond to the ending day of the month, each column to a stock. 
+As a conclusion, optimal portfolio allocation requires to determine the weights for which the portfolio expected return and variance are optimized. This will require three important types of input in the analysis:
+* expected returns
+* the variances of the returns
+* and the correlation between the returns.
 
 ***
 
-We now thus need to convert this table of prices into a table of returns. This can be done using the function calculateReturns in the function PerformanceAnalytics. This leads to a table with the first row consisting of NA because there is no previous price available to compute the returns. In R, this first row can be easily removed by indexing that row with a minus 1 sign.
+In the next exercises will consider estimators for these three inputs.
+
+
+We thus find that the portfolio Often, the covariance is rewritten
+
+
+
+optimize the   Investing implies taking risks. But how much risk? This question can be answered by graphical analysis of the portfolio returns and by computing statistics, such as the portfolio standard deviation or its value-at-risk.
 
 ***
 
-The resulting multivariate return series looks as follows.
-
-***
-
-Now we need to transform this into a time series of portfolio returns.
-
-An important point is to have the portfolio weights available at each time. 
-
-CHECK WHETHER I CAN HAVE MARKET CAP WEIGHTS: AVOID ROWMEANS...!!!
-
-*** 
-
-hat we assume the portfolio to be rebalanced every month. So, if we sketch the time line, we define the portfolio weight at the beginning of the investment horizon. This is also the weight needed to compute the portfolio return over the one month investment period starting on that date. 
-
-***
-
-As an example, suppose the portfolio is equally weighted. Then return in each month is the mean value of the returns of that month. 
-
-The end-of month prices of those 30 stocks are available in your datacamp session as a xts object.  
-Let us now consider a practical case of the 30 Dow Jones Industrial Average (DJIA) Constituents over the period xxxx. The corresponding monthly price data is available as a xts time series object. The corresponding multivariate return series can be easily computed using the function calculateReturns in PerformanceAnalytics. The first observation is NA, because there is no previous price available. We can remove the first row in returns using [(-1),].
-
-
-***

@@ -2,17 +2,101 @@
 title       : Inputs for optimization
 description : For optimizing the portfolio investment decisions and understanding the sources of performance and risk, it is crucial to understand the multivariate nature of the return distribution of the risky assets.  In this chapter, you learn how to estimate the vector of expected return and the covariance matrix and to connect them to the portfolio return distribution. 
 
---- type:VideoExercise lang:r xp:50 skills:1 key:bf1fc7dc803e342b4475c296bbebc2bab9b26f32
-## Portfolio decisions; risk, return and diversification
+--- type:NormalExercise lang:r xp:100 skills:1 key:b6a986b0e53bd119933fc39df94f21f2bf1e4318
+## The 60/40 equity-bond allocation
 
-Case of two assets. expected return. expected variance.
+Until now, we have focused on portfolio performance. In this chapter, we dig deeper and investigate how the performance
+of the portfolio positions affects the total portfolio. The focus will be on the relationship between the porfolio weights, the mean returns of the assets in the portfolio, their volatilities and their correlations. 
+
+As a first example, let us consider a portfolio invested in exchange traded funds (ETFs) tracking the broad US equities market (ETF with symbol SPY) and a US bonds index (ETF with symbol AGG). The end-of-month close prices for these investments are available as the xts-object `prices`. 
+
+*** =instructions
+- Load the library `PerformanceAnalytics`.
+- Use the function [CalculateReturns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.calculate) to compute the corresponding monthly simple returns. Define the corresponding object as `returns` and remove the first row (for which the elements are `NA`).
+- Plot the equity returns against the bond returns using the function [chart.Scatter](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Scatter) with the bond returns on the x-asis. Do you see a relation? 
+- Use the function [Return.portfolio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio) to compute the returns on the monhtly rebalanced portfolio with the traditional choice of investing 60% of the portfolio in equities and 40% in bonds. Call this variable `returns_6040`. 
+- Merge `returns` and `returns_6040` and apply the function [table.AnnualizedReturns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.AnnualizedReturns) to the merged object in order to compare the portfolio performance. 
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+# pec
+options(warn=-1)
+library(tseries)# Its function get.hist.quote allows to download prices from Yahoo!Finance
+library(xts) # Its function plot.zoo make simple, but attractive, time series plots
+# download adjusted close prices (that is corrected for dividend payments and stock splits)
+# dates have the format "YYYY-MM-DD"
+eq_prices <- get.hist.quote(instrument="SPY",start=as.Date("2003-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+bond_prices <- get.hist.quote(instrument="AGG",start=as.Date("2003-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+eq_prices <- eq_prices/as.numeric(eq_prices[1])
+bond_prices <-  bond_prices/as.numeric(bond_prices[1])
+temp <- c( as.numeric(eq_prices), as.numeric(bond_prices) )
+ylim = c( min( temp ) , max(temp) )
+plot.zoo(eq_prices , main="Equity-bond portfolios",ylab="", xlab="",ylim=ylim)
+lines(bond_prices,col="red")
+legend("topleft", legend=c("Equities (ticker: SPY)","Bonds (ticker: AGG)") , col=c("black","red") , lwd = 1 )
+newdates <- seq(as.Date(time(bond_prices ))[2], length=nrow(bond_prices ), by="1 month") - 2
+
+eq_prices <- xts(eq_prices/as.numeric(eq_prices[1]),newdates)
+bond_prices <- xts(bond_prices/as.numeric(bond_prices[1]),newdates)
+prices <- cbind(eq_prices,bond_prices)
+colnames(prices) <- c("equities","bonds")
+```
+
+*** =sample_code
+```{r}
+# load package
+
+# calculate returns
+
+# scatter plot
+
+# calculate 60/40 portfolio returns
+
+# merge
+ 
+# compare annualized performance
+
+```
+
+*** =solution
+```{r}
+# load package
+library(PerformanceAnalytics)
+# calculate returns
+returns <- CalculateReturns(prices)
+returns <- returns[(-1),]
+# scatter plot
+chart.Scatter(returns$bonds,returns$equities)
+# calculate 60/40 portfolio returns
+weights <- c(0.6,0.4)
+returns_6040 = Return.portfolio(returns, weights,rebalance_on="months")
+# merge
+returns_merged <- merge(returns,returns_6040)
+# compare annualized performance
+table.AnnualizedReturns(returns_merged)
+```
+
+*** =sct
+```{r}
+# sct code
+success_msg("Well done!")
+```
+
+--- type:VideoExercise lang:r xp:50 skills:1 key:bf1fc7dc803e342b4475c296bbebc2bab9b26f32
+## The inputs in case of two assets
+
 *** =video_link
 //player.vimeo.com/video/108225030
 
---- type:NormalExercise lang:r xp:100 skills:1 key:b6a986b0e53bd119933fc39df94f21f2bf1e4318
-## The effect of portfolio weights on performance.
 
-Take two assets with mean, variance and correlation given. Make a table showing the portfolio mean and variance by changing the weights.
+--- type:NormalExercise lang:r xp:100 skills:1 key:b6a986b0e53bd119933fc39df94f21f2bf1e4318
+## Interpreting correlation.
+
+Let us now compute the correlation between equity returns and bond returns. Just like volatilities, these correlations are dynamic. We thus need to distinguish between a static analysis computing correlations over the complete sample and a dynamic analysis computing correlations over the rolling sample. 
 
 *** =instructions
 - instruction 1
@@ -45,6 +129,8 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:3900d5d149bfda5a7f4d1fb71b372a08a6368279
 ## The effect of correlation on performance.
 
+We thus observed that  like the mean and volatility, the correlation is changing over time. This time-variation can have major effects on the portfolio volatility. 
+
 Take two assets with mean, variance and weights given. Make a plot showing the variance by changing the correlation.
 
 *** =instructions
@@ -76,11 +162,63 @@ success_msg("Well done!")
 ```
 
 --- type:VideoExercise lang:r xp:50 skills:1 key:a2866e000af4e20577dc0d48d46765e2da1a7d9b
-## The multivariate approach to analyzing portfolio performance (i)
+## The general case using matrix notation
 
-N-dimensional vector of weights. N-dimensional vector of returns. The inner product is the portfolio return. The expected  portfolio is return the inner product of the portfolio weights and the expected returns of the portfolio components. The covariance matrix. The portfolio variance as w'sigmaw.
 *** =video_link
 //player.vimeo.com/video/108225030
+
+--- type:NormalExercise lang:r xp:100 skills:1 key:21e408b8c65335ed2599fcb8ff64b5c9b352c374
+## The asset allocation problem
+
+A realistic portfolio is not only invested in US equities and US bonds. It also seeks for diversification by investing in real estate and commodities, and equities and bonds from other parts of the world. As a more realistic case, let us now consider 
+the portfolio of ... 
+
+*** =instructions
+- instruction 1
+- instruction 2
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+# http://etfdb.com/etfdb-category/commodities/
+
+Symbols = c("VFINX", "VEURX", "VPACX", "VEIEX", "SH","VGSIX", "IXC", "GLD", "VWEHX", "VCLT", "DBV")
+Names = c("Vanguard 500 Index",
+          "Vanguard European", 
+          "Vanguard Pacific",  
+          "Vanguard Emerging Mkts",
+          "ProShares Short S&P500",
+          "Vanguard REIT Index Inv",
+          "iShares S&P Global Energy",
+          "SPDR Gold Shares",
+          "Vanguard High-Yield Corporate",
+          "Vanguard Long-Term Corp Bond",
+          "PowerShares DB G10 Currency Harvest")
+
+ShortNames = c("EQ:US", "EQ:EU", "EQ:AP", "EQ:EM", "EQ:SHORT", "RE:REIT", "CM:ENERGY","CM:PM","FI:HYC", "FI:LTC","FX:CARRY10")
+```
+
+*** =sample_code
+```{r}
+# sample code
+```
+
+*** =solution
+```{r}
+# solution code
+```
+
+*** =sct
+```{r}
+# sct code
+success_msg("Well done!")
+```
+
+
+
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:21e408b8c65335ed2599fcb8ff64b5c9b352c374
 ## Portfolio expected return
