@@ -266,7 +266,7 @@ mean(sp500_excess)/sd(sp500_returns)
 success_msg("Well done!")
 ```
 
---- type:NormalExercise lang:r xp:100 skills:1
+--- type:NormalExercise lang:r xp:100 skills:1 key:ba9671b063deaba2de08399422178002f679c0f5
 
 ## Annualized mean and volatility
 
