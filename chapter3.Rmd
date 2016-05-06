@@ -1,6 +1,6 @@
 ---
 title       : Inputs for optimization
-description : For optimizing the portfolio investment decisions and understanding the sources of performance and risk, it is crucial to understand the multivariate nature of the return distribution of the risky assets.  In this chapter, you learn how to estimate the vector of expected return and the covariance matrix and to connect them to the portfolio return distribution. 
+description : For optimizing the portfolio investment decisions and understanding the sources of performance and risk, it is crucial to understand the multivariate nature of the return distribution of the risky assets.  In this chapter, you learn how to estimate the vector of expected return and the covariance matrix and to connect them to the portfolio return distribution.  
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:b6a986b0e53bd119933fc39df94f21f2bf1e4318
 ## The 60/40 equity-bond allocation
@@ -13,7 +13,7 @@ As a first example, let us consider a portfolio invested in exchange traded fund
 *** =instructions
 - Load the library `PerformanceAnalytics`.
 - Use the function [CalculateReturns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.calculate) to compute the corresponding monthly simple returns. Define the corresponding object as `returns` and remove the first row (for which the elements are `NA`).
-- Plot the equity returns against the bond returns using the function [chart.Scatter](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Scatter) with the bond returns on the x-asis. Do you see a relation? 
+- Plot the equity returns (`returns$equity`) against the bond returns (`returns$bonds`) using the function [chart.Scatter](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Scatter) with the bond returns on the x-asis. Do you see a relation? 
 - Use the function [Return.portfolio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio) to compute the returns on the monhtly rebalanced portfolio with the traditional choice of investing 60% of the portfolio in equities and 40% in bonds. Call this variable `returns_6040`. 
 - Merge `returns` and `returns_6040` and apply the function [table.AnnualizedReturns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.AnnualizedReturns) to the merged object in order to compare the portfolio performance. 
 
@@ -99,25 +99,50 @@ success_msg("Well done!")
 Let us now compute the correlation between equity returns and bond returns. Just like volatilities, these correlations are dynamic. We thus need to distinguish between a static analysis computing correlations over the complete sample and a dynamic analysis computing correlations over the rolling sample. 
 
 *** =instructions
-- instruction 1
-- instruction 2
+- Compute first the correlation between the variables `returns$bonds` and `returns$equities` using the standard function [cor](). 
+- Repeat this using the function [chart.Correlation](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Correlation), with as argument the multivariate time series `returns`. 
+- Commpute the rolling 24-month estimates of the bond-equity correlation using the function [chart.RollingCorrelation](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.RollingCorrelation). 
 
 *** =hint
 hint comes here
 
 *** =pre_exercise_code
 ```{r}
-# pec
+library(tseries)# Its function get.hist.quote allows to download prices from Yahoo!Finance
+library(xts) # Its function plot.zoo make simple, but attractive, time series plots
+# download adjusted close prices (that is corrected for dividend payments and stock splits)
+# dates have the format "YYYY-MM-DD"
+eq_prices <- get.hist.quote(instrument="SPY",start=as.Date("2003-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+bond_prices <- get.hist.quote(instrument="AGG",start=as.Date("2003-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+newdates <- seq(as.Date(time(bond_prices ))[2], length=nrow(bond_prices ), by="1 month") - 2
+eq_prices <- xts(eq_prices,newdates)
+bond_prices <- xts(bond_prices,newdates)
+prices <- cbind(eq_prices,bond_prices)
+colnames(prices) <- c("equities","bonds")
+library(PerformanceAnalytics)
+# calculate returns
+returns <- CalculateReturns(prices)
+returns <- returns[(-1),]
 ```
 
 *** =sample_code
 ```{r}
-# sample code
+# calculation using cor
+
+# calculation and visualization using chart.Correlation
+
+# rolling estimates using chart.RollingCorrelation
+
 ```
 
 *** =solution
 ```{r}
-# solution code
+# calculation using cor
+cor(returns$bonds,returns$equities)
+# calculation and visualization using chart.Correlation
+chart.Correlation(returns)
+# rolling estimates using chart.RollingCorrelation
+chart.RollingCorrelation(returns)
 ```
 
 *** =sct
@@ -126,10 +151,14 @@ hint comes here
 success_msg("Well done!")
 ```
 
+
 --- type:NormalExercise lang:r xp:100 skills:1 key:3900d5d149bfda5a7f4d1fb71b372a08a6368279
 ## The effect of correlation on performance.
 
-We thus observed that  like the mean and volatility, the correlation is changing over time. This time-variation can have major effects on the portfolio volatility. 
+make it multiple choice?
+We thus observed that  like the mean and volatility, the correlation is changing over time. This time-variation can have major effects on the portfolio volatility. Let us now make a sensitivity plot of the volatility with respect to the correlation and th. 
+
+You will see in the R console a function that computes the volatility of a portfolio of two assets
 
 Take two assets with mean, variance and weights given. Make a plot showing the variance by changing the correlation.
 
