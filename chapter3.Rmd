@@ -2,7 +2,7 @@
 title       : Inputs for optimization
 description : For optimizing the portfolio investment decisions and understanding the sources of performance and risk, it is crucial to understand the multivariate nature of the return distribution of the risky assets.  In this chapter, you learn how to estimate the vector of expected return and the covariance matrix and to connect them to the portfolio return distribution.  
 
---- type:NormalExercise lang:r xp:100 skills:1 key:b6a986b0e53bd119933fc39df94f21f2bf1e4318
+--- type:NormalExercise lang:r xp:100 skills:1  
 ## The 60/40 equity-bond allocation
 
 Until now, we have focused on portfolio performance. In this chapter, we dig deeper and investigate how the performance
