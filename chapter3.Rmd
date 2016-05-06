@@ -108,6 +108,7 @@ hint comes here
 
 *** =pre_exercise_code
 ```{r}
+options(warn=-1)
 library(tseries)# Its function get.hist.quote allows to download prices from Yahoo!Finance
 library(xts) # Its function plot.zoo make simple, but attractive, time series plots
 # download adjusted close prices (that is corrected for dividend payments and stock splits)
@@ -142,7 +143,7 @@ cor(returns$bonds,returns$equities)
 # calculation and visualization using chart.Correlation
 chart.Correlation(returns)
 # rolling estimates using chart.RollingCorrelation
-chart.RollingCorrelation(returns)
+chart.RollingCorrelation(returns$bonds,returns$equities,width=24)
 ```
 
 *** =sct
@@ -155,8 +156,7 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:3900d5d149bfda5a7f4d1fb71b372a08a6368279
 ## The effect of correlation on performance.
 
-make it multiple choice?
-We thus observed that  like the mean and volatility, the correlation is changing over time. This time-variation can have major effects on the portfolio volatility. Let us now make a sensitivity plot of the volatility with respect to the correlation and th. 
+We thus observed that  like the mean and volatility, the correlation is changing over time. This time-variation can have major effects on the portfolio volatility. Let us now make a sensitivity plot of the portfolio volatility with respect to the  correlation. 
 
 You will see in the R console a function that computes the volatility of a portfolio of two assets
 
@@ -172,6 +172,34 @@ hint comes here
 *** =pre_exercise_code
 ```{r}
 # pec
+pvol <- function( cor12   ){
+  vol1 <- 0.04 # assumed monthly volatility equities
+  vol2 <- 0.02 # assumed monthly volatility bonds
+  w <- 0.5 # assumed weights equities
+  out<- sqrt( w^2*vol1^2 + ((1-w)^2)*vol2^2 + 2*w*(1-w)*vol1*vol2*cor12 )
+  return(out)
+}
+pvol1 <- function( cor12 ){
+  vol1 <- 0.04 # assumed monthly volatility equities
+  vol2 <- 0.04 # assumed monthly volatility bonds
+  w <- 0.5 # assumed weights equities
+  out<- sqrt( w^2*vol1^2 + ((1-w)^2)*vol2^2 + 2*w*(1-w)*vol1*vol2*cor12 )
+  return(out)
+}
+pvol2 <- function( cor12 ){
+  vol1 <- 0.04 # assumed monthly volatility equities
+  vol2 <- 0.02 # assumed monthly volatility bonds
+  w <- 0.8 # assumed weights equities
+  out<- sqrt( w^2*vol1^2 + ((1-w)^2)*vol2^2 + 2*w*(1-w)*vol1*vol2*cor12 )
+  return(out)
+}
+vcor <- seq(-1,1,0.001)
+plot(vcor,pvol(vcor),type="l",col="blue",xlab=expression(rho),ylim=c(0,0.05),ylab=expression(sigma[p]))
+lines(vcor,pvol1(vcor))
+lines(vcor,pvol2(vcor),col="red")
+legend("topleft",legend =c(expression(paste(sigma[1]==0.04,",",sigma[2]==0.04,",",w==0.5) ),expression(paste(sigma[1]==0.04,",",sigma[2]==0.02,",",w==0.5) ),
+   expression(paste(sigma[1]==0.04,",",sigma[2]==0.02,",",w==0.8) ) ),col=c("black","blue","red"),lty=1)
+
 ```
 
 *** =sample_code
