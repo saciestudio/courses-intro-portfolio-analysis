@@ -225,10 +225,9 @@ ff <- read.fwf(unzip(f, files=as.character(file.list[1,1])),
 ff <- ff[!is.na(ff[,1]),]
 rowannual <- c(1:nrow(ff))[as.character(ff[,1])==" Annual "]
 ff <- ff[1:(rowannual-1),]
-colnames(ff) <- c("date", "rf")
 rf <- as.numeric(ff[,2])/100
 dates <- as.Date( paste0(trimws(ff[!is.na(rf),1]),"01"), format="%Y%m%d")-1
-rf<- xts(na.omit(rf),order.by=dates)
+rf<- xts(rf,order.by=dates)
 rf <- rf[time(sp500_returns )]
 sp500_returns <- sp500_returns[time(rf )]
 ```
