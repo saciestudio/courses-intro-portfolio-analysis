@@ -150,6 +150,8 @@ sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1985-12-31"),end=Sys.D
 library(PerformanceAnalytics)
 sp500_returns <-  xts(CalculateReturns(sp500))[-1]
 names(sp500_returns) <- "sp500"
+newdates <- seq(as.Date(as.yearmon(time(sp500_returns)))[2], length=nrow(sp500_returns), by="1 month") - 1
+sp500_returns <- xts(sp500_returns,newdates)
 ```
 
 *** =sample_code
@@ -231,6 +233,7 @@ rf<- xts(na.omit(rf),order.by=dates)
 rf <- rf[time(sp500_returns )]
 sp500_returns <- sp500_returns[time(rf )]
 ```
+
 
 *** =sample_code
 ```{r}
