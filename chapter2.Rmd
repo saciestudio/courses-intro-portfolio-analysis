@@ -187,7 +187,7 @@ success_msg("Well done!")
 //player.vimeo.com/video/108225030
 
  
---- type:NormalExercise lang:r xp:100 skills:1 key:c14e2a1a3a
+--- type:NormalExercise lang:r xp:100 skills:1  
  
 ## Excess returns and the portfolio's Sharpe ratio  
 
@@ -229,7 +229,6 @@ colnames(ff) <- c("date", "rf")
 rf <- as.numeric(ff[,2])/100
 dates <- as.Date( paste0(trimws(ff[!is.na(rf),1]),"01"), format="%Y%m%d")-1
 rf<- xts(na.omit(rf),order.by=dates)
-
 rf <- rf[time(sp500_returns )]
 sp500_returns <- sp500_returns[time(rf )]
 ```
