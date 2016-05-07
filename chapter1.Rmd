@@ -14,9 +14,9 @@ description : Asset returns and portfolio weights; those are the building blocks
 Which of the following statements is false:
 
 *** =instructions
-- Because most investors do not like risk, risky stocks sell on average at lower market prices
-- Investment risk is static: it does not change over time
-- If all assets have the same expected return and risk, an investor is better off by investing in a portfolio with many assets than a portfolio invested in just a few assets
+- Because most investors do not like risk, risky stocks sell on average at lower market prices.
+- Investment risk is time-invariant: it is not influenced by the changes in the business cyle, investor sentiment or other changes in the  market environment. 
+- If all assets have the same expected return and risk, an investor is better off by investing in a portfolio with many assets than a portfolio invested in just a few assets. 
 
 *** =hint
 
@@ -36,7 +36,7 @@ test_mc(2) # if 2 is the correct option.
 
 The choice of investment matters, even when the underlying risky assets are similar. As a first example, let us consider the stock price of the Coca Cola Company and the PepsiCo company from Januari 2003 till today.  
 
-The time series plot shows you the value evolution of one dollar invested in each of them. As an exercise, plot the time series showing the relative value of an investment in the Coca Cola company, compared to the value of an investment in PepsiCo. To do this exercise, you can us the corresponding price series, available as the variables `ko` and `pep` in your R environment. 
+The time series plot shows you the value evolution of one dollar invested in each of them. As an exercise, plot the time series showing the relative value of an investment in the Coca Cola company, compared to the value of an investment in PepsiCo. To do this exercise, you can us the corresponding price series, available as the variables `ko` and `pep` in your workspace. 
 
 *** =instructions
 - Define `ko_pep` as the ratio expressing the value of the share price of the Coca Cola company in terms
@@ -73,6 +73,7 @@ legend("topleft", legend=c("Coca-Cola","PepsiCo") , col=c("black","red") , lwd =
 
 *** =sample_code
 ```{r}
+# ko and pep are pre-loaded
 # Define ko_pep 
 ko_pep <- 
 # Make a time series plot of ko_pep
@@ -455,7 +456,7 @@ test_mc(1) # if 2 is the correct option.
 
 Computing the returns for one periods is thus straightforward to do in R. When the returns need to be calculated for different dates, I recommend to avoid using loops and to make use of the functions  'CalculateReturns' and `Return.portfolio' in the R package [PerformanceAnalytics](http://www.rdocumentation.org/packages/performanceanalytics/functions/performanceanalytics-package). It requires the input data to be of the [xts](http://www.rdocumentation.org/packages/xts/functions/xts-package)-time series class.
 
-Let us explore this functionality in the case of a portfolio invested in the Apple stock and Microsoft stock, for which the prices are available in the variables `aapl` and `msft` in the R environment. The target weights are the same for each rebalancing data. We call this the constant mix portfolio allocation strategy.   
+Let us explore this functionality in the case of a portfolio invested in the Apple stock and Microsoft stock, for which the prices are available in the variables `aapl` and `msft` in your workspace. The target weights are the same for each rebalancing data. We call this the constant mix portfolio allocation strategy.   
 
 
 *** =instructions
@@ -481,6 +482,8 @@ msft <- get.hist.quote(instrument="MSFT",start=as.Date("2005-12-31"),end=Sys.Dat
 
 *** =sample_code
 ```{r}
+# aapl and msft are pre-loaded
+
 # load the packages xts and PerformanceAnalytics 
 
 # define prices as the merged time series of aapl and msft
@@ -603,6 +606,8 @@ preturns <- Return.portfolio(returns, weights,rebalance_on="days")
 
 *** =sample_code
 ```{r}
+# preturns is pre-loaded
+
 # Print the daily returns in September 2008
 preturns["2008-09"]
 # Print the value evolution of a $1 investment over this month 

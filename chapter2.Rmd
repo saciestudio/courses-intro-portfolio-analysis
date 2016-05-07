@@ -1,8 +1,6 @@
 ---
-title       : Interpreting portfolio returns 
+title       : Interpreting portfolio performance 
 description : The history of portfolio returns contains valuable information about how much the investor can expect to gain or lose. This chapter introduces the R functionality to analyze the investment performance based on a statisical analysis of the portfolio returns. It includes graphical analysis and the calculation of performance statistics expressing average return, risk and risk-adjusted return over rolling estimation samples. This chapter concludes by an investigation in the non-normality of the return distribution and provides the tools to characterize the financial risks and rewards in a non-normal world. 
-
-Practical cases considered: S&P 500. 
 
 
 --- type:VideoExercise lang:r xp:50 skills:1 key:c4b994ff53
@@ -29,11 +27,11 @@ hint
 ```{r}
 # pec
 par(mfrow=c(3,1),mar=c(3,3,1,1),cex.axis=1.2)
+vx = seq(-0.5,0.5,0.001)
 vd_A <- dnorm(vx,mean=0,sd=0.10)
 vd_B <- dnorm(vx,mean=0,sd=0.20)
 vd_C <-dnorm(vx,mean=0.10,sd=0.10)
 ylims = c(0,max(c(vd_A,vd_B,vd_C)))
-vx = seq(-0.5,0.5,0.001)
 plot( vx , vd_A,type="l",ylim=ylims,ylab="")
 abline(v=0,lty=3)
 text(x=-0.4,y=3,labels="Investment A")
@@ -59,10 +57,10 @@ test_mc(3) # if 3 is the correct option.
 
 Let us now examine the monthly performance of the S&P 500 portfolio. 
 
-A picture is worth a thousand word. This is why most analyses of performance start by studying the time series plot of the value of the investment. For the S&P 500 this is shown in the upper plot for the period 1986 to current date. Each observation is the end-of-day value. Note the booms and busts in the value of this portfolio. Do you see why the 2000s are often called the lost decade of investing?
+A picture is worth a thousand word. This is why most analyses of performance start by studying the time series plot of the value of the investment. For the S&P 500, this is shown in the upper plot for the period 1986 to current date. Each observation is the end-of-day value. Note the booms and busts in the value of this portfolio. Do you see why the 2000s are often called the lost decade of investing?
 
-These prices are available in the R console as the variable `sp500`, which is of the xts time series class.  
-Our interest is in describing the monthly performance. This exercise is about aggregation daily price series to end-of-month prices and then computing monthly returns and visualize them in an attractive table.  
+These daily prices are available in your workspace as the variable `sp500`, which is of the xts time series class.  
+Our interest is in describing the monthly performance. To do so, we first need to aggregate the daily price series to end-of-month prices. We will then compute the monthly returns and visualize them in an attractive table.  
 
 *** =instructions
 - Define the variable `sp500_monthly` as the output of applying the function [to.monthly](http://www.rdocumentation.org/packages/xts/functions/to.period) to `sp500`.
@@ -128,14 +126,12 @@ success_msg("Well done!")
 
 ## The monthly mean and volatility  
 
-In this exercise, you need to do a descriptive analysis of the mean and volatility of the monthly S&P 500 returns. These returns are available in the R console as the variable `sp500_returns`. 
+In this exercise, you need to do a descriptive analysis of the mean and volatility of the monthly S&P 500 returns. These returns are available in your workspace as the variable `sp500_returns`. 
 
-We will also compare the returns with
 
 *** =instructions
 - Compute the mean value of the return series.
 - Compute the standard deviation of the return series. 
-- Compute the risk-adjusted return given by the mean return divided by the standard deviation.
 *** =hint
 The functions `mean` and `sd` are standard functions in R to estimate the mean and standard deviation.
 
@@ -155,11 +151,12 @@ names(sp500_returns) <- "sp500"
 
 *** =sample_code
 ```{r}
+# sp500_returns is pre-loaded
+
 # Compute the mean monthly returns 
 
 # Compute the standard deviation
-  
-# Compute the mean return divided by the return standard deviation
+
 
 ```
 
@@ -169,10 +166,6 @@ names(sp500_returns) <- "sp500"
 mean(sp500_returns)
 # Compute the standard deviation
 sd(sp500_returns)  
-# Compute the mean return divided by the return standard deviation
-mean(sp500_returns)/sd(sp500_returns)
-# Produce the year x month table
-table.CalendarReturns(sp500_returns)
 ```
 
 *** =sct
@@ -181,22 +174,20 @@ table.CalendarReturns(sp500_returns)
 success_msg("Well done!")
 ```
 
+
+--- type:VideoExercise lang:r xp:50 skills:1 
+## The (annualized) Sharpe ratio
+
+
  
 --- type:NormalExercise lang:r xp:100 skills:1 key:c14e2a1a3a
  
 ## Excess returns and the portfolio's Sharpe ratio  
 
-Average returns in itself are difficult to interpret. Is an average of 5% a high return? It depends on the alternatives. Suppose e.g. that there is a risk free investment offerening 4%. Then, by taking risks, the investor only has a 1 percentage point higher average return. The solution is to consider returns in excess of the risk-free investment. Those are called the excess return. They can be interpreted as the return on the self-financed investment of buying the risky portfolio and borrowing at the risk free rate.  
-
-The Sharpe ratio summarizes the balance between the excess portfolio return and the risk taken. It is the ratio obtained by taking the average difference between the portfolio return and the return the investor would have from a risk free investment and dividing this number with the portfolio standard deviation.The Sharpe ratio thus shows the reward per unit of risk taken.  
-
-A good proxy for the risk free rate is the one-month Treasury bill rate. This Tbill rate is available in the console as the variable `rf`.  The S&P 500 portfolio returns are still available as `sp500_returns`.  
-The Sharpe ratio of a portfolio When we take the average excess portfolio return and divide it by the portfolio volatility
-
-
+Performance evaluation involves comparing with the alternative investment choices, such as investing in a (almost) risk free asset, such as the US Treasury Bill. Its return is called the risk free rate. This one-month  Tbill rate is available in your workspace as the variable `rf`.  The S&P 500 portfolio returns are still available as `sp500_returns`.  
 
 *** =instructions
-- Compute the annualized risk free using the compound intrest formula and plot this series. 
+- Compute the annualized risk free using the compound interest formula and plot this series. 
 - Compute the series of excess monthly portfolio return `sp500_excess` and compare its mean return with that of the raw monthly returns.
 - Compute the corresponding monthly Sharpe ratio. 
 *** =hint
@@ -214,6 +205,8 @@ sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1985-12-31"),end=Sys.D
 library(PerformanceAnalytics)
 sp500_returns <-  xts(CalculateReturns(sp500))[-1]
 names(sp500_returns) <- "sp500"
+newdates <- seq(as.Date(as.yearmon(time(sp500_returns)))[2], length=nrow(sp500_returns), by="1 month") - 1
+sp500_returns <- xts(sp500_returns,newdates)
 
 # The URL for the data.
 ff.url <-"http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/ftp/F-F_Research_Data_Factors_TXT.zip"
@@ -227,10 +220,8 @@ rowannual <- c(1:nrow(ff))[as.character(ff[,1])==" Annual "]
 ff <- ff[1:(rowannual-1),]
 colnames(ff) <- c("date", "rf")
 rf <- as.numeric(ff[,2])/100
-dates <- as.Date(ff[!is.na(rf),1], format="%Y%M")
-rf<- xts(na.omit(rf),dates)
-newdates <- seq(as.Date(time(rf))[2], length=nrow(rf), by="1 month") - 1
-rf <-  xts( rf , order.by = newdates )
+dates <- as.Date( paste0(trimws(ff[!is.na(rf),1]),"01"), format="%Y%m%d")-1
+rf<- xts(na.omit(rf),order.by=dates)
 
 rf <- rf[time(sp500_returns )]
 sp500_returns <- sp500_returns[time(rf )]
@@ -293,6 +284,8 @@ sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1985-12-31"),end=Sys.D
 library(PerformanceAnalytics)
 sp500_returns <-  xts(CalculateReturns(sp500))[-1]
 names(sp500_returns) <- "sp500"
+newdates <- seq(as.Date(as.yearmon(time(sp500_returns)))[2], length=nrow(sp500_returns), by="1 month") - 1
+sp500_returns <- xts(sp500_returns,newdates)
 ```
 
 *** =sample_code
@@ -331,7 +324,7 @@ The Sharpe ratio is the average excess return per unit of portfolio volatility. 
 *** =instructions
 - The annualized Sharpe ratio and the monthly Sharpe ratio are identical.
 - The annualized Sharpe ratio is 12 times the monhtly Sharpe ratio.
-- The annualized Sharpe ratio is $\sqrt{12}$ times the monhtly Sharpe ratio.
+- The annualized Sharpe ratio is $\sqrt{12}$ times the monthly Sharpe ratio.
 
 *** =hint
 hint
@@ -433,6 +426,7 @@ hint comes here
 *** =pre_exercise_code
 ```{r}
 # pec
+# pec
 options(warn=-1)
 library(tseries)# Its function get.hist.quote allows to download prices from Yahoo!Finance
 library(xts) # Its function plot.zoo make simple, but attractive, time series plots
@@ -442,6 +436,8 @@ sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1985-12-31"),end=Sys.D
 library(PerformanceAnalytics)
 sp500_returns <-  xts(CalculateReturns(sp500))[-1]
 names(sp500_returns) <- "sp500"
+newdates <- seq(as.Date(as.yearmon(time(sp500_returns)))[2], length=nrow(sp500_returns), by="1 month") - 1
+sp500_returns <- xts(sp500_returns,newdates)
 
 # The URL for the data.
 ff.url <-"http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/ftp/F-F_Research_Data_Factors_TXT.zip"
@@ -455,10 +451,8 @@ rowannual <- c(1:nrow(ff))[as.character(ff[,1])==" Annual "]
 ff <- ff[1:(rowannual-1),]
 colnames(ff) <- c("date", "rf")
 rf <- as.numeric(ff[,2])/100
-dates <- as.Date(ff[!is.na(rf),1], format="%Y%M")
-rf<- xts(na.omit(rf),dates)
-newdates <- seq(as.Date(time(rf))[2], length=nrow(rf), by="1 month") - 1
-rf <-  xts( rf , order.by = newdates )
+dates <- as.Date( paste0(trimws(ff[!is.na(rf),1]),"01"), format="%Y%m%d")-1
+rf<- xts(na.omit(rf),order.by=dates)
 
 rf <- rf[time(sp500_returns )]
 sp500_returns <- sp500_returns[time(rf )]
@@ -508,7 +502,7 @@ success_msg("Well done!")
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:2169b00c723410a1ee9217836b284bf4cdd7dc2c
 ## Effect of window length choice
-I show two plots, one with rolling windows of 6 months and one with rolling windows of 12 months. Which one is more persistent?
+I show two plots, one with rolling windows of 6 months and one with rolling windows of 24 months. Which one is more timely in terms of reacting to recent shocks?
 
 *** =instructions
 - Annualized volatility on rolling window of 6 months
@@ -532,19 +526,19 @@ names(sp500_returns) <- "sp500"
 par(mfrow = c(2,1))
 chart.RollingPerformance(R=sp500_returns , width=6,
                          FUN="sd.annualized",scale=12,main="6-months rolling annualized volatility S&P 500")
-chart.RollingPerformance(R=sp500_returns , width=12,
+chart.RollingPerformance(R=sp500_returns , width=24,
                          FUN="sd.annualized",scale=12,main="12-months rolling annualized volatility S&P 500")
 ```
 
 *** =sct
 ```{r}
-test_mc(2) # if 2 is the correct option.
+test_mc(1) 
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:012c07fe20924387617cef2df90e9ac6458f6fa8
 ## Subperiod performance analysis and the function window 
 
-We have now computed the performance measure on each possible sample of a fixed size that can be obtained by rolling through time. Often we are interest in the performance over one particular subwindow.  Obtaining a subset of a time series in R is straightforward using the function the function [window](http://www.rdocumentation.org/packages/zoo/functions/window.zoo), having as first argument the return series that needs to be subset, then the start data and end date in the format `YYYY-MM-DD`.
+We have now computed the performance measure on each possible sample of a fixed size that can be obtained by rolling through time. Often we are interested in the performance over one particular subwindow.  Obtaining a subset of a time series in R is straightforward using  the function [window](http://www.rdocumentation.org/packages/zoo/functions/window.zoo), having as first argument the return series that needs to be subset, then the start data and end date in the format `YYYY-MM-DD`.
 In this exercise, we will be working with the daily S&P 500 returns, available as the variable `sp500_returns`.
  
 *** =instructions
@@ -692,7 +686,7 @@ success_msg("Well done!")
 The standard deviation gives equal weight to positive and negative returns in calcuting the return variability. 
 When the return distribution is asymmetric, investors use additional risk measures that focus on describing the potential losses. One such measure of downside risk is the [SemiDeviation](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/DownsideDeviation.html) computing the standard deviation of the negative returns.  The corrresponding risk-adjusted return is the Sortino ratio, defined as the average portfolio return, divided by the semideviation. It is an alternative for the Sharpe ratio that takes the non-normality of the return distribution into account by using the semideviation as risk measure rather than the standard deviation. 
 
-A further popular measure is the so-called `Value-at-Risk` at a pre-definity loss probability of e.g. 5%. Loosely speaking, it corresponds to the 5% quantile of the return distribution, such that a more negative return can only happen with a probability of 5%. The expected shortfall at 5% is the average return when the return is below this 5% quantile. 
+A further popular measure is the so-called "Value-at-Risk" at a pre-definity loss probability of e.g. 5%. Loosely speaking, it corresponds to the 5% quantile of the return distribution, such that a more negative return can only happen with a probability of 5%. The "expected shortfall"" at 5% is the average return when the return is below this 5% quantile. 
 
 *** =instructions
 - Compute the [SortinoRatio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/SortinoRatio) of the monthly returns.

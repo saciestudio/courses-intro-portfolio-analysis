@@ -1,7 +1,7 @@
 title            : Introduction to Portfolio Analysis
 author_field     : Kris Boudt
-description      : A golden rule in investing is to always test the portfolio strategy on historical data, and, once you are trading the strategy, to constantly monitor its performance. In this course, you will learn this by critically analyzing portfolio returns and finding the portfolio weights that optimally balance risk and return.  
+description      : A golden rule in investing is to always test the portfolio strategy on historical data, and, once you are trading the strategy, to constantly monitor its performance. In this course, you will learn this by critically analyzing portfolio returns using the package PerformanceAnalytics. The course also shows how to estimate the portfolio weights that optimally balance risk and return.  
 author_bio       : Kris Boudt is Professor of Finance and Econometrics at Vrije Universiteit Brussel and Amsterdam. He is an expert in portfolio analysis. He has contributed to the development of several smart beta equity indices and has published his research in the Journal of Portfolio Management, Journal of Financial Econometrics and the Review of Finance, among others. He has a passion for developing financial econometrics tools in R and is a coauthor of the highfrequency, PeerPerformance and PortfolioAnalytics R packages. 
 university       : DataCamp
 difficulty_level : 2
-time_needed      : 1 hour
+time_needed      : 4 hours

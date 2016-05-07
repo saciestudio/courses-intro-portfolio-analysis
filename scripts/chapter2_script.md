@@ -9,7 +9,7 @@ Such a study requires to define clearly what is meant in terms of portfolio perf
 
 ***
 
-The first dimension to specify is to horizon over which we need describe the portfolio performance : Is it the performance over a short horizion such as one day or one month? Or is it the performance over a longer horizon, such as one quarter or a year. 
+The first dimension to specify is the horizon over which we need describe the portfolio performance : Is it the performance over a short horizion such as one day or one month? Or is it the performance over a longer horizon, such as one quarter or a year. 
 
 
 Secondly, we need to distinguish the objective of the analysis: (i) Is it a backward looking investigation of past performance; (ii) or is it a forward looking prediction of future performance. 
@@ -35,8 +35,47 @@ Once we have the average return and volatility, we can start interpreting portfo
 *******************
 
 
-# Video 2:  Time-variation in portfolio performance
+# Video 2:  The (annualized) Sharpe ratio
 
+***
+
+We have now seen how to compute the mean and standard deviation of the monthly returns on a risky portfolio. In practice, investors often do not consider the mean return, but the mean return in excess of the risk free rate. They further combine this mean excess return and volatility into a single number, called the Sharpe ratio. Finally, while the mean, volatility and Sharpe ratio is very often computed on monthly returns, those numbers are annualized to match with the performance over a one-year investment horizon.  
+
+***
+
+First, the practice of reporting excess returns. The problem it solves is the following. Average returns in itself are difficult to interpret. Is an average of 5% a high return? It depends on the alternatives. Suppose e.g. that there is a risk free investment offerening 4%. Then, by taking risks, the investor only has a 1 percentage point higher average return. The solution is to consider returns in excess of the risk-free investment. Those are called the excess returns.
+
+***
+
+We can thus consider portfolio performance as the average excess return. An investor will only invest in a risky portfolio if she expects the excess return to be positive. If not, she will avoid taking the risk and choose the risk-free investment. 
+
+I find it useful to consider this comparison between the risk-free asset and the risky portfolio in a scatter diagram, with on the x axis-the volatility of the portfolio return, and on the y-axis the expected return. We have two points on the graph.
+The first one is the risk free asset, for which volatility is of course zero, and the return is called the risk free rate. The second point on the graph is the risky portfolio for which the expected return is higher, in compensation for the risk taken.
+
+The difference between the vertical dashed line show the excess return: the difference between the return on the risky portfolio and the risk free rate. 
+
+***
+
+Let's now look at the line connecting the two points. It is called the capital allocation line, as one can show that each point on this line corresponds to a portfolio invested in the risk free asset and the risky portfolio. 
+
+The slope of the line is called the risky portfolio's sharpe ratio: it is the excess portfolio mean return, divided by its volatility. The Sharpe ratio thus shows the reward per unit of risk taken. It summarizes the balance between the excess portfolio return and the risk taken. 
+
+***
+
+This table illustrates the calculation. [to be completed]
+
+***
+
+There is one shortcoming of the previous table. It shows the performance over one month, while investors typically think in terms of yearly performance. The numbers thus need to be extrapolated from a monthly horizon to a yearly horizon. 
+The convention is to do so by multiplying the monthly average return with 12 and the monthly volatility with square root of 12. Then the Sharpe ratio is also multiplied with square root of 12.
+
+In our example, this leads to the following table. [show previous table ==> annualized table]
+
+
+
+# Video 3:  Time-variation in portfolio performance
+
+In the previous exercises, you have seen that ... [to be completed]
 
 The probabilistic interpretation of portfolio returns is thus that each return is one possible outcome of a corresponding random variable. The ordered series of those random variables is called the portfolio return time series process. 
 
@@ -48,7 +87,7 @@ In terms of volatility, there are the calm market regime with persistently low v
 
 ***
 
-As, an investor, should we care about this time-variation? Well, for both returns and volatility, there tends to be mean-reversion, meaning that episodes of exceptionally extremely large positive or negative returns tend to be followed by more moderately sized returns. 
+As an investor  should we care about this time-variation? Well, for both returns and volatility, there tends to be mean-reversion, meaning that episodes of exceptionally extremely large positive or negative returns tend to be followed by more moderately sized returns. 
 
 In that sense, two types of analysis are relevant:
 (i) The analysis of long-run, average performance
