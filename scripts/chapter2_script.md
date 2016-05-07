@@ -9,7 +9,7 @@ Such a study requires to define clearly what is meant in terms of portfolio perf
 
 ***
 
-The first dimension to specify is the horizon over which we need describe the portfolio performance : Is it the performance over a short horizion such as one day or one month? Or is it the performance over a longer horizon, such as one quarter or a year. 
+The first dimension to specify is the horizon over which we need describe the portfolio performance : Is it the performance over a short horizon such as one day or one month? Or is it the performance over a longer horizon, such as one quarter or a year. 
 
 
 Secondly, we need to distinguish the objective of the analysis: (i) Is it a backward looking investigation of past performance; (ii) or is it a forward looking prediction of future performance. 
