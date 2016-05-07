@@ -168,6 +168,6 @@ In this plot, I show three such risk measures:
 
 ***
 
-Conclusion: non-normalilty is a typical feature of the return distribution and should be taken into account in the performance analysis. This will be illustrated in the following exercises. 
+Conclusion: non-normality is a typical feature of the return distribution and should be taken into account in the performance analysis. This will be illustrated in the following exercises. 
 
 

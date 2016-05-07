@@ -31,21 +31,21 @@ hint
 # pec
 par(mfrow=c(3,1),mar=c(3,3,1,1),cex.axis=1.2)
 vx = seq(-0.5,0.5,0.001)
-vd_A <- dnorm(vx,mean=0,sd=0.10)
-vd_B <- dnorm(vx,mean=0,sd=0.20)
-vd_C <-dnorm(vx,mean=0.10,sd=0.10)
+vd_A <- dnorm(vx,mean=0.05,sd=0.10)
+vd_B <- dnorm(vx,mean=0.05,sd=0.20)
+vd_C <-dnorm(vx,mean=0.15,sd=0.10)
 ylims = c(0,max(c(vd_A,vd_B,vd_C)))
 plot( vx , vd_A,type="l",ylim=ylims,ylab="")
-abline(v=0,lty=3)
+abline(v=0.05,lty=3)
 text(x=-0.4,y=3,labels="Investment A")
 #arrows(x0=-2*0.1,y0=dnorm(-2*0.1),x1=2*0.1,y1=dnorm( 2*0.1),lty=3)
 #arrows(x0=2*0.1,y0=dnorm(-2*0.1),x1=-2*0.1,y1=dnorm( 2*0.1),lty=3)
 plot( vx , vd_B,type="l",ylim=ylims,ylab="")
-abline(v=0,lty=3)
+abline(v=0.05,lty=3)
 text(x=-0.4,y=3,labels="Investment B")
 plot( vx , vd_C,type="l",ylim=ylims,ylab="")
 text(x=-0.4,y=3,labels="Investment C")
-abline(v=0.10,lty=3)
+abline(v=0.15,lty=3)
 ```
 
 *** =sct
@@ -238,6 +238,8 @@ sp500_returns <- sp500_returns[time(rf )]
 
 *** =sample_code
 ```{r}
+# rf and sp500_returns are pre-loaded
+
 # Annualized risk free rate
 
 # Compute the series of excess portfolio returns 
@@ -647,7 +649,7 @@ chart.Histogram(sp500_monthly, methods = c( "add.density", "add.normal"))
 # excess kurtois 
 
 
-# jarque bera test 
+# Jarque Bera test 
 
 
 ```
@@ -660,7 +662,7 @@ skewness(sp500_monthly)
 # excess kurtois 
 kurtosis(sp500_daily)
 kurtosis(sp500_monthly)
-# jarque bera test 
+# Jarque Bera test 
 jarque.bera.test(sp500_daily)
 jarque.bera.test(sp500_monthly) 
 ```
