@@ -85,4 +85,31 @@ The portfolio variance is the quadratic function of the weights in terms of the 
 
 In the exercises we will see how to estimate the vector of expected return and the covariance matrix, as well as examples of matrix multiplication in R to obtain estimates of the portfolio expected return and variance. 
 
+# Video 3: The general case using matrix notation
 
+We have seen that the portfolio volatility is a non-linear function of the assets' volatilities and correlations. 
+
+***
+
+We also saw that portfolio volatility has the property of subadditivity, meaning that the portfolio volatility is less than the weighted average of the component volatilities. 
+
+Note that the function is also homogeneous of order one, meaning that if we multiply the portfolio weights with a positive constant, then also the portfolio volatility is multiplied with this constant. 
+
+
+***
+
+An important remaining question is how much risk each of the assets caused in the portfolio. This is the question answered by the risk budgeting analysis.
+
+***
+
+It uses the property that the portfolio volatility equals the sum of the weights multiplied with the partial derivative of the portfolio volatility with respect to that weight. Such a term is called the component risk contribution. 
+
+***
+
+When expressed in percentage of the total portfolio volatility, we have the percentage risk contribution of the asset. Of course, those percentage risk contribution add up to 1. 
+
+***
+
+Let's put the theory in practice and compute the risk budget in the case of our asset allocation problem.
+
+ 

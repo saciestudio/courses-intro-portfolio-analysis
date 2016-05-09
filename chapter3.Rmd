@@ -493,10 +493,16 @@ hint comes here
 success_msg("Well done!")
 ```
 
---- type:NormalExercise lang:r xp:100 skills:1 key:0931e83c3a402b2fb2d78958981928a327428e4d
-## Putting it together; comparing portfolios  and the Sharpe ratio
+--- type:VideoExercise lang:r xp:50 skills:1  
+## The portfolio's risk budget
 
-Compare different portfolios; equal-weight and inverse volatility. what are their performance. etc
+*** =video_link
+//player.vimeo.com/video/108225030
+
+--- type:NormalExercise lang:r xp:100 skills:1 key:0931e83c3a402b2fb2d78958981928a327428e4d
+## Portfolio risk attribution
+
+compute the portfolio risk budget... barplot? function [StdDev](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/StdDev)
 
 *** =instructions
 - instruction 1
