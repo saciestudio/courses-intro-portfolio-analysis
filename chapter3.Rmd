@@ -493,7 +493,7 @@ hint comes here
 success_msg("Well done!")
 ```
 
---- type:VideoExercise lang:r xp:50 skills:1  
+--- type:VideoExercise lang:r xp:50 skills:1   key:ba9b12d382
 ## The portfolio's risk budget
 
 *** =video_link
