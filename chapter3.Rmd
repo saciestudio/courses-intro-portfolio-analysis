@@ -188,7 +188,7 @@ chart.RollingCorrelation(returns_equities, bonds,returns_equities,width=24)
 success_msg("Well done!")
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1    
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1     key:f4f41f6b81
 ## The impact of correlation on performance.
 
 We thus observed that  like the mean and volatility, the correlation is changing over time. This time-variation can have major effects on the portfolio volatility. In your workspace, a sensitivity plot is shown for the 60/40 and the 40/60 portfolio invested in equities and bonds over the sample. In the plot, the annualized standard deviation and volatilities are kept fixed at their sample estimates, while the correlation varies between -1 and 1. 
