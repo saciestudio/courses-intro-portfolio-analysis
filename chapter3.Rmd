@@ -52,7 +52,7 @@ returns_equities <- returns$equities
 test_mc(3) # if 3 is the correct option.
 ```
 
---- type:NormalExercise lang:r xp:50 skills:1    
+--- type:NormalExercise lang:r xp:50 skills:1     key:69c5664fdb
 ## The impact of portfolio weights on portfolio performance
 
 The choice of portfolio weights matters.  
