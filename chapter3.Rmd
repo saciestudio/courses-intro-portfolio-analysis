@@ -81,6 +81,32 @@ hint
 
 *** =pre_exercise_code
 ```{r}
+# pec
+options(warn=-1)
+library(tseries)# Its function get.hist.quote allows to download prices from Yahoo!Finance
+library(xts) # Its function plot.zoo make simple, but attractive, time series plots
+library(PerformanceAnalytics)
+# download adjusted close prices (that is corrected for dividend payments and stock splits)
+# dates have the format "YYYY-MM-DD"
+eq_prices <- get.hist.quote(instrument="SPY",start=as.Date("2003-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+bond_prices <- get.hist.quote(instrument="AGG",start=as.Date("2003-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+eq_prices <- eq_prices/as.numeric(eq_prices[1])
+bond_prices <-  bond_prices/as.numeric(bond_prices[1])
+
+newdates <- seq(as.Date(time(bond_prices ))[2], length=nrow(bond_prices ), by="1 month") - 2
+eq_prices <- xts(eq_prices,newdates)
+bond_prices <- xts(bond_prices,newdates)
+prices <- cbind(eq_prices,bond_prices)
+colnames(prices) <- c("equities","bonds")
+# calculate returns
+returns <- CalculateReturns(prices)
+returns <- returns[(-1),]
+returns_bonds <- returns$bonds
+returns_equities <- returns$equities
+```
+
+*** =sample_code
+```{r}
 # returns_equities and returns_bonds are preloaded
 returns <- merge(returns_equities,returns_bonds)
 grid <- seq(0,1,0.01)
@@ -125,6 +151,7 @@ abline(v=grid[vsharpe==max(vsharpe)],lty=3)
 Let us now compute the correlation between equity returns and bond returns. Just like volatilities, these correlations are dynamic. We thus need to distinguish between a static analysis computing correlations over the complete sample and a dynamic analysis computing correlations over the rolling sample. 
 
 *** =instructions
+- Plot the equity returns (`returns_equities`) against the bond returns (`returns_bonds`) using the function [chart.Scatter](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Scatter) with the bond returns on the x-asis. Do you see a relation? 
 - Compute first the correlation between the variables `returns_equities` and `returns_bonds` using the standard function [cor](). 
 - Repeat this using the function [chart.Correlation](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Correlation), with as argument the multivariate time series `returns`. 
 - Commpute the rolling 24-month estimates of the bond-equity correlation using the function [chart.RollingCorrelation](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.RollingCorrelation). 
@@ -160,6 +187,8 @@ returns_equities <- returns$equities
 
 *** =sample_code
 ```{r}
+# scatter plot
+
 # calculation using cor
 
 # merge returns_equities and returns_bonds into returns
@@ -172,6 +201,8 @@ returns_equities <- returns$equities
 
 *** =solution
 ```{r}
+# scatter plot
+chart.Scatter(returns_equities,  returns_bonds)
 # calculation using cor
 cor(returns_equities,  returns_bonds)
 # merge returns_equities and returns_bonds into returns
@@ -263,12 +294,13 @@ test_mc(2)
 --- type:NormalExercise lang:r xp:100 skills:1 key:21e408b8c65335ed2599fcb8ff64b5c9b352c374
 ## The asset allocation problem
 
-A realistic portfolio is not only invested in US equities and US bonds. It also seeks for diversification by investing in real estate and commodities, and equities and bonds from other parts of the world. As a more realistic case, let us now consider 
-the portfolio of ... 
+A realistic portfolio is not only invested in US equities and US bonds. It also seeks for diversification by investing in real estate and commodities, among others. We therefore extend our investment opportunity consisting of the US equities ETF (SPY) and US bonds ETF (AGG) to include also a real estate investment trust (VEIEX) and an ETF tracking the GSCI commodities index (GSG).
+
+The monthly returns on those investment are available as the variable `returns` in your workspace. 
 
 *** =instructions
-- instruction 1
-- instruction 2
+- Use the function [Return.portfolio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio) to compute the time series of returns for the monthly rebalanced portfolio that is 40% invested in equities, 40% in bonds, 10% in real estate and 10% in commodities. Call this new variable `preturns`.
+- Merge `returns` and `preturns` and apply the function [table.AnnualizedReturns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.AnnualizedReturns) to the merged object in order to compare the portfolio performance. 
 
 *** =hint
 hint comes here
@@ -276,32 +308,70 @@ hint comes here
 *** =pre_exercise_code
 ```{r}
 # pec
-# http://etfdb.com/etfdb-category/commodities/
+options(warn=-1)
+library(tseries)# Its function get.hist.quote allows to download prices from Yahoo!Finance
+library(xts) # Its function plot.zoo make simple, but attractive, time series plots
+library(PerformanceAnalytics)
+# download adjusted close prices (that is corrected for dividend payments and stock splits)
+# dates have the format "YYYY-MM-DD"
+eq_prices <- get.hist.quote(instrument="SPY",start=as.Date("2006-08-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+bond_prices <- get.hist.quote(instrument="AGG",start=as.Date("2006-08-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+re_prices <- get.hist.quote(instrument="VEIEX",start=as.Date("2006-08-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+comm_prices <- get.hist.quote(instrument="GSG",start=as.Date("2006-08-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+eq_prices <- eq_prices/as.numeric(eq_prices[1])
+bond_prices <-  bond_prices/as.numeric(bond_prices[1])
+re_prices <- re_prices/as.numeric(re_prices[1])
+comm_prices <-  comm_prices/as.numeric(comm_prices[1])
 
-Symbols = c("VFINX", "VEURX", "VPACX", "VEIEX", "SH","VGSIX", "IXC", "GLD", "VWEHX", "VCLT", "DBV")
-Names = c("Vanguard 500 Index",
-          "Vanguard European", 
-          "Vanguard Pacific",  
-          "Vanguard Emerging Mkts",
-          "ProShares Short S&P500",
-          "Vanguard REIT Index Inv",
-          "iShares S&P Global Energy",
-          "SPDR Gold Shares",
-          "Vanguard High-Yield Corporate",
-          "Vanguard Long-Term Corp Bond",
-          "PowerShares DB G10 Currency Harvest")
 
-ShortNames = c("EQ:US", "EQ:EU", "EQ:AP", "EQ:EM", "EQ:SHORT", "RE:REIT", "CM:ENERGY","CM:PM","FI:HYC", "FI:LTC","FX:CARRY10")
+### plot
+
+prices <- cbind(eq_prices,bond_prices,re_prices,comm_prices)
+returns <- CalculateReturns(prices)
+returns <- returns[(-1),]
+temp <- c( as.numeric(eq_prices), as.numeric(bond_prices),as.numeric(re_prices), as.numeric(comm_prices)   )
+ylim <- c( min( temp ) , 1.4*max(temp) )
+plot.zoo(eq_prices , main="Performance across asset classes",ylab="", xlab="",ylim=ylim)
+lines(bond_prices,col="red")
+lines(re_prices,col="blue")
+lines(comm_prices,col="purple")
+legend("topleft", legend=c("Equities (ticker: SPY)","Bonds (ticker: AGG)", "Real estate (ticker: VEIEX)",
+                           "Commodities (ticker: GSG)") , col=c("black","red","blue","purple") , lwd = 1 ,ncol=1)
+
+###
+newdates <- seq(as.Date(time(bond_prices ))[2], length=nrow(bond_prices ), by="1 month") - 2
+eq_prices <- xts(eq_prices,newdates)
+bond_prices <- xts(bond_prices,newdates)
+re_prices <- xts(re_prices,newdates)
+comm_prices <- xts(comm_prices,newdates)
+prices <- cbind(eq_prices,bond_prices,re_prices,comm_prices)
+colnames(prices) <- c("equities","bonds","realestate","commodities")
+# calculate returns
+returns <- CalculateReturns(prices)
+returns <- returns[(-1),]
 ```
 
 *** =sample_code
 ```{r}
 # sample code
+weights <-  
+preturns <- Return.portfolio(returns, weights,rebalance_on="months")
+# merge
+ 
+# compare annualized performance
+table.AnnualizedReturns(returns_merged) 
+
 ```
 
 *** =solution
 ```{r}
-# solution code
+# sample code
+weights <- c(0.4,0.4,0.1,0.1)
+preturns <- Return.portfolio(returns, weights,rebalance_on="months")
+# merge
+returns_merged <- merge(returns,preturns)
+# compare annualized performance
+table.AnnualizedReturns(returns_merged)
 ```
 
 *** =sct
@@ -314,30 +384,69 @@ success_msg("Well done!")
 
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:21e408b8c65335ed2599fcb8ff64b5c9b352c374
-## Portfolio expected return
+## Avoiding loops in calculating vector of estimates 
 
-Use colMeans to compute the expected return vector. Then sum(weights*mu).
+We could Use colMeans to compute the expected return vector. Then sum(weights*mu).
 
 *** =instructions
-- instruction 1
-- instruction 2
-
+- Compute the vector of average returns on those four investments using the R command `apply(returns,2,"mean")` and call this `vmeans`.
+- Do the same to compute the vector standard deviations and call this `vsd`.
+- Use the following R instructions to produce the scatter plot of average returns with respect to standard deviations:
+`plot(vsd,vmeans,col="gray",xlim=c(0,0.10))
+text( vsd ,  vmu ,  labels=colnames(returns), cex= 0.7)`
+- Add a dashed horizontal line at `h=0` using [abline](http://www.rdocumentation.org/packages/graphics/functions/abline) by setting the argument `lty=3`
 *** =hint
 hint comes here
 
 *** =pre_exercise_code
 ```{r}
-# pec
+options(warn=-1)
+library(tseries)# Its function get.hist.quote allows to download prices from Yahoo!Finance
+library(xts) # Its function plot.zoo make simple, but attractive, time series plots
+library(PerformanceAnalytics)
+# download adjusted close prices (that is corrected for dividend payments and stock splits)
+# dates have the format "YYYY-MM-DD"
+eq_prices <- get.hist.quote(instrument="SPY",start=as.Date("2006-08-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+bond_prices <- get.hist.quote(instrument="AGG",start=as.Date("2006-08-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+re_prices <- get.hist.quote(instrument="VEIEX",start=as.Date("2006-08-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+comm_prices <- get.hist.quote(instrument="GSG",start=as.Date("2006-08-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+
+newdates <- seq(as.Date(time(bond_prices ))[2], length=nrow(bond_prices ), by="1 month") - 2
+eq_prices <- xts(eq_prices,newdates)
+bond_prices <- xts(bond_prices,newdates)
+re_prices <- xts(re_prices,newdates)
+comm_prices <- xts(comm_prices,newdates)
+prices <- cbind(eq_prices,bond_prices,re_prices,comm_prices)
+colnames(prices) <- c("equities","bonds","realestate","commodities")
+# calculate returns
+returns <- CalculateReturns(prices)
+returns <- returns[(-1),]
 ```
 
 *** =sample_code
 ```{r}
 # sample code
+# vector of means
+ 
+# vector of standard deviations
+
+# scatter plot
+ 
+
+
 ```
+
 
 *** =solution
 ```{r}
-# solution code
+# vector of means
+vmeans <- apply(returns,2,"mean")
+# vector of standard deviations
+vsd <- apply(returns,2,"sd")
+# scatter plot
+plot(vsd,vmeans,col="gray",xlim=c(0,0.10))
+text( vsd , vmeans,  labels=colnames(returns), cex= 0.7)
+abline(h=0,lty=3)
 ```
 
 *** =sct

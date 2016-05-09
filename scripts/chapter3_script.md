@@ -83,56 +83,6 @@ The portfolio variance is the quadratic function of the weights in terms of the 
 
 ***
 
-This can be easily verfi
-The decision process can be visualized as follows. First of all, the investor needs to specify her objectives and constraints. We will be considering a portfolio whose preferences are completely described by the mean and variance of the portfolio return over the investment horizon. Since the future return is a random variable, the relevant definition of the mean is the expectation of the portfolio return, and the variance is the expectation of the portfolio squared centered return. 
+In the exercises we will see how to estimate the vector of expected return and the covariance matrix, as well as examples of matrix multiplication in R to obtain estimates of the portfolio expected return and variance. 
 
-***
-
-Both the portfolio mean and variance depend on the portfolio weights. In this video, we will work out the case of two assets. In the next video, the general case will be presented. 
-
-
-***
-
-OK, suppose that we have two assets, say equities and bonds, and the weights of equities in the portfolio is w. The portfolio is fully invested such that (1-w) is the allocation to bonds. The portfolio return is then given by w times the return on the equities + (1-w) times the bond return. 
-
-If we then work out the expected portfolio return, and using that the expected value of a sum is the sum of the expected values, we obtain that the  portfolio mean is the weighted average of the component means.
-
-Suppose e.g. that the portfolio is equally weighted and the expected returns are 6% for equities and 4% for bonds, then the portfolio expected return is 5%. If the portfolio is 60/40 weighted than the expected portfolio return is 5.6%.  
-
-***
-
-The impact of the weights on the portfolio variance is slightly more complex because the centered returns are squared, implying that we will need to take the expectation of the cross-products into account. 
-
-Doing this in the 2-asset case yields that the portfolio variance equals the sum of the squared weights their variance plus the product of the weights and the exected value of the product of the centered returns. The latter is called the covarians and equals the products of the standard deviation and the correlation. 
-
-***
-
-The correlation measures the degree of comovement of the two assets. If they are unrelated, then the correlation is zero. If there is on average a positive linear relatioship between both, then the correlation will be positive: when one is above average, the other also tends to be below average. If the average relationhip is the reverse, namely that if one is above avarage, then the other one tends to be below average, then the correlation will be negative.
-
-[illustrate with plots]
- 
-
-***
-
-So what determines the portfolio variance. From the formula, we thus see that the portfolio variance will tend to be higher when the weight on the relatively more risky asset is higher and when the correlation between the two assets is higher.
-
-***
-
-As a conclusion, optimal portfolio allocation requires to determine the weights for which the portfolio expected return and variance are optimized. This will require three important types of input in the analysis:
-* expected returns
-* the variances of the returns
-* and the correlation between the returns.
-
-***
-
-In the next exercises will consider estimators for these three inputs.
-
-
-We thus find that the portfolio Often, the covariance is rewritten
-
-
-
-optimize the   Investing implies taking risks. But how much risk? This question can be answered by graphical analysis of the portfolio returns and by computing statistics, such as the portfolio standard deviation or its value-at-risk.
-
-***
 
