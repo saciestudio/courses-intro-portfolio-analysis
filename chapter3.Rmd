@@ -220,7 +220,7 @@ success_msg("Well done!")
 ```
 
 <<<<<<< HEAD
---- type:MultipleChoiceExercise lang:r xp:50 skills:1    
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1     key:4dde6e0334
 ## The impact of correlation on performance
 =======
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1     key:f4f41f6b81
