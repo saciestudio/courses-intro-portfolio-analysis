@@ -15,7 +15,8 @@ Verify in the R-console which of the following statements is false.
 *** =instructions
 - A portfolio is less volatile than the sum of its component volatilities. This implies that the standard deviation of the 60/40 portfolio is less than `0.6*sd(returns_equities)+0.4*sd(returns_bonds)`.   
 - The portfolio mean return equals the sum of the component average returns (that is, `mean(returns_6040)==0.6*mean(returns_equities)+0.4*mean(returns_bonds)`). 
-- When the risk free rate is zero, the Sharpe ratio equals the sum of the component Sharpe ratios (that is, `mean(returns_6040)/sd(returns_6040)==0.6*mean(returns_equities)/sd(returns_equities)+0.4*mean(returns_bonds)/sd(returns_bonds)`. 
+- When the risk free rate is zero, the Sharpe ratio equals the sum of the component Sharpe ratios (that is, `mean(returns_6040)/sd(returns_6040)==0.6*mean(returns_equities)/sd(returns_equities)
+     +0.4*mean(returns_bonds)/sd(returns_bonds)`. 
 
 *** =hint
 hint
