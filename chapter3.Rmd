@@ -120,7 +120,7 @@ abline(v=grid[vsharpe==max(vsharpe)],lty=3)
 
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:b6a986b0e53bd119933fc39df94f21f2bf1e4318
-## Interpreting correlation.
+## Interpreting correlation
 
 Let us now compute the correlation between equity returns and bond returns. Just like volatilities, these correlations are dynamic. We thus need to distinguish between a static analysis computing correlations over the complete sample and a dynamic analysis computing correlations over the rolling sample. 
 
@@ -189,7 +189,7 @@ success_msg("Well done!")
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1    
-## The impact of correlation on performance.
+## The impact of correlation on performance
 
 We thus observed that  like the mean and volatility, the correlation is changing over time. This time-variation can have major effects on the portfolio volatility. In your workspace, a sensitivity plot is shown for the 60/40 and the 40/60 portfolio invested in equities and bonds over the sample. In the plot, the annualized standard deviation and volatilities are kept fixed at their sample estimates, while the correlation varies between -1 and 1. 
 
