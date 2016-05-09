@@ -14,7 +14,7 @@ Verify in the R-console which of the following statements is false.
 
 *** =instructions
 - A portfolio is less volatile than the sum of its component volatilities. This implies that the standard deviation of the 60/40 portfolio is less than `0.6*sd(returns_equities)+0.4*sd(returns_bonds)`. We call this the subadditivity property of the standard deviation.    
-- The portfolio mean return equals the sum of the component average returns (that is, `mean(returns_6040)==0.6*mean(returns_equities)+0.4*mean(returns_bonds)`).  
+- The portfolio mean return equals the sum of the component average returns, that is, `mean(returns_6040)==0.6*mean(returns_equities)+0.4*mean(returns_bonds)`.  
 - None of the above statements is correct. 
 
 *** =hint
@@ -34,8 +34,8 @@ bond_prices <- get.hist.quote(instrument="AGG",start=as.Date("2003-12-31"),end=S
 eq_prices <- eq_prices/as.numeric(eq_prices[1])
 bond_prices <-  bond_prices/as.numeric(bond_prices[1])
 newdates <- seq(as.Date(time(bond_prices ))[2], length=nrow(bond_prices ), by="1 month") - 2
-eq_prices <- zoo(eq_prices,newdates)
-bond_prices <- zoo(bond_prices,newdates)
+eq_prices <- xts(eq_prices,newdates)
+bond_prices <- xts(bond_prices,newdates)
 prices <- cbind(eq_prices,bond_prices)
 colnames(prices) <- c("equities","bonds")
 # load package
@@ -45,16 +45,6 @@ returns <- CalculateReturns(prices)
 returns <- returns[(-1),]
 returns_bonds <- returns$bonds
 returns_equities <- returns$equities
-weights <- c(0.6,0.4)
-returns_6040 = Return.portfolio(returns, weights,rebalance_on="months")
-# check: all.equal( as.numeric(returns_6040),as.numeric(0.6*returns[,1]+0.4*returns[,2])  )
-prices_6040 = zoo(cumprod(1+returns_6040),order.by=time(returns_6040))
-temp <- c( as.numeric(eq_prices), as.numeric(bond_prices) )
-ylim = c( min( temp ) , max(temp) )
-plot.zoo(eq_prices , main="Equity-bond portfolios",ylab="", xlab="",ylim=ylim)
-lines(bond_prices,col="red")
-lines(prices_6040,col="blue")
-legend("topleft", legend=c("Equities (ticker: SPY)","Bonds (ticker: AGG)","60/40 Equities-Bonds") , col=c("black","red","blue") , lwd = 1 )
 ```
 
 *** =sct
@@ -62,7 +52,50 @@ legend("topleft", legend=c("Equities (ticker: SPY)","Bonds (ticker: AGG)","60/40
 test_mc(3) # if 3 is the correct option.
 ```
 
+--- type:NormalExercise lang:r xp:50 skills:1    
+## The impact of portfolio weights on portfolio performance
 
+The choice of portfolio weights matters.  
+
+
+*** =instructions
+- Complete the R script that runs a grid search to determine the portfolio weights for which the Sharpe ratio is the highest. 
+
+*** =hint
+hint
+
+*** =pre_exercise_code
+```{r}
+# returns_equities and returns_bonds are preloaded
+returns <- merge(returns_equities,returns_bonds)
+grid <- seq(0,1,0.01)
+vsharpe <- rep(NA,length(grid))
+i <- 1
+for(w in grid){
+  preturns <- w* +  
+  vsharpe[i] <-  
+  i <- i+1
+}
+plot(  ,   ,xlab="weights",ylab="Ann. Sharpe ratio")
+abline(v=grid[vsharpe==max(vsharpe)],lty=3)
+```
+
+*** =sct
+```{r}
+# PerformaneAnalytics is pre-loaded
+# returns_equities and returns_bonds are preloaded
+grid <- seq(0,1,0.01)
+vsharpe <- rep(NA,length(grid))
+i <- 1
+for(w in grid){
+  preturns <- w*returns_equities+(1-w)*returns_bonds
+  vsharpe[i] <- SharpeRatio.annualized(preturns)
+  #vsharpe[i] <- SharpeRatio.annualized(preturns)
+  i <- i+1
+}
+plot(grid,vsharpe,xlab="weights",ylab="Ann. Sharpe ratio")
+abline(v=grid[vsharpe==max(vsharpe)],lty=3)
+```
 
 --- type:VideoExercise lang:r xp:50 skills:1 key:bf1fc7dc803e342b4475c296bbebc2bab9b26f32
 ## The inputs in case of two assets
@@ -77,7 +110,7 @@ test_mc(3) # if 3 is the correct option.
 Let us now compute the correlation between equity returns and bond returns. Just like volatilities, these correlations are dynamic. We thus need to distinguish between a static analysis computing correlations over the complete sample and a dynamic analysis computing correlations over the rolling sample. 
 
 *** =instructions
-- Compute first the correlation between the variables `returns$bonds` and `returns$equities` using the standard function [cor](). 
+- Compute first the correlation between the variables `returns_equities` and `returns_bonds` using the standard function [cor](). 
 - Repeat this using the function [chart.Correlation](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Correlation), with as argument the multivariate time series `returns`. 
 - Commpute the rolling 24-month estimates of the bond-equity correlation using the function [chart.RollingCorrelation](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.RollingCorrelation). 
 
@@ -89,24 +122,32 @@ hint comes here
 options(warn=-1)
 library(tseries)# Its function get.hist.quote allows to download prices from Yahoo!Finance
 library(xts) # Its function plot.zoo make simple, but attractive, time series plots
+library(PerformanceAnalytics)
 # download adjusted close prices (that is corrected for dividend payments and stock splits)
 # dates have the format "YYYY-MM-DD"
 eq_prices <- get.hist.quote(instrument="SPY",start=as.Date("2003-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
 bond_prices <- get.hist.quote(instrument="AGG",start=as.Date("2003-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+eq_prices <- eq_prices/as.numeric(eq_prices[1])
+bond_prices <-  bond_prices/as.numeric(bond_prices[1])
 newdates <- seq(as.Date(time(bond_prices ))[2], length=nrow(bond_prices ), by="1 month") - 2
 eq_prices <- xts(eq_prices,newdates)
 bond_prices <- xts(bond_prices,newdates)
 prices <- cbind(eq_prices,bond_prices)
 colnames(prices) <- c("equities","bonds")
+# load package
 library(PerformanceAnalytics)
 # calculate returns
 returns <- CalculateReturns(prices)
 returns <- returns[(-1),]
+returns_bonds <- returns$bonds
+returns_equities <- returns$equities
 ```
 
 *** =sample_code
 ```{r}
 # calculation using cor
+
+# merge returns_equities and returns_bonds into returns
 
 # calculation and visualization using chart.Correlation
 
@@ -117,11 +158,13 @@ returns <- returns[(-1),]
 *** =solution
 ```{r}
 # calculation using cor
-cor(returns$bonds,returns$equities)
+cor(returns_equities,  returns_bonds)
+# merge returns_equities and returns_bonds into returns
+returns <- merge(returns_equities,returns_bonds)
 # calculation and visualization using chart.Correlation
 chart.Correlation(returns)
 # rolling estimates using chart.RollingCorrelation
-chart.RollingCorrelation(returns$bonds,returns$equities,width=24)
+chart.RollingCorrelation(returns_equities, bonds,returns_equities,width=24)
 ```
 
 *** =sct
