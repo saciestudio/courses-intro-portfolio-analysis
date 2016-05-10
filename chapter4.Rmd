@@ -3,7 +3,7 @@ title       : Optimizing the portfolio
 description : We have up to now considered the portfolio weights as given. Here we consider optimizing the portfolio weights. Markowitz mean variance optimized portfolios.
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1  
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1   key:139d7eabbd827860709b29f2a8d968614d1e3cb0
 ## Mean variance efficient portfolio
 
 Let's now look at a realistic portfolio invested in the 30 Dow Jones Industrial Average stocks and track the portfolio performance over a period . Their symbols are summarized on this slide. 
