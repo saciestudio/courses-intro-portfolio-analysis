@@ -22,9 +22,9 @@ Optimizing portfolios based on the estimated mean and covariance matrix is senst
 
 ***
 
-# Video 3: Congratulations, you know how to analyze portfolio returns!
+# Video 3: Main take-aways
 
-Let's now look at a realistic portfolio invested in the 30 Dow Jones Industrial Average stocks and track the portfolio performance over a period . Their symbols are summarized on this slide. 
+ 
 
 ***
 
@@ -36,26 +36,7 @@ We now thus need to convert this table of prices into a table of returns. This c
 
 ***
 
-The resulting multivariate return series looks as follows.
-
-***
-
-Now we need to transform this into a time series of portfolio returns.
-
-An important point is to have the portfolio weights available at each time. 
-
-CHECK WHETHER I CAN HAVE MARKET CAP WEIGHTS: AVOID ROWMEANS...!!!
-
-*** 
-
-hat we assume the portfolio to be rebalanced every month. So, if we sketch the time line, we define the portfolio weight at the beginning of the investment horizon. This is also the weight needed to compute the portfolio return over the one month investment period starting on that date. 
-
-***
-
-As an example, suppose the portfolio is equally weighted. Then return in each month is the mean value of the returns of that month. 
-
-The end-of month prices of those 30 stocks are available in your datacamp session as a xts object.  
-Let us now consider a practical case of the 30 Dow Jones Industrial Average (DJIA) Constituents over the period xxxx. The corresponding monthly price data is available as a xts time series object. The corresponding multivariate return series can be easily computed using the function calculateReturns in PerformanceAnalytics. The first observation is NA, because there is no previous price available. We can remove the first row in returns using [(-1),].
+It ain't over: other objectives, other constraints, other solvers, other estimators, ... 
 
 
 ***

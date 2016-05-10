@@ -219,7 +219,7 @@ success_msg("Well done!")
 ```
 
 --- type:VideoExercise lang:r xp:50 skills:1 key:ca405aabc3c21c142aaae409da6302b77b5210ef
-## TIn-sample versus out-of-sample evalution
+## In-sample versus out-of-sample evalution
 
 
 *** =video_link
@@ -292,7 +292,7 @@ success_msg("Well done!")
 ```
 
 --- type:VideoExercise lang:r xp:50 skills:1 key:75eb737c24e2ba235ee1de43c66a6324a9282b08
-## Congratulations, you know how to analyze portfolio returns!
+## Main take-aways
 
 summary and extensions.
 *** =video_link
