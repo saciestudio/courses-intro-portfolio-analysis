@@ -74,7 +74,7 @@ The choice of portfolio weights matters.
 
 
 *** =instructions
-- Complete the R script that runs a grid search to determine the portfolio weights for which the Sharpe ratio is the highest. 
+- Complete the R script that runs a grid search to determine the portfolio weights for which the Sharpe ratio is the highest, assuming a zero risk free rate.  
 
 *** =hint
 hint
@@ -108,16 +108,24 @@ returns_equities <- returns$equities
 *** =sample_code
 ```{r}
 # returns_equities and returns_bonds are preloaded
-returns <- merge(returns_equities,returns_bonds)
+
+# grid defining possible weights equities 
 grid <- seq(0,1,0.01)
+# initialize vector in which the Sharpe ratios will be stacked
 vsharpe <- rep(NA,length(grid))
+# initialize counter
 i <- 1
+#loop over the elements in the search grid
 for(w in grid){
-  preturns <- w* +  
-  vsharpe[i] <-  
-  i <- i+1
+  # portfolio returns are monthly rebalanced
+  preturns <- w*returns_equities+(1-w)*returns_bonds
+  # compute the shapre ratio of preturns
+  vsharpe[i] <- 
+  # update counter  
+  i <- 
 }
-plot(  ,   ,xlab="weights",ylab="Ann. Sharpe ratio")
+# plot the obtained Sharpe ratios against the equity weights
+plot(  ,   ,xlab="Equity weights",ylab="Ann. Sharpe ratio")
 abline(v=grid[vsharpe==max(vsharpe)],lty=3)
 ```
 

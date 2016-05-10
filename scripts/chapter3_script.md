@@ -106,6 +106,10 @@ It uses the property that the portfolio volatility equals the sum of the weights
 
 ***
 
+If we work out the math, then we see that this risk contribution depend on the covariance matrix:
+
+***
+
 When expressed in percentage of the total portfolio volatility, we have the percentage risk contribution of the asset. Of course, those percentage risk contribution add up to 1. 
 
 ***
