@@ -171,3 +171,10 @@ In this plot, I show three such risk measures:
 Conclusion: non-normality is a typical feature of the return distribution and should be taken into account in the performance analysis. This will be illustrated in the following exercises. 
 
 
+# Video 4: Main take-aways on portfolio performance evaluation
+
+1) importance of analyzing returns in R: evaluate performance + decide on portfolio weights
+
+2) performance measures considered
+
+3) time variation
