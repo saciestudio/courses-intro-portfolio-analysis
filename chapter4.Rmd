@@ -4,7 +4,7 @@ description : We have up to now considered the portfolio weights as given. Here 
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1   key:139d7eabbd827860709b29f2a8d968614d1e3cb0
-## Investing in the DJIA stocks based on their mean and variance
+## Investing in the DJIA stocks based on their mean and volatility
 
 In the workspace, you see a scatter plot showing the mean and standard deviation of the 30 Dow Jones Industrial Average stocks, as estimated on their monthly returns over the period 1991-2015. Each of the stocks is identified in the plot using
 its ticker. 
@@ -113,13 +113,18 @@ success_msg("Well done!")
 
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:c066b2d5f610d13afdb48831249d18142590def7
-## Find the mean-variance efficient portfolio with target equal to EW (step i)
+## Find the mean-variance efficient portfolio with target equal to EW  
 
-Obtain the optimized portfolio weights using portfolio.optim(), plot the portfolio weights using barplot()
+A convenient function for finding mean-variance efficient portfolio weights in R is the function [portfolio.optim](http://www.rdocumentation.org/packages/tseries/functions/portfolio.optim) in the R package [tseries](http://www.rdocumentation.org/packages/tseries). Its default implementation finds the mean-variance efficient portfolio weights under the constraint that the portfolio return equals the return on the equally-weighted portfolio. 
+The only argument needed is the monthly return data on the portfolio components for which the weights need to be determined.
+
 
 *** =instructions
-- instruction 1
-- instruction 2
+- load the library `tseries`. 
+- define `out` as the output of applying the default version of `portfolio.optim` on `returns`.
+- the optimized portfolio weights are in `out$pw`. Print them from largest to smallest, with rounding to 4 decimals.
+- Visualize the weights larger than 1% through a barplot graph.
+- Verify that the optimized portfolio returns in `out$px` dominate the returns of the equally weighted portfolio.
 
 *** =hint
 hint comes here
@@ -138,12 +143,49 @@ returns <- returns[(-1),]
 
 *** =sample_code
 ```{r}
-# sample code
+# load tseries
+
+# optimize
+out <-  
+# output
+optim_weights <- out$pw
+names(optim_weights) <- colnames(returns)
+optim_returns <-  out$px 
+# round sorted
+round( sort(    ,decreasing=T) ,4)
+# barplot
+   (optim_weights[optim_weights>=0.01])
+# equally weighted returns
+ew_returns <- rowMeans(returns)
+# strict lower standard deviation
+ 
+# same or higher return
+ 
 ```
 
 *** =solution
 ```{r}
 # solution code
+# load tseries. 
+library(tseries)
+# optimize
+out <- portfolio.optim(returns)
+# output
+optim_weights <- out$pw
+names(optim_weights) <- colnames(returns)
+optim_returns <- xts(out$px,order.by=time(returns))
+# round sorted
+round(sort(optim_weights,decreasing=T) ,4)
+# barplot
+barplot(optim_weights[optim_weights>=0.01])
+# dominate
+ew_returns <- rowMeans(returns)
+# strict lower standard deviation
+sd(optim_returns); sd(ew_returns)
+( sd(optim_returns ) < sd(ew_returns) )
+# same or higher return
+mean(optim_returns); mean(ew_returns)
+mean(optim_returns) >= mean(ew_returns)
 ```
 
 *** =sct
@@ -153,9 +195,9 @@ success_msg("Well done!")
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:6f3df5bc7125d675f226ddc4c69639e2cf24d23c
-## Find the mean-variance efficient portfolio with target equal to EW (step ii)
+## Imposing weight constraints
 
-Interpretation of the output (achieved mean return, portfolio variance).
+The optimized portfolio is dominated by the investments in ... 
 
 *** =instructions
 - instruction 1

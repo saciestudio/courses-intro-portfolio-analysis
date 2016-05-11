@@ -114,7 +114,21 @@ Concept of minimizing variance given a return target
 
 # Video 3: In-sample versus out-of-sample evalution
 
-Optimizing portfolios based on the estimated mean and covariance matrix is senstivitive to errors in estimation. The estimated mean and covariance matrix have estimation errors. Optimizing portfolio weights based on those noisy inputs leads to noisy portfolio weights, that may be suboptimal. Risk of error maximization. The insample estimated mean and variance of the optimized portfolios versus the out of sample.  Important to be aware of this by analyzing performance out of sample. Distinghuish estimation window from evaluation window;
+
+Ideally, we should be optimizing using the true vector of expected returns mu and the true covariance matrix sigma.
+
+In practice they are unknown and need to be estimate (slides: mu becomes hatmu, sigma becomes hatsigma)
+
+***
+
+This me
+Theoretically
+
+
+Optimizing portfolios based on the estimated mean and covariance matrix is senstivitive to errors in estimation. The estimated mean and covariance matrix have estimation errors. Optimizing portfolio weights based on those noisy inputs leads to noisy portfolio weights, that may be suboptimal. 
+
+
+Risk of error maximization. The insample estimated mean and variance of the optimized portfolios versus the out of sample.  Important to be aware of this by analyzing performance out of sample. Distinghuish estimation window from evaluation window;
 
 
 ***
@@ -139,16 +153,9 @@ In terms of constraints, there could be the constraint that all weights have to 
 
 The traditional objective of minimizing the portfolio variance under the constraint that the portfolio expected return should be above some target level. This is a quadratic programming problem. At the end of the chapter, I will discuss extensions related to screening stocks using mixed integer linear programming and optimizing more complex objective functions combining different types of objectives and constraints.   
 
+Mention other packages: DEoptim, PortfolioAnalytics. 
 
-***
 
-It is important to understand the structure of the data. As you can see on the slide, each row correspond to the ending day of the month, each column to a stock. 
-
-***
-
-We now thus need to convert this table of prices into a table of returns. This can be done using the function calculateReturns in the function PerformanceAnalytics. This leads to a table with the first row consisting of NA because there is no previous price available to compute the returns. In R, this first row can be easily removed by indexing that row with a minus 1 sign.
-
-***
 
 It ain't over: other objectives, other constraints, other solvers, other estimators, ... 
 

@@ -67,8 +67,21 @@ This table illustrates the calculation. [to be completed]
 ***
 
 There is one shortcoming of the previous table. It shows the performance over one month, while investors typically think in terms of yearly performance. The numbers thus need to be extrapolated from a monthly horizon to a yearly horizon. 
-The convention is to do so by multiplying the monthly average return with 12 and the monthly volatility with square root of 12. Then the Sharpe ratio is also multiplied with square root of 12.
+For the volatility, the convention is to do this by multiplying the the monthly volatility with square root of 12.
+For the returns, there are two possibilitys.
+The simple time aggregation approach consists of multiplying the monthly average return with 12.
 
+The geometric appraoch computes the compound total return over the complete period of n months. An then scales it back to the monthly horizon by taking the power of 12 divided by the total number of observations.  
+
+
+ if (geometric) {
+            result = prod(1 + R)^(scale/n) - 1
+        }
+        else {
+            result = mean(R) * scale
+        }
+        
+        
 In our example, this leads to the following table. [show previous table ==> annualized table]
 
 
