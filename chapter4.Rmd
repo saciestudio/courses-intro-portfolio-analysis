@@ -242,7 +242,7 @@ Concept of minimizing variance given a sequence of return targets starting from 
 //player.vimeo.com/video/108225030
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:2c03a87fc29fb66e35d8cdbf244b3dcf41305824
-## Plotting the efficient frontier in R using a loop (step i)
+## Computing the efficient frontier in R using a loop (step i)
 
 Define the grid of target returns. Initialize the portfolio weights, means and sd to be saved.
 
@@ -273,6 +273,21 @@ returns <- returns[(-1),]
 *** =solution
 ```{r}
 # solution code
+grid = seq(min(stockmu),max(stockmu),length.out=100 )  
+# Compute the efficient frontier
+## for each solution, we save the portfolio mean,
+## portfolio standard deviation and the weights
+## Initialize them as an empty vector
+vpm = vpsd = mweights = c()
+
+for( mutarget in grid ){
+  out = try(portfolio.optim(x = returns.estim,pm=mutarget),silent=TRUE)
+  if(class(out)!="try-error"){
+    vpm = c(vpm,out$pm)
+    vpsd = c(vpsd,out$ps)
+    mweights = rbind( mweights,out$pw)
+  }
+}
 ```
 
 *** =sct
@@ -281,48 +296,8 @@ returns <- returns[(-1),]
 success_msg("Well done!")
 ```
 
---- type:NormalExercise lang:r xp:100 skills:1 key:5cd26622b81e29df3e9a1636d88d48ed0ae3c3c5
-## Plotting the efficient frontier in R using a loop (step ii)
-
-Write the loop. for(), portfolio.optim()
-
-*** =instructions
-- instruction 1
-- instruction 2
-
-*** =hint
-hint comes here
-
-*** =pre_exercise_code
-```{r}
-# pec
-library(xts)
-library(PerformanceAnalytics)
-download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
-# load("prices.Rdata")
-prices<- readRDS("prices.rds") 
-returns <- CalculateReturns(prices, method="simple")
-returns <- returns[(-1),]
-```
-
-*** =sample_code
-```{r}
-# sample code
-```
-
-*** =solution
-```{r}
-# solution code
-```
-
-*** =sct
-```{r}
-# sct code
-success_msg("Well done!")
-```
-
---- type:NormalExercise lang:r xp:100 skills:1 key:c0483cbbf9a142a2e4541614bbeb9b8b407328d5
-## plotting the efficient frontier in R using a loop (step iii)
+--- type:NormalExercise lang:r xp:100 skills:1  
+## The minimum variance and maximum Sharpe ratio portfolio
 
 WPlot the results
 
@@ -353,12 +328,173 @@ returns <- returns[(-1),]
 *** =solution
 ```{r}
 # solution code
+# inspect the weights of the minimum variance portfolio
+# each row in mweights is a portfolio, 
+# select the row corresponding to the minimum variance portfolio
+barplot( mweights[ vpsd==min(vpsd),] )
+# print them, rounded at 2 decimals, and sorted
+sort(round(mweights[ vpsd==min(vpsd),],2),decreasing=TRUE)
+
+# this concenctration is true for almost all portfolios on the frontier
+# To see this compute for each portfolio, the maximum weight and plot
+# We have 100 portfolios, a row in mweights corresponds to a portfolio
+# plot the maximum weights
+plot(apply(mweights[ vpm>=minvarpm,],1,"max"),type="l",
+     main="Max weight for each of the efficient portfolios", 
+     xlab="",ylab="")
 ```
 
 *** =sct
 ```{r}
 # sct code
 success_msg("Well done!")
+```
+
+--- type:NormalExercise lang:r xp:100 skills:1 key:5cd26622b81e29df3e9a1636d88d48ed0ae3c3c5
+## Plotting the efficient frontier  
+
+Write the loop. for(), portfolio.optim()
+
+*** =instructions
+- instruction 1
+- instruction 2
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+library(xts)
+library(PerformanceAnalytics)
+library(tseries)
+download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
+# load("prices.Rdata")
+prices<- readRDS("prices.rds") 
+returns <- CalculateReturns(prices, method="simple")
+returns <- returns[(-1),]
+```
+
+*** =sample_code
+```{r}
+
+
+# assign the stock names to the column names of mweights
+colnames(mweights) = colnames(returns)
+
+plot(stocksd,stockmu,col="gray" , xlab="Standard deviation (monthly)", ylab="Average return (monthly")
+text( stocksd ,  stockmu ,  labels=colnames(returns.estim), cex= 0.7)
+lines(vpsd,vpm,col="red")
+
+# Improvements:
+# adjust better the limits of the plot
+# remove the point on the frontier that are dominated
+
+plot(stocksd,stockmu,col="gray" , xlab="Standard deviation (monthly)", ylab="Average return (monthly",
+     xlim=c(0.02,0.15), ylim=c(-0.01,0.02))
+text( stocksd ,  stockmu ,  labels=colnames(returns.estim), cex= 0.7)
+
+# all portfolios offering less return than the minimum variance portfolio should be excluded
+minvarpm = vpm[vpsd==min(vpsd)]
+lines(vpsd[vpm>=minvarpm],vpm[vpm>=minvarpm],col="red",lwd=2)
+```
+
+*** =solution
+```{r}
+# solution code
+```
+
+*** =sct
+```{r}
+# sct code
+success_msg("Well done!")
+```
+
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1   
+## The effect of weight constraints on the frontier
+
+Chapter 2 introduced you to the *univariate* approach of analyzing portfolio performance based on a statistical analysis of the portfolio return series. In this chapter, we consider a *multivariate* analysis and study how the portfolio performance is affected by the interaction between the performance of the individual portfolio positions. 
+
+As a motivating example, let us consider a portfolio invested in two very diverse exchange traded funds (ETFs), namely an ETF tracking the broad US equities market (ETF with symbol SPY) and an ETF track the US bonds market (ETF with symbol AGG). The monthly returns for these ETFs and the 60/40 portfolio that invests every month 60% in the equities ETF and 40% in the bonds ETF are available in the workspace as `returns_bonds`, `returns_equities` and `returns_6040`.   
+
+Verify in the R-console which of the following statements is false. 
+
+
+*** =instructions
+- A portfolio is less volatile than the sum of its component volatilities. This implies that the standard deviation of the 60/40 portfolio is less than `0.6*sd(returns_equities)+0.4*sd(returns_bonds)`. We call this the subadditivity property of the standard deviation.    
+- The portfolio mean return equals the sum of the component average returns, that is, `mean(returns_6040)==0.6*mean(returns_equities)+0.4*mean(returns_bonds)`.  
+- None of the above statements is correct. 
+
+*** =hint
+hint
+
+*** =pre_exercise_code
+```{r}
+library(xts)
+library(PerformanceAnalytics)
+library(tseries)
+download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
+# load("prices.Rdata")
+prices<- readRDS("prices.rds") 
+returns <- CalculateReturns(prices, method="simple")
+returns <- returns[(-1),]
+
+grid = seq(min(stockmu),max(stockmu),length.out=100 )  
+# Compute the efficient frontier
+## for each solution, we save the portfolio mean,
+## portfolio standard deviation and the weights
+## Initialize them as an empty vector
+vpm = vpsd = mweights = c()
+
+for( mutarget in grid ){
+  out = try(portfolio.optim(x = returns.estim,pm=mutarget),silent=TRUE)
+  if(class(out)!="try-error"){
+    vpm = c(vpm,out$pm)
+    vpsd = c(vpsd,out$ps)
+    mweights = rbind( mweights,out$pw)
+  }
+}
+
+# assign the stock names to the column names of mweights
+colnames(mweights) = colnames(returns)
+
+ 
+##################################################################################
+# To avoid the concentration, we will impose now a max weight constraint of 10%
+
+ 
+# Compute the efficient frontier
+## for each solution, we save the portfolio mean,
+## portfolio standard deviation and the weights
+## Initialize them as an empty vector
+vpm.res = vpsd.res = mweights.res = c()
+
+for( mutarget in grid ){
+  out = try(portfolio.optim(x = returns.estim,pm=mutarget,
+                  reshigh = rep(0.1,ncol(returns.estim))),silent=TRUE)
+  if(class(out)!="try-error"){
+    vpm.res = c(vpm.res,out$pm)
+    vpsd.res = c(vpsd.res,out$ps)
+    mweights.res = rbind( mweights.res,out$pw)
+  }
+}
+# assign the stock names to the column names of mweights
+colnames(mweights.res) = colnames(returns)
+
+# 
+plot(stocksd,stockmu,col="gray" , xlab="Standard deviation (monthly)", ylab="Average return (monthly",
+     xlim=c(0.02,0.15), ylim=c(-0.01,0.02))
+text( stocksd ,  stockmu ,  labels=colnames(returns.estim), cex= 0.7)
+# all portfolios offering less return than the minimum variance portfolio should be excluded
+minvarpm.res = vpm.res[vpsd.res==min(vpsd.res)]
+lines(vpsd[vpm>=minvarpm],vpm[vpm>=minvarpm],col="red",lwd=2)
+lines(vpsd.res[vpm.res>=minvarpm.res],vpm.res[vpm.res>=minvarpm.res],col="blue",lwd=2)
+```
+
+*** =sct
+```{r}
+test_mc(3) # if 3 is the correct option.
 ```
 
 --- type:VideoExercise lang:r xp:50 skills:1 key:ca405aabc3c21c142aaae409da6302b77b5210ef
