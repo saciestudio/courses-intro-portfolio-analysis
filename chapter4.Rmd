@@ -550,7 +550,7 @@ success_msg("Well done!")
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:6d3bdc717d87317d8c4ccf468836039b35f78440
-## Split sample in two and compare EW vs Inverse vol vs mean variance optimized portfolio
+## Out of sample performance evaluation
 
 Estimation window, out of sample evaluation window. Compare in sample estimated performance with out of sample realized performance.
 
