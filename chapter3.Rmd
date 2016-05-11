@@ -300,7 +300,7 @@ test_mc(2)
 *** =video_link
 //player.vimeo.com/video/108225030
 
---- type:NormalExercise lang:r xp:100 skills:1  
+--- type:NormalExercise lang:r xp:100 skills:1   key:21e408b8c65335ed2599fcb8ff64b5c9b352c374
 ## The asset allocation problem
 
 A realistic portfolio is not only invested in US equities and US bonds. It also seeks for diversification by investing in real estate and commodities, among others. We therefore extend our investment opportunity consisting of the US equities ETF (SPY) and US bonds ETF (AGG) to include also a real estate investment trust (VEIEX) and an ETF tracking the GSCI commodities index (GSG).

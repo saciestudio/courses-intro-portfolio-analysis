@@ -47,7 +47,7 @@ text( stocksd[c("HD","CAT","XOM","AAPL")]  ,  stockmu[c("HD","CAT","XOM","AAPL")
 test_mc(2) # if 2 is the correct option.
 ```
 
---- type:NormalExercise lang:r xp:100 skills:1  
+--- type:NormalExercise lang:r xp:100 skills:1   key:8c67f73515
 ## Exploring further the monthly returns of the 30 DJIA stocks 
 
 The 1991-2015 monthly returns on the 30 DJIA stocks are available in the workspace as the variable `returns`.
