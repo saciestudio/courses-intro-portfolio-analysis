@@ -365,7 +365,7 @@ Familiarize now yourself with the uncertainty in estimation by drawing random sa
   
 # Repeat the above
 
-# Repeat the above for a sample of 1000 observations
+# Repeat the above for a sample of 60 observations
 
 ```
 
@@ -380,7 +380,7 @@ sd(returns)
 returns <- rnorm(12,mean=0.05,sd=0.10)
 mean(returns)
 sd(returns)
-# Repeat the above for a sample of 1000 observations
+# Repeat the above for a sample of 60 observations
 returns <- rnorm(60,mean=0.05,sd=0.10)
 mean(returns)
 sd(returns)
