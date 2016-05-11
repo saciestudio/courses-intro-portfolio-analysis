@@ -392,7 +392,7 @@ success_msg("Well done!")
 
 
 
---- type:NormalExercise lang:r xp:100 skills:1 key:21e408b8c65335ed2599fcb8ff64b5c9b352c374
+--- type:NormalExercise lang:r xp:100 skills:1 key:080c6863fc
 ## Avoiding loops in calculating vector of estimates 
 
 We could Use colMeans to compute the expected return vector. Then sum(weights*mu).
