@@ -296,7 +296,7 @@ for( mutarget in grid ){
 success_msg("Well done!")
 ```
 
---- type:NormalExercise lang:r xp:100 skills:1  
+--- type:NormalExercise lang:r xp:100 skills:1   key:897a83541a
 ## The minimum variance and maximum Sharpe ratio portfolio
 
 WPlot the results
@@ -411,7 +411,7 @@ success_msg("Well done!")
 ```
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1   
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1    key:e647c251a7
 ## The effect of weight constraints on the frontier
 
 Chapter 2 introduced you to the *univariate* approach of analyzing portfolio performance based on a statistical analysis of the portfolio return series. In this chapter, we consider a *multivariate* analysis and study how the portfolio performance is affected by the interaction between the performance of the individual portfolio positions. 
