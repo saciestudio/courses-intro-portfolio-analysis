@@ -498,7 +498,7 @@ test_mc(3) # if 3 is the correct option.
 ```
 
 --- type:VideoExercise lang:r xp:50 skills:1 key:ca405aabc3c21c142aaae409da6302b77b5210ef
-## In-sample versus out-of-sample evalution
+## In-sample versus out-of-sample evaluation
 
 
 *** =video_link
