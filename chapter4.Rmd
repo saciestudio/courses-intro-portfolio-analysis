@@ -242,7 +242,7 @@ Concept of minimizing variance given a sequence of return targets starting from 
 //player.vimeo.com/video/108225030
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:2c03a87fc29fb66e35d8cdbf244b3dcf41305824
-## Computing the efficient frontier in R using a loop (step i)
+## Computing the efficient frontier in R using a loop  
 
 Define the grid of target returns. Initialize the portfolio weights, means and sd to be saved.
 
@@ -505,7 +505,7 @@ test_mc(3) # if 3 is the correct option.
 //player.vimeo.com/video/108225030
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:69f72e3a22916ec2ef924a7f212d354f28022366
-## Split sample in two and compare realized returns and volatilities of assets with predicted ones
+## Split sample in two: estimation window and evaluation window
 
 Estimation window, out of sample evaluation window. Estimation error
 
