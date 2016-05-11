@@ -1,6 +1,12 @@
 # Video 1: Modern portfolio theory of Harry Markowitz
 
 
+The example of the Dow Jones Industrial Average stocks shows that there is a lot of variation in the average return and volatility across stocks. It also easy to verify that while the average correlation between the stock return is positive 
+
+
+Do not put all your eggs in one basket. 
+
+
 A mean-variance efficient investor is thus an investor who ....
 
 ***
@@ -12,6 +18,7 @@ But how to find such a vector of mean-variance efficient portfolio weights in pr
 Let us first write down the mathematical problem and then discuss the method used to solve that problem. 
 
 
+Concept of minimizing variance given a return target
 
 ***
 

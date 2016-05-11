@@ -4,17 +4,18 @@ description : We have up to now considered the portfolio weights as given. Here 
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1   key:139d7eabbd827860709b29f2a8d968614d1e3cb0
-## Mean variance efficient portfolio
+## Investing in the DJIA stocks based on their mean and variance
 
 In the workspace, you see a scatter plot showing the mean and standard deviation of the 30 Dow Jones Industrial Average stocks, as estimated on their monthly returns over the period 1991-2015. Each of the stocks is identified in the plot using
 its ticker. 
 
-Assume that 
+Assume an investor who only cares about the mean and variance of the portfolio return distribution. She likes expected returns and dislikes variance.  Which of the following statements is false:
 
 *** =instructions
-- option 1
-- option 2
-- option 3
+- If a mean-variance investor has to invest all her wealth in one asset, then the opportunity of investing in Home Depot (ticker: HD) dominates an investment in Caterpillar (ticker: CAT) since it has a higher average return and lower risk.  
+- A mean-variance investor will never combine investments in Home Depot and Caterpillar in her portfolio. 
+- By combining investments, it may be possible to obtain a portfolio with a lower variance than the variance of the Exxon Mobil Corporation's stock (ticker: XOM). 
+- If an investor is not allowed to borrow, then there is no portfolio invested in thirty Dow Jones Industrial Average stocks, offering a higher average return than the one of Apple (ticker: AAPL).   
 
 *** =hint
 hint
@@ -30,6 +31,15 @@ download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-anal
 prices<- readRDS("prices.rds") 
 returns <- CalculateReturns(prices, method="simple")
 returns <- returns[(-1),]
+
+stockmu = apply( X = returns , MARGIN = 2 , FUN="mean")
+stocksd = apply( X = returns , MARGIN = 2 , FUN="sd")
+
+# make the scatter plot and add tickers
+
+plot(stocksd,stockmu,col="gray" , xlab="Standard deviation (monthly)", ylab="Average return (monthly)",xlim=c(0,1.1*max(stocksd)),ylim=c(0,1*1*max(stockmu)))
+text( stocksd ,  stockmu ,  labels=colnames(returns ), cex= 0.7)
+text( stocksd[c("HD","CAT","XOM","AAPL")]  ,  stockmu[c("HD","CAT","XOM","AAPL")] ,  labels=  c("HD","CAT","XOM","AAPL") , cex= 0.9,col="red")
 ```
 
 *** =sct
@@ -37,12 +47,66 @@ returns <- returns[(-1),]
 test_mc(2) # if 2 is the correct option.
 ```
 
+--- type:NormalExercise lang:r xp:100 skills:1  
+## Exploring further the monthly returns of the 30 DJIA stocks 
+
+The 1991-2015 monthly returns on the 30 DJIA stocks are available in the workspace as the variable `returns`.
+
+The scatter plot of the average returns on there is a lot of variation in the average return and volatility across stocks. It also easy to verify that while the average correlation between the stock return is positive Obtain the optimized portfolio weights using portfolio.optim(), plot the portfolio weights using barplot()
+
+*** =instructions
+- Verify that `returns` is an object of the xts-class using the function `class`.
+- Plot the row means of `returns` (in other words, the returns on the monthly rebalanced equally-weighted  portfolio returns). 
+- Plot the histogram of the correlations between the monthly returns of the DJIA stocks. Because of the symmetry of the correlation matrix, you only need the lower triangular elements, which, for any square matrix `Z`, you can select using `Z[lower.tri(Z)]`.
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+library(xts)
+library(PerformanceAnalytics)
+download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
+# load("prices.Rdata")
+prices<- readRDS("prices.rds") 
+returns <- CalculateReturns(prices, method="simple")
+returns <- returns[(-1),]
+```
+
+*** =sample_code
+```{r}
+# returns is pre-loaded
+# class of returns
+
+# plot ew portfolio returns
+
+# histogram of correlations
+
+```
+
+*** =solution
+```{r}
+# returns is pre-loaded
+# class of returns
+class(returns)
+# plot ew portfolio returns
+plot.zoo(rowMeans(returns))
+# histogram of correlations
+Z <- cor(returns)
+hist(Z[lower.tri(Z)])
+```
+
+*** =sct
+```{r}
+# sct code
+success_msg("Well done!")
+```
 
 
 --- type:VideoExercise lang:r xp:50 skills:1 key:2d45c303bc2e49767a9cd744f15a31938a2ec7d9
 ## Modern portfolio theory of Harry Markowitz
 
-Concept of minimizing variance given a return target
+
 *** =video_link
 //player.vimeo.com/video/108225030
 
@@ -63,6 +127,13 @@ hint comes here
 *** =pre_exercise_code
 ```{r}
 # pec
+library(xts)
+library(PerformanceAnalytics)
+download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
+# load("prices.Rdata")
+prices<- readRDS("prices.rds") 
+returns <- CalculateReturns(prices, method="simple")
+returns <- returns[(-1),]
 ```
 
 *** =sample_code
@@ -96,6 +167,13 @@ hint comes here
 *** =pre_exercise_code
 ```{r}
 # pec
+library(xts)
+library(PerformanceAnalytics)
+download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
+# load("prices.Rdata")
+prices<- readRDS("prices.rds") 
+returns <- CalculateReturns(prices, method="simple")
+returns <- returns[(-1),]
 ```
 
 *** =sample_code
@@ -136,6 +214,13 @@ hint comes here
 *** =pre_exercise_code
 ```{r}
 # pec
+library(xts)
+library(PerformanceAnalytics)
+download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
+# load("prices.Rdata")
+prices<- readRDS("prices.rds") 
+returns <- CalculateReturns(prices, method="simple")
+returns <- returns[(-1),]
 ```
 
 *** =sample_code
@@ -169,6 +254,13 @@ hint comes here
 *** =pre_exercise_code
 ```{r}
 # pec
+library(xts)
+library(PerformanceAnalytics)
+download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
+# load("prices.Rdata")
+prices<- readRDS("prices.rds") 
+returns <- CalculateReturns(prices, method="simple")
+returns <- returns[(-1),]
 ```
 
 *** =sample_code
@@ -202,6 +294,13 @@ hint comes here
 *** =pre_exercise_code
 ```{r}
 # pec
+library(xts)
+library(PerformanceAnalytics)
+download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
+# load("prices.Rdata")
+prices<- readRDS("prices.rds") 
+returns <- CalculateReturns(prices, method="simple")
+returns <- returns[(-1),]
 ```
 
 *** =sample_code
@@ -242,6 +341,13 @@ hint comes here
 *** =pre_exercise_code
 ```{r}
 # pec
+library(xts)
+library(PerformanceAnalytics)
+download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
+# load("prices.Rdata")
+prices<- readRDS("prices.rds") 
+returns <- CalculateReturns(prices, method="simple")
+returns <- returns[(-1),]
 ```
 
 *** =sample_code
@@ -252,6 +358,11 @@ hint comes here
 *** =solution
 ```{r}
 # solution code
+
+# Splitting return data in sample for estimation and out of sample evaluation 
+returns.estim = window(returns, start = "2004-01-01", end = "2011-12-31")
+returns.oos = window(returns, start ="2012-01-01", end = "2015-03-31")
+
 ```
 
 *** =sct
@@ -275,6 +386,13 @@ hint comes here
 *** =pre_exercise_code
 ```{r}
 # pec
+library(xts)
+library(PerformanceAnalytics)
+download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
+# load("prices.Rdata")
+prices<- readRDS("prices.rds") 
+returns <- CalculateReturns(prices, method="simple")
+returns <- returns[(-1),]
 ```
 
 *** =sample_code
