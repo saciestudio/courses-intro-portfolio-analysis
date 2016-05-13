@@ -791,7 +791,7 @@ Does your investment strategy work? This chapter has shown that the answer to th
 
 In fact, very often it depends on how you look at the data. Do you consider the portfolio performance from inception, or only over the most recent 12 months? Do you use standard deviation as the risk measure, or rather the value-at-risk or expected shortfall? And, in terms of performance. Do you consider the average returns, or the returns in excess of some benchmark returns, such as the risk free rate? 
 
-We only scratched at the surface of possible portfolio performance measures. Check the documentation in PerformanceAnalytics to find out which of the following statements are false. 
+We only scratched at the surface of possible portfolio performance measures. Check the documentation in PerformanceAnalytics to find out which of the following statements is false. 
 
 *** =instructions
 - Like the [SortinoRatio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/SortinoRatio), the [AdjustedSharpeRatio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/AdjustedSharpeRatio) is an alternative for the Sharpe ratio that the non-normality of the return distribution into account when evaluating the reward received in terms of units of risk. 

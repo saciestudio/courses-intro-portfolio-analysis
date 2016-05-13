@@ -106,17 +106,5 @@ The default is that the portfolio does not rebalance, which corresponds to the b
 
 
    
-***
-
-# Video 5: Sneak preview of the fin and fun ahead
-
-We have up to now considered toy examples of portfolio analysis: portfolio with less than 10 investments and a single period investment horizon. A well-diversified portfolio is typically invested in at least 20 risky assets and the investment period runs over several years, possibly with intermediate changes in the portfolio allocation. We have focussed mostly on performance and not discusses the risks of investments. In this video I will give you a sneak preview on the cool tables and figures that we will make.    
-***
-In Chapter 2 we take the portfolio returns and compute performance statistics, such as the annualized mean and volatilities, and the Sharpe ratio. We measure its time-variation using a rolling window analysis and stuy the non-normality using downside risk measures. The application will be on the S&P 500portfolio.
-***
-Chapter 3 is about an asset allocation problem and understanding the effects of correlation. We'll make this cool correlation table across the asset classes: 
-
-***
-Finally, and most exciting, is the optimization of portfolios. We will do this for the 30 Dow Jones Industrial Average stocks. Their names indicate the mean and volatility in this chart. But no investor would only buy 1 asset. In fact, I'll show you how to find portfolio weights that beat them in term of a higher return for the same level of risk. This dominating portfolios are on the blue line in this chart. 
 
 
