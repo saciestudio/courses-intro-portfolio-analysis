@@ -784,7 +784,7 @@ success_msg("Well done!")
 
  
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1  key:bdf87df244
 ## Main take-aways on portfolio performance evaluation
 
 Does your investment strategy work? This chapter has shown that the answer to this question requires, first of all, to analyzethe portfolio returns, and, secondly, that, often, there is no unique answer to this question.
