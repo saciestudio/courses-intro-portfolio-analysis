@@ -497,7 +497,7 @@ success_msg("Well done!")
 
 
 --- type:NormalExercise lang:r xp:100 skills:1   key:7fd5556f94
-## Computing the time series of portfolio returns (to improve)
+## Computing the time series of portfolio returns
 
 Let us now continue the exercise by computing the portfolio returns under different choices of rebalancing the portfolio weights.
 
