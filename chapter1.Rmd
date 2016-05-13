@@ -662,7 +662,7 @@ hint
 test_mc(2) # if 2 is the correct option.
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1  key:9953e9ca351425f91036a223de3ba9ee04c5a282
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1  
 ## Sneak preview of the portfolio fin and fun ahead
 
 The *fin*ancial theory of portfolio analysis and the *fun* of applying portfolio management in R, that's what this course is all about.
@@ -672,9 +672,6 @@ It's about the landmark contributions of Nobel prize winners like Daniel Kahnema
 To maky you hungry for more, look at the nice output tables and plots printed in the workspace. This is what we will be doing in the next chapter, leveragin mainly the functionality in the package [PerformanceAnalytics](). 
 
 Which of the following functions is not in the package [PerformanceAnalytics](). 
-
-
-
 
 
 *** =instructions
@@ -695,14 +692,7 @@ library(PerformanceAnalytics)
 ```{r}
 test_mc(1) 
 ```
-
---- type:VideoExercise lang:r xp:50 skills:1  key:9953e9ca351425f91036a223de3ba9ee04c5a282
-## Sneak preview of the portfolio fin and fun ahead
-
-
-*** =video_link
-//player.vimeo.com/video/108225030
-
+ 
 
 
 
