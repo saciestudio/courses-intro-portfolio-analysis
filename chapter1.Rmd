@@ -662,7 +662,7 @@ hint
 test_mc(2) # if 2 is the correct option.
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1  
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1   key:9953e9ca351425f91036a223de3ba9ee04c5a282
 ## Sneak preview of the portfolio fin and fun ahead
 
 The *fin*ancial theory of portfolio analysis and the *fun* of applying portfolio management in R, that's what this course is all about.
