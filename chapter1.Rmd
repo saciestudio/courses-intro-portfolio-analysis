@@ -419,29 +419,6 @@ hint
 test_mc(2) # if 2 is the correct option.
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:ab11f86ce025ff80e97eec8d935df13b4ecd1aa0
-## Time-variation of portfolio weights
-
-Suppose a two-asset portfolio invested initially at equal weights in IBM and Apple. Over the next period IBM doubles in value, while Apple's price remains flat. What are the weights at the end of the period?   
-
-*** =instructions
--  2/3 for IBM, 1/3 for  Apple
--  1/2 for IBM, 1/2 for Apple
--  3/4 forIBM, 1/4 for Apple
-
-*** =hint
-The portfolio return is a single number. 
-
-*** =pre_exercise_code
-```{r}
-# pec
-```
-
-*** =sct
-```{r}
-test_mc(1) # if 2 is the correct option.
-```
-
 
 --- type:VideoExercise lang:r xp:50 skills:1 key:c9e758551130f685dc22840b3ede8cefc4642902
 ## The PerformanceAnalytics package
@@ -530,45 +507,7 @@ plot.zoo(preturns)
 success_msg("Well done!")
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:40af4858a53e35594a991c1e6797fc7a824041f3
 
-## The effect of the frequency of rebalancing 
-
-Rebalancing means re-setting the weights to the objective weights. The more frequent the rebalancing is, the more transactions the portfolio manager does, and thus the higher the costs. The less frequent the rebalancing is, the more the investor is exposed to style drift: the portfolio is different allocated to the portfolio weights. 
-
-The default behavior of the function [Return.portfolio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio) is that is does not rebalance, which corresponds to a buy-and-hold investment. 
-
-As an illustration, I plot the  absolute differences in portfolio return between a less frequent rebalanced portfolio and the  daily rebalanced portfolio. To which R command corresponds the first  plot?
-
-*** =instructions
-- ``plot.zoo( abs( Return.portfolio(returns, weights,rebalance_on="years") - Return.portfolio(returns, weights,rebalance_on="days")))``
-- ``plot.zoo( abs( Return.portfolio(returns, weights) - Return.portfolio(returns, weights,rebalance_on="days")))``
-- ``plot.zoo( abs( Return.portfolio(returns, weights,rebalance_on="months") - Return.portfolio(returns, weights,rebalance_on="days")))`` 
-
-*** =hint
-hint
-
-*** =pre_exercise_code
-```{r}
-# pec
-options(warn=-1)
-download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/rebalance.rds", destfile="rebalance.rds")
-library(xts)
-rebalance <- readRDS("rebalance.rds")
-
-par(mfrow=c(3,1),mar=c(3,3,2,2),cex.axis=1.3)
-
-plot.zoo( rebalance[,1] , ylab="",xlab="",ylim=c(0,max(rebalance[,2])))
-plot.zoo( rebalance[,2] , ylab="",xlab="",ylim=c(0,max(rebalance[,2])))
-plot.zoo( rebalance[,3]  , ylab="",xlab="",ylim=c(0,max(rebalance[,2])))
-
-#print(max(z2))
-```
-
-*** =sct
-```{r}
-test_mc(1) # if 1 is the correct option.
-```
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:e2b13d9ade5d7b168bb6157909da1cffbc6729e1
 ## From daily to monthly portfolio returns
@@ -636,18 +575,20 @@ Return.cumulative(preturns["2008-09"])
 success_msg("Well done!")
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:308716c378c9cabd4b35fbe042d9d1f521c68015
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:40af4858a53e35594a991c1e6797fc7a824041f3
 
-## Multi-period returns
+## The effect of the frequency of rebalancing (improve)
 
-The simple return $R$ expresses the percentage change in value of an investment. The corresponding so-called "gross" return is the future value of $1 invested in the asset for one period, and is thus equal to $1+R$. Suppose the investor now has a horizon of two periods and in the first period, she makes a 10% return, but in the second period a loss of 5%. Verify in the R console that the end value of the investment equals $1.045$ (obtained by multipying the end-value of 1.1 after period one with the gross return of 0.95 of the second period).
+Rebalancing means re-setting the weights to the objective weights. The more frequent the rebalancing is, the more transactions the portfolio manager does, and thus the higher the costs. The less frequent the rebalancing is, the more the investor is exposed to style drift: the portfolio is different allocated to the portfolio weights. 
 
-It is important to be aware of the fact that a positive and negative return of the same magnitude do not compensate each other. Mathematically, this can be seen from the identity $(1+x)*(1-x)=1-x^2$, which is less than one. A 50% loss is thus not compensated by a 50% gain.  After a loss of 50%, what is the return needed to be at par again? Verify your answer in the R console.
+The default behavior of the function [Return.portfolio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio) is that is does not rebalance, which corresponds to a buy-and-hold investment. 
+
+As an illustration, I plot the  absolute differences in portfolio return between a less frequent rebalanced portfolio and the  daily rebalanced portfolio. To which R command corresponds the first  plot?
 
 *** =instructions
-- 75%
-- 100%
-- 200%
+- ``plot.zoo( abs( Return.portfolio(returns, weights,rebalance_on="years") - Return.portfolio(returns, weights,rebalance_on="days")))``
+- ``plot.zoo( abs( Return.portfolio(returns, weights) - Return.portfolio(returns, weights,rebalance_on="days")))``
+- ``plot.zoo( abs( Return.portfolio(returns, weights,rebalance_on="months") - Return.portfolio(returns, weights,rebalance_on="days")))`` 
 
 *** =hint
 hint
@@ -655,13 +596,24 @@ hint
 *** =pre_exercise_code
 ```{r}
 # pec
+options(warn=-1)
+download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/rebalance.rds", destfile="rebalance.rds")
+library(xts)
+rebalance <- readRDS("rebalance.rds")
+
+par(mfrow=c(3,1),mar=c(3,3,2,2),cex.axis=1.3)
+
+plot.zoo( rebalance[,1] , ylab="",xlab="",ylim=c(0,max(rebalance[,2])))
+plot.zoo( rebalance[,2] , ylab="",xlab="",ylim=c(0,max(rebalance[,2])))
+plot.zoo( rebalance[,3]  , ylab="",xlab="",ylim=c(0,max(rebalance[,2])))
+
+#print(max(z2))
 ```
 
 *** =sct
 ```{r}
-test_mc(2) # if 2 is the correct option.
+test_mc(1) # if 1 is the correct option.
 ```
-
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1   key:9953e9ca351425f91036a223de3ba9ee04c5a282
 ## Sneak preview of the portfolio fin and fun ahead
 
