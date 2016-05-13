@@ -62,8 +62,11 @@ A second special case is the minimum variance portfolio, which is the portfolio 
 
 In the exercises, you will be requested to construct the efficient frontier, by running a for-loop over the set of possible return targets. Suppose the loop runs from l to u, and the lowest target is below the return of the minimum variance portfolio. Then, you will obtain as a result a parabole in which the lower segment consists of portfolios that are dominated by the portfolios in the upper segment. 
 
+Then, as shown on the plot, only the upper segment of the parabole is the efficient frontier. 
+
 ***
-Of course, only the upper segment of the parabole is then the efficient frontier
+
+The efficient frontier further depends on the constraints imposed on the portfolio weight constraints. By imposing more restrictive portfolio weights constraints, the efficient frontier shifts to the right. 
 
 
 ***
