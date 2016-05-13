@@ -370,17 +370,19 @@ test_mc(1) # if 2 is the correct option.
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:6fda9fa37a19f2326c9e7164c8617f1936dc7124
 
-## From simple to gross returns   
+## From simple to gross and multi-period returns   
 
 The simple return $R$ expresses the percentage change in value of an investment. The corresponding so-called "gross" return is defined as the future value of $1 invested in the asset for one period, and is thus equal to $1+R$. 
 
-Suppose the investor now has a horizon of two periods and in the first period, she makes a 10% return, but in the second period a loss of 5%. Use the R console to compute the end value of an initial investment of $1000 investment.  Which of the three following answers do you obtain?
+The gross returns over two periods is obtained similarly. Let $R_1$ be the return in the first period and $R_2$ the return in the second period, then the end-value of a $1 investment is $(1+R_1)*(1+R_2)$. The corresponding simple return over those two periods is $(1+R_1)*(1+R_2)-1$. 
+
+Suppose the investor now has a horizon of two periods and in the first period, she makes a 10% return, but in the second period a loss of 5%. Use the R console to compute the end value and the simple return of an initial investment of $1000 investment.  Which of the three following answers do you obtain?
 
 
 *** =instructions
-- 1155
-- 1045
-- 1050
+- End-value = 1155. Simple 2-period return: .
+- End-value = 1045. Simple 2-period return: .
+- End-value = 1050. Simple 2-period return: .
 
 *** =hint
 If $R_1$ is the return in the first period and $R_2$ is the return in the second period, then the end-value of a $1 investment is $(1+R_1)*(1+R_2)$.
