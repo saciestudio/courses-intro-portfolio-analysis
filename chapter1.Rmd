@@ -675,7 +675,7 @@ Which of the following functions is not in the package [PerformanceAnalytics]().
 
 
 *** =instructions
-- annualized returns. "In decision involving risk, we are anything but rational," says Nobel prize winner Daniel Kahneman. It's important to have the broad view and not be carried away by single gains or losses. You win a few, you lose a few. It's the bottom line that matters. 
+- According to Daniel Kahnemen, in decision involving risk, most people are anything but rational. They fail to have the broad view and are carried away by individual gains and losses. You win a few, you lose a few. It's the bottom line that matters. This is to be computed using: [Return.annualized](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.annualized). 
 - [SharpeRatio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/SharpeRatio).  Shapre and tobin. 
 - [optim.portfolio](http://www.rdocumentation.org/packages/tseries/functions/optim.portfolio]). Harry Markowitz of the portfolio returns compared to the returns of a benchmark strategy, the higher the risk that the returns on the portfolio strategy will deviate from the benchmark returns. 
 - Rolling standard deviations. Engle  
