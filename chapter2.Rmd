@@ -794,8 +794,7 @@ In fact, very often it depends on how you look at the data. Do you consider the 
 We only scratched at the surface of possible portfolio performance measures. Check the documentation in PerformanceAnalytics to find out which of the following statements are false. 
 
 *** =instructions
-- Like the [SortinoRatio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/SortinoRatio), the [AdjustedSharpeRatio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/AdjustedSharpeRatio) and 
-- The larger the [TrackingError](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/TrackingError) of the portfolio returns compared to the returns of a benchmark strategy, the higher the risk that the returns on the portfolio strategy will deviate from the benchmark returns. 
+- Like the [SortinoRatio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/SortinoRatio), the [AdjustedSharpeRatio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/AdjustedSharpeRatio) is an alternative for the Sharpe ratio that takes ing into account the non-normality of the return distribution when evaluating the reward received in terms of units of risk. - The larger the [TrackingError](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/TrackingError) of the portfolio returns compared to the returns of a benchmark strategy, the higher the risk that the returns on the portfolio strategy will deviate from the benchmark returns. 
 - When the return distribution is symmetric, the probability of large negative returns is always small.  
 
 *** =hint
