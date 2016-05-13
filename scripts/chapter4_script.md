@@ -71,45 +71,6 @@ Of course, only the upper segment of the parabole is then the efficient frontier
 
 
 
-expected return investment objectives proposed by Nobel prize winner Harry Markowitz. In his modern portfolio theory, he assumed that investors are seeking for mean-variance efficient portfolios. This means that, they will only accept a portfolio, if there is no other portfolio offering
-- a higher expected return at the same or lower portfolio standard deviation.
-- or equivalently, a lower standard deviation, at the same or higher expected return. 
-
-***
-
-Finding such a mean-variance efficient portfolio requires to optimize the portfolio weights. In particular, we seek to minimum
-
-Such optimalit
-such decisions need to be optimal. investment decisions you will 
-
-You have just explored the individual performances of the Dow Jones Industrial Average stocks, together with their correlation.
-The analysis has shown that, actually, there is a lot of variation in the average return and volatility across stocks, and that almost all of the correlation between the stocks returns are below 0.6. 
-
-Finding such a heterogeneity in performance and diversification potential is is good news for our ultimate goal of optimizing the portfolio weights. Since the individual performances are so different and there is scope of diversification, the actual choice of portfolio will matter. 
-
-***
-
-When 
-
-almost all less   the average correlation between the stock return is positive, it  
-
-
-Do not put all your eggs in one basket. 
-
-
-A mean-variance efficient investor is thus an investor who ....
-
-***
-
-But how to find such a vector of mean-variance efficient portfolio weights in practice? 
-
-***
-
-Let us first write down the mathematical problem and then discuss the method used to solve that problem. 
-
-
-Concept of minimizing variance given a return target
-
 ***
 
 # Video 3: In-sample versus out-of-sample evalution
@@ -121,43 +82,23 @@ In practice they are unknown and need to be estimate (slides: mu becomes hatmu, 
 
 ***
 
-This me
-Theoretically
-
-
-Optimizing portfolios based on the estimated mean and covariance matrix is senstivitive to errors in estimation. The estimated mean and covariance matrix have estimation errors. Optimizing portfolio weights based on those noisy inputs leads to noisy portfolio weights, that may be suboptimal. 
-
-
-Risk of error maximization. The insample estimated mean and variance of the optimized portfolios versus the out of sample.  Important to be aware of this by analyzing performance out of sample. Distinghuish estimation window from evaluation window;
-
+These errors in estimation directly lead to errors in the estimates portfolio weights, which may have a negative effect on portfolio performance. It is therefore always important to account for the estimation error in testing portfolio performances on historic data. 
 
 ***
 
-# Video 3: Main take-aways on portfolio optimization
+A common pitfall in portfolio analysis is to commit the sin of look ahead bias. This means that you use data which at the time of the decision you will not have. 
 
-Importance of optimizing portfolios: Diagram of the different steps: 
-1) define objectives and constraint
-2) implementation:
-* Estimate the parameters needed;
-* Find the solver
-3) backtest
+Suppose eg we wish [show with a time line]
 
 ***
-Discuss extensions
+
+In the exercises, we will use the function window to split the returns table in two:
+* estimation sample
+* evaluation sample
+(show with plot)
+
+On the estimation sample we determine the optimized weights. On the evaluation sample we test how well those weights do in terms of portfolio performance.
+
  
- 
-There are many possible objective functions, such as maximizing the expected return, minimizing the variance, maximizing the skewness, minimizing the portfolio's downside risk [slide should show table with 2 columns]
-
-In terms of constraints, there could be the constraint that all weights have to sum to one, that they should be with a box defined by a lower and upper bound, that the risk is below some risk bound, etc. 
 
 
-The traditional objective of minimizing the portfolio variance under the constraint that the portfolio expected return should be above some target level. This is a quadratic programming problem. At the end of the chapter, I will discuss extensions related to screening stocks using mixed integer linear programming and optimizing more complex objective functions combining different types of objectives and constraints.   
-
-Mention other packages: DEoptim, PortfolioAnalytics. 
-
-
-
-It ain't over: other objectives, other constraints, other solvers, other estimators, ... 
-
-
-***

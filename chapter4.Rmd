@@ -589,10 +589,46 @@ returns <- returns[(-1),]
 success_msg("Well done!")
 ```
 
---- type:VideoExercise lang:r xp:50 skills:1 key:75eb737c24e2ba235ee1de43c66a6324a9282b08
-## Main take-aways
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1   
+## It ain't over
 
-summary and extensions.
-*** =video_link
-//player.vimeo.com/video/108225030
+Importance of optimizing portfolios: Diagram of the different steps: 
+1) define objectives and constraint
+2) implementation:
+* Estimate the parameters needed;
+* Find the solver
+3) backtest
+
+***
+Discuss extensions
+ 
+ 
+There are many possible objective functions, such as maximizing the expected return, minimizing the variance, maximizing the skewness, minimizing the portfolio's downside risk [slide should show table with 2 columns]
+
+In terms of constraints, there could be the constraint that all weights have to sum to one, that they should be with a box defined by a lower and upper bound, that the risk is below some risk bound, etc. 
+
+
+The traditional objective of minimizing the portfolio variance under the constraint that the portfolio expected return should be above some target level. This is a quadratic programming problem. At the end of the chapter, I will discuss extensions related to screening stocks using mixed integer linear programming and optimizing more complex objective functions combining different types of objectives and constraints.   
+
+Question about other packages: DEoptim, PortfolioAnalytics. 
+
+
+*** =instructions
+- Package DEoptim
+- Package PortfolioAnalytics. 
+- Package highfrequency.  
+
+*** =hint
+hint
+
+*** =pre_exercise_code
+```{r}
+library(PerformanceAnalytics)
+```
+
+*** =sct
+```{r}
+test_mc(1) 
+```
+
 
