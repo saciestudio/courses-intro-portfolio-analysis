@@ -696,7 +696,7 @@ library(PerformanceAnalytics)
 test_mc(1) 
 ```
 
---- type:VideoExercise lang:r xp:50 skills:1 
+--- type:VideoExercise lang:r xp:50 skills:1  key:9953e9ca351425f91036a223de3ba9ee04c5a282
 ## Sneak preview of the portfolio fin and fun ahead
 
 
