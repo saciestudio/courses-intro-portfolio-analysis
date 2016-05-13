@@ -589,7 +589,7 @@ returns <- returns[(-1),]
 success_msg("Well done!")
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1   
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1    key:1ccbedfacf
 ## It ain't over
 
 Importance of optimizing portfolios: Diagram of the different steps: 
