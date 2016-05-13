@@ -499,20 +499,18 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1   key:7fd5556f94
 ## Computing the time series of portfolio returns (to improve)
 
-Let us now continue the exercise by computing the portfolio returns under different settings. 
+Let us now continue the exercise by computing the portfolio returns under different choices of rebalancing the portfolio weights.
 
-  The target weights are the same for each rebalancing data. We call this the constant mix portfolio allocation strategy.   
+The first choice is the buy-and-hold. 
+
+The second choice is to rebalance at a monthly frequency. The target weights are assumed to be the same for each rebalancing date. We call this the constant mix portfolio allocation strategy.   
 
 
 *** =instructions
-- Load   the packages `xts` and `PerformanceAnalytics` in your R session.
-- Use the function [merge](http://www.rdocumentation.org/packages/xts/functions/merge) to bind the variables `aapl` and `msft` by row names (here: the dates) and call this `prices`.
-- Print the first and last six row of `prices` using `head` and `tail`.
-- Use the function [CalculateReturns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.calculate) with as only argument `prices` to compute for each date the return as the percentage change in the price compared to the previous date.
 - Define `weights` as the vector of equal weights for a portfolio fully invested in two assets. 
 - Use the function [Return.portfolio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio) with as first argument `prices`, as second argument `weights` and as third argument , `rebalance_on="days"`  to compute for each date the return of a portfolio for which the weights on each day are set to `weights`.
 - Make a time series plot of the portfolio returns. 
-
+- Repeat the above, but now set the arguments `verbose=TRUE`. It will now return an object holding various arguments... 
 *** =hint
 hint comes here
 
@@ -523,31 +521,26 @@ options(warn=-1)
 library(tseries)
 aapl <- get.hist.quote(instrument="AAPL",start=as.Date("2005-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T)
 msft <- get.hist.quote(instrument="MSFT",start=as.Date("2005-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T)
+
+# define prices as the merged time series of aapl and msft
+prices <-  merge(aapl,msft)
+# print the first and last six rows of prices
+returns <-  CalculateReturns(prices)  
+# remove the first row
+returns <- returns[-1,]
 ```
 
 *** =sample_code
 ```{r}
-# aapl and msft are pre-loaded
+# returns is pre-loaded
 
-# load the packages xts and PerformanceAnalytics 
-
-# define prices as the merged time series of aapl and msft
-prices <-  
-# print the first and last six rows of prices
- 
-  
-# define the variable returns holding in each row the returns for that day of Apple and Microsoft
-returns <-   
-# print the first six rows of returns and note that the first observation is NA, because there is no preceding price needed to compute the return
-
-# remove the first row
-returns <- returns[-1,]
 # define the vector of equally-weighted portfolio weights
 weights <-  
 # compute portfolio return for each date
 preturns <-  
 # plot the time series of portfolio returns
- 
+
+   
 ```
 
 *** =solution
@@ -558,6 +551,9 @@ library(PerformanceAnalytics)
 # define prices as the merged time series of aapl and msft
 prices <-  merge(aapl,msft)
 # print the first and last six rows of prices
+head(prices) 
+tail(prices)  
+# define the variable returns holding in each row the returns for that day of Apple and Microsoft
 returns <-  CalculateReturns(prices)  
 # remove the first row
 returns <- returns[-1,]
@@ -578,7 +574,9 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:e2b13d9ade5d7b168bb6157909da1cffbc6729e1
 ## From daily to monthly portfolio returns
 
-We have now plotted the daily return series. In practice, portfolio managers rarely communicate their daily returns, but focus on the monthly or yearly performance. In the next video, I will explain how multi-period returns are obtained. But let us first touch intuition by focussing on the returns in September 2008. This was an exceptional month for investors, with the bankruptcy of Lehman Brother on September 15 as an important turning point.  
+We have now plotted the daily return series. In practice, portfolio managers rarely communicate their daily returns, but focus on the total (compound) performance over a longer period, such as a month or a year. 
+
+The next chapter is devoted to performance evaluation.  But let us  touch intuition now by focussing on the cumulative return evoluation in September 2008. This was an exceptional month for investors, with the bankruptcy of Lehman Brother on September 15 as an important turning point.  
 
 *** =instructions
 - Print the daily returns in September 2008 using `preturns["2008-09"]`.
@@ -641,45 +639,7 @@ Return.cumulative(preturns["2008-09"])
 success_msg("Well done!")
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:40af4858a53e35594a991c1e6797fc7a824041f3
 
-## The effect of the frequency of rebalancing (improve)
-
-Rebalancing means re-setting the weights to the objective weights. The more frequent the rebalancing is, the more transactions the portfolio manager does, and thus the higher the costs. The less frequent the rebalancing is, the more the investor is exposed to style drift: the portfolio is different allocated to the portfolio weights. 
-
-The default behavior of the function [Return.portfolio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio) is that is does not rebalance, which corresponds to a buy-and-hold investment. 
-
-As an illustration, I plot the  absolute differences in portfolio return between a less frequent rebalanced portfolio and the  daily rebalanced portfolio. To which R command corresponds the first  plot?
-
-*** =instructions
-- ``plot.zoo( abs( Return.portfolio(returns, weights,rebalance_on="years") - Return.portfolio(returns, weights,rebalance_on="days")))``
-- ``plot.zoo( abs( Return.portfolio(returns, weights) - Return.portfolio(returns, weights,rebalance_on="days")))``
-- ``plot.zoo( abs( Return.portfolio(returns, weights,rebalance_on="months") - Return.portfolio(returns, weights,rebalance_on="days")))`` 
-
-*** =hint
-hint
-
-*** =pre_exercise_code
-```{r}
-# pec
-options(warn=-1)
-download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/rebalance.rds", destfile="rebalance.rds")
-library(xts)
-rebalance <- readRDS("rebalance.rds")
-
-par(mfrow=c(3,1),mar=c(3,3,2,2),cex.axis=1.3)
-
-plot.zoo( rebalance[,1] , ylab="",xlab="",ylim=c(0,max(rebalance[,2])))
-plot.zoo( rebalance[,2] , ylab="",xlab="",ylim=c(0,max(rebalance[,2])))
-plot.zoo( rebalance[,3]  , ylab="",xlab="",ylim=c(0,max(rebalance[,2])))
-
-#print(max(z2))
-```
-
-*** =sct
-```{r}
-test_mc(1) # if 1 is the correct option.
-```
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1   key:9953e9ca351425f91036a223de3ba9ee04c5a282
 ## Sneak preview of the portfolio fin and fun ahead
 
