@@ -784,9 +784,30 @@ success_msg("Well done!")
 
  
 
---- type:VideoExercise lang:r xp:50 skills:1   key:bdf87df244
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Main take-aways on portfolio performance evaluation
 
+Does your investment strategy work? This chapter has shown that the answer to this question requires, first of all, to analyzethe portfolio returns, and, secondly, that, often, there is no unique answer to this question.
 
-*** =video_link
-//player.vimeo.com/video/108225030
+In fact, very often it depends on how you look at the data. Do you consider the portfolio performance from inception, or only over the most recent 12 months? Do you use standard deviation as the risk measure, or rather the value-at-risk or expected shortfall? And, in terms of performance. Do you consider the average returns, or the returns in excess of some benchmark returns, such as the risk free rate? 
+
+We only scratched at the surface of possible portfolio performance measures. Check the documentation in PerformanceAnalytics to find out which of the following statements are false. 
+
+*** =instructions
+- Like the [SortinoRatio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/SortinoRatio), the [
+AdjustedSharpeRatio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/AdjustedSharpeRatio) and 
+- The larger the [TrackingError](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/TrackingError) of the portfolio returns compared to the returns of a benchmark strategy, the higher the risk that the returns on the portfolio strategy will deviate from the benchmark returns. 
+- When the return distribution is symmetric, the probability of large negative returns is always small.  
+
+*** =hint
+hint
+
+*** =pre_exercise_code
+```{r}
+library(PerformanceAnalytics)
+```
+
+*** =sct
+```{r}
+test_mc(1) 
+```

@@ -55,11 +55,11 @@ In the general case, we have N assets and N can vary from 2 to over a thousand. 
 
 ***
 
-We further stack the returns of each asset in a column-vector $R$. The is now a vector of random variables, and thus called a random vector. Its expected value mu is the vector of expected returns of each of the assets. 
+We further stack the returns of each asset in a column-vector $R$. This return vector is now a vector of random variables, and thus called a random vector. Its expected value mu is the vector of expected returns of each of the assets. 
 
 ***
 
-Because it is a vector of returns, its variance is not one number, but a table, called the covariance matrix. The elements on the diagonal are the variances of each of the returns.
+Because it is a vector of returns, its variance is not one number, but a table of N rows and N colums. This table is called the covariance matrix. The elements on the diagonal are the variances of each of the returns.
 
 ***
 
