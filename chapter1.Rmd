@@ -508,9 +508,11 @@ The second choice is to rebalance at a monthly frequency. The target weights are
 
 *** =instructions
 - Define `weights` as the vector of equal weights for a portfolio fully invested in two assets. 
-- Use the function [Return.portfolio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio) with as first argument `prices`, as second argument `weights` and as third argument , `rebalance_on="days"`  to compute for each date the return of a portfolio for which the weights on each day are set to `weights`.
+- Use the function [Return.portfolio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio) with as first argument `returns` and as second argument `weights` to compute for each date the return of the buy-and-hold portfolio for which the initial weights are set to `weights`.
+- Do the same but for the monthly rebalanced portfolio.
 - Make a time series plot of the portfolio returns. 
-- Repeat the above, but now set the arguments `verbose=TRUE`. It will now return an object holding various arguments... 
+- Repeat the above, but now set the arguments `verbose=TRUE`. It will now return an object holding various arguments. Investigate this using `names()`
+- Compare the end-of period weights
 *** =hint
 hint comes here
 
@@ -519,6 +521,7 @@ hint comes here
 # pec
 options(warn=-1)
 library(tseries)
+library(PerformanceAnalytics)
 aapl <- get.hist.quote(instrument="AAPL",start=as.Date("2005-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T)
 msft <- get.hist.quote(instrument="MSFT",start=as.Date("2005-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T)
 
@@ -528,41 +531,55 @@ prices <-  merge(aapl,msft)
 returns <-  CalculateReturns(prices)  
 # remove the first row
 returns <- returns[-1,]
+colnames(returns) <- c("AAPL","MSFT")
 ```
 
 *** =sample_code
 ```{r}
 # returns is pre-loaded
-
 # define the vector of equally-weighted portfolio weights
 weights <-  
 # compute portfolio return for each date
-preturns <-  
+preturns_bh <-  
+preturns_rebal <-  
 # plot the time series of portfolio returns
-
-   
+par(mfrow=c(2,1),mar=c(2,4,2,2))
+plot.zoo(preturns_bh)
+plot.zoo(  )
+# verbose=TRUE 
+out_bh <-  
+out_rebal <-  
+# who are you
+names(out_bh)
+#
+endWeights_bh <- out_bh$EOP.Weight 
+endWeights_rebal <- out_rebal$EOP.Weight 
+# plot the eop weights of Apple
+plot.zoo(endWeights_bh$AAPL ,ylim=c(0,1))
+plot.zoo(endWeights_rebal$AAPL , ylim=c(0,1) )
 ```
 
 *** =solution
 ```{r}
-# load the packages xts and PerformanceAnalytics 
-library(xts)
-library(PerformanceAnalytics)
-# define prices as the merged time series of aapl and msft
-prices <-  merge(aapl,msft)
-# print the first and last six rows of prices
-head(prices) 
-tail(prices)  
-# define the variable returns holding in each row the returns for that day of Apple and Microsoft
-returns <-  CalculateReturns(prices)  
-# remove the first row
-returns <- returns[-1,]
 # define the vector of equally-weighted portfolio weights
 weights <- c(0.5,0.5)
 # compute portfolio return for each date
-preturns <- Return.portfolio(returns, weights,rebalance_on="days")
+preturns_bh <- Return.portfolio(returns, weights )
+preturns_rebal <- Return.portfolio(returns, weights,rebalance_on="months")
 # plot the time series of portfolio returns
-plot.zoo(preturns)
+par(mfrow=c(2,1),mar=c(2,4,2,2))
+plot.zoo(preturns_bh)
+plot.zoo(preturns_rebal)
+# verbose=TRUE 
+out_bh <- Return.portfolio(returns, weights,verbose=TRUE)
+out_rebal <- Return.portfolio(returns, weights,rebalance_on="months",verbose=TRUE)
+# who are you
+names(out_bh)
+# eop weights
+endWeights_bh <- out_bh$EOP.Weight 
+endWeights_rebal <- out_rebal$EOP.Weight 
+plot.zoo(endWeights_bh$AAPL ,ylim=c(0,1))
+plot.zoo(endWeights_rebal$AAPL , ylim=c(0,1) )
 ```
 
 *** =sct
