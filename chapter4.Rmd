@@ -29,7 +29,7 @@ library(PerformanceAnalytics)
 download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
 # load("prices.Rdata")
 prices<- readRDS("prices.rds") 
-returns <- CalculateReturns(prices, method="simple")
+returns <- Return.calculate(prices, method="simple")
 returns <- returns[(-1),]
 
 stockmu = apply( X = returns , MARGIN = 2 , FUN="mean")
@@ -69,7 +69,7 @@ library(PerformanceAnalytics)
 download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
 # load("prices.Rdata")
 prices<- readRDS("prices.rds") 
-returns <- CalculateReturns(prices, method="simple")
+returns <- Return.calculate(prices, method="simple")
 returns <- returns[(-1),]
 ```
 
@@ -137,7 +137,7 @@ library(PerformanceAnalytics)
 download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
 # load("prices.Rdata")
 prices<- readRDS("prices.rds") 
-returns <- CalculateReturns(prices, method="simple")
+returns <- Return.calculate(prices, method="simple")
 returns <- returns[(-1),]
 ```
 
@@ -214,7 +214,7 @@ library(PerformanceAnalytics)
 download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
 # load("prices.Rdata")
 prices<- readRDS("prices.rds") 
-returns <- CalculateReturns(prices, method="simple")
+returns <- Return.calculate(prices, method="simple")
 returns <- returns[(-1),]
 ```
 
@@ -235,7 +235,7 @@ success_msg("Well done!")
 ```
 
 --- type:VideoExercise lang:r xp:50 skills:1 key:461436d2ee4b426f97b3c95b6ee39836ae38b34f
-## Efficient frontier
+## The efficient frontier
 
 Concept of minimizing variance given a sequence of return targets starting from the lowest to highest expected returns
 *** =video_link
@@ -261,7 +261,7 @@ library(PerformanceAnalytics)
 download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
 # load("prices.Rdata")
 prices<- readRDS("prices.rds") 
-returns <- CalculateReturns(prices, method="simple")
+returns <- Return.calculate(prices, method="simple")
 returns <- returns[(-1),]
 ```
 
@@ -316,7 +316,7 @@ library(PerformanceAnalytics)
 download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
 # load("prices.Rdata")
 prices<- readRDS("prices.rds") 
-returns <- CalculateReturns(prices, method="simple")
+returns <- Return.calculate(prices, method="simple")
 returns <- returns[(-1),]
 ```
 
@@ -371,7 +371,7 @@ library(tseries)
 download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
 # load("prices.Rdata")
 prices<- readRDS("prices.rds") 
-returns <- CalculateReturns(prices, method="simple")
+returns <- Return.calculate(prices, method="simple")
 returns <- returns[(-1),]
 ```
 
@@ -437,7 +437,7 @@ library(tseries)
 download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
 # load("prices.Rdata")
 prices<- readRDS("prices.rds") 
-returns <- CalculateReturns(prices, method="simple")
+returns <- Return.calculate(prices, method="simple")
 returns <- returns[(-1),]
 
 grid = seq(min(stockmu),max(stockmu),length.out=100 )  
@@ -524,7 +524,7 @@ library(PerformanceAnalytics)
 download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
 # load("prices.Rdata")
 prices<- readRDS("prices.rds") 
-returns <- CalculateReturns(prices, method="simple")
+returns <- Return.calculate(prices, method="simple")
 returns <- returns[(-1),]
 ```
 
@@ -569,7 +569,7 @@ library(PerformanceAnalytics)
 download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
 # load("prices.Rdata")
 prices<- readRDS("prices.rds") 
-returns <- CalculateReturns(prices, method="simple")
+returns <- Return.calculate(prices, method="simple")
 returns <- returns[(-1),]
 ```
 
@@ -589,8 +589,8 @@ returns <- returns[(-1),]
 success_msg("Well done!")
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1    key:1ccbedfacf
-## It ain't over
+--- type:NormalExercise lang:r xp:100 skills:1 key:6d3bdc717d87317d8c4ccf468836039b35f78440
+## Out of sample performance evaluation
 
 Importance of optimizing portfolios: Diagram of the different steps: 
 1) define objectives and constraint
@@ -613,22 +613,35 @@ The traditional objective of minimizing the portfolio variance under the constra
 Question about other packages: DEoptim, PortfolioAnalytics. 
 
 
+
 *** =instructions
-- Package DEoptim
-- Package PortfolioAnalytics. 
-- Package highfrequency.  
+- Load the library PortfolioAnalytics. 
+- Explore the functionality of this package by entering the instruction `?PortfolioAnalytics`. 
 
 *** =hint
-hint
+hint comes here
 
 *** =pre_exercise_code
 ```{r}
-library(PerformanceAnalytics)
+# pec
+
+```
+
+*** =sample_code
+```{r}
+# sample code
+```
+
+*** =solution
+```{r}
+# solution code
 ```
 
 *** =sct
 ```{r}
-test_mc(1) 
+# sct code
+success_msg("Well done!")
 ```
+
 
 

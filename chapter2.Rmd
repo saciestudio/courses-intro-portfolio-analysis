@@ -1,7 +1,6 @@
 ---
 title       : Interpreting portfolio performance 
-description : The history of portfolio returns contains valuable information about how much the investor can expect to gain or lose. This chapter introduces the R functionality to analyze the investment performance based on a statisical analysis of the portfolio returns. It includes graphical analysis and the calculation of performance statistics expressing average return, risk and risk-adjusted return over rolling estimation samples. This chapter concludes by an investigation in the non-normality of the return distribution and provides the tools to characterize the financial risks and rewards in a non-normal world. 
-
+description : The history of portfolio returns contains valuable information about how much the investor can expect to gain or lose. This chapter introduces the R functionality to analyze the investment performance based on a statisical analysis of the portfolio returns. It includes graphical analysis and the calculation of performance statistics expressing average return, risk and risk-adjusted return over rolling estimation samples. 
 
 --- type:VideoExercise lang:r xp:50 skills:1 key:c4b994ff53
 ## The different dimensions of portfolio performance
@@ -114,7 +113,7 @@ sp500_monthly = to.monthly(sp500)
 # Print first six rows
 head(sp500_monthly)
 # Return calculation
-sp500_returns <-  xts(CalculateReturns(sp500_monthly[,4]))  
+sp500_returns <-  xts(Return.calculate(sp500_monthly[,4]))  
 # Time series plot
 plot.zoo(sp500_returns)
 # Produce the year x month table
@@ -150,7 +149,7 @@ library(xts) # Its function plot.zoo make simple, but attractive, time series pl
 # dates have the format "YYYY-MM-DD"
 sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1985-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
 library(PerformanceAnalytics)
-sp500_returns <-  xts(CalculateReturns(sp500))[-1]
+sp500_returns <-  xts(Return.calculate(sp500))[-1]
 names(sp500_returns) <- "sp500"
 newdates <- seq(as.Date(as.yearmon(time(sp500_returns)))[2], length=nrow(sp500_returns), by="1 month") - 1
 sp500_returns <- xts(sp500_returns,newdates)
@@ -213,7 +212,7 @@ library(xts) # Its function plot.zoo make simple, but attractive, time series pl
 # dates have the format "YYYY-MM-DD"
 sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1985-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
 library(PerformanceAnalytics)
-sp500_returns <-  xts(CalculateReturns(sp500))[-1]
+sp500_returns <-  xts(Return.calculate(sp500))[-1]
 names(sp500_returns) <- "sp500"
 newdates <- seq(as.Date(as.yearmon(time(sp500_returns)))[2], length=nrow(sp500_returns), by="1 month") - 1
 sp500_returns <- xts(sp500_returns,newdates)
@@ -293,7 +292,7 @@ library(xts) # Its function plot.zoo make simple, but attractive, time series pl
 # dates have the format "YYYY-MM-DD"
 sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1985-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
 library(PerformanceAnalytics)
-sp500_returns <-  xts(CalculateReturns(sp500))[-1]
+sp500_returns <-  xts(Return.calculate(sp500))[-1]
 names(sp500_returns) <- "sp500"
 newdates <- seq(as.Date(as.yearmon(time(sp500_returns)))[2], length=nrow(sp500_returns), by="1 month") - 1
 sp500_returns <- xts(sp500_returns,newdates)
@@ -427,7 +426,7 @@ library(xts) # Its function plot.zoo make simple, but attractive, time series pl
 # dates have the format "YYYY-MM-DD"
 sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1985-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
 library(PerformanceAnalytics)
-sp500_returns <-  xts(CalculateReturns(sp500))[-1]
+sp500_returns <-  xts(Return.calculate(sp500))[-1]
 names(sp500_returns) <- "sp500"
 newdates <- seq(as.Date(as.yearmon(time(sp500_returns)))[2], length=nrow(sp500_returns), by="1 month") - 1
 sp500_returns <- xts(sp500_returns,newdates)
@@ -514,7 +513,7 @@ library(xts) # Its function plot.zoo make simple, but attractive, time series pl
 # dates have the format "YYYY-MM-DD"
 sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1985-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
 library(PerformanceAnalytics)
-sp500_returns <-  xts(CalculateReturns(sp500))[-1]
+sp500_returns <-  xts(Return.calculate(sp500))[-1]
 names(sp500_returns) <- "sp500"
 par(mfrow = c(2,1))
 chart.RollingPerformance(R=sp500_returns , width=6,
@@ -553,7 +552,7 @@ library(xts) # Its function plot.zoo make simple, but attractive, time series pl
 sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1985-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="d")
 plot.zoo(sp500)
 library(PerformanceAnalytics)
-sp500_returns <-  xts(CalculateReturns(sp500))[-1]
+sp500_returns <-  xts(Return.calculate(sp500))[-1]
 names(sp500_returns) <- "sp500"
 ```
 
@@ -628,13 +627,13 @@ library(xts) # Its function plot.zoo make simple, but attractive, time series pl
 sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1985-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="d")
 plot.zoo(sp500)
 library(PerformanceAnalytics)
-sp500_daily <-  xts(CalculateReturns(sp500))[-1]
+sp500_daily <-  xts(Return.calculate(sp500))[-1]
 names(sp500_daily) <- "sp500_daily"
 
 sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1985-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
 plot.zoo(sp500)
 library(PerformanceAnalytics)
-sp500_monthly <-  xts(CalculateReturns(sp500))[-1]
+sp500_monthly <-  xts(Return.calculate(sp500))[-1]
 names(sp500_monthly) <- "sp500_monthly"
 par( mfrow = c(1,2) , mar=c(3,2,2,2))
 chart.Histogram(sp500_daily, methods = c( "add.density", "add.normal"))
@@ -700,7 +699,7 @@ library(xts) # Its function plot.zoo make simple, but attractive, time series pl
 sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1985-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
 plot.zoo(sp500)
 library(PerformanceAnalytics)
-sp500_monthly <-  xts(CalculateReturns(sp500))[-1]
+sp500_monthly <-  xts(Return.calculate(sp500))[-1]
 names(sp500_monthly) <- "sp500_monthly"
 chart.Histogram(sp500_monthly, methods = c( "add.density", "add.normal"))
 ```
@@ -756,7 +755,7 @@ library(xts) # Its function plot.zoo make simple, but attractive, time series pl
 sp500 <- get.hist.quote(instrument="^GSPC",start=as.Date("1985-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
 plot.zoo(sp500)
 library(PerformanceAnalytics)
-sp500_monthly <-  xts(CalculateReturns(sp500))[-1]
+sp500_monthly <-  xts(Return.calculate(sp500))[-1]
 names(sp500_monthly) <- "sp500_monthly"
 ```
 

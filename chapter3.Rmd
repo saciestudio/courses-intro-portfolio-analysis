@@ -1,6 +1,6 @@
 ---
-title       : Inputs for optimization
-description : For optimizing the portfolio investment decisions and understanding the sources of performance and risk, it is crucial to understand the multivariate nature of the return distribution of the risky assets.  In this chapter, you learn how to estimate the vector of expected return and the covariance matrix and to connect them to the portfolio return distribution.  
+title       : Reverse engineering 
+description : In addition to studying portfolio performance based on the observed portfolio return series, it is relevant to reverse engineer those performance measure and find out how individual (expected) returns, volatilities and correlations interact to determine the total portfolio performance. 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1   key:27fc122215
 ## The sources of portfolio performance
@@ -37,7 +37,7 @@ bond_prices <-  bond_prices/as.numeric(bond_prices[1])
 ### plot
 weights <- c(0.6,0.4)
 prices <- cbind(eq_prices,bond_prices)
-returns <- CalculateReturns(prices)
+returns <- Returns.calculate(prices)
 returns <- returns[(-1),]
 returns_6040 <- Return.portfolio(returns, weights,rebalance_on="months")
 # check: all.equal( as.numeric(returns_6040),as.numeric(0.6*returns[,1]+0.4*returns[,2])  )
@@ -56,7 +56,7 @@ bond_prices <- xts(bond_prices,newdates)
 prices <- cbind(eq_prices,bond_prices)
 colnames(prices) <- c("equities","bonds")
 # calculate returns
-returns <- CalculateReturns(prices)
+returns <- Returns.calculate(prices)
 returns <- returns[(-1),]
 returns_bonds <- returns$bonds
 returns_equities <- returns$equities
@@ -99,7 +99,7 @@ bond_prices <- xts(bond_prices,newdates)
 prices <- cbind(eq_prices,bond_prices)
 colnames(prices) <- c("equities","bonds")
 # calculate returns
-returns <- CalculateReturns(prices)
+returns <- Returns.calculate(prices)
 returns <- returns[(-1),]
 returns_bonds <- returns$bonds
 returns_equities <- returns$equities
@@ -187,7 +187,7 @@ colnames(prices) <- c("equities","bonds")
 # load package
 library(PerformanceAnalytics)
 # calculate returns
-returns <- CalculateReturns(prices)
+returns <- Returns.calculate(prices)
 returns <- returns[(-1),]
 returns_bonds <- returns$bonds
 returns_equities <- returns$equities
@@ -263,7 +263,7 @@ colnames(prices) <- c("equities","bonds")
 # load package
 library(PerformanceAnalytics)
 # calculate returns
-returns <- CalculateReturns(prices)
+returns <- Returns.calculate(prices)
 returns <- returns[(-1),]
 returns_bonds <- returns$bonds
 returns_equities <- returns$equities
@@ -336,7 +336,7 @@ comm_prices <-  comm_prices/as.numeric(comm_prices[1])
 ### plot
 
 prices <- cbind(eq_prices,bond_prices,re_prices,comm_prices)
-returns <- CalculateReturns(prices)
+returns <- Returns.calculate(prices)
 returns <- returns[(-1),]
 temp <- c( as.numeric(eq_prices), as.numeric(bond_prices),as.numeric(re_prices), as.numeric(comm_prices)   )
 ylim <- c( min( temp ) , 1.4*max(temp) )
@@ -356,7 +356,7 @@ comm_prices <- xts(comm_prices,newdates)
 prices <- cbind(eq_prices,bond_prices,re_prices,comm_prices)
 colnames(prices) <- c("equities","bonds","realestate","commodities")
 # calculate returns
-returns <- CalculateReturns(prices)
+returns <- Returns.calculate(prices)
 returns <- returns[(-1),]
 ```
 
@@ -428,7 +428,7 @@ comm_prices <- xts(comm_prices,newdates)
 prices <- cbind(eq_prices,bond_prices,re_prices,comm_prices)
 colnames(prices) <- c("equities","bonds","realestate","commodities")
 # calculate returns
-returns <- CalculateReturns(prices)
+returns <- Returns.calculate(prices)
 returns <- returns[(-1),]
 ```
 
