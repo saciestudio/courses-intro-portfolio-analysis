@@ -1,6 +1,6 @@
 ---
 title       : Analyzing performance 
-description : The history of portfolio returns contains valuable information about how much the investor can expect to gain or lose. This chapter introduces the R functionality to analyze the investment performance based on a statisical analysis of the portfolio returns. It includes graphical analysis and the calculation of performance statistics expressing average return, risk and risk-adjusted return over rolling estimation samples. 
+description : The history of portfolio returns reveals valuable information about how much the investor can expect to gain or lose. This chapter introduces the R functionality to analyze the investment performance based on a statisical analysis of the portfolio returns. It includes graphical analysis and the calculation of performance statistics expressing average return, risk and risk-adjusted return over rolling estimation samples. 
 
 --- type:VideoExercise lang:r xp:50 skills:1 key:c4b994ff53
 ## The different dimensions of portfolio performance
@@ -134,7 +134,7 @@ In this exercise, you need to do a descriptive analysis of the mean and volatili
 
 
 *** =instructions
-- Compute the mean value of the return series.
+- Compute the arithmetic and geometric mean value of the return series, using the functions [mean](http://www.rdocumentation.org/packages/base/functions/mean) and [mean.geometric](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/mean.geometric).
 - Compute the standard deviation of the return series. 
 *** =hint
 The functions `mean` and `sd` are standard functions in R to estimate the mean and standard deviation.
@@ -170,6 +170,7 @@ sp500_returns <- xts(sp500_returns,newdates)
 ```{r}
 # Compute the mean monthly returns 
 mean(sp500_returns)
+mean.geometric(sp500_returns)
 # Compute the standard deviation
 sd(sp500_returns)  
 ```
@@ -606,12 +607,13 @@ success_msg("Well done!")
 
 Performance evaluation is highly sensitive to the investment horizon. We already notice the time-variation and the properties of mean-reversion in returns and volatility. By the central limit theorem, it turns out that the longer the horizon over which a return is compute, the more normal its distribution is. This property of aggregational Gaussianity is illustrated in the plot environment showing comparing the histogram of the monthly and daily return of the S&P 500 over the period 1986 till current date. 
 
-Let us verify whether the [skewness](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/skewness) and [kurtosis](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/kurtosis) statistics confirm this graphical analysis. By default, the [kurtosis](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/kurtosis)  reports the excess kurtosis (that is, the kurtosis minus three). Let us then use the [jarque.bera.test](http://www.rdocumentation.org/packages/tseries/functions/jarque.bera.test) to see whether the null hypothesis of a normal distribution can be rejected at a significance level of 5%. 
+Let us verify whether the [skewness](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/skewness) and [kurtosis](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/kurtosis) statistics confirm this graphical analysis. By default, the [kurtosis](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/kurtosis)  reports the excess kurtosis (that is, the kurtosis minus three). 
  
 
 *** =instructions
-- Compute the skewness and excess kurtois of `sp500_daily` and `sp500_monthly`.
-- Test for normality in the two series using the Jarque Bera test. 
+- Compute the skewness  of `sp500_daily` and `sp500_monthly`.
+- Compute the   excess kurtois of `sp500_daily` and `sp500_monthly`.
+    
 
 *** =hint
 hint comes here
@@ -648,8 +650,7 @@ chart.Histogram(sp500_monthly, methods = c( "add.density", "add.normal"))
 # excess kurtois 
 
 
-# Jarque Bera test 
-
+   
 
 ```
 
@@ -661,9 +662,7 @@ skewness(sp500_monthly)
 # excess kurtois 
 kurtosis(sp500_daily)
 kurtosis(sp500_monthly)
-# Jarque Bera test 
-jarque.bera.test(sp500_daily)
-jarque.bera.test(sp500_monthly) 
+ 
 ```
 
 *** =sct
@@ -676,12 +675,12 @@ success_msg("Well done!")
 ## Downside risk measures
 
 The standard deviation gives equal weight to positive and negative returns in calcuting the return variability. 
-When the return distribution is asymmetric, investors use additional risk measures that focus on describing the potential losses. One such measure of downside risk is the [SemiDeviation](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/DownsideDeviation.html) computing the standard deviation of the negative returns.  The corrresponding risk-adjusted return is the Sortino ratio, defined as the average portfolio return, divided by the semideviation. It is an alternative for the Sharpe ratio that takes the non-normality of the return distribution into account by using the semideviation as risk measure rather than the standard deviation. 
+When the return distribution is asymmetric, investors use additional risk measures that focus on describing the potential losses. One such measure of downside risk is the [SemiDeviation](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/DownsideDeviation.html) computing the variability of the below-average return around the mean return.  
 
 A further popular measure is the so-called "Value-at-Risk" at a pre-definity loss probability of e.g. 5%. Loosely speaking, it corresponds to the 5% quantile of the return distribution, such that a more negative return can only happen with a probability of 5%. The "expected shortfall"" at 5% is the average return when the return is below this 5% quantile. 
 
 *** =instructions
-- Compute the [SortinoRatio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/SortinoRatio) of the monthly returns.
+- Compute the [SemiDeviation](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/SemiDeviation) of the monthly returns.
 - Use the default implementation in the function [VaR](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/VaR.html) to estimate the 2.5% and 5% value-at-risk of a monthly investment in S&P 500 returns. 
 - Use the default implementation in the function [ES](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/ES.html)  to estimate the 2.5% and 5% expected shortfall of a monthly investment in S&P 500 returns. 
 
