@@ -589,8 +589,8 @@ returns <- returns[(-1),]
 success_msg("Well done!")
 ```
 
---- type:NormalExercise lang:r xp:100 skills:1 key:6d3bdc717d87317d8c4ccf468836039b35f78440
-## Out of sample performance evaluation
+--- type:NormalExercise lang:r xp:100 skills:1  
+## It ain't over
 
 Importance of optimizing portfolios: Diagram of the different steps: 
 1) define objectives and constraint
