@@ -1,5 +1,5 @@
 ---
-title       : Reverse engineering 
+title       : Reverse engineering portfolio performance
 description : In addition to studying portfolio performance based on the observed portfolio return series, it is relevant to reverse engineer those performance measure and find out how individual (expected) returns, volatilities and correlations interact to determine the total portfolio performance. 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1   key:27fc122215
