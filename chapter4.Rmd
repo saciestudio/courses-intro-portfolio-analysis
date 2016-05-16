@@ -359,6 +359,7 @@ sort(round(mweights[ vpsd==min(vpsd),],2),decreasing=TRUE)
 # To see this compute for each portfolio, the maximum weight and plot
 # We have 100 portfolios, a row in mweights corresponds to a portfolio
 # plot the maximum weights
+minvarpm = vpm[vpsd==min(vpsd)]
 plot(apply(mweights[ vpm>=minvarpm,],1,"max"),type="l",
      main="Max weight for each of the efficient portfolios", 
      xlab="",ylab="")
