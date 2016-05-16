@@ -282,7 +282,7 @@ grid = seq(min(stockmu),max(stockmu),length.out=100 )
 vpm = vpsd = mweights = c()
 
 for( mutarget in grid ){
-  out = try(portfolio.optim(x = returns.estim,pm=mutarget),silent=TRUE)
+  out = try(portfolio.optim(x = returns ,pm=mutarget),silent=TRUE)
   if(class(out)!="try-error"){
     vpm = c(vpm,out$pm)
     vpsd = c(vpsd,out$ps)
@@ -331,7 +331,7 @@ grid = seq(min(stockmu),max(stockmu),length.out=100 )
 vpm = vpsd = mweights = c()
 
 for( mutarget in grid ){
-  out = try(portfolio.optim(x = returns.estim,pm=mutarget),silent=TRUE)
+  out = try(portfolio.optim(x = returns ,pm=mutarget),silent=TRUE)
   if(class(out)!="try-error"){
     vpm = c(vpm,out$pm)
     vpsd = c(vpsd,out$ps)
