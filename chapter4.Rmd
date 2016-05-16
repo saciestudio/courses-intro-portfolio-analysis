@@ -314,6 +314,7 @@ hint comes here
 # pec
 library(xts)
 library(PerformanceAnalytics)
+library(tseries)
 download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
 # load("prices.Rdata")
 prices<- readRDS("prices.rds") 
