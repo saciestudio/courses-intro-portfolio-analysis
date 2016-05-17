@@ -95,7 +95,7 @@ Its calculation proceeds also in three steps.  First, the initial weights of the
 
 In the slide you see how to apply this formula to compute the return for our example portfolio with two assets.
 
-We  first compute the initial portfolio weights. Since the initial value of the first asset is 200 USD and the total value invested is 500USD, the initial weight of asset 1 is 40%. The remainder of 60% is then weight of asset 2. 
+We  first compute the initial portfolio weights. Since the initial value of the first asset is 200 USD and the total value invested is 500USD, the initial weight of asset 1 is 40%. The remainder of 60% is the weight of asset 2. 
 
 Then, in a second step, we need to compute the returns for each of the assets. For asset 1, we obtain that the individual return is -10%, while for asset 2, the return  is  +10%. 
 
@@ -104,7 +104,7 @@ Finally, we can combine those results and compute the portfolio return by summin
 Adding -4% and  +6% gives us the portfolio return of 2%, which is exactly the same number as obtained before.  
 
 ***
-The next interactive exercises put this theory in practice.  We will compute the portfolio return using a summation over the vector obtained by multiplying the vector of initial portfolio weights with the vector of returns.
+The next interactive exercises put this theory in practice. 
 
 ***
 
