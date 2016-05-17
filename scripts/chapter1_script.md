@@ -1,4 +1,4 @@
-# Video 1: Welcome to the course (word count: 538)
+# Video 1: Welcome to the course  
 
 Hi! Do you think that successful traders and portfolio managers are just lucky? Do you believe that a portfolio of stocks selected by a blind-folded monkey is optimal?  Well, I don’t. And I hope that by doing this course you will find out how portfolio analysis in R can add value to your portfolio management. 
 
@@ -12,7 +12,7 @@ The advisory is about balancing risk and reward in their investments. My baselin
 
 There are two simple tricks to reduce the risk of suffering large losses. 
 
-The first one is to seek portfolio risk diversification. This means that one should avoid investing in one single asset, but allocate the wealth across investments in different assets. Such a combination of investments is called a portfolio. 
+The first one is to seek portfolio risk diversification. This means that one should avoid investing in one single asset, but instead invest in many different assets. Such a combination of investments is called a portfolio. 
 
 When I review portfolios, I often find that by choosing more intelligent combinations of investments, it becomes possible to increase the portfolio’s expected return and reduce the risk. 
 
@@ -20,32 +20,32 @@ When I review portfolios, I often find that by choosing more intelligent combina
 A second golden rule in investing is to always test the portfolio strategy on historical data. And, once you are trading the strategy, to constantly monitor its performance. For this reason, Datacamp is one of the best ways to learn portfolio analysis: I will teach you the theory in the videos and provide you the R instructions to do the portfolio analysis in practice. 
 ***
 The course proceeds in four chapters. 
-In Chapter 1 I will introduce the basic variables in portfolio analysis, namely the portfolio weights and the portfolio returns. The portfolio weights tell you the percentage of total value invested in each of the assets. The portfolio returns measure the relative increase in portfolio value over the period.  I will show you how the portfolio weights and returns are connected, and how to automate the calculation. 
-In Chapter 2 you will learn how to evaluate the portfolio performance.  You will see that portfolio performance can be analyzed in different ways, depending on the type of risk and reward measure you wish to use.  
-Chapter 3 is about the sources of portfolio performance. I will show you how the individual risk and rewards of the different investments in the portfolio interact with each other to determine the aggregate portfolio reward and risk. 
-In Chapter 4, I’ll show you how optimize the portfolio weights in such a way that the obtained portfolio cannot be beaten by any other portfolio in terms of offering a higher expected return for the same of lower level of risk. 
+In Chapter 1 I will introduce the basic variables in portfolio analysis, namely the portfolio weights and the portfolio returns. The portfolio weights tell you the percentage of total value invested in each of the assets. The portfolio returns measure the relative increase in portfolio value over the period.  I will show you how the portfolio weights and returns are connected, and how to do the calculation. 
+In Chapter 2 you will learn how to use measures of reward and risk to evaluate the portfolio performance.  We will be using average returns, volatility, Sharpe ratio and even downside risk measures, such as the portfolio value-at-risk and expected shortfall. 
+Chapter 3 is about the drivers of portfolio performance. I will show you how the individual risk and rewards of the different investments in the portfolio interact with each other to determine the total portfolio return and risk. 
+Finally, in Chapter 4, I’ll show you how to optimize the portfolio weights in such a way that the obtained portfolio cannot be beaten by any other portfolio in terms of offering a higher expected return for the same or lower level of risk. 
 
 ***
 All together, these four chapters teach you to analyze portfolio returns in R, which is a crucial skill to make investment profits without taking excessive risks. 
 
  
 
-# Video 2: The portfolio weights (word count: 411)
+# Video 2: The portfolio weights 
 
 In the previous example, I intentionally chose two companies selling a similar product. Still, the analysis showed that the value of the stocks can diverge over time. 
  
 So how to decide between those two companies? Flip a coin? 
 
-No! In most cases, the rational decision is not to invest in either one or the other, but to reduce our risk by holding a portfolio that is invested in both of them.  
+No! In most cases, the rational decision is not to invest in either one or the other, but to reduce our risk by holding a portfolio that is invested in both of them.  This is called diversifying your risks. 
 
 ***
-Thus a crucial element in analyzing portfolios is to investigate how the investments are spread across the different assets. This is done by computing the portfolio weight of each asset, defined as the value in that asset, relatively to the total investment value. 
+So how good is your portfolio diversification? To answer this question you need to investigate how the portfolio investments are spread across the different assets. This is done by computing the portfolio weight of each asset. This means that we compute the ratio between the value of one investment in the portfolio, relatively to the total value of all investments in the portfolio. 
 
 ***
-Suppose, for example, that there are N different investments, each with a value of Vi. The weights of each investment is given by its investment value, divided by the total investment value.
+Suppose, for example, that there are N different investments, each with their own value Vi. Then the weight of investment i equals Vi divided by the sum of the value of all the investments in the portfolio.  
 
 ***
-The corresponding R code is simple. Let values be the vector holding the values invested in the different assets. Then the corresponding weight vector is simply that vector, divided by its sum. Of course this vector sums to unity. 
+The corresponding R code is simple. Suppose that values is the vector holding the values invested in the different assets. Then the corresponding weight vector is simply that vector of values, divided by its sum. Of course this vector sums to unity. 
 
 ***
 
@@ -53,87 +53,94 @@ In Chapter 4 we will see how to optimize the choice of portfolio weights. In the
 
 A first approach is to concentrate the investment bet in one risky asset. This approach is speculative and very likely to be inefficient. 
 
-When all assets are similar in terms of risk and reward, a better approach is to aim for perfect diversification and invest the same amount in each risky asset. 
+When all assets are similar in terms of risk and reward, a better approach is to aim for perfect diversification and invest the same amount in each risky asset. This the so-called equal weighting approach. 
 
 Another popular approach is to set weights relatively to the total market value of the risky assets. It implies overweighting stocks of big firms and underweighting stocks of small firms.
 
 ***
-These are only examples of the large number of possible approaches to set portfolio weights. For us, the important conclusion to remember is that to avoid extreme losses, it is definitely not a good idea to put all your eggs in one basket. And, once you agree to invest in several assets, you will need to decide on the portfolio weights to determine how much of the total investment budget is allocated to each of the assets.  
+These are only a few examples of the large number of possible approaches to define  portfolio weights. 
 
+For us, the important conclusion to remember is that to avoid extreme losses, it is definitely not a good idea to put all your eggs in one basket. 
 
 ***
 
-# Video 3: The portfolio return (word count: 603)
+# Video 3: The portfolio return 
 
 Analyzing the portfolio weights reveals the investment bets. The larger the weight of an asset in the portfolio, the more influential it will be in determining the future value of the portfolio. When studying this impact, investors typically do not analyze the change in the investment value in absolute terms, but in relative terms. This leads them to compute simple returns, defined as the change in value over the period, relatively to the initial value. 
 
 ***
 The simple return is thus the final value minus the initial value, divided by the initial value. 
 
-As an example, suppose the initial value is 100 USD, the final value is 120 USD. Then the return on that investment equals 20%. 
+As an example, suppose the initial value is 100 USD, the final value is 120 USD. Then the return on that investment equals 20%, obtained by taking the difference between 120 and 100 USD and dividing it by 100.  
 
 ***
 
-In the slide you see how we can apply this definition for computing portfolio returns.  This involves thus three steps. First, for the initial date, we need to compute the total value invested as the sum of the values of the different investments. Second, for the final date, we need to sum the end-of period values of the investments to obtain the final portfolio value. Then, as the third step, we can compute the portfolio return as the percentage change of the final value compared to the initial value.
+In the slide I show you how we can apply this definition for computing portfolio returns.  This involves three steps. First, for the initial date, we need to compute the total value invested as the sum of the values of the different investments. Second, for the final date, we have to sum the final values of the individual investments to obtain the final portfolio value. Then, we can compute the portfolio return as the percentage change of the final value compared to the initial value.
 
 ***
 
-As an example, we consider here a 2-asset portfolio that invests 200 USD in asset 1 and 300 USD in asset 2. The end value is 180 and 330 USD. 
+As an example, let us consider a 2-asset portfolio that invests 200 USD in asset 1 and 300 USD in asset 2. The end value is 180 and 330 USD. 
 
-We thus find that the total initial portfolio value is 500 USD, while the total end value is 510 USD. Then the simple return on the portfolio is the 10 USD change in value, divided by the initial 500USD invested, yield a return of 2%.   
+If we sum the values, we find that the total initial value of the portfolio is 500 USD, while the total final value is 510 USD.  It follows that the simple return on the portfolio is the 10 USD change in value, divided by the initial 500USD invested, which gives us a return of 2%.   
 
 *** 
-A disadvantage of this calculation method using total initial and final portfolio values is that it does not show how the portfolio weights determine the portfolio return. 
 
-Let us therefore consider a different formula, in which the portfolio return is computed as the weighted average of the returns of the underlying assets. Its calculation proceeds also in three steps.  First, the initial weights of the positions are computed. Secondly, the return on each of the individual positions is determined. Then, in the third step, the portfolio return is computed as the sum over the products between the initial weights and the corresponding returns. 
+A disadvantage of this calculation method is that it does not show how the portfolio weights determine the portfolio return. 
 
-***
+Let us therefore consider a different formula, in which the portfolio return is computed as the weighted average of the returns of the underlying assets. 
 
-Let us now apply this formula to our example portfolio with two assets.
-
-We thus first compute the portfolio weights at the beginning of the period. Since the first asset’s value is 200 USD and the total value invested is 500USD, the initial weight of asset 1 is 40%. The weight of asset 2 is 60%. 
-
-Then, in a second step, we need to compute the returns for each of the assets. For asset 1, we obtain that the individual return -10%, while for asset 2, the returns is  +10%. 
-
-Combining those results, we can compute the portfolio return by summing over the weights multiplied by their respective returns. The first term is 40% times -10%, and thus -4%.  The second term is 60% times 10% and thus +6%. 
-
-The sum of both terms is the portfolio return of 2%, which is exactly the same number as obtained before, using the formula for the percentage change in portfolio value.  
-
-***
-In formula notation, the portfolio return thus equals the weighted average of the individual returns. The corresponding code in R is simple. It just involves a summation of the element in the vector obtained by multiplying the vector of portfolio weights with the vector of returns.
+Its calculation proceeds also in three steps.  First, the initial weights of the positions are computed. Secondly, the return on each of the individual positions is determined. Then, in the third step, the portfolio return is computed as the sum over the products between the initial weights and the corresponding returns. 
 
 ***
 
-The next interactive exercises put this theory in practice. 
+In the slide you see how to apply this formula to compute the return for our example portfolio with two assets.
+
+We  first compute the initial portfolio weights. Since the initial value of the first asset is 200 USD and the total value invested is 500USD, the initial weight of asset 1 is 40%. The remainder of 60% is then weight of asset 2. 
+
+Then, in a second step, we need to compute the returns for each of the assets. For asset 1, we obtain that the individual return is -10%, while for asset 2, the return  is  +10%. 
+
+Finally, we can combine those results and compute the portfolio return by summing over the weights multiplied by their respective returns. The first term is the weight of 40% times the returns of -10%, which gives us  -4%.  The second term is the weight of asset 2, 60% times its return of 10%, which gives us +6%. 
+
+Adding -4% and  +6% gives us the portfolio return of 2%, which is exactly the same number as obtained before.  
+
+***
+The next interactive exercises put this theory in practice.  We will compute the portfolio return using a summation over the vector obtained by multiplying the vector of initial portfolio weights with the vector of returns.
+
+***
+
 
 # Video 4: The PerformanceAnalytics package (word count: 403)
 
 ***
 
-At this point you know the ins and outs of computing a portfolio return over a single period running from a starting date to an ending date. 
+At this point you know the ins and outs of computing a portfolio return over a single period running from a start date to an end date. 
 
-In practice, we will need to compute the returns over many periods. In fact, the longer the history of returns, the more information we have about the underlying portfolio performance. 
-
-***
-
-Real-life analysis of portfolio returns thus requires a loop over the different dates. In this video, I will show you how to do this in a computationally convenient way using the R package PerformanceAnalytics. This is the go-to package for analyzing portfolio return in R and has been written by two quants from the city of Chicago: Peter Carl and Brian Peterson.   
+In practice, we will need to compute the returns for many periods. In fact, the longer the history of returns, the more information we have about the underlying portfolio performance. 
 
 ***
 
-Alright. Our problem to solve is thus to compute the portfolio returns over different periods. To obtain this time series of portfolio returns, we will be using two functions in R, namely: the function Return.calculate and the function Return.portfolio. 
+Real-life analysis of portfolio returns thus requires a loop over the different dates. In this video, I will show you how to do this using the R package PerformanceAnalytics. This is the go-to package for analyzing portfolio returns in R and has been written by two quants from the city of Chicago: Peter Carl and Brian Peterson.   
 
 ***
 
-The input data for the function Return.calculate is the time series of end-of-period prices of the different investments. This should come as an object of the xts-time series class, meaning that the rows are ordered in time, with dates that are preferably indicated as YEAR YEAR YEAR YEAR dash MONTH MONTH dash DAY DAY. 
-
-The function Return.calculate transforms the time series of prices into a time series of returns. Each observation is the percentage change in value over that period. The first row consists of NA’s.  The returs are thus not available for the first date, because they cannot be computed, since there is no previous price available to compare with the current price. This first row can thus be removed, as shown on the slide. 
+So, how to compute the time series of portfolio returns in R. Well, this is made easy by using two functions in R, namely: the function Return.calculate and the function Return.portfolio. 
 
 ***
 
-To compute the time series of portfolio returns, we also need to set the portfolio weights.  There are several options. The default option is to set only the initial weights for the first date and then have the subsequent weights be defined by the price dynamics. The alternative is to pursue a dynamic approach to portfolio allocation. The action of buying and selling assets to actively change the portfolio weights is called rebalancing.  
+The main argument for the function Return.calculate is the time series of end-of-period prices of the different investments. This should come as an object of the xts-time series class, meaning that the rows are ordered in time. The corresponding dates are preferably indicated as YEAR YEAR YEAR YEAR dash MONTH MONTH dash DAY DAY. 
+
+By default, the function Return.calculate transforms the time series of prices into a time series of returns, where each observation is the percentage change in value over that period. 
+
+Note that the first row of the obtained return data consists of NA’s. This means that for the first date the returns are not available. This is normal, since for the first date, there is no previous price available to compare with the current price. This first row can thus be removed, as shown on the slide. 
 
 ***
 
-Given the returns and the weights, we can then compute the time series of portfolio returns using the function Return.portfolio. This is a powerful function, with at least three arguments that we need to specify: the return data argument, the weights argument and the rebalancing argument defining whether and how frequent the portfolio needs to be rebalanced. 
+As such we have the time series of returns on the individual investments. To compute the time series of portfolio returns, we also need to define the time series of initial portfolio weights.  There are several possibilities. The default choice is to set only the initial weights for the first date and then have the subsequent weights be automatically determined by the price dynamics. 
 
-In the exercises, we will see more details about each of these arguments. 
+The alternative is to pursue a dynamic approach to portfolio allocation, in which the action of buying and selling assets to actively change the portfolio weights is called rebalancing.  
+
+***
+
+Given the returns and portfolio weights, we can then finally compute the time series of portfolio returns using the function Return.portfolio. This is a powerful function, with at least three arguments that need to be specified: the return data argument, the weights argument and the rebalancing argument defining whether and how frequent the portfolio needs to be rebalanced. 
+
+Without going in the details, let’s go to the exercises and learn by doing about these arguments. 
