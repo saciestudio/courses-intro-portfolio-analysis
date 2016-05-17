@@ -39,7 +39,7 @@ So how to decide between those two companies? Flip a coin?
 No! In most cases, the rational decision is not to invest in either one or the other, but to reduce our risk by holding a portfolio that is invested in both of them.  This is called diversifying your risks. 
 
 ***
-So how good is your portfolio diversification? To answer this question you need to investigate how the portfolio investments are spread across the different assets. This is done by computing the portfolio weight of each asset. This means that we compute the ratio between the value of one investment in the portfolio, relatively to the total value of all investments in the portfolio. 
+So how good is your portfolio diversification? To answer this question you need to investigate how the portfolio investments are spread across the different assets. This is done by computing the portfolio weight of each asset. This means that we compute the ratio between the value of one investment, relatively to the total value of all the investments in the portfolio. 
 
 ***
 Suppose, for example, that there are N different investments, each with their own value Vi. Then the weight of investment i equals Vi divided by the sum of the value of all the investments in the portfolio.  
@@ -55,7 +55,7 @@ A first approach is to concentrate the investment bet in one risky asset. This a
 
 When all assets are similar in terms of risk and reward, a better approach is to aim for perfect diversification and to invest the same amount in each risky asset. This the so-called equal weighting approach. 
 
-Another popular approach is to set weights relatively to the total market value of the risky assets. It implies overweighting stocks of big firms and underweighting stocks of small firms.
+Another popular approach is to set weights proportional to the total market value of the asset. It implies overweighting stocks of big firms and underweighting stocks of small firms.
 
 ***
 These are only a few examples of the large number of possible approaches to define  portfolio weights. 
