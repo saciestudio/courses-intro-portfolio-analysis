@@ -53,14 +53,14 @@ In Chapter 4 we will see how to optimize the choice of portfolio weights. In the
 
 A first approach is to concentrate the investment bet in one risky asset. This approach is speculative and very likely to be inefficient. 
 
-When all assets are similar in terms of risk and reward, a better approach is to aim for perfect diversification and invest the same amount in each risky asset. This the so-called equal weighting approach. 
+When all assets are similar in terms of risk and reward, a better approach is to aim for perfect diversification and to invest the same amount in each risky asset. This the so-called equal weighting approach. 
 
 Another popular approach is to set weights relatively to the total market value of the risky assets. It implies overweighting stocks of big firms and underweighting stocks of small firms.
 
 ***
 These are only a few examples of the large number of possible approaches to define  portfolio weights. 
 
-For us, the important conclusion to remember is that to avoid extreme losses, it is definitely not a good idea to put all your eggs in one basket. 
+For us, the important conclusion to remember is that, to avoid extreme losses, it is definitely not a good idea to put all your eggs in one basket. 
 
 ***
 
