@@ -1,156 +1,185 @@
-# Video 1:  The different dimensions of portfolio performance
+# Video 1:  The different dimensions of portfolio performance [word count: 623]
 
-This chapter is about studying the past portfolio returns to make sensible conclusions about the portfolio’s past performance and making reliable predictions about future portfolio performance. 
-
-***
-
-Such a study requires to define clearly what is meant by the term portfolio performance. 
+In this chapter, I will show you how to evaluate the performance of a portfolio. The evaluation is of course data-driven and will be done in R. We will be using statistical functions to analyze the past portfolio returns. This allows us to make sensible conclusions about the portfolio’s past performance and to make reliable predictions about future portfolio performance. 
 
 ***
 
-The first dimension to specify is the horizon over which we need describe the portfolio performance : Is it the performance over a short horizon such as one day or one month? Or is it the performance over a longer horizon, such as one quarter or a year. 
+To kick off an analysis of portfolio performance, we first need to specify the horizon over which we wish to describe the portfolio performance. It could be a short horizon such as one day or one month, or a longer period such as a year or the complete history for which a track record of past returns is available.
 
-Secondly, we need to distinguish the objective of the analysis: (i) Is it a backward looking investigation of past performance; (ii) or is it a forward looking prediction of future performance. 
+It is also important to understand that portfolio performance is a broad concept, which cannot be summarized by one number. Broadly speaking there are two dimensions, namely reward and risk. The rewards tells us the performance in terms of accumulating a maximum level of wealth, while risk has to do with the performance in terms of avoiding extreme losses. 
 
-In the first case, we will be treating all past returns as equally important and the analysis is descriptive. In the second case, the more recently observed returns are of higher importance, since they are more predictive about future performance than the distant past returns. 
-
-A third important distinction that we need to make is the type of performance. Is it the performance in terms of accumulating a maximum level of wealth (reward). Or is it the performance in terms of avoiding extreme losses (risk). Or is it a combination of both: achieving a high expected return at a low level of risk? 
 
 ***
 
-For the practical analysis in R we will need to define precise formulas to compute the type of performance we wish to describe. 
+For doing data analysis on performance, we need to translate the concept of reward and risk into a formula. In this video, I’ll focus on the portfolio mean return as a measure of reward, and the portfolio volatility as a measure of risk. 
 
-In terms of measuring reward and risk, the standard choice is to use the average return as a measure of reward and the standard deviation of the returns as the measure of risk.
+***
 
-More formally, suppose we have a sample of T portfolio return observations: R1, R2, R3 up to RT. 
-Then the average value of those T returns indicates how large on average the portfolio return is. There is risk in investing when the returns deviate from this average return. We will be calling the difference between the return and its mean value, the de-meaned return.
+The formula’s I will show assume that we have a sample of T portfolio return observations: R1, R2, R3 up to RT. 
+
+Then the portfolio mean return is estimated as the average value of those T returns. This is also called the arithmetic mean return. It indicates how the portfolio return is on average. The averaging is important: You win some, you lose some, but on average the portfolio return needs to be high enough to compensate for the investment risk. 
+
+***
+
+The investment risk originates from the fact the returns deviate from the average return. We will be calling the difference between the return and its mean value, the de-meaned return.
+
 The sample variance is then the average of the squared demeaned returns. It will have large values when the return can deviate a lot from the average value. 
 
+***
 
-Most often, we do not use the portfolio variance itself, but its square root, called the portfolio standard deviation. In finance, we often refer to the portfolio standard deviation as the portfolio volatility. .  
+Most often, we do not use the portfolio variance itself, but its square root, called the portfolio standard deviation, or also, the portfolio volatility. The higher the volatility, the higher is the probability of a large positive or negative return on your portfolio. 
+
+***
+
+The volatility thus causes risk. It also causes a mismatch between the average return and the actual investment return. 
+
+Suppose for example that the investor makes a 50% gain and a 50% loss. We thus have two returns: plus 50% and minus 50%. Then the mean return is zero, while, as you can see on the slide, the final value of the investment is only 75% of the initial value.   
+
+For that reason, investors prefer using the geometric mean return to take into account that there is no linear compensation in the returns.  
+
+As shown in the slide, the geometric mean return is obtained by first multiplying the total returns, and then raising that number to the power of one divided by the number of observations. If you then subtract one from that number, you obtain the geometric mean return.
+
+As you can see, in the case of a +50% and -50% return, the end value is 75% of the initial value, and the geometric mean is -13.4%.   
 
 ***
 
 Once we have the average return and volatility, we can start interpreting portfolio performance. In the next exercises, we will be doing this for the S&P 500 portfolio, which is invested in the 500 largest publicly listed US stocks and set weights proportional to the stocks' market capitalization. 
-The S&P 500 portfolio is generally considered as the most important benchmark portfolio for investors in US investors equities. 
+The S&P 500 portfolio is generally considered as the most important benchmark portfolio for investors in US stocks. 
+ 
 
-# Video 2:  The (annualized) Sharpe ratio
+# Video 2:  The (annualized) Sharpe ratio [word count: 606]
 
 We have now seen how to compute the mean and standard deviation of the monthly returns on a risky portfolio. To interpret these numbers, we need a benchmark such as the investment in a risk-free asset. Because there is no risk, the volatility of its return is zero and the return itself is called the risk free rate.
 
 ***
 
-I find it useful to consider this comparison between the risk-free asset and the risky portfolio in a scatter diagram, with on the x axis-the volatility of the portfolio return, and on the y-axis the expected return. We thus have two points on the graph.
-The first one is the risk free asset, for which volatility is of course zero, and the return is called the risk free rate. The second point on the graph is the risky portfolio for which the expected return is higher, in compensation for the risk taken.
+I find it useful to consider this comparison between the risk-free asset and the risky portfolio in a scatter diagram, with, on the x axis, the volatility of the portfolio return, and, on the y-axis, the expected return. We thus have two points on the graph.
+The first one is the risk free asset, for which the volatility is of course zero, and for which the expected return is called the risk free rate. The second point on the graph is the risky portfolio for which the expected return is higher, in compensation for the risk taken.
  
-
-The difference between the vertical dashed line show the excess return: the difference between the return on the risky portfolio and the risk free rate.  
-
-***
-
-Let's now look at the line connecting the two points. It is called the capital allocation line, as one can show that each point on this line corresponds to a portfolio invested in the risk free asset and the risky portfolio. 
-
-The slope of the line is called the risky portfolio's Sharpe ratio: it is the excess portfolio mean return, divided by its volatility. The Sharpe ratio thus shows the reward per unit of risk taken. It summarizes the balance between the excess portfolio return and the risk taken. 
+The vertical two-sided arrow indicates the difference between the expected return on the risky portfolio and the risk free rate. This difference is called the portfolio’s excess return. It tells you how much additional return you can expect on the risky portfolio compared to the risk-free rate. 
 
 ***
 
-As an example, suppose we have the following sample of eight monthly portfolio returns: -0.02  0.00  0.00  0.06  0.02  0.03 -0.01  0.04
+Let's now look at the line connecting the two points. This is called the capital allocation line. It connects the portfolio that is fully invested in the risk free asset with the risky portfolio. Each point in between those two portfolios is a portfolio that is invested in both the risk free asset and the risky portfolio. Going from left to right, the allocation to the risky portfolio increases. When we go beyond the risky portfolio, the investor takes leverage. She is borrowing money to invest more than she has in the risky portfolio.       
 
-Their average value is 1.5%. And their standard deviation is 2.7%. 
+***
 
-Assume a monthly risk free rate of 0.4%. Then the monthly Sharpe ratio is 0.41. 
+The slope of the line connecting the risk free rate and the risky portfolio is called the risky portfolio's Sharpe ratio: it is the excess portfolio mean return, divided by its volatility. 
+
+The Sharpe ratio thus shows the reward per unit of risk taken. It summarizes the balance between the excess portfolio return and the risk taken. 
+
+***
+
+We thus have seen three statistics to compute performance on a sample of historical returns: the mean return, the volatility and the Sharpe ratio. 
+
+As an illustration, suppose now that we have the sample of eight monthly portfolio returns listed on the slide.  
+
+Straightforward calculations then lead to the following numbers.
+
+The sample average is 1.5%. 
+The geometric average value is 1.46%. 
+
+Their standard deviation is 2.7%. 
+
+If we assume a monthly risk free rate of 0.4%, then the monthly Sharpe ratio is approximately 0.4. 
 
 
 ***
 
-There is one shortcoming of the previous table. It shows the performance over one month, while in professional investment reports, the performance is often reported in terms of annualized numbers to match with the performance over a one-year investment horizon.  
+There is one shortcoming of the previous table. It shows the performance over one month, while in professional investment reports, the performance is often reported in terms of annualized numbers to match with the performance over a one-year investment horizon. 
 
 ***
 
-For annualizing the volatility, the convention is to use the so-called square root of time rule. It consists of multiplying the monthly volatility with square root of 12.
+For the simple average, the convention is to do this by multiplying with 12.
+
+For the geometric average approach, we obtain the annualized return by raising the product of total returns to the power 12 divided by the number of observations. 
+
+And for annualizing the volatility, the convention is to use the so-called square root of time rule. It consists of multiplying the monthly volatility with the square root of 12.
 
 ***
 
-For annualizing the average returns, there are two possibilities.
+If we apply this to our sample of eight monthly returns, we then obtain a table in which not only the mean and volatility have increased, but also the Sharpe ratio. 
 
-The first one is called the simple time aggregation approach and consists of multiplying the monthly average return with 12.
+Since the mean is multiplied by 12, and the volatility by the square root of 12, the Sharpe ratio increases also with a factor equal to the square root of 12.  
 
-The second approach takes into account the effect of previous returns on subsequent returns. This is the geometric approach, which first computes the compound total return over the complete period of T months and then then scales it back to the monthly horizon by taking the power of 12 divided by the total number of observations.   
 
-In our example of 8 returns, we thus first compute the end-value of the investment over the eight months: (1+0.02)*(1+0%)*(1+O%)*(1+6%)*(1+2%)*(1+3%)*(1-1%)*(1+4%) yields 1.1237. Taking this to the power of 8 divided by 12 and subtracting 1 leads to an annualized geometric return of 19%.
+***
 
-Using the simple aggregation method, we would have obtained 1.5% times 12 = 18%.   
+And now, back to our long sample of S&P 500 returns, where you will be asked to compute the Sharpe ratio and annualized risk and return measures, using the functions in the package PerformanceAnalytics.
+# Video 3:  Time-variation in portfolio performance [word count: 338]
 
-The annualized volatility in this example is around 9%
-
-In the next exercises, we will be using PerformanceAnalytics to compute the Sharpe ratio and annualized risk and return measures. 
-
-# Video 3:  Time-variation in portfolio performance
-
-We have up till now entertained a static view on portfolio performance. But, because of the business cycle, the occurrence of unexpected events, and swings in the market psychology, portfolio performance tends to be anything but constant over time. . 
+We have up till now entertained a static view on portfolio performance. But, because of the business cycle, the occurrence of unexpected events, and swings in the market psychology, portfolio performance tends to be anything but constant over time. 
 
 ***
 In terms of the market direction, there are the bull market regimes in which stock prices tend to increase, and there are the bear market regimes in which stock prices tend to fall. 
 
 ***
-In terms of volatility, there are the calm market regime with persistently low volatility, and there are the more stressed regime with big spikes in volatility.
+In terms of volatility, there are the calm market regime with persistently low volatility, and there are the more stressed regimes with big spikes in volatility.
 
 ***
 
-In order to capture those dynamics in portfolio performance,  we need to conduct a conditional analysis and more weight must be given to the more recent observations than the distant observations.
+Note that those regimes are persistent. Once the volatility is higher than average, it tends to stay above average for some time. The current performance is thus better estimated, when we give more weight to the more recent observations than to the distant observations. 
 
 ***
 
-The standard approach of doing this is by the use of rolling estimation samples. Instead of estimating the performance measures on the full sample, we only take the $K$ most recent observations. So, the performance estimate at time $t$, is given by the performance computed on the returns $t$, $t-1$,...,$t-K+1$. The next one uses the observations $t+1$ through $t-K$. As such, we roll through time by adding the most recent observation and discarding the most distant one. 
+The standard approach of doing this is by the use of rolling estimation samples. Instead of estimating the performance measures on the full sample, we only take the K most recent observations. So, the performance estimate at time t is given by the performance computed on the returns t, t-1, t-2 up to t-K+1. 
+
+The next one uses the observations t+1 through t-K. As such, we roll through time by adding the most recent observation and discarding the most distant one. 
+
+.***
+
+On each subsample, the performance measure can be computed. This works for any type of performance measure.
+
+As an example, the graph shows the time line of annualized mean and volatility estimates obtained for the S&P 500 using rolling samples of three years.
+
+***  
+
+Why did I choose three years and not 1 year when making this plot? This is a question of taste.  We need to have a sufficiently large number of observations to reduce the effect of noise on the performance estimate. But, the longer the subperiod is, the more it smooths over the highs and lows in the data, and the more similar it will be to the performance measure obtained under the static view. 
+In the next exercises, you will get a feeling for this trade-off.   
+
+
+# Video 4:  The non-normality of the return distribution [word count: 604]
+
+Up to now, we have been using the portfolio volatility as our risk measure. Loosely speaking, the underlying assumption is that the portfolio return is normally distributed and thus that its density function is bell-shaped. It is symmetric such that gains are equally likely as losses of the same magnitude. 
 
 ***
 
-Rolling window estimation works for any type of performance measure. 
+For many financial assets, this assumption of a normal distribution is wrong. Their distribution tends to be skewed to left with tails that are fatter than those of a normal distribution. As a consequence, when zooming in on the left tail of the histogram of the financial returns, we often find that there are more extreme negative returns happening than is possible under a normal distribution. 
 
 ***
 
-An important practical question is the choice of window length. We need to have a sufficiently large number of observations to reduce the effect of noise on the performance estimate. But, the longer the subperiod is, the more it smooths over peaks and troughs, and the more similar it will be to the performance measure obtained under the static view. 
+When this happens, an investor is no longer satisfied with using only the standard deviation as the risk measure, but should be using also a downside risk measure that quantifies the risk of losing money by focusing on the left side of the distribution. 
+
+A straightforward way to turn the standard deviation into a downside risk measure is to remove the higher than average returns. We then obtain the so-called semideviation. 
+
+As can be seen on the slide, it is defined as the square root of the average variability of the lower than average returns around the mean.
 
 ***
 
-The optimal choice of window is thus a trade-off between timeliness in capturing the changes in performance and robustness to noise. In the next exercises, you will get a feeling for this trade-off.   
+Besides the semideviation, also the 5% portfolio value-at-risk and 5% expected shortfall are popular downside risk measures. They quantify the risk of the 5% most extreme losses. 
 
+To understand their definition, take a look again at the return distribution plot. The 5% value-at-risk is the return that is so extremely negative that there is only a 5% chance of observing a return that is even more negative. 
 
-# Video 4:  The non-normality of the return distribution
-
-Up to now, we have been using the portfolio volatility as our risk measure. The underlying assumption that is often made is that the portfolio return is normally distributed. This means that its density function is bell-shaped. It is symmetric such that gains are equally likely as losses of the same magnitude. 
-
-***
-
-For many financial assets, this assumption of a normal distribution is however wrong. Their distribution is often skewed to left, such that large negative returns are more likely to occur than large positive returns of the same magnitude.
+The 5% expected shortfall complements the 5% value at risk by showing the average value of those 5% most negative returns.   
 
 ***
 
-Moreover, the tail of the distribution is fatter than that of a normal distribution, as can be seen in this plot comparing the histogram of the S&P 500 return data with the density obtained under a normal distribution. Zooming in on the tails, it becomes clear that there are more extreme returns happening than is possible under a normal distribution. 
+In terms of performance measures, we have thus seen the mean and standard deviation, as well as downside risk measures such as the semideviation and value at risk. 
+
+Typically, investors also report the skewness and excess kurtosis of their portfolio returns to indicate two types of non-normality in the return distribution, namely asymmetry and fat tails.  
 
 ***
 
-There are various degrees of non-normality. One way to measure this is to use the portfolio skewness and excess kurtosis. They are computed in two steps.
+The skewness is designed such that it is approximately zero when the distribution is symmetric. When the skewness is negative, it indicates that large negative returns occur more often than large positive returns. A negative skewness thus corresponds to a distribution with a long left tail.
 
-First, the returns are standardized by subtracting the mean return, and dividing the de-meaned returns by the return standard deviation. 
-
-Then, the skewness is computing as the average of the third power of those standardized returns. When the distribution is  symmetric, the skewness should be close to 0. If it is skewed to the left, then the large negative returns, lead to a negative value for the skewness. And vice versa in case of positive skewness. 
-
-***
-The kurtosis is obtained by taking the fourth moment of the standardized returns. Under a normal distribution, the estimated kurtosis is close to 3. When higher than 3, there are more extremes in the tails than under the normal distribution and thus the distribution is fat-tailed. 
-
-
-Often people use the excess kurtosis, which is equal to the kurtosis minus 3, in order to compare it to a normal distribution. When the excess kurtosis is significantly positive, it indicates the presence of fat tails.l equal to the kurtosis in excess of the normal kurtosis. 
+The opposite is true in case of a positive skewness. Then large positive returns are more likely than large negative returns. 
 
 ***
 
-What is the consequencey of the non-normality for performance evaluation? It implies that if the distribution is heavy-tailed and negatively skewed, there is large probability of extreme negative returns, which is not visible in the standard deviation. We should thus use risk measures that focus only on the risk of losing money, called the downside risk.
+Besides skewness, also fat tails are a cause of non-normality. A distribution with fat tails is a distribution in which extremely large positive or negative returns occur more often than a normal distribution would predict. 
 
-In this plot, I show three such risk measures:
-(i) semideviation ....
-(ii) value at risk
-(iii) expected shortfall...
+The excess kurtosis is a statistic indicating fat tails. Its value is zero for the normal distribution. The larger the excess kurtosis, the thicker the tails compared to the tails of a normal distribution.
 
 ***
 
-Conclusion: non-normality is a typical feature of the return distribution and should be taken into account in the performance analysis. This will be illustrated in the following exercises.  
+Let’s now do the exercises to estimate the value of the skewness, excess kurtosis and downside risk for the S&P 500 portfolio. 

@@ -1,5 +1,5 @@
 ---
-title       : Reverse engineering  
+title       : Performance drivers
 description : In addition to studying portfolio performance based on the observed portfolio return series, it is relevant to reverse engineer those performance measure and find out how individual (expected) returns, volatilities and correlations interact to determine the total portfolio performance. 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1   key:27fc122215
@@ -504,7 +504,7 @@ success_msg("Well done!")
 //player.vimeo.com/video/108225030
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:0931e83c3a402b2fb2d78958981928a327428e4d
-## Portfolio risk attribution
+## Whodunit
 
 compute the portfolio risk budget... barplot? function [StdDev](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/StdDev)
 
