@@ -111,10 +111,11 @@ That’s it for now. Let’s go back to our sample of S&P 500 returns to put the
 
 # Video 3:  Time-variation in portfolio performance [word count: 338]
 
+
 Until now we have taken a static view on portfolio performance. But, due to the business cycle, the occurrence of unexpected events, and swings in the market psychology, portfolio performance tends to be anything but constant over time. 
 
 ***
-It is dynamics. In terms of market direction, there are the bull markets in which stock prices tend to increase, and there are the bear markets in which stock prices tend to fall. 
+It is dynamic. In terms of market direction, there are the bull markets in which stock prices tend to increase, and there are the bear markets in which stock prices tend to fall. 
 
 ***
 Then, in terms of market stress, we have periods in which markets are calm with persistently low volatility, and there are the more stressed regimes with big spikes in volatility.
@@ -127,7 +128,7 @@ Note that those regimes are persistent. Once the volatility is higher than avera
 
 The standard approach of doing this is by the use of rolling estimation samples. Instead of estimating the performance measures on the full sample, we only take the K most recent observations. This implies that the performance estimate at time t is given by the performance statistic computed on the sample of returns at time t,  t-1 ,  t-2  up to   t-K+1.  
 
-If we then move one observation further, and estimate the performance for the next date t+1, then we will be using the t+1 through t-K+2. 
+If we then move one observation further, and estimate the performance for the next date t+1, then we will be using the observations from t+1 till t-K+2. 
 As such, we roll through time by adding the most recent observation and discarding the most distant one. 
 
 .***
@@ -138,7 +139,7 @@ As an example, you can see here the time series plot of annualized mean and vola
 
 ***  
 
-Why did I choose three years and not 1 year when making this plot? This is a question of taste.  We need to have a sufficiently large number of observations to reduce the effect of noise on the performance estimate. But, the longer the subperiod is, the more it smooths over the highs and lows in the data. 
+Why did I choose three years and not 1 year when making this plot? This is a question of taste.  We need to have a sufficiently large number of observations to reduce the effect of noise on the performance estimate. But, the longer the subperiod is, the more it smooths over the highs and lows in the data, and the less informative it becomes about the most recently observed performance. 
 In the next exercises, you will get a feeling for this trade-off.   
 
 
