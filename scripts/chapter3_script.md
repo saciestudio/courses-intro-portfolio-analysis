@@ -43,7 +43,7 @@ The expectation of this product between the demeaned returns of asset 1 and asse
 
 ***
 
-The term covariance may be new for you, but probably you have already heard about correlations. If you know about correlations, then you also know about covariances, since the covariance of two asset returns is the products of their standard deviations and the correlation between the asset returns. 
+The term covariance may be new for you, but probably you have already heard about correlations. If you know about correlations, then you also know about covariances, since the covariance of two asset returns is the product of their standard deviations and the correlation between the asset returns. 
 
 ***
 
