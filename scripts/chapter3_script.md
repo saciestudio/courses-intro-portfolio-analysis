@@ -59,8 +59,6 @@ The drivers of the portfolio variance are the individual variances of the asset 
 
 ***
 Let’s do a few interactive exercises, to see what this means in practice. 
- 
-
 
 # Video 2: The general case using matrix notation [word count: 584 words]
 
@@ -71,23 +69,23 @@ When working with many assets, we just have to be careful about the many variabl
 ***
 
 The first matrix that we use is the matrix of portfolio weights.
-So, we have N assets. This means that we also have N portfolio weights: w1, w2, up to wN. We will stack them into a column-matrix of dimension N times 1 and call this the matrix w.
+We have N assets and thus N portfolio weights: w1, w2, up to wN. We will stack them into a column-matrix of dimension N times 1 and call this the matrix w.
 
 ***
 
 The next matrix we use is the matrix of asset returns.
 
-For each of the assets, we have a return, that we denote as R1, R2,…RN. Again these returns can be stacked into a column-matrix of dimension N times 1, that I call R.
+For each of the assets, we have a return, that we denote as R1, R2 up to RN. Again these returns can be stacked into a column-matrix of dimension N times 1, that I call R.
 
 ***
 
-For each asset return, we also have an expected return. I will denote them as mu_i. 
+For each asset, we also have an expected return. I will denote them as mu_i. 
 So mu_1 is the expected return of asset 1, mu_2 is the expected return of asset 2, and so on.   Stacking the N expected returns into the column matrix mu gives us the matrix of expected returns mu. 
 
 ***
 Last, but not least, there is the covariance matrix.
 
-For each of the assets, we have the variance of their return, which I denote by sigma square. We have N assets, and thus N variances sigma^2_i. 
+For each of the assets, we have the variance of their return, which I denote by sigma square i.
 
 For each pair of asset returns i and j, we have a covariance, which i denote by sigma_ij. 
 
@@ -97,10 +95,8 @@ This is a square matrix with N rows and N columns. The elements on the diagonal 
 ***
 
 The aim of this video is to show you the drivers of the mean and variance of portfolio in the general case of N assets. The question to answer is thus how all these expected returns, variances and covariances affect the portfolio mean and variance. 
-
-I show you this in the table on the slide. It shows in one column the results for the case of two asset, and in the next column how it generalizes in the case of N assets. 
+I show you this in the table on the slide. It shows in the first column the results for the case of two assets, and in the next column how it generalizes to the case of N assets. 
  
-
 We see that in the general case, the portfolio return is the weighted average of the returns of all N assets.
 
 It follows that the expected portfolio return is the weighted average of the expected returns of all N assets.
@@ -109,14 +105,14 @@ Finally, we have that the variance of the portfolio return is the sum of the squ
 
 ***
 
-There is a large number of terms in each expression. I will now show you how to avoid these summations by using matrix notation. 
-Remember that we have four matrices: the column-matrix of portfolio weights w, the column-matrix of returns R, the column-matrix of expected returns mu and the covariance matrix sigma. 
+There is a large number of terms in each expression. These can be avoided by using matrix notation. 
+Remember that we have four matrices: the weights w, the returns R, the expected returns mu and the covariance matrix sigma. 
 
-I will also be using the transpose of N times 1 column-matrix of weights. This is the same vector, but instead of being a N times 1 column-matrix of weights, it is the 1 times N row-matrix of weights.  
+I will also be using the transpose of the N times 1 column-matrix of weights. This is the 1 times N row-matrix of weights.  
 
 *** 
 
-The first result is that the weighted average return is exactly the same as the result of computing the matrix product between the transpose of the portfolio weights and the matrix of returns.
+We then have the following results: the portfolio return equals the transpose of the portfolio weights and the matrix of returns.
 
 It follows that the expected portfolio return is the transpose of the weights times the matrix of expected returns.
 
