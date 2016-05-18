@@ -131,7 +131,7 @@ The standard approach of doing this is by the use of rolling estimation samples.
 If we then move one observation further, and estimate the performance for the next date t+1, then we will be using the observations from t+1 till t-K+2. 
 As such, we roll through time by adding the most recent observation and discarding the most distant one. 
 
-.***
+***
 
 On each subsample, any type of performance measure can be computed. 
 
