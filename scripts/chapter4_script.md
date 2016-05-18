@@ -1,11 +1,11 @@
 # Video 1: Modern portfolio theory of Harry Markowitz [word count: 380]
 
 
-The final objective of this course, is to learn you the skill to determine the portfolio weights that  are optimal in the sense that there is no other portfolio with a higher expected return for the same or lower level of volatility. 
+The final objective of this course, is to teach you the skill to determine the portfolio weights that are optimal in the sense that there is no other portfolio with a higher expected return for the same or lower level of volatility. 
 
 ***
 
-Optimizing the portfolio weights requires us to first specify exactly the objective and the constraints the optimal portfolio weights should satisfy.
+Optimizing the portfolio weights requires us to first specify exactly the objective to be optimized and the constraints the optimal portfolio weights should satisfy.
 
 There are many possible objective functions, such as maximizing the expected return, minimizing the variance, or maximizing the portfolio’s Sharpe ratio.
 
