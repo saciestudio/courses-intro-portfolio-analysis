@@ -46,7 +46,6 @@ Once we have the average return and volatility, we can start interpreting portfo
  
 
 # Video 2:  The (annualized) Sharpe ratio [word count: 606]
-
 We have now seen how to compute the mean and standard deviation of the monthly returns on a risky portfolio. To interpret these numbers, we need a benchmark to compare with. The standard choice of benchmark is the investment in a risk free asset, such as a Treasury Bill issued by the US government.   Because there is no risk, the volatility of its return is zero and the return itself is called the risk free rate.
 
 ***
@@ -67,7 +66,7 @@ When we go beyond the risky portfolio, the investor takes leverage. She is borro
 ***
 The capital allocation line is also important because of its slope.  As you can see, the slope equals the mean excess return of the risky portfolio, divided by the portfolio volatility. The slope is thus a measure for the risk adjusted return of the portfolio:  It shows the reward per unit of risk taken. 
 
-Investors call this portfolio Sharpe ratio and thus compute it as the excess portfolio mean return, divided by the portfolio volatility.   
+Investors call this the portfolio Sharpe ratio and thus compute it as the excess portfolio mean return, divided by the portfolio volatility.   
 
 ***
 
@@ -95,7 +94,7 @@ We thus need to annualize the performance measures.
 
 For the simple average, the convention is to do this by multiplying with 12.
 
-For the geometric average approach, we obtain the annualized return by raising the product of total returns to the power 12 divided by the number of observations. 
+For the geometric mean approach, we obtain the annualized return by raising the product of total returns to the power 12 divided by the number of observations. 
 
 And for annualizing the volatility, the convention is to use the square root of time rule. It consists of multiplying the monthly volatility with the square root of 12.
 
@@ -103,7 +102,7 @@ And for annualizing the volatility, the convention is to use the square root of 
 
 If we apply this to our sample of eight monthly returns, we then obtain a table in which not only the mean and volatility have increased, but also the Sharpe ratio. 
 
-This is easy to understand, since we annualized the mean by multiplying it by 12, while we annualized the volatility by multiplying it with the square root of 12. The Sharpe ratio, being the ratio of both, thus increases with a factor equal to the square root of 12.  
+This is easy to understand, since we annualized the mean by multiplying it with 12, while we annualized the volatility by multiplying it with the square root of 12. The Sharpe ratio, being the ratio of both, thus increases with a factor equal to the square root of 12.  
 
 
 ***
