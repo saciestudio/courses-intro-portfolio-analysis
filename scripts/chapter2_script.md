@@ -154,7 +154,7 @@ As a consequence, when zooming in on the left tail of the histogram of financial
 
 ***
 
-When this happens, an investor is no longer satisfied with using only the standard deviation as the risk measure, but should be using also a downside risk measure that quantifies the risk of losing money. A downside risk measure focuses on the left side of the return distribution, instead of considering the complete distribution.
+When this happens, an investor is no longer satisfied with using only the standard deviation as the risk measure, but should be using also a downside risk measure that quantifies the risk of losing money. Such a downside risk measure focuses on the left side of the return distribution, instead of considering the complete distribution.
 
 A straightforward way to turn the standard deviation into a downside risk measure is to remove the higher than average returns. We then obtain the so-called portfolio semideviation. 
 
@@ -167,9 +167,7 @@ Besides the semideviation, also the 5% portfolio value-at-risk and 5% expected s
 To understand their definition, take a look again at the return distribution plot, where I indicate their value. 
 The 5% value-at-risk is the return that is so extremely negative that there is only a 5% chance of observing a return that is even more negative. 
 
-But how severe are those losses? This question is answered by the expected shortfall measure of downside risk. 
-
-The 5% expected shortfall complements the 5% value at risk by reporting the average value of those 5% most negative returns.   
+But how severe are those 5% most extreme losses? This question is answered by computing the average value of the 5% most negative returns. This number is called the 5% expected shortfall.
 
 ***
 
