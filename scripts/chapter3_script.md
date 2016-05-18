@@ -55,7 +55,7 @@ In the case of a negative correlation, then it will be the case that, if one ret
 ***
 
 To conclude, the drivers of expected portfolio returns are the expected return of the individual assets and their portfolio weights.
-The drivers of the portfolio variance are the individual variances of the asset returns, their covariance and the portfolio weights. From the formula, we can see that the portfolio variance will tend to be higher when the weight on the relatively more risky asset is higher and when the correlation between the two asset returns is higher.
+The drivers of the portfolio variance are the individual variances of the asset returns, their covariance and the portfolio weights.
 
 ***
 Let’s do a few interactive exercises, to see what this means in practice. 
