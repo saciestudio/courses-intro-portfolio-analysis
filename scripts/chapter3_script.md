@@ -1,119 +1,160 @@
-# Video 1: The inputs in case of two assets
+# Video 1: The inputs in case of two assets [word count: 659]
 
 
-This chapter bridges the material for analyzing portfolio performance in chapter 2 and the functionality to determine the portfolio allocation for which the predicted portfolio performance is optimal. 
-
-***
-
-The decision process can be visualized as follows. First of all, the investor needs to specify her objectives and constraints. We will be considering a portfolio whose preferences are completely described by the mean and variance of the portfolio return over the investment horizon. Since the future return is a random variable, the relevant definition of the mean is the expectation of the portfolio return, and the variance is the expectation of the portfolio squared centered return. 
+Analyzing portfolios in R goes beyond analyzing the portfolio returns. It is also about understanding how the portfolio can be optimized such that the future portfolio return has the desired properties in terms of mean and volatility.
 
 ***
 
-Both the portfolio mean and variance depend on the portfolio weights. In this video, we will work out the case of two assets. In the next video, the general case will be presented. 
+Since we are talking about the future, I need to teach you first about the difference between computing averages on past returns and taking expectations of random variables. 
 
+In chapter 2, we took the observed returns as a given and we thus used averages of the returns to describe the past performance. 
 
-***
-
-OK, suppose that we have two assets, say equities and bonds, and the weights of equities in the portfolio is w. The portfolio is fully invested such that (1-w) is the allocation to bonds. The portfolio return is then given by w times the return on the equities + (1-w) times the bond return. 
-
-If we then work out the expected portfolio return, and using that the expected value of a sum is the sum of the expected values, we obtain that the  portfolio mean is the weighted average of the component means.
-
-Suppose e.g. that the portfolio is equally weighted and the expected returns are 6% for equities and 4% for bonds, then the portfolio expected return is 5%. If the portfolio is 60/40 weighted than the expected portfolio return is 5.6%.  
+But, when optimizing a portfolio, we need to deal with the uncertainty of what the future return will be. Since its future value is a random outcome, the portfolio return is a random variable. 
 
 ***
 
-The impact of the weights on the portfolio variance is slightly more complex because the centered returns are squared, implying that we will need to take the expectation of the cross-products into account. 
+The transition to working with portfolio returns as random variables has also implications for how we write the mean and variance of the portfolio return. 
 
-Doing this in the 2-asset case yields that the portfolio variance equals the sum of the squared weights their variance plus the product of the weights and the exected value of the product of the centered returns. The latter is called the covarians and equals the products of the standard deviation and the correlation. 
+The mean return is no longer the average of the past returns, but it is the best possible prediction of the portfolio return. 
+This best possible prediction is called the expectation of the portfolio return, or also, the expected portfolio return. When we take the expectation of a random variable, we denote this by the capital letter E.
 
 ***
 
-The correlation measures the degree of comovement of the two assets. If they are unrelated, then the correlation is zero. If there is on average a positive linear relatioship between both, then the correlation will be positive: when one is above average, the other also tends to be below average. If the average relationhip is the reverse, namely that if one is above avarage, then the other one tends to be below average, then the correlation will be negative.
+A similar result holds for the portfolio variance, which is no longer the sample variance of the past portfolio returns. The variance of a random variable is instead defined as the expected squared deviation of the portfolio return with respect to its mean. 
 
-[illustrate with plots]
+***
+
+Let’s now turn to our main question: what are the drivers of the portfolio mean and variance? 
+
+I will work this out for the case of two assets in the portfolio:  asset 1 has weight w1 and asset 2 has weight w2. 
+
+Then, the portfolio return is the weight of asset 1 times the return of asset 1, plus the weight of asset 2 times the return of asset 2. 
+
+***
+
+Plugging the formula of the portfolio return into the definition of the expectation of the portfolio return, and using that the expected value of a sum is the sum of the expected values, we see that the expected portfolio return is the weight of asset 1 times the expected return of asset 1 plus the weight of asset 2 times the expected return of asset 2.
+
+***
+
+The impact of the weights on the portfolio variance is slightly more complex because of the square. 
+Working out the square of the portfolio de-meaned return, we find that the portfolio variance equals the sum of the squared weight of the assets times their individual variance plus two times the product of the weights and the expected value of the product between the demeaned return of asset 1 and the demeaned return of asset 2. 
+
+The expectation of this product between the demeaned returns of asset 1 and asset 2 is called the covariance of those two asset returns.
+
+***
+
+The term covariance may be new for you, but probably you have already heard about correlations. If you know about correlations, then you also know about covariances, since the covariance of two asset returns is the products of their standard deviations and the correlation between the asset returns. 
+
+***
+
+The correlation measures the intensity of the relationship between the asset returns.  
+If they are unrelated, then the correlation is zero. 
+If there is on average a positive linear relationship between both, then the correlation will be positive. This means that, when one asset return is above average, then the return of the other asset also tends to be above average. 
+In the case of a negative correlation, then it will be the case that, if one return is above average, the other one tends to be below average. 
+
+***
+
+To conclude, the drivers of expected portfolio returns are the expected return of the individual assets and their portfolio weights.
+The drivers of the portfolio variance are the individual variances of the asset returns, their covariance and the portfolio weights. From the formula, we can see that the portfolio variance will tend to be higher when the weight on the relatively more risky asset is higher and when the correlation between the two asset returns is higher.
+
+***
+Let’s do a few interactive exercises, to see what this means in practice. 
  
 
-***
 
-So what determines the portfolio variance. From the formula, we thus see that the portfolio variance will tend to be higher when the weight on the relatively more risky asset is higher and when the correlation between the two assets is higher.
+# Video 2: The general case using matrix notation [word count: 584 words]
 
-***
+We have just seen the drivers of portfolio mean and variance in the case of a portfolio with two assets. In this video I show you how those results can be extended to the general case of N assets, where N can be any number of assets. 
 
-As a conclusion, optimal portfolio allocation requires to determine the weights for which the portfolio expected return and variance are optimized. This will require three important types of input in the analysis:
-* expected returns
-* the variances of the returns
-* and the correlation between the returns.
+When working with many assets, we just have to be careful about the many variables that come into play. I will show you how the use of matrices in R will help you in keeping the data analysis well organized. 
 
 ***
 
-In the next exercises will consider estimators for these three inputs.
-
-# Video 2: The general case using matrix notation
-
-
-In the general case, we have N assets and N can vary from 2 to over a thousand. We denote then the portfolio weights as a column vector with each element being the weights of the corresponding asset. The portfolio is fully invested such that the sum of the portfolio weights equal to one. 
+The first matrix that we use is the matrix of portfolio weights.
+So, we have N assets. This means that we also have N portfolio weights: w1, w2, up to wN. We will stack them into a column-matrix of dimension N times 1 and call this the matrix w.
 
 ***
 
-We further stack the returns of each asset in a column-vector $R$. This return vector is now a vector of random variables, and thus called a random vector. Its expected value mu is the vector of expected returns of each of the assets. 
+The next matrix we use is the matrix of asset returns.
+
+For each of the assets, we have a return, that we denote as R1, R2,…RN. Again these returns can be stacked into a column-matrix of dimension N times 1, that I call R.
 
 ***
 
-Because it is a vector of returns, its variance is not one number, but a table of N rows and N colums. This table is called the covariance matrix. The elements on the diagonal are the variances of each of the returns.
+For each asset return, we also have an expected return. I will denote them as mu_i. 
+So mu_1 is the expected return of asset 1, mu_2 is the expected return of asset 2, and so on.   Stacking the N expected returns into the column matrix mu gives us the matrix of expected returns mu. 
+
+***
+Last, but not least, there is the covariance matrix.
+
+For each of the assets, we have the variance of their return, which I denote by sigma square. We have N assets, and thus N variances sigma^2_i. 
+
+For each pair of asset returns i and j, we have a covariance, which i denote by sigma_ij. 
+
+We have thus N variances and for each pair of assets, we have a covariance. In order to handle all those variances and covariances, it is useful to put them together into the so-called covariance matrix.  
+This is a square matrix with N rows and N columns. The elements on the diagonal are the variances of each of the returns. Outside of the diagonal are the covariances. For example in row 2, column 1 we have the covariance between asset return 2 and asset return 1. 
 
 ***
 
-Outside of the diagonal are the covariances, which can be rewritten as the products of the standard deviations and the correlations. Since the element in row i, column j is identical to the element in row j, column i, the covariance matrix is symmetric. 
+The aim of this video is to show you the drivers of the mean and variance of portfolio in the general case of N assets. The question to answer is thus how all these expected returns, variances and covariances affect the portfolio mean and variance. 
+
+I show you this in the table on the slide. It shows in one column the results for the case of two asset, and in the next column how it generalizes in the case of N assets. 
+ 
+
+We see that in the general case, the portfolio return is the weighted average of the returns of all N assets.
+
+It follows that the expected portfolio return is the weighted average of the expected returns of all N assets.
+
+Finally, we have that the variance of the portfolio return is the sum of the squared weights times the variance of all N assets, plus, for each pair of assets, the product between their weights and their covariance. 
 
 ***
 
-We thus have the following matrices: a column-vector of portfolio weights, a column-vector of expected returns and a covariance matrix. 
+There is a large number of terms in each expression. I will now show you how to avoid these summations by using matrix notation. 
+Remember that we have four matrices: the column-matrix of portfolio weights w, the column-matrix of returns R, the column-matrix of expected returns mu and the covariance matrix sigma. 
 
-In order to relate those multivariate objects to the portfolio return, we use the following important result.
+I will also be using the transpose of N times 1 column-matrix of weights. This is the same vector, but instead of being a N times 1 column-matrix of weights, it is the 1 times N row-matrix of weights.  
 
-Since the portfolio return is the weighted average of the component returns, this is equivalent, to defining the portfolio return as the inner product of the portfolio vector and the vector of returns. 
+*** 
 
-***
+The first result is that the weighted average return is exactly the same as the result of computing the matrix product between the transpose of the portfolio weights and the matrix of returns.
 
-It then follows that the expected return is the inner product of the weights and the vector of expected returns. Working this out, it gives us that the expected portfolio return is the weighted average of the expected returns on the different assets.
+It follows that the expected portfolio return is the transpose of the weights times the matrix of expected returns.
 
-***
-
-The portfolio variance is the quadratic function of the weights in terms of the variance covariance matrix. If we work this out, we obtain that the portfolio variance is the sum of the individual component variances multiplied by their squared weights and the different covariances multiplied with their weights.
-
-***
-
-In the exercises we will see how to estimate the vector of expected return and the covariance matrix, as well as examples of matrix multiplication in R to obtain estimates of the portfolio expected return and variance. 
-
-# Video 3: The general case using matrix notation
-
-We have seen that the portfolio volatility is a non-linear function of the assets' volatilities and correlations. 
+Finally, one can show that the variance of the portfolio return equals the number you obtain by computing the product of the transpose of the weights times the covariance matrix times the weights again.
 
 ***
 
-We also saw that portfolio volatility has the property of subadditivity, meaning that the portfolio volatility is less than the weighted average of the component volatilities. 
-
-Note that the function is also homogeneous of order one, meaning that if we multiply the portfolio weights with a positive constant, then also the portfolio volatility is multiplied with this constant. 
+If this is new to you, these results may seem daunting, but you will see in the exercises that using the matrices simplifies a lot the data management when analyzing large portfolios in R.
 
 
-***
+# Video 3: The portfolio risk budget [word count: 305]
 
-An important remaining question is how much risk each of the assets caused in the portfolio. This is the question answered by the risk budgeting analysis.
+Let’s end this chapter with a who did it game, called risk budgeting. It tries to answer the question about how much of the portfolio risk is caused by each of the individual portfolio positions. 
 
-***
-
-It uses the property that the portfolio volatility equals the sum of the weights multiplied with the partial derivative of the portfolio volatility with respect to that weight. Such a term is called the component risk contribution. 
+This is not just for fun, but it is now common practice for portfolio managers to identify the sources of portfolio risk and to avoid that the portfolio risk is too concentrated in a few assets. 
 
 ***
 
-If we work out the math, then we see that this risk contribution depend on the covariance matrix:
+This slide visualizes what we will be doing. It shows on the left an example of a capital allocation budget saying how much of the wealth is invested in each asset. 
+On the right it shows how much of the portfolio volatility risk is caused by each of those assets. The figure on the right is called the risk budget. 
+
+As you can see, the capital allocation and the risk allocation can be very different. The reason is that the portfolio volatility does not only depend on the weights, but also on the assets' volatilities and their correlations.
 
 ***
 
-When expressed in percentage of the total portfolio volatility, we have the percentage risk contribution of the asset. Of course, those percentage risk contribution add up to 1. 
+So, practically, how do we obtain such a risk budget? 
+
+The first step in constructing the risk budget is to rewrite the portfolio volatility as the sum of the volatility risk contributions of the N portfolio positions. 
+
+I show the corresponding mathematical formula on the slide, but in the exercises we will see the functions that implement this in practice.  
 
 ***
 
-Let's put the theory in practice and compute the risk budget in the case of our asset allocation problem.
+The risk contributions add up to the total portfolio volatility. 
 
+In order to have an estimate of the percentage risk caused by each of the N portfolio positions, we will take the risk contribution of that position and divide it by the total portfolio risk. This ratio is called the percentage risk contribution. 
+
+***
+
+Let's now play the who did it game in the case of our asset allocation problem. Because investing in stocks is more risky than investing in bonds, you will see that the percentage risk contributions of the position in stocks is much larger than its portfolio weight, while for bonds, it is the opposite.  
  
