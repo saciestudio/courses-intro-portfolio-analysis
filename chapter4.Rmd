@@ -247,8 +247,8 @@ Concept of minimizing variance given a sequence of return targets starting from 
 Define the grid of target returns. Initialize the portfolio weights, means and sd to be saved.
 
 *** =instructions
-- instruction 1
-- instruction 2
+- ...
+- Comple the code 
 
 *** =hint
 hint comes here
