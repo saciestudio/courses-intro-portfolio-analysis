@@ -465,6 +465,7 @@ msft <- get.hist.quote(instrument="MSFT",start=as.Date("2005-12-31"),end=Sys.Dat
 
 # define prices as the merged time series of aapl and msft
 prices <-  
+colnames(prices) <- c("AAPL","MSFT")
 # print the first and last six rows of prices
  
   
@@ -484,6 +485,7 @@ library(xts)
 library(PerformanceAnalytics)
 # define prices as the merged time series of aapl and msft
 prices <-  merge(aapl,msft)
+colnames(prices) <- c("AAPL","MSFT")
 # print the first and last six rows of prices
 returns <-  Return.calculate(prices)  
 # remove the first row
