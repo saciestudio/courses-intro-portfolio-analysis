@@ -43,7 +43,7 @@ In our example of a plus 50% return and a minus 50% return, the geometric mean r
 ***
 
 Once we have the average return and volatility, we can start interpreting portfolio performance. In the next exercises, we do this for the S&P 500 portfolio, which is invested in the 500 largest publicly listed US stocks, with weights that are proportional to the stocks' market capitalization.  The S&P 500 portfolio is generally considered as the most important benchmark portfolio for investors in US stocks. 
- 
+
 
 # Video 2:  The (annualized) Sharpe ratio [word count: 606]
 We have now seen how to compute the mean and standard deviation of the monthly returns on a risky portfolio. To interpret these numbers, we need a benchmark to compare with. The standard choice of benchmark is the investment in a risk free asset, such as a Treasury Bill issued by the US government.   Because there is no risk, the volatility of its return is zero and the return itself is called the risk free rate.

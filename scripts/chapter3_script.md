@@ -1,4 +1,4 @@
-# Video 1: The inputs in case of two assets [word count: 659]
+# Video 1: The drivers in case of two assets [word count: 659]
 
 
 Analyzing portfolios in R goes beyond analyzing the portfolio returns. It is also about understanding how the portfolio can be optimized such that the future portfolio return has the desired properties in terms of mean and volatility.
