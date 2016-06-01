@@ -87,7 +87,7 @@ In this last video I will teach you to use split-sample analysis to evaluate in 
 As you probably can guess, the split-sample analysis consists of splitting the sample of historical returns in two parts. The first part is called the estimation sample and will be used to estimate the mean returns and the covariance matrix, used to optimize the portfolio.  
 The second part is the out-of-sample evaluation sample. It is the sample of returns that is used to evaluate the performance of the optimized portfolios. 
 
-**
+***
 
 When doing the split sample, we mimic the investor who, at the end of the estimation sample, decides to invest and to use the weights optimized using the data in the estimation sample. 
 
