@@ -1,0 +1,55 @@
+---
+title: "ch 2 notes"
+author: "Josiah Parry"
+date: "June 3, 2016"
+output: html_document
+---
+Ch. 2 Notes
+
+- Rolling Annualized Mean& Volatility
+    - instructions are low key awful
+    - Instructions:
+        - 1st: put `SharpeRatio.annualized` in code chunk
+        - 2nd: Plot using `chart.RollingPerformance`
+        - 3rd: pass sd.annualized to the FUN argument
+        - last instruction needs to be above all plots to make the function actually work
+
+- Effect of Window Length Choice
+    - only 2 options for multiple choice, there needs to be more
+    - instruction says 24 months where the answer says 12 and plot is 12
+
+- Subperiod Performance Analysis and the function window
+    - plot randomly appears. Why? not needed / irrelevant
+
+- Detecting non-normality using skewness and kurtosis
+    - “property of aggregation gaussiantity”
+        - define it better with the prior sentence
+
+    - give function for calculating kurtosis
+
+- Downside Risk Measures
+    - what are we using these functions on? Tell us what data to use
+    - data he used isn’t loaded
+    - pre-loaded text
+        - compute the sorting ratio
+            - this isn’t mentioned, just tells you to do it.
+
+    - Instructions
+        - need to put functions in code block
+
+- Drawdowns due to buying high, selling low
+    - exercise text:
+    - grammar needs revision
+    - instructions:
+        - number 2 needs `chart.Drawdown`
+
+- **“Main take-aways on portfolio performance evaluation”**
+    - _Exercise Description_: 
+        - “analyzethe” &gt; analyze the 
+        - need rewriting
+
+    - _Pre-loaded tex_t:
+    - _Instructions_: another “which one is false?” bad bad bad
+        - used TrackingError & SortinoRatio, things he does’t talk about
+
+    - add hints!

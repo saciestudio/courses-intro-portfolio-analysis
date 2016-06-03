@@ -1,0 +1,100 @@
+**Course: Intro to Portfolio Analysis**
+
+_Chapter_**: 3**
+
+- **“The Sources of Portfolio Performance”**
+    - _Exercise Description_: another which one is false. Needs to change.
+    - _Pre-loaded tex_t: General grammar needs to be fixed.
+    - _Instructions_:
+
+- **“Sensitivity of the Sharpe Ratio to the Portfolio Weights”**
+    - _Exercise Description_:
+        -  Needs some substance. perhaps describe how the for loop he created works. Why each vector is created and how it works to calculate sharpe etc
+
+    - _Pre-loaded tex_t:
+        - instructions don’t completely match 
+
+    - _Instructions_:
+        - objects he tells us to use do not exist
+
+- **“The Drivers in case of two assets”**
+    - _Exercise Description_: 
+    - _Pre-loaded tex_t:
+    - _Instructions_:
+
+- **“Interpreting Correlation”**
+    - _Exercise Description_: remove “thus” remove “a” before static and dynamic
+    - _Pre-loaded tex_t: 
+    - _Instructions_: objects aren’t loaded
+
+- **“The Impact of Correlation on Performance”**
+    - _Exercise Description_: needs rewriting
+    - _Pre-loaded tex_t:
+    - _Instructions_:
+
+- **“The General Case Using Matrix Notation”**
+    - _Exercise Description_:
+    - _Pre-loaded tex_t:
+    - _Instructions_:
+
+- **“The Asset Allocation Problem”**
+    - _Exercise Description_:
+    - _Pre-loaded tex_t:
+        - why are there preloaded graphs? Confusing for the student.
+            - if you’re going to use graphs mention them in the description and describe what they do
+
+        - where does weights come from?
+            - weights should be separate from the instruction that tells you to calculate returns
+            - is weight a vector? etc.
+
+        - includes object “returns_merged” no instruction for it
+
+    - _Instructions_:
+        - use merge function? inner_join? etc
+
+- **“Avoiding Loops In Calculating Vector of Estimates”**
+    - _Exercise Description_:
+        - create a real description
+
+    - _Pre-loaded tex_t:
+        - remove “sample code”
+
+    - _Instructions_:
+        - explain arguments of apply() function
+        - no need for such an elaborate for plot in 3rd direction
+            - just plot(vsd, means)
+            - lty argument isn’t needed
+            - should be plot `vsd` against `means`. add horizontal line at 0 using `abline()`
+                - consult documentation if you need help
+
+- **“Portfolio Volatility”**
+    - _Exercise Description_: this needs an ACTUAL description
+    - _Pre-loaded tex_t: #sample code is not sufficient
+    - _Instructions_: add actual instructions
+
+- **“The Portfolio’s Risk Budget”**
+    - _Exercise Description_:
+    - _Pre-loaded tex_t:
+    - _Instructions_:
+
+- **“Whodunit”**
+    - change the title….
+    - _Exercise Description_: create a description
+    - _Pre-loaded tex_t: 
+    - _Instructions_:
+        - #1 don’t just give us the code you want used
+        - #2 too vague. use the word “merge” if thats the function you want the student to use
+
+- FOR ALL EXERCISE:
+    - need success messages that recap what occurred in the exercise
+    - rewrite exercise descriptions: unnecessarily verbose. Language doesn’t fit in many places
+    - code / functions in instructions need to be surrounded by `code` not documentation links
+        - Documentation can be found using ?function
+
+    - Don’t just say “Do the same thing” 
+        - i.e calculate mean, do the same thing for sd
+            - say calculate mean, calculate sd
+
+    - A lot of exercise have a 1 sentence description with awful punctuation spelling grammar
+    - a lot of exercises pre-loaded code is “#sample code”
+        - this is not sufficient

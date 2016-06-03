@@ -1,0 +1,101 @@
+---
+title: "Ch 4 notes"
+author: "Josiah Parry"
+date: "June 3, 2016"
+output: pdf_document
+---
+**Course: Intro to Portfolio Analysis**
+
+_Chapter_**: 4**
+
+- **“Investing in the DJIA stocks based on their mean and volatility”**
+    - Title: Possibly could be shortened
+    - _Exercise Description_:
+    - _Pre-loaded tex_t:
+    - _Instructions_:
+
+- **“Exploring further the monthly returns of the 30 DJIA stocks”**
+    - Title: Change to &gt; Exploring monthly returns of 30 DJIA Stocks”
+    - _Exercise Description_: 
+        - put functions into code
+        - description had nothing to do with the exercise 
+
+    - _Pre-loaded tex_t: 
+    - _Instructions_: 
+        - second instruction makes me want to use `Return.calculate(returns, rebalance_on = “months”)`
+            - this needs rewording
+
+        - third instruction needs rewriting the concept of the lower tail square matrix wasn’t explained. it shouldn’t be explained in the instructions. didn’t tell us to initialize a new vector of `cor()`
+
+- **“Find the mean-variance efficient portfolio with target equal to EW”**
+    - Title: Change to &gt; Mean-variance efficient portfolio
+    - _Exercise Description_:
+    - _Pre-loaded tex_t:
+    - _Instructions_:
+        - what does “out” mean? it seems very random as a choice
+        - make the student initialize “optim_weights”
+            - you just need to explain what you are doing
+            - split these directions into more than. you cram too much into too little
+            - too difficult to follow with no explanation / just placing code down that means nothing
+
+        - mention how to get the “strict lower returns” you’re 
+        - last instruction isn’t clear
+
+- **“Imposing Weight constraints”**
+    - this isn’t even an exercise
+    - _Exercise Description_:
+    - _Pre-loaded tex_t:
+    - _Instructions_:
+
+- **“Computing the efficient frontier in R using a loop”**
+    - this isn’t an exercise. nothing in it.
+    - Title: remove “in R”
+    - Efficient is spelled incorrectly in the title
+    - _Exercise Description_:
+    - _Pre-loaded tex_t:
+    - _Instructions_:
+
+- **“The minimum variance and maximum sharpe ratio portfolio”**
+    - nothing in this exercise
+    - Title: remove “the”
+    - _Exercise Description_:
+    - _Pre-loaded tex_t:
+    - _Instructions_:
+
+- **“plotting the efficient frontier”**
+    - code isn’t pre-loaded properly
+    - _Exercise Description_:
+    - _Pre-loaded tex_t:
+        - preloaded is solution
+
+    - _Instructions_:
+
+- **“the effect of weight constraints on the frontier”**
+    - another which one is false. This needs to be changed
+    - Title: remove “the”
+    - _Exercise Description_:
+    - _Pre-loaded tex_t:
+    - _Instructions_:
+
+- **“split sample in two: estimation window and evaluation window”**
+    - This Is NOT an exercise
+    - Change title: “Split sampling: estimation and evaluation window”
+    - _Exercise Description_:
+    - _Pre-loaded tex_t:
+    - _Instructions_:
+
+- **“Out of sample: performance evaluation”**
+    - this is NOT an exercise
+    - _Exercise Description_:
+    - _Pre-loaded tex_t:
+    - _Instructions_:
+
+- **“it ain’t over”**
+    - this is just an outline
+    - _Exercise Description_:
+    - _Pre-loaded tex_t:
+    - _Instructions_:
+
+for everything:
+  - no proper line breaks
+  - break after 
