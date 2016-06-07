@@ -155,13 +155,13 @@ test_student_typed("head(sp500_monthly)", not_typed_msg = "Did you preview the h
 test_function("Return.calculate", c("prices"), incorrect_msg = "Did you use the correct vector?", not_called_msg = "Make sure you call `Return.calculate`.")
 
 #4th instruction
-test_object("sp500_returns", incorrect_msg = "Did you convert `sp500_returns` to `xts`?")
+test_function("xts", "x", incorrect_msg = "Did you use convert the correct object?" , not_called_msg = "Did you convert `sp500_returns` to `xts`?")
 
 #5th instruction
-test_function("plot.zoo", "sp500_returns")
+test_function("plot.zoo", "x", incorrect_msg = "You didn't plot the returns.", not_called_msg = "Be sure to plot the returns!")
 
 #6th instruction
-test_function("table.CalendarReturns", "sp500_returns")
+test_function("table.CalendarReturns", "R", incorrect_msg = "You didn't supply the correct object!", not_called_msg = "Be sure to print a table of your returns!")
 
 test_error()
 success_msg("Well done!")
