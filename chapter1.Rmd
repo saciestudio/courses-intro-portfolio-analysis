@@ -77,7 +77,7 @@ legend("topleft", legend=c("Coca-Cola","PepsiCo") , col=c("black","red") , lwd =
 # ko and pep are pre-loaded
 # Define ko_pep 
 ko_pep <- 
-  
+
 # Make a time series plot of ko_pep
   
   
@@ -269,7 +269,7 @@ As an exercise, inspect the distribution of market capitalization based weights 
 
 *** =instructions
 - Define the vector `marketcaps` holding the market capitalization
-- Define `weights`
+- Calculate the weights of `marketcaps` and assign them to `weights`
 - Print a summary of `weights`
 - Plot a histogram of `weights`
 
@@ -286,10 +286,10 @@ A histogram in R can be made using the function [hist()](http://www.rdocumentati
 *** =sample_code
 ```{r}
 # Define marketcaps
-marketcaps <-  
+ 
   
 # Compute the weights
-weights <-
+
   
 # Inspect summary statistics
 
@@ -354,12 +354,13 @@ Assume that you invested in three assets. Their intial values are 1000 USD, 5000
 *** =instructions
 - Create a vector of the initial asset values `in_values`. 
 - Create a vector of the final values, `fin_values`. 
-- Use the simple return definition to compute the vector of returns on the three component assets.
-- Use the portfolio return formula to compute the (simple) portfolio return.
+- Create a vector of the initial weights, `weights`.
+- Use the simple return definition to compute the vector of returns on the three component assets. Assign return values to `returns`.
+- Assign the portfolio returns to `preturns`
 - Verify that the weighted average portfolio return equals the percentage change in the total portfolio value using `all.equal(). Run the provided code.
 
 *** =hint
-hint comes here
+Use the portfolio return formula to compute the simple portfolio return!
 
 *** =pre_exercise_code
 ```{r}
@@ -369,19 +370,18 @@ hint comes here
 *** =sample_code
 ```{r}
 # Vector of initial value of the assets
-in_values <-  
+
   
 # Vector of final values of the assets
-fin_values <- 
-  
-# Vector of simple returns of the assets 
-returns <-  
-  
+
+
 # Weights as the proportion of total value invested in each assets
-weights <-
+
+
+# Vector of simple returns of the assets 
+
   
 # Compute portfolio return using the portfolio return formula
-preturn <- 
   
 # Verify that it matches with the percentage change in the portfolio value
 all.equal(preturns,
@@ -595,7 +595,7 @@ head(prices)
 tail(prices)
 
 # Create the variable returns using Return.calculate()  
-returns <-  Return.calculate(prices)  
+returns <- Return.calculate(prices)  
 
 # Print the first six rows of returns. Note that the first observation is NA, because there is no prior price.
 head(returns)
@@ -778,7 +778,7 @@ preturns <- Return.portfolio(returns, weights,rebalance_on="days")
 # Print the value evolution of a $1 investment over this month 
 
 
-# Compute the monthly return as the percentage change of final value w.r.t. initial value
+# Compute the monthly return as the percentage change of final value with respect to the initial value
 
 
 # Verify that this leads to the same results as using the function Return.cumulative
