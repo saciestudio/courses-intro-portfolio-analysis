@@ -154,6 +154,7 @@ test_student_typed("head(sp500_monthly)")
 #3rd instruction
 test_object("Sp500_returns")
 
+test_error()
 success_msg("Well done!")
 ```
 
