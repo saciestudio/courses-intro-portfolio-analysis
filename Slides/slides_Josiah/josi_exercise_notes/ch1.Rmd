@@ -1,0 +1,94 @@
+---
+title: "Untitled"
+output: github_document
+---
+##Chapter 1 Exercise Notes
+FEEDBACK ON CHAPTERS
+
+    - Overall:
+    - With each complete exercise there should be a short description of the lesson
+    - Introduce every new term (even if explained in the video, repetition is everything!
+
+- Chapter 1 exercises:
+    - Risk and Return (multiple choice)
+        - Question isn’t too related to the topic in the video. 
+
+    - “Get a feel for the data” 
+        - Exercise:
+            - pre-loaded plots can be confusing, **explain that there are pre-existing plots, and that students will create a new plot after that**
+
+        - Description
+            - Preloaded text:  Shorten comments, perhaps include your descriptions in instructions or exercise details
+
+        - Instructions:
+            - plot.zoo: perhaps tell us what the arguments are in the description? The plot that I created (“plot.zoo(ko_pep)”)
+                - explain that it is a time series plot
+                - mentions looking at ratio change by day, plot shows by year  —&gt; instruction gives the impression that there is a change to “daily”, but scale on plot does not look different.
+
+    - “A First Portfolio:Buy-an-hold versus daily rebalancing” (MC)
+        - january 2003 is confusing -&gt; plot only starts at 2006?
+        - Perhaps just a general rewrite: doesn’t make much sense
+        - Question:
+            - The answers should be more focused to the question: i.e. focused on the interpretation of the chart provided. Only one of the answers is related to the interpretation of the chart / question
+
+    - “Calculating Portfolio Weights When Component Values are Given” —&gt; good
+    - “The Weights of an equally weighted portfolio” (MC)
+        - too many “which one is not correct”-MC’s
+            - need to focus on what is correct to reinforce good practice / an effective way of doing something. Now you give students 2 options, might be confusing
+
+    - “The Weights of a Market Capitalization Weighted Portfolio”
+        - change title to “Market Capitalization Weighted Portfolio”
+        - Define “Market Capitalization”
+        - Use different word than “characteristic” in:
+            - “Note that dividing by the total value of the characteristic across all assets guarantees that the portfolio weights sum up to unity”
+                - unity &gt; “sum to one, or unity” to introduce the term
+
+            - Add “#Make a histogram” into the preloaded text
+
+        - Instructions:
+            - make a 4th instruction for “make a histogram”, I almost missed it
+
+    - “Calculation of portfolio returns”
+        - Prompted to calculate weights, but there is no instruction to do so. Also description in pre-loaded text isn’t super clear on which weight to calculate
+        - Instructions:
+            - Don’t put entire code in instruction: “in_values &lt;- c(1000, etc)” 
+            - change in.values &gt; in_values & fin_values
+
+        - I like how weights keep on coming back, reinforces the concept
+
+    - “The returns of an equally weighted portfolio”
+        - yet again another “which one is false” question, change it up
+        - “returns” isn’t pre-loaded
+        - switch to only one correct instead of 2 correct
+
+    - “From Simple to gross and multi-period returns”
+        - We’ll make sure we get the formulas to work
+        - instructions should be bulleted for clarity
+        - this is the only exercise on returns, maybe one more to reinforce it?
+            - this is a deep topic so I think the added length isn’t a problem
+            - i like returns
+
+    - “The Asymmetric impact of gains and losses”
+        - good exercise but perhaps make it a regular exercise not multiple choice
+            - its too easy to just guess for the correct one
+            - perhaps make it a console based exercise
+
+    - “The Time Series of Asset Returns”
+        - can omit “by row names (here:the dates)” from instructions
+        - instructions are out of order
+            - the 4th & 3rd should be swapped
+
+    - “From Daily to Monthly Portfolio Returns”
+        - spacing of code blocks in instructions need to be improved
+        - define “w.r.t.” &gt; with respect to
+        - Make sure to explain cumulative product + why
+        - Verify instruction returns a different number than his manual computation
+        - syntax error in verify instruction additional “]”
+
+    - “Sneak Preview of the portfolio fin and fun ahead”
+        - fin?
+        - there are no tables and plots printed in the workspace as states
+
+**We will add hints (unless you have a great idea, feel free to do it yourself!)**
+
+**We will add SCTs**
