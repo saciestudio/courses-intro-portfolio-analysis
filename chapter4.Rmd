@@ -4,7 +4,7 @@ description : We have up to now considered the portfolio weights as given. Here 
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1   key:139d7eabbd827860709b29f2a8d968614d1e3cb0
-## Investing in the DJIA stocks based on their mean and volatility
+## Comparing investments in portfolios of DJIA stocks 
 
 In the workspace, you see a scatter plot showing the mean and standard deviation of the 30 Dow Jones Industrial Average stocks, as estimated on their monthly returns over the period 1991-2015. Each of the stocks is identified in the plot using
 its ticker. 
@@ -48,11 +48,11 @@ test_mc(2) # if 2 is the correct option.
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1   key:8c67f73515
-## Exploring further the monthly returns of the 30 DJIA stocks 
+## Exploring monthly returns of the 30 DJIA stocks 
 
 The 1991-2015 monthly returns on the 30 DJIA stocks are available in the workspace as the variable `returns`.
 
-The scatter plot of the average returns on there is a lot of variation in the average return and volatility across stocks. It also easy to verify that while the average correlation between the stock return is positive Obtain the optimized portfolio weights using portfolio.optim(), plot the portfolio weights using barplot()
+
 
 *** =instructions
 - Verify that `returns` is an object of the xts-class using the function `class`.
@@ -197,14 +197,17 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:6f3df5bc7125d675f226ddc4c69639e2cf24d23c
 ## Imposing weight constraints
 
-The optimized portfolio is dominated by the investments in ... 
+Investors are often constrained in the maximum values allowed for the portfolio weights. Finding the optimized portfolio under a maximum weight is possible in the function [portfolio.optim](http://www.rdocumentation.org/packages/tseries/functions/portfolio.optim)  by setting the argument
+ `reshigh` to the vector of maximum weights for each asset.  
+ 
+ The advantage of a maximum weight constraint is that the portfolio will be less concentrated. Let's verify this statement when the target expected return is still equal to the equally-weighted return.
 
 *** =instructions
-- instruction 1
-- instruction 2
+- Modify the sample code to impose a maximum 10% constraint on each of the portfolio weights and compute the number of positions larger than 1%;
+- Repeat the above with a maximum 5% constraint.
 
 *** =hint
-hint comes here
+The argument `reshigh` needs to be a vector. 
 
 *** =pre_exercise_code
 ```{r}
@@ -216,16 +219,31 @@ download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-anal
 prices<- readRDS("prices.rds") 
 returns <- Return.calculate(prices, method="simple")
 returns <- returns[(-1),]
+
+library(tseries)
 ```
 
 *** =sample_code
 ```{r}
 # sample code
+# tseries is pre-loaded
+out <- portfolio.optim(returns,reshigh=rep(1,ncol(returns)))
+sum( 1*(out$pw > 0.01))
+
+
 ```
 
 *** =solution
 ```{r}
 # solution code
+out <- portfolio.optim(returns,reshigh=rep(1,ncol(returns)))
+sum( 1*(out$pw > 0.01))
+
+out <- portfolio.optim(returns,reshigh=rep(0.1,ncol(returns)))
+sum( 1*(out$pw > 0.01))
+
+out <- portfolio.optim(returns,reshigh=rep(0.05,ncol(returns)))
+sum( 1*(out$pw > 0.01))
 ```
 
 *** =sct
@@ -242,13 +260,16 @@ Concept of minimizing variance given a sequence of return targets starting from 
 //player.vimeo.com/video/108225030
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:2c03a87fc29fb66e35d8cdbf244b3dcf41305824
-## Computing the efficient frontier in R using a loop  
+## Computing the efficient frontier 
 
-Define the grid of target returns. Initialize the portfolio weights, means and sd to be saved.
+As we have seen, we need to first define the grid of target returns. We will set the maximum target return to the maximum average return of the stocks. The minimum target return is the return of the minimum variance portfolio. We don't know this minimum variance portfolio return yet. Let's therefore take the largest possible grid starting with the minimum average returns of all stocks. 
+
 
 *** =instructions
-- ...
-- Comple the code 
+- Complete the code specifying the grid of 100 equally space return targets starting at the minimum and maximum average return 
+- Run the loop computing the optimized weights and corresponding mean return and volatility
+- Plot the portfolio mean against the portfolio volatility of the optimized portfolios
+- Improve the efficient frontier plot by removing the inefficient portfolios offering a lower return at a higher risk compared to the minimum variance portfolio.  
 
 *** =hint
 hint comes here
@@ -268,6 +289,24 @@ returns <- returns[(-1),]
 *** =sample_code
 ```{r}
 # sample code
+# solution code
+stockmu = colMeans(returns)
+grid = seq( , ,length.out=100 )  
+# Compute the efficient frontier
+## for each solution, we save the portfolio mean,
+## portfolio standard deviation and the weights
+## Initialize them as an empty vector
+vpm = vpsd = mweights = c()
+for( mutarget in grid ){
+  out = try(portfolio.optim(x = returns ,pm=mutarget),silent=TRUE)
+  if(class(out)!="try-error"){
+    vpm = c(vpm,out$pm)
+    vpsd = c(vpsd,out$ps)
+    mweights = rbind( mweights,out$pw)
+  }
+}
+# report the scatter plot of vpm agains vpsd
+
 ```
 
 *** =solution
@@ -289,6 +328,8 @@ for( mutarget in grid ){
     mweights = rbind( mweights,out$pw)
   }
 }
+# report the scatter plot of vpm agains vpsd
+plot(vpms,vpm)
 ```
 
 *** =sct
@@ -300,10 +341,14 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1   key:897a83541a
 ## The minimum variance and maximum Sharpe ratio portfolio
 
-WPlot the results
+In the console you see the previous plot to which the mean and volatilities of the stocks have been added. 
+
+
 
 *** =instructions
-- instruction 1
+- 
+- Determine minimum variance portfolio and maximum Sharpe ratio portfolio (assume a risk free rate of xyz). 
+- Note that the segment below the minimum variance portfolio are dominated. 
 - instruction 2
 
 *** =hint
