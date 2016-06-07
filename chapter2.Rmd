@@ -12,10 +12,13 @@ description : The history of portfolio returns reveals valuable information abou
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:04255405f1b95fc9587c9350f29c6549b41cc79e
 ## Balancing risk and reward 
 
-Here you see three return distributions. Note that the distributions are symmetric and the center of the distribution thus corresponds to the average return. Return distributions A and B have the same expected return, but for distribution B the volatility is higher, and therefore the range of possible outcomes is much wider. This indicates that the risk of a large deviation from the mean return is higher for investing in B than when investing in A. Distribution C has the same level of volatility as distribution A but a higher return. 
+To the right you see three return distributions. The x-axis corresponds to the return of an asset, and the y-axis corresponds with the volatility.  Take a moment to look over these charts.
 
-Consider the typical investor who likes returns, but dislikes risk. Which distribution does she prefer? 
+Notice that the distributions are all symmetric and the center of the distribution corresponds to the average return. 
 
+Return distributions A and B have the same expected return. But distribution B has a higher volatility and therefore has a wider range of possible outcomes.This indicates that the risk of a large deviation from the mean return is higher for investing in B than when investing in A. Distribution C has the same level of volatility as distribution A but a higher return.
+
+You're the type of investor who likes returns, but dislikes risks. Which distribution do you prefer?
 
 *** =instructions
 - Distribution A.
@@ -23,7 +26,7 @@ Consider the typical investor who likes returns, but dislikes risk. Which distri
 - Distribution C.
 
 *** =hint
-hint
+The typical investor wants to minimize volatility, and maximize return. 
 
 *** =pre_exercise_code
 ```{r}
@@ -59,19 +62,25 @@ test_mc(3) # if 3 is the correct option.
 
 Let us now examine the monthly performance of the S&P 500 portfolio. 
 
-A picture is worth a thousand word. This is why most analyses of performance start by studying the time series plot of the value of the investment. For the S&P 500, this is shown in the upper plot for the period 1986 to current date. Each observation is the end-of-day value. Note the booms and busts in the value of this portfolio. Do you see why the 2000s are often called the lost decade of investing?
+A picture is worth a thousand word. This is why most analyses of performance start by studying the time series plot of the value of the investment. 
 
-These daily prices are available in your workspace as the variable `sp500`. It is of the [xts](http://www.rdocumentation.org/packages/xts/) time series class, implying, among others, that the observations are time-stamped.  Our interest is in describing the monthly performance. To do so, we first need to aggregate the daily price series to end-of-month prices. We will then compute the monthly returns and visualize them in an attractive table.  
+
+A plot of the S&P 500 for the period of 1986 until today is shown to your right. Each observation on this plot is an end-of-day value. This chart shows a number of booms and busts. 
+
+Take a look at the chart, do you see why the 2000s are so often called the lost decade of investing?
+
+These daily prices are available in your workspace as the variable `sp500`. This variable is an [xts](http://www.rdocumentation.org/packages/xts/) time series class. This means that each observation has a time-stamp. Your job is describe the monthly performance of the S&P 500. To do so, you will first need to aggregate daily price series to end-of-month prices. You will then calculate the monthly returns and visualize them in a table.
 
 *** =instructions
-- Define the variable `sp500_monthly` as the output of applying the function [to.monthly](http://www.rdocumentation.org/packages/xts/functions/to.period) to `sp500`.
-- Print the first six rows of `sp500_monthly` and note that the aggregation has resulted in a table of four columns, holding the
-opening, lowest, highest and close price of `sp500` for each month. 
-- Define the variable `sp500_returns` as the close-to-close monthly returns. 
+- Use the function `to.monthly()` with the argument `sp500` and assign this to `sp500_monthly`
+- Print the first six rows of `sp500_monthly`. Notice how aggregating the data has resulted in a table of four columns holding the opening, lowest, highest, and closing price of `sp500` for each month.
+- Create `sp500_returns` using the function `Return.calculate` on `sp500_monthly` using the closing prices.
+- Convert `sp500_returns` to a time-series using `xts()` and assign it to sp500_returns.
 - Make the time series plot of the monthly returns.
 - Use the function [table.CalendarReturns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.CalendarReturns) in PerformanceAnalytics to present the monthly return data in the visually attractive format year x month. 
-*** =hint
 
+*** =hint
+Remember that closing prices were printed in the 4th column of `sp500_monthly`. Use `sp500_monthly[ , 4]`
 
 *** =pre_exercise_code
 ```{r}
@@ -91,16 +100,22 @@ plot.zoo(sp500 , main="Value of the S&P 500 portfolio",ylab="", xlab="")
 
 *** =sample_code
 ```{r}
-# The package PerformanceAnalytics and xts are pre-loaded
-# The variable sp500 is pre-loaded
+# The package PerformanceAnalytics and xts, and the variable s500  are pre-loaded
 
-# Time aggregation
+# Convert sp500 to monthly returns
 
-# Print first six rows
 
-# Return calculation
+# Print the first six rows of sp500_monthly
+
+
+# Create sp500_returns using Return.calculate using the closing prices
+
+
+# Convert sp500_returns to a time-series
+
 
 # Time series plot
+
 
 # Produce the year x month table
 
@@ -108,14 +123,24 @@ plot.zoo(sp500 , main="Value of the S&P 500 portfolio",ylab="", xlab="")
 
 *** =solution
 ```{r}
-# Time aggregation
-sp500_monthly = to.monthly(sp500)
-# Print first six rows
+# The package PerformanceAnalytics and xts, and the variable s500  are pre-loaded
+
+# Convert sp500 to monthly returns
+sp500_monthly <- to.monthly(sp500)
+
+
+# Print the first six rows of sp500_monthly
 head(sp500_monthly)
-# Return calculation
-sp500_returns <-  xts(Return.calculate(sp500_monthly[,4]))  
+
+# Create sp500_returns using Return.calculate using the closing prices
+sp500_returns <- Return.calculate(sp500_monthly[ , 4])
+
+# Convert sp500_returns to a time-series
+sp500_returns <- xts(sp500_returns)
+
 # Time series plot
 plot.zoo(sp500_returns)
+
 # Produce the year x month table
 table.CalendarReturns(sp500_returns)
 ```
