@@ -146,13 +146,22 @@ table.CalendarReturns(sp500_returns)
 ```{r}
 # sct code
 #1st instruction
-test_object("sp500_monthly")
+test_object("sp500_monthly", incorrect_msg = "Did you call the correct function, `to.monthly`?")
 
 #2nd instruction
-test_student_typed("head(sp500_monthly)")
+test_student_typed("head(sp500_monthly)", not_typed_msg = "Did you preview the head of `sp500_monthly`?")
 
 #3rd instruction
-test_object("Sp500_returns")
+test_object("sp500_returns", incorrect_msg = "Did you select the correct row? ")
+
+#4th instruction
+test_object("sp500_returns", incorrect_msg = "Did you convert `sp500_returns` to `xts`?")
+
+#5th instruction
+test_function("plot.zoo", "sp500_returns")
+
+#6th instruction
+test_function("table.CalendarReturns", "sp500_returns")
 
 test_error()
 success_msg("Well done!")
@@ -168,6 +177,7 @@ In this exercise, you need to do a descriptive analysis of the mean and volatili
 *** =instructions
 - Compute the arithmetic and geometric mean value of the return series, using the functions [mean](http://www.rdocumentation.org/packages/base/functions/mean) and [mean.geometric](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/mean.geometric).
 - Compute the standard deviation of the return series. 
+
 *** =hint
 The functions `mean` and `sd` are standard functions in R to estimate the mean and standard deviation.
 
