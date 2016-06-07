@@ -28,27 +28,28 @@ Which of the following statements is false:
 
 *** =sct
 ```{r}
+test_error()
 test_mc(2) # if 2 is the correct option.
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:3eba4bd8de6fe4123ea68cc159aa5e8a117fc27d
 ## Get a feel for the data
 
-The choice of investment matters, even when the underlying risky assets are similar. As a first example, let us consider the stock price of the Coca Cola Company and the PepsiCo company from Januari 2003 till today.  
+The choice of investment matters even when the underlying risky assets are similar. As a first example, let us consider the stock price of the Coca Cola Company and the PepsiCo company from January 2003,  until today.  
 
-The time series plot shows you the value evolution of one dollar invested in each of them. As an exercise, plot the time series showing the relative value of an investment in the Coca Cola company, compared to the value of an investment in PepsiCo. To do this exercise, you can us the corresponding price series, available as the variables `ko` and `pep` in your workspace. 
+The time series plot shows you the value evolution of one dollar invested in each company. As an exercise, plot the time series showing the relative value of an investment in the Coca Cola company, compared to the value of an investment in PepsiCo. To do this exercise, you can us the corresponding price series, available as the variables `ko` and `pep` in your workspace. 
 
 *** =instructions
 - Define `ko_pep` as the ratio expressing the value of the share price of the Coca Cola company in terms
 of the share price of PepsiCo
-- Use `plot.zoo` to visualize the daily variation in this ratio. 
-- use `abline` to include a horizontal line at `h=1`.
-- Note that, when the value of the ratio increases, `ko` outperforms `pep` and vice versa
-- Note also that, When the value of the ratio is larger than one, the total accumulated performance of `ko` since Jan 2003 is higher than that of `pep`. Therefore, as a reference line, use `abline` to include a horizontal line at `h=1`.
+- Use `plot.zoo` to visualize the variation in this ratio over time. 
+- Use `abline` to include a horizontal line at `h=1`.
+- Note that when the value of the ratio increases, `ko` outperforms `pep` and vice versa
+- Note that when the value of the ratio is larger than 1, the performance of `ko` since Jan. 2003 is higher than that of `pep`. Therefore, as a reference line, use `abline` to include a horizontal line at `h=1`.
 
 
 *** =hint
-hint comes here
+`plot.zoo` only needs one argument, ko_pep.
 
 *** =pre_exercise_code
 ```{r}
@@ -76,11 +77,15 @@ legend("topleft", legend=c("Coca-Cola","PepsiCo") , col=c("black","red") , lwd =
 # ko and pep are pre-loaded
 # Define ko_pep 
 ko_pep <- 
+  
 # Make a time series plot of ko_pep
   
-# Note that, when the value of the ratio increases, the price of the share of CocaCola Company increases more than the price of PepsiCo, and vice versa
+  
+# Note that when the value of the ratio increases, the price of the share of CocaCola Company increases more than the price of PepsiCo, and vice versa
 
-# Add, as a reference a horizontal line at 1
+  
+# Add as a reference, a horizontal line at 1
+  
   
 # When the value of the ratio is larger than one, the cumulative performance of an investment in the CocaCola Company since Jan 2003 is higher than that of an investment in PepsiCo. 
 ```
@@ -89,27 +94,41 @@ ko_pep <-
 ```{r}
 # Define ko_pep 
 ko_pep <- ko/pep
+
 # Make a time series plot of ko_pep
 plot.zoo(ko_pep)  
+
 # Note that, when the value of the ratio increases, the price of the share of CocaCola Company increases more than the price of PepsiCo, and vice versa
+
 
 # Add, as a reference a horizontal line at 1
 abline(h=1)  
+
 # When the value of the ratio is larger than one, the cumulative performance of an investment in the CocaCola Company since Jan 2003 is higher than that of an investment in PepsiCo. 
 ```
 
 *** =sct
 ```{r}
+#1st instruction
+test_object("ko_pep", incorrect_msg = "Did you correctly define the ratio of `ko` and `pep`?")
+
+#2nd instruction
+test_student_typed("plot.zoo(ko_pep)", not_typed_msg = "Did you create the time series plot of `ko_pep`?")
+
+#3rd instruction
+test_student_typed("abline(h=1)", not_typed_msg = "Did you create the abline at 1?")
 # sct code
+test_error()
 success_msg("Well done!")
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:d2c7c64108eb91da5a95275fe980d5b4aee3be95
 ## A first portfolio: buy-and-hold versus daily rebalancing
 
-The choice of investment matters, even when the underlying risky assets are similar. As a second example, let us now consider the stock price of Apple and Microsoft from Januari 2006 till today. The time series plot shows you the value evolution of one dollar invested in each of them. 
+The choice of investment matters, even when the underlying risky assets are similar. As a second example, you will now consider the stock price of Apple and Microsoft from January 2006 until today. The time series plot shows you the value evolution of one dollar invested in each of them. 
 
-It is time to consider our first portfolio. The portfolio approach that we consider is to invest in January 2003, half of the investment budget in Apple and the other half in Microsoft. Since the portfolio weights will change, the investor has two choices. The first one is to be passive and not buy or trade anymore. This is called the a buy and hold investment strategy. Another possibility is to buy and trade at the close of each day in such a way that every day the portfolio is equally invested in the shares of Microsoft and the shares of Apple. We say that this portfolio is daily rebalanced.  
+It is time to consider our first portfolio. The portfolio approach that you will use to invest is to invest half of the budget in Apple, and the other half of your budget in Microsoft. 
+Over time, the portfolio weights will change. You will have two choices as an investor. The first choice is to be passive and not trade any further. This is called a *buy and hold* strategy. The second choice is to buy and trade at the close of each day that results in a **rebalance** of the portfolio such that your portfolio is equally invested in shares of Microsoft and Apple. This is a *rebalanced portfolio*. 
 
 Which of the following statements is false?
 
@@ -168,14 +187,14 @@ test_mc(3) # if 2 is the correct option.
 --- type:NormalExercise lang:r xp:100 skills:1 key:85a3e5f4f4ca30b9944167e9cbf5eb13692aa7bc
 ## Calculating portfolio weights when component values are given
 
-An investor has  4000 USD invested in equities, 4000 USD in bonds and 2000 USD in commodities. Compute the weights as the proportion invested in each of those three assets. 
+An investor has 4000 USD invested in equities, 4000 USD invested in bonds, and 2000 USD invested in commodities. Compute the weights as the proportion invested in each of those three assets. 
 
 *** =instructions
 - Define the vector `values` as the vector holding these three values.
 - Print the vector `weights` as the vector `values` divided by the total value (obtained by summing over the component values using the function `sum`.
 
 *** =hint
-hint comes here
+`weights` are calculated by taking `values` and dividing by the `sum(values)`.
 
 *** =pre_exercise_code
 ```{r}
@@ -185,9 +204,11 @@ hint comes here
 *** =sample_code
 ```{r}
 # Define the vector values
-values <- 
+
+
 # Define the vector weights
-weights <- 
+
+
 # Print the resulting weights
 
 ```
@@ -196,8 +217,10 @@ weights <-
 ```{r}
 # Define the vector values
 values <- c(4000,4000,2000)
+
 # Define the vector weights
 weights <- values/sum(values)
+
 # Print the resulting weights
 print(weights)
 ```
@@ -205,7 +228,13 @@ print(weights)
 *** =sct
 ```{r}
 # sct code
-success_msg("Well done!")
+#1st instruction
+test_object("values", incorrect_msg = "Did you use the correct dollar values for the `value` object?")
+
+#2nd instruction
+test_object("weights", incorrect_msg = "Did you calculate the weights correctly?")
+
+success_msg("Well done! Remember that the weight of an asset is calculated by taking the value of the asset divided by the sum of values of all assets.")
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:ca2625a363bea895fda8cc4f1d12f3a2cca25da3
@@ -236,12 +265,15 @@ test_mc(2) # if 2 is the correct option.
 
 In a market capitalization weighted portfolio, the weight is given by the asset's market capitalization divided by the sum of the market capitalization of all assets. A typical example is the S&P 500 invested in the 500 largest companies listed on the US stock exchanges (NYSE, Nasdaq).  Note that dividing by the total value of the characteristic across all assets guarantees that the portfolio weights sum up to unity. 
 
-As an exercise, inspect the distribution of market capitalization based weights when the portfolio is invested in 10 stocks and the market capitalizations are 5, 8, 9, 20, 25, 100, 100, 500, 700 and 2000 million USD. 
+As an exercise, inspect the distribution of market capitalization based weights when the portfolio is invested in 10 stocks. For this exercise use market capitalizations of 5, 8, 9, 20, 25, 100, 100, 500, 700 and 2000 million USD. 
 
 *** =instructions
 - Define the vector `marketcaps` holding the market capitalization
 - Define `weights`
-- Print `summary(weights)` and make a histogram
+- Print a summary of `weights`
+- Plot a histogram of `weights`
+
+`summary(weights)` and make a histogram
 
 *** =hint
 A histogram in R can be made using the function [hist()](http://www.rdocumentation.org/packages/graphics/functions/hist).
@@ -255,27 +287,48 @@ A histogram in R can be made using the function [hist()](http://www.rdocumentati
 ```{r}
 # Define marketcaps
 marketcaps <-  
+  
 # Compute the weights
 weights <-
+  
 # Inspect summary statistics
- 
+
+  
+# Plot a histogram of weights
+  
 ```
 
 *** =solution
 ```{r}
 # Define marketcaps
 marketcaps <- c(5, 8, 9, 20, 25, 100, 100, 500, 700, 2000)
+
 # Compute the weights
 weights <- marketcaps/sum(marketcaps)
+
 # Inspect summary statistics 
 summary(weights)
+
+# Plot a histogram of weights
 hist(weights)
 ```
 
 *** =sct
 ```{r}
 # sct code
-success_msg("Well done!")
+#1st instruction
+test_object("marketcaps", incorrect_msg = "Did you use the given values for market caps?")
+
+#2nd instruction
+test_object("weights", incorrect_msg = "Remember that weights are calculated by taking the market cap of an asset divided by the sum of all market caps.")
+
+#3rd instruction
+test_student_typed("summary(weights)", not_typed_msg = "Make sure to plot a summary of `weights`!")
+
+#4th instruction
+test_student_type("hist(weights)", not_typed_msg = "Make sure to create a histogram of `weights`!")
+
+success_msg("Well done! Remember that market capitalizations are the market value of a company's shares, and that weights are calculated by taking the market cap and dividing by the sum of market caps for all assets in a portfolio. ")
 ```
 
 
@@ -290,15 +343,20 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:7a2a60bffa8920ebf2121e0ec548f767197060f0
 ## Calculation of portfolio returns
 
-As first exercise, we verify that the portfolio return can be computed as the weighted average of the component returns. We do this for the simple case of three assets. 
+For your first exercise you will prove that a portoflio return can be computed as the weigthed average of the portfolio component returns.
 
+Remember that a **portfolio return** is calculated by taking the sum of simple returns multiplied by the portfolio weights.
+
+You will use three assets for this example.
+
+Assume that you invested in three assets. Their intial values are 1000 USD, 5000 USD, 2000 USD respectively. Over time, the values change to 1100 USD, 4500 USD, and 3000 USD.
 
 *** =instructions
-- Assume an investment in three assets, for which the initial values are given by `in_values <- c(1000,5000,2000)`.
-- Suppose further that the value changes to 1100, 4500 and 3000, respectively. 
-- Use the simple return definition to compute the vector of returns on the three component assets
-- Use the portfolio return formula to compute the (simple) portfolio return
-- Verify that the weighted average portfolio return  equals the percentage change in the total portfolio value.
+- Create a vector of the initial asset values `in_values`. 
+- Create a vector of the final values, `fin_values`. 
+- Use the simple return definition to compute the vector of returns on the three component assets.
+- Use the portfolio return formula to compute the (simple) portfolio return.
+- Verify that the weighted average portfolio return equals the percentage change in the total portfolio value using `all.equal(). Run the provided code.
 
 *** =hint
 hint comes here
@@ -310,38 +368,72 @@ hint comes here
 
 *** =sample_code
 ```{r}
-# Vector of initial and final values of the assets
+# Vector of initial value of the assets
 in_values <-  
-fin_values <-  
+  
+# Vector of final values of the assets
+fin_values <- 
+  
 # Vector of simple returns of the assets 
 returns <-  
+  
 # Weights as the proportion of total value invested in each assets
 weights <-
+  
 # Compute portfolio return using the portfolio return formula
 preturn <- 
+  
 # Verify that it matches with the percentage change in the portfolio value
-all.equal( preturns   , (sum(fin.values)-sum(in.values))/sum(in.values) )
+all.equal(preturns,
+          (sum(fin.values) - sum(in.values)) / sum(in.values))
 ```
 
 *** =solution
 ```{r}
-# Vector of initial and final values of the assets
+# Vector of initial of the assets
 in_values <- c(1000,5000,2000)
+
+# Vector of final values of the assets
 fin_values <- c(1100,4500,3000)
+
 # Vector of simple returns of the assets 
-returns <- (fin_values-in_values)/in_values
+returns <- (fin_values - in_values)/in_values
+
 # Weights as the proportion of total value invested in each assets
 weights <-  in_values/sum(in_values)
+
 # Compute portfolio return using the portfolio return formula
 preturn  <- sum(weights*returns)
+
 # Verify that it matches with the percentage change in the portfolio value
-all.equal( preturn   , (sum(fin_values)-sum(in_values))/sum(in_values) )
+all.equal(preturns,
+          (sum(fin_values) - sum(in_values))/sum(in_values))
 ```
 
 *** =sct
 ```{r}
 # sct code
-success_msg("Well done!")
+#1st instruction
+test_object("in_values", incorrect_msg = "Did you use the correct asset values?")
+
+#2nd instruction
+test_object("fin_values", incorrect_msg = "Did you use the correct final asset values?")
+
+#3rd instruction
+test_object("returns", incorrect_msg = "Are you sure you calculated the simple return correctly?")
+
+#4th instruction
+test_object("weights", incorrect_msg = "Make sure you calculated weights correctly!")
+
+#5th instruction
+test_object("preturn", incorrect_msg = "Make sure you calculated the portfolio return correctly!")
+
+#6th instruction
+test_student_typed("all.equal(preturns,
+          (sum(fin_values) - sum(in_values))/sum(in_values))")
+
+success_msg("Congratulations! You proved that portfolio returns are the weighted average of the portfolio compenent returns.
+            Remember that **portfolio returns** are calculated by taking the sum of simple returns, multiplied by the portfolio weights.")
 ```
 
 
@@ -372,18 +464,22 @@ test_mc(1) # if 2 is the correct option.
 
 ## From simple to gross and multi-period returns   
 
-The simple return $R$ expresses the percentage change in value of an investment. The corresponding so-called "gross" return is defined as the future value of $1 invested in the asset for one period, and is thus equal to $1+R$. 
+The simple return $R$ expresses the percentage change in value of an investment. The corresponding so-called "gross" return is defined as the future value of $1 invested in the asset for one period, and is thus equal to *$1+R$*. 
 
-The gross returns over two periods is obtained similarly. Let $R_1$ be the return in the first period and $R_2$ the return in the second period. Then the end-value of a $1 investment is $(1+R_1)*(1+R_2)$. 
-The corresponding simple return over those two periods is $(1+R_1)*(1+R_2)-1$. 
+The gross returns over two periods is obtained similarly. Let *$R_1$* be the return in the first period and *$R_2$* the return in the second period. Then the end-value of a $1 investment is  $(1+R_1)*(1+R_2)$. 
 
-Suppose the investor now has a horizon of two periods and in the first period, she makes a 10% return, but in the second period a loss of 5%. Use the R console to compute the end value and the simple return of an initial investment of $1000 investment.  Which of the three following answers do you obtain?
+The corresponding simple return over those two periods is: $(1+R_1)*(1+R_2)-1$. 
 
+Suppose that you have an investment horizon of two periods. In the first period you make a 10% return. But in the second period you take a loss of 5%. 
+
+Use the R console to compute the end value, and the simple return of an initial investment of a 1000 USD investment.
+
+Which of the three following answers do you obtain?
 
 *** =instructions
-- End-value = 1155. Simple 2-period return: .
-- End-value = 1045. Simple 2-period return: .
-- End-value = 1050. Simple 2-period return: .
+- End-value = 1155
+- End-value = 1045
+- End-value = 1050
 
 *** =hint
 If $R_1$ is the return in the first period and $R_2$ is the return in the second period, then the end-value of a $1 investment is $(1+R_1)*(1+R_2)$.
@@ -420,6 +516,7 @@ hint
 *** =sct
 ```{r}
 test_mc(2) # if 2 is the correct option.
+success_msg("Well done! After 50% loss you would need to double the amount of money you have remaining to return to your initial investment value.")
 ```
 
 
@@ -434,15 +531,17 @@ test_mc(2) # if 2 is the correct option.
 --- type:NormalExercise lang:r xp:100 skills:1 key:1d4270da1d39343116d0e77f9b897e6b2127914f
 ## The time series of asset returns  
 
-Computing the returns for one period is thus straightforward to do in R. When the returns need to be calculated for different dates, the functions  [Return.calculate](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.calculate) and [Return.portfolio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio) in the R package [PerformanceAnalytics](http://www.rdocumentation.org/packages/performanceanalytics/functions/performanceanalytics-package) are helpful. They require the input data to be of the [xts](http://www.rdocumentation.org/packages/xts/functions/xts-package)-time series class.
+Calculating the returns for one period is pretty forward to do in R. When the returns need to be calculated for different dates the functions [Return.calculate](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.calculate) and [Return.portfolio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio), in the R package [PerformanceAnalytics](http://www.rdocumentation.org/packages/performanceanalytics/functions/performanceanalytics-package) are extremely helpful. They require the input data to be of the [xts-time series class](http://www.rdocumentation.org/packages/xts/functions/xts-package). You will explore the functionality of the [PerformanceAnalytics](http://www.rdocumentation.org/packages/performanceanalytics/functions/performanceanalytics-package) package in this exercise. 
 
-Let us explore this functionality in the case of a portfolio invested in the Apple stock and Microsoft stock, for which the prices are available in the variables `aapl` and `msft` in your workspace.  
+You have a portfolio invested in Apple stock, and Microsoft stock. The prices for each stock are available in the variables `aapl` and `msft` in your workspace.
 
 *** =instructions
-- Load   the packages `xts` and `PerformanceAnalytics` in your R session.
-- Use the function [merge](http://www.rdocumentation.org/packages/xts/functions/merge) to bind the variables `aapl` and `msft` by row names (here: the dates) and call this `prices`.
+- Load the packages `xts` and `PerformanceAnalytics` in your R session.
+- Use the function [merge](http://www.rdocumentation.org/packages/xts/functions/merge) to bind the variables `aapl` and `msft`, call this `prices`.
 - Print the first and last six row of `prices` using `head` and `tail`.
-- Use the function [Return.calculate](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.calculate) with as only argument `prices` to compute for each date the return as the percentage change in the price compared to the previous date.
+- Use the function [Return.calculate](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.calculate) with as only argument `prices` to compute for each date the return as the percentage change in the price compared to the previous date, call this `returns`.
+- Print the first six rows of `returns`.
+- Remove the first row of `returns`
  
 
 *** =hint
@@ -461,41 +560,75 @@ msft <- get.hist.quote(instrument="MSFT",start=as.Date("2005-12-31"),end=Sys.Dat
 ```{r}
 # aapl and msft are pre-loaded
 
-# load the packages xts and PerformanceAnalytics 
+# Load the packages xts and PerformanceAnalytics 
 
-# define prices as the merged time series of aapl and msft
-prices <-  
+# Define prices as the merged time series of aapl and msft
+prices <-  merge(___ , ___)
 colnames(prices) <- c("AAPL","MSFT")
-# print the first and last six rows of prices
+
+# Print the first and last six rows of prices
+ 
+
+# Create the variable returns using Return.calculate()  
  
   
-# define the variable returns holding in each row the returns for that day of Apple and Microsoft
-returns <-   
-# print the first six rows of returns and note that the first observation is NA, because there is no preceding price needed to compute the return
+# Print the first six rows of returns. Note that the first observation is NA, because there is no prior price.
 
-# remove the first row
-returns <- returns[-1,]
+  
+# Remove the first row of returns
+returns <- returns[-1, ]
  
 ```
 
 *** =solution
 ```{r}
-# load the packages xts and PerformanceAnalytics 
+# Load the packages xts and PerformanceAnalytics 
 library(xts)
 library(PerformanceAnalytics)
-# define prices as the merged time series of aapl and msft
+
+# Define prices as the merged time series of aapl and msft
 prices <-  merge(aapl,msft)
 colnames(prices) <- c("AAPL","MSFT")
-# print the first and last six rows of prices
+
+# Print the first and last six rows of prices
+head(prices)
+tail(prices)
+
+# Create the variable returns using Return.calculate()  
 returns <-  Return.calculate(prices)  
-# remove the first row
-returns <- returns[-1,]
+
+# Print the first six rows of returns. Note that the first observation is NA, because there is no prior price.
+head(returns)
+
+# Remove the first row
+returns <- returns[-1, ]
  
 ```
 
 *** =sct
 ```{r}
-# sct code
+# sct code 
+#1st instruction
+test_library_function(xts, not_called_msg = "Make sure to call the xts library!")
+test_library_function(PerformanceAnalytics, not_called_msg = "Make sure to call the PerformanceAnalytics library!")
+
+#2nd instruction
+test_object("prices")
+
+#3rd instruction
+test_student_typed("head(prices)")
+test_student_typed("tail(prices)")
+
+#4th instruction
+test_object("returns")
+
+#5th instruction
+test_student_typed("head(returns)")
+
+#6th instruction
+test_object("returns")
+
+test_error()
 success_msg("Well done!")
 ```
 
@@ -541,27 +674,33 @@ colnames(returns) <- c("AAPL","MSFT")
 
 *** =sample_code
 ```{r}
-# returns is pre-loaded
-# define the vector of equally-weighted portfolio weights
-weights <-  
-# compute portfolio return for each date
+# Returns is pre-loaded
+# Define the vector of equally-weighted portfolio weights
+
+  
+# Compute portfolio return for each date
 preturns_bh <-  
-preturns_rebal <-  
-# plot the time series of portfolio returns
+preturns_rebal <- 
+  
+# Plot the time series of portfolio returns
 par(mfrow=c(2,1),mar=c(2,4,2,2))
 plot.zoo(preturns_bh)
-plot.zoo(  )
+plot.zoo(___)
+
 # verbose=TRUE 
-out_bh <-  
-out_rebal <-  
-# who are you
+out_bh <-
+out_rebal <-
+
+# Who are you
 names(out_bh)
-#
+
+# eop (end of period) weights
 endWeights_bh <- out_bh$EOP.Weight 
-endWeights_rebal <- out_rebal$EOP.Weight 
-# plot the eop weights of Apple
+endWeights_rebal <- out_rebal$EOP.Weight
+
+# Plot the eop weights of Apple
 plot.zoo(endWeights_bh$AAPL ,ylim=c(0,1))
-plot.zoo(endWeights_rebal$AAPL , ylim=c(0,1) )
+plot.zoo(endWeights_rebal$AAPL , ylim=c(0,1))
 ```
 
 *** =solution
@@ -634,10 +773,13 @@ preturns <- Return.portfolio(returns, weights,rebalance_on="days")
 # preturns is pre-loaded
 
 # Print the daily returns in September 2008
-preturns["2008-09"]
+
+
 # Print the value evolution of a $1 investment over this month 
 
+
 # Compute the monthly return as the percentage change of final value w.r.t. initial value
+
 
 # Verify that this leads to the same results as using the function Return.cumulative
 
@@ -645,11 +787,15 @@ preturns["2008-09"]
 
 *** =solution
 ```{r}
+# preturns is pre-loaded
+
 # Print the daily returns in September 2008
 preturns["2008-09"]
+
 # Print the value evolution of a $1 investment over this month 
 cumprod(1+preturns["2008-09"])
-# Compute the monthly return as the percentage change of final value w.r.t. initial value
+
+# Compute the monthly return as the percentage change of final value with respect to the initial value
 (0.7682575-1)/1
 # Verify that this leads to the same results as using the function Return.cumulative
 Return.cumulative(preturns["2008-09"])
