@@ -65,9 +65,7 @@ Let us now examine the monthly performance of the S&P 500 portfolio.
 A picture is worth a thousand word. This is why most analyses of performance start by studying the time series plot of the value of the investment. 
 
 
-A plot of the S&P 500 for the period of 1986 until today is shown to your right. Each observation on this plot is an end-of-day value. This chart shows a number of booms and busts. 
-
-Take a look at the chart, do you see why the 2000s are so often called the lost decade of investing?
+A plot of the S&P 500 for the period of 1986 until today is shown to your right. Each observation on this plot is an end-of-day value. This chart shows a number of booms and busts. Take a look at the chart, do you see why the 2000s are so often called the lost decade of investing?
 
 These daily prices are available in your workspace as the variable `sp500`. This variable is an [xts](http://www.rdocumentation.org/packages/xts/) time series class. This means that each observation has a time-stamp. Your job is describe the monthly performance of the S&P 500. To do so, you will first need to aggregate daily price series to end-of-month prices. You will then calculate the monthly returns and visualize them in a table.
 
@@ -128,7 +126,6 @@ plot.zoo(sp500 , main="Value of the S&P 500 portfolio",ylab="", xlab="")
 # Convert sp500 to monthly returns
 sp500_monthly <- to.monthly(sp500)
 
-
 # Print the first six rows of sp500_monthly
 head(sp500_monthly)
 
@@ -148,6 +145,15 @@ table.CalendarReturns(sp500_returns)
 *** =sct
 ```{r}
 # sct code
+#1st instruction
+test_object("sp500_monthly")
+
+#2nd instruction
+test_student_typed("head(sp500_monthly)")
+
+#3rd instruction
+test_object("Sp500_returns")
+
 success_msg("Well done!")
 ```
 
