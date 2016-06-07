@@ -158,7 +158,7 @@ test_function("Return.calculate", c("prices"), incorrect_msg = "Did you use the 
 test_function("xts", "x", incorrect_msg = "Did you use convert the correct object?" , not_called_msg = "Did you convert `sp500_returns` to `xts`?")
 
 #5th instruction
-test_function("plot.zoo", "x", incorrect_msg = "You didn't plot the returns.", not_called_msg = "Be sure to plot the returns!")
+test_function("plot.zoo", "x", incorrect_msg = "It looks like you didn't plot the returns!", not_called_msg = "Be sure to plot the returns!")
 
 #6th instruction
 test_function("table.CalendarReturns", "R", incorrect_msg = "You didn't supply the correct object!", not_called_msg = "Be sure to print a table of your returns!")
@@ -171,11 +171,14 @@ success_msg("Well done!")
 
 ## The monthly mean and volatility  
 
-In this exercise, you need to do a descriptive analysis of the mean and volatility of the monthly S&P 500 returns. These returns are available in your workspace as the variable `sp500_returns`. 
+You have now created month to month returns for the S&P500. Next, you will need to do a descriptive analysis of the returns. 
+
+In this exercise you will calculate the mean (arithmetic and geometric) and **volatility** (standard deviation) of the returns. These returns are available in your workspace as the variable `sp500_returns`. 
 
 
 *** =instructions
-- Compute the arithmetic and geometric mean value of the return series, using the functions [mean](http://www.rdocumentation.org/packages/base/functions/mean) and [mean.geometric](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/mean.geometric).
+- Compute the arithmetic mean value of the return series.
+- Compute the geometric mean value of the return series using `mean.geometric()`.
 - Compute the standard deviation of the return series. 
 
 *** =hint
@@ -201,7 +204,11 @@ sp500_returns <- xts(sp500_returns,newdates)
 ```{r}
 # sp500_returns is pre-loaded
 
-# Compute the mean monthly returns 
+# Compute the mean monthly returns
+
+
+# Compute the geometric mean of monthly returns
+
 
 # Compute the standard deviation
 
@@ -210,9 +217,14 @@ sp500_returns <- xts(sp500_returns,newdates)
 
 *** =solution
 ```{r}
+# sp500_returns is pre_loaded
+
 # Compute the mean monthly returns 
 mean(sp500_returns)
+
+# Compute the geometric mean of monthly returns
 mean.geometric(sp500_returns)
+
 # Compute the standard deviation
 sd(sp500_returns)  
 ```
@@ -220,7 +232,14 @@ sd(sp500_returns)
 *** =sct
 ```{r}
 # sct code
-success_msg("Well done!")
+test_function("mean", "x", incorrect_msg = "You didn't call `mean()` on the correct object!", not_called_msg = "You didn't call `mean.geometric()`!")
+
+test_function("mean.geometric", "x", incorrect_msg = "You didn't call `mean.geometric()` on the correct object!", not_called_msg = "You didn't call `mean.geometric()`!")
+
+test_function("sd", "x", incorrect_msg = "You didn't calculate the standard deviation on the correct object!", not_called_msg = "Don't forget to calculate the standard deviation!")
+
+test_error()
+success_msg("The volatility and mean return are very important metrics in every investor's decision making!")
 ```
 
 
@@ -235,7 +254,11 @@ success_msg("Well done!")
  
 ## Excess returns and the portfolio's Sharpe ratio  
 
-Performance evaluation involves comparing with the alternative investment choices, such as investing in a (almost) risk free asset, such as the US Treasury Bill. Its return is called the risk free rate. This one-month  Tbill rate is available in your workspace as the variable `rf`.  The S&P 500 portfolio returns are still available as `sp500_returns`.  
+You just learned how to create descriptive statistics of your portfolio returns. Now you will learn how to evaluate your portfolio's performance! 
+
+Performance evaluation involves comparing your investment choicesq with an alternative investment choice. Most commonly used is comparison with an **(almost)** risk free asset, such as the US Treasury Bill. The return from a US Treasury Bill is known as a risk free rate, this is because Treasury Bills (T-Bills) are are guaranteed a future return, and are backed by the US Government. 
+
+Pre-loaded in your workspace is the object `rf` which contains the one-month rate of a T-Bill. The S&P 500 portfolio returns are still available as `sp500_returns`.
 
 *** =instructions
 - Compute the annualized risk free using the compound interest formula and plot this series. 
