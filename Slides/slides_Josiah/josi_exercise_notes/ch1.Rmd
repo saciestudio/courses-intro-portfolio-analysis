@@ -10,7 +10,7 @@ FEEDBACK ON CHAPTERS
     - Introduce every new term (even if explained in the video, repetition is everything!
 
 - Chapter 1 exercises:
-    - Risk and Return (MC)
+    - Risk and Return (multiple choice)
         - Question isn’t too related to the topic in the video. 
 
     - “Get a feel for the data” 
