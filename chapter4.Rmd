@@ -509,13 +509,12 @@ success_msg("Well done!")
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1    key:e647c251a7
 ## Properties of the efficient frontier
 
- 
-
+Consider the efficient frontier plots obtained for the DJIA stocks under a maximum 30% weight constraint (red line) and a maximum 5% weight constraint (blue). Which of the following statements is false.  
 
 *** =instructions
-- A portfolio is less volatile than the sum of its component volatilities. This implies that the standard deviation of the 60/40 portfolio is less than `0.6*sd(returns_equities)+0.4*sd(returns_bonds)`. We call this the subadditivity property of the standard deviation.    
-- The portfolio mean return equals the sum of the component average returns, that is, `mean(returns_6040)==0.6*mean(returns_equities)+0.4*mean(returns_bonds)`.  
-- None of the above statements is correct. 
+- Imposing a more strict weight constraint, leads to a shift to the right of the efficient frontier.    
+- The portfolios on the dashed lines are not mean-variance efficient. 
+- The observed average return of any risky portfolio is always higher than the risk-free rate. 
 
 *** =hint
 hint
@@ -531,7 +530,10 @@ prices<- readRDS("prices.rds")
 returns <- Return.calculate(prices, method="simple")
 returns <- returns[(-1),]
 
-grid = seq(min(stockmu),max(stockmu),length.out=100 )  
+stockmu = apply( X = returns , MARGIN = 2 , FUN="mean")
+stocksd = apply( X = returns , MARGIN = 2 , FUN="sd")
+
+grid <- seq(min(stockmu),max(stockmu),length.out=100 )  
 # Compute the efficient frontier
 ## for each solution, we save the portfolio mean,
 ## portfolio standard deviation and the weights
@@ -539,7 +541,8 @@ grid = seq(min(stockmu),max(stockmu),length.out=100 )
 vpm = vpsd = mweights = c()
 
 for( mutarget in grid ){
-  out = try(portfolio.optim(x = returns.estim,pm=mutarget),silent=TRUE)
+  out = try(portfolio.optim(x = returns,pm=mutarget,
+                            reshigh = rep(0.3,ncol(returns)) ),silent=TRUE)
   if(class(out)!="try-error"){
     vpm = c(vpm,out$pm)
     vpsd = c(vpsd,out$ps)
@@ -562,8 +565,8 @@ colnames(mweights) = colnames(returns)
 vpm.res = vpsd.res = mweights.res = c()
 
 for( mutarget in grid ){
-  out = try(portfolio.optim(x = returns.estim,pm=mutarget,
-                  reshigh = rep(0.1,ncol(returns.estim))),silent=TRUE)
+  out = try(portfolio.optim(x = returns,pm=mutarget,
+                  reshigh = rep(0.05,ncol(returns))),silent=TRUE)
   if(class(out)!="try-error"){
     vpm.res = c(vpm.res,out$pm)
     vpsd.res = c(vpsd.res,out$ps)
@@ -575,12 +578,16 @@ colnames(mweights.res) = colnames(returns)
 
 # 
 plot(stocksd,stockmu,col="gray" , xlab="Standard deviation (monthly)", ylab="Average return (monthly",
-     xlim=c(0.02,0.15), ylim=c(-0.01,0.02))
-text( stocksd ,  stockmu ,  labels=colnames(returns.estim), cex= 0.7)
+     xlim=c(0.02,0.15), ylim=c(min(stockmu),max(stockmu)))
+text( stocksd ,  stockmu ,  labels=colnames(returns), cex= 0.7)
 # all portfolios offering less return than the minimum variance portfolio should be excluded
+minvarpm = vpm[vpsd==min(vpsd)]
 minvarpm.res = vpm.res[vpsd.res==min(vpsd.res)]
+lines(vpsd,vpm,col="red",lwd=1,lty=3)
+lines(vpsd.res,vpm.res,col="blue",lwd=1,lty=3)
 lines(vpsd[vpm>=minvarpm],vpm[vpm>=minvarpm],col="red",lwd=2)
 lines(vpsd.res[vpm.res>=minvarpm.res],vpm.res[vpm.res>=minvarpm.res],col="blue",lwd=2)
+
 ```
 
 *** =sct
@@ -596,13 +603,16 @@ test_mc(3) # if 3 is the correct option.
 //player.vimeo.com/video/108225030
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:69f72e3a22916ec2ef924a7f212d354f28022366
-## Split sample in two: estimation window and evaluation window
+## Split-sample evaluation
 
-Estimation window, out of sample evaluation window. Estimation error
+The function [window](http://www.rdocumentation.org/packages/stats/functions/window), with arguments `x`, `start` 
+and `end`, extracts the subperiod between `start` and `end`  from the object `x`. 
 
 *** =instructions
-- instruction 1
-- instruction 2
+- Split `returns` into the sample `returns.estim` (ending on `2003-12-31`) and `returns.eval` (starting on `2004-01-01`)
+- Compute using `returns.estim` the optimal portfolio under a maximum 30% weight constraint and under a maximum 5% weight constraint, when the target return is the return of the equally weighted portfolio. 
+- Note that the sample period matter since when we re-optimize the portfolio on the period `returns.eval` we obtain different portfolio weights. 
+
 
 *** =hint
 hint comes here
@@ -629,9 +639,10 @@ returns <- returns[(-1),]
 # solution code
 
 # Splitting return data in sample for estimation and out of sample evaluation 
-returns.estim = window(returns, start = "2004-01-01", end = "2011-12-31")
-returns.oos = window(returns, start ="2012-01-01", end = "2015-03-31")
-
+returns.estim = window(returns, start = "1991-01-01", end = "2003-12-31")
+returns.oos = window(returns, start ="2004-01-01", end = "2015-12-31")
+# optimize portfolios
+portfolio.optim(x = returns ,pm=mutarget)
 ```
 
 *** =sct
@@ -643,10 +654,13 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:6d3bdc717d87317d8c4ccf468836039b35f78440
 ## Out of sample performance evaluation
 
-Estimation window, out of sample evaluation window. Compare in sample estimated performance with out of sample realized performance.
+How severe is the optimality loss? Let's compare on the out-of-sample period the mean and variance on the optimized portfolio weights using the estimation sample and the out-of-sample evaluation data. 
+
+The 
 
 *** =instructions
-- instruction 1
+- Use `returns.eval` to compute the returns on those two portfolios over the out of sample period
+- Compare the mean and volatility of those returns. 
 - instruction 2
 
 *** =hint
