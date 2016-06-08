@@ -113,7 +113,7 @@ success_msg("Well done!")
 
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:c066b2d5f610d13afdb48831249d18142590def7
-## Find the mean-variance efficient portfolio  
+## Finding the mean-variance efficient portfolio  
 
 A mean-variance efficient portfolio can be obtained as the solution of minimizing the portfolio variance under the constraint that the portfolio expected return equals a target return. A convenient R function for doing so is the function [portfolio.optim](http://www.rdocumentation.org/packages/tseries/functions/portfolio.optim) in the R package [tseries](http://www.rdocumentation.org/packages/tseries). 
 Its default implementation finds the mean-variance efficient portfolio weights under the constraint that the portfolio return equals the return on the equally-weighted portfolio. 
@@ -341,7 +341,7 @@ Concept of minimizing variance given a sequence of return targets starting from 
 --- type:NormalExercise lang:r xp:100 skills:1 key:2c03a87fc29fb66e35d8cdbf244b3dcf41305824
 ## Computing the efficient frontier 
 
-As we have seen, we need to first define the grid of target returns. We will set the maximum target return to the maximum average return of the stocks. The minimum target return is the return of the minimum variance portfolio. We don't know this minimum variance portfolio return yet. Let's therefore take the largest possible grid starting with the minimum average returns of all stocks. 
+As we have seen, we need to first define the grid of target returns. We will set the maximum target return to the maximum average return of the stocks. Ideally, we set the minimum target return to the return of the minimum variance portfolio. Since we don't know this minimum variance portfolio return yet, let's therefore take the largest possible grid starting with the minimum average returns of all stocks. 
 
 
 *** =instructions
@@ -377,13 +377,14 @@ grid = seq( , ,length.out=100 )
 ## Initialize them as an empty vector
 vpm = vpsd = mweights = c()
 for( mutarget in grid ){
-  out = try(portfolio.optim(x = returns ,pm=mutarget),silent=TRUE)
+  out <- try(portfolio.optim(x = returns ,pm=mutarget),silent=TRUE)
   if(class(out)!="try-error"){
-    vpm = c(vpm,out$pm)
-    vpsd = c(vpsd,out$ps)
-    mweights = rbind( mweights,out$pw)
+    vpm <- c(vpm,out$pm)
+    vpsd <- c(vpsd,out$ps)
+    mweights <- rbind( mweights,out$pw)
   }
 }
+colnames(mweights) = colnames(returns)
 # report the scatter plot of vpm agains vpsd
 
 ```
@@ -400,11 +401,11 @@ grid = seq(min(stockmu),max(stockmu),length.out=100 )
 vpm = vpsd = mweights = c()
 
 for( mutarget in grid ){
-  out = try(portfolio.optim(x = returns ,pm=mutarget),silent=TRUE)
+  out <- try(portfolio.optim(x = returns ,pm=mutarget),silent=TRUE)
   if(class(out)!="try-error"){
-    vpm = c(vpm,out$pm)
-    vpsd = c(vpsd,out$ps)
-    mweights = rbind( mweights,out$pw)
+    vpm <- c(vpm,out$pm)
+    vpsd <- c(vpsd,out$ps)
+    mweights <- rbind( mweights,out$pw)
   }
 }
 # report the scatter plot of vpm agains vpsd
@@ -420,16 +421,16 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1   key:897a83541a
 ## The minimum variance and maximum Sharpe ratio portfolio
 
-In the console you see the previous plot to which the mean and volatilities of the stocks have been added. 
+Let us investigate further the previous output consistent of the vector of expected portfolio returns (`vpm`), the 
+portfolio standard deviations (`vpsd`) and the matrix of portfolio weights (`mweights`).   
 
-MULTIPLE CHOICE?????
+ 
 
 
 *** =instructions
-- 
-- Determine minimum variance portfolio and maximum Sharpe ratio portfolio (assume a risk free rate of xyz). 
-- Note that the segment below the minimum variance portfolio are dominated. 
-- instruction 2
+- Complete the sample code to obtain the volatility and expected return of the minimum variance portfolio. 
+- Assume a risk free rate of 0.75%. Complete the sample code to compute the risk and reward of the maximum Sharpe ratio portfolio and compare its allocation with the minimum variance portfolio (focus hereby on the weights larger than 1%).
+ 
 
 *** =hint
 hint comes here
@@ -445,9 +446,8 @@ download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-anal
 prices<- readRDS("prices.rds") 
 returns <- Return.calculate(prices, method="simple")
 returns <- returns[(-1),]
-stockmu = colMeans(returns)
+stockmu <- colMeans(returns)
 
-stockmu = colMeans(returns)
 grid = seq(min(stockmu),max(stockmu),length.out=100 )  
 # Compute the efficient frontier
 ## for each solution, we save the portfolio mean,
@@ -456,104 +456,47 @@ grid = seq(min(stockmu),max(stockmu),length.out=100 )
 vpm = vpsd = mweights = c()
 
 for( mutarget in grid ){
-  out = try(portfolio.optim(x = returns ,pm=mutarget),silent=TRUE)
+  out <- try(portfolio.optim(x = returns ,pm=mutarget),silent=TRUE)
   if(class(out)!="try-error"){
-    vpm = c(vpm,out$pm)
-    vpsd = c(vpsd,out$ps)
-    mweights = rbind( mweights,out$pw)
+    vpm <-  c(vpm,out$pm)
+    vpsd <- c(vpsd,out$ps)
+    mweights <- rbind( mweights,out$pw)
   }
 }
-
-# assign the stock names to the column names of mweights
 colnames(mweights) = colnames(returns)
-plot(stocksd,stockmu,col="gray" , xlab="Standard deviation (monthly)", ylab="Average return (monthly)")
-text( stocksd ,  stockmu ,  labels=colnames(returns.estim), cex= 0.7)
-lines(vpsd,vpm,col="red")
 ```
 
 *** =sample_code
 ```{r}
 # sample code
+# minimum variance portfolio
+pm_minvar <- vpm[vpsd==min(vpsd)]
+psd_minvar <-
+weights_minvar <-
+# max sharpe 
+pm_maxsharpe <-  
+psd_maxsharpe <-
+weights_maxsharpe <-
+#compare weights
+par(mfrow=c(2,1), mar=c(3,2,2,1))
+barplot(weights_minvar)
+ 
 ```
 
 *** =solution
 ```{r}
 # solution code
-# inspect the weights of the minimum variance portfolio
-# each row in mweights is a portfolio, 
-# select the row corresponding to the minimum variance portfolio
-barplot( mweights[ vpsd==min(vpsd),] )
-# print them, rounded at 2 decimals, and sorted
-sort(round(mweights[ vpsd==min(vpsd),],2),decreasing=TRUE)
-
-# this concenctration is true for almost all portfolios on the frontier
-# To see this compute for each portfolio, the maximum weight and plot
-# We have 100 portfolios, a row in mweights corresponds to a portfolio
-# plot the maximum weights
-minvarpm = vpm[vpsd==min(vpsd)]
-plot(apply(mweights[ vpm>=minvarpm,],1,"max"),type="l",
-     main="Max weight for each of the efficient portfolios", 
-     xlab="",ylab="")
-```
-
-*** =sct
-```{r}
-# sct code
-success_msg("Well done!")
-```
-
---- type:NormalExercise lang:r xp:100 skills:1 key:5cd26622b81e29df3e9a1636d88d48ed0ae3c3c5
-## Plotting the efficient frontier  
-
-Write the loop. for(), portfolio.optim()
-
-*** =instructions
-- instruction 1
-- instruction 2
-
-*** =hint
-hint comes here
-
-*** =pre_exercise_code
-```{r}
-# pec
-library(xts)
-library(PerformanceAnalytics)
-library(tseries)
-download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
-# load("prices.Rdata")
-prices<- readRDS("prices.rds") 
-returns <- Return.calculate(prices, method="simple")
-returns <- returns[(-1),]
-```
-
-*** =sample_code
-```{r}
-
-
-# assign the stock names to the column names of mweights
-colnames(mweights) = colnames(returns)
-
-plot(stocksd,stockmu,col="gray" , xlab="Standard deviation (monthly)", ylab="Average return (monthly)")
-text( stocksd ,  stockmu ,  labels=colnames(returns.estim), cex= 0.7)
-lines(vpsd,vpm,col="red")
-
-# Improvements:
-# adjust better the limits of the plot
-# remove the point on the frontier that are dominated
-
-plot(stocksd,stockmu,col="gray" , xlab="Standard deviation (monthly)", ylab="Average return (monthly",
-     xlim=c(0.02,0.15), ylim=c(-0.01,0.02))
-text( stocksd ,  stockmu ,  labels=colnames(returns.estim), cex= 0.7)
-
-# all portfolios offering less return than the minimum variance portfolio should be excluded
-minvarpm = vpm[vpsd==min(vpsd)]
-lines(vpsd[vpm>=minvarpm],vpm[vpm>=minvarpm],col="red",lwd=2)
-```
-
-*** =solution
-```{r}
-# solution code
+# minimum variance portfolio
+pm_minvar <- vpm[vpsd==min(vpsd)]
+psd_minvar <-vpsd[vpsd==min(vpsd)]
+weights_minvar <- mweights[vpsd==min(vpsd),]
+# max sharpe 
+pm_maxsharpe <-  vpm[(vpm-0.0075)/vpsd==max((vpm-0.0075)/vpsd)]
+psd_maxsharpe <- vpsd[(vpm-0.0075)vpsd==max((vpm-0.0075)/vpsd)]
+weights_maxsharpe <- mweights[(vpm-0.0075)/vpsd==max((vpm-0.0075)/vpsd),]
+par(mfrow=c(2,1), mar=c(3,2,2,1))
+barplot(weights_minvar[weights_minvar>0.01])
+barplot(weights_maxsharpe[weights_maxsharpe>0.01]) 
 ```
 
 *** =sct
@@ -564,13 +507,9 @@ success_msg("Well done!")
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1    key:e647c251a7
-## The effect of weight constraints on the frontier
+## Properties of the efficient frontier
 
-Chapter 2 introduced you to the *univariate* approach of analyzing portfolio performance based on a statistical analysis of the portfolio return series. In this chapter, we consider a *multivariate* analysis and study how the portfolio performance is affected by the interaction between the performance of the individual portfolio positions. 
-
-As a motivating example, let us consider a portfolio invested in two very diverse exchange traded funds (ETFs), namely an ETF tracking the broad US equities market (ETF with symbol SPY) and an ETF track the US bonds market (ETF with symbol AGG). The monthly returns for these ETFs and the 60/40 portfolio that invests every month 60% in the equities ETF and 40% in the bonds ETF are available in the workspace as `returns_bonds`, `returns_equities` and `returns_6040`.   
-
-Verify in the R-console which of the following statements is false. 
+ 
 
 
 *** =instructions
