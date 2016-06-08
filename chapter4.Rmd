@@ -113,9 +113,10 @@ success_msg("Well done!")
 
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:c066b2d5f610d13afdb48831249d18142590def7
-## Find the mean-variance efficient portfolio with target equal to EW  
+## Find the mean-variance efficient portfolio  
 
-A convenient function for finding mean-variance efficient portfolio weights in R is the function [portfolio.optim](http://www.rdocumentation.org/packages/tseries/functions/portfolio.optim) in the R package [tseries](http://www.rdocumentation.org/packages/tseries). Its default implementation finds the mean-variance efficient portfolio weights under the constraint that the portfolio return equals the return on the equally-weighted portfolio. 
+A mean-variance efficient portfolio can be obtained as the solution of minimizing the portfolio variance under the constraint that the portfolio expected return equals a target return. A convenient R function for doing so is the function [portfolio.optim](http://www.rdocumentation.org/packages/tseries/functions/portfolio.optim) in the R package [tseries](http://www.rdocumentation.org/packages/tseries). 
+Its default implementation finds the mean-variance efficient portfolio weights under the constraint that the portfolio return equals the return on the equally-weighted portfolio. 
 The only argument needed is the monthly return data on the portfolio components for which the weights need to be determined.
 
 
@@ -124,6 +125,7 @@ The only argument needed is the monthly return data on the portfolio components 
 - define `out` as the output of applying the default version of `portfolio.optim` on `returns`.
 - the optimized portfolio weights are in `out$pw`. Print them from largest to smallest, with rounding to 4 decimals.
 - Visualize the weights larger than 1% through a barplot graph.
+- Print the expect portfolio return (`out$pm`) and volatility (`out$ps`) of the optimized portfolio. 
 - Verify that the optimized portfolio returns in `out$px` dominate the returns of the equally weighted portfolio.
 
 *** =hint
@@ -155,6 +157,8 @@ optim_returns <-  out$px
 round( sort(    ,decreasing=T) ,4)
 # barplot
    (optim_weights[optim_weights>=0.01])
+# print expected return and volatility 
+
 # equally weighted returns
 ew_returns <- rowMeans(returns)
 # strict lower standard deviation
@@ -181,11 +185,81 @@ barplot(optim_weights[optim_weights>=0.01])
 # dominate
 ew_returns <- rowMeans(returns)
 # strict lower standard deviation
-sd(optim_returns); sd(ew_returns)
-( sd(optim_returns ) < sd(ew_returns) )
+out$ps ; sd(ew_returns)
+( out$ps < sd(ew_returns) )
 # same or higher return
-mean(optim_returns); mean(ew_returns)
-mean(optim_returns) >= mean(ew_returns)
+out$pm ; mean(ew_returns)
+out$pm >= mean(ew_returns)
+```
+
+*** =sct
+```{r}
+# sct code
+success_msg("Well done!")
+```
+
+--- type:NormalExercise lang:r xp:100 skills:1 
+## Effect of the return target 
+
+A more general specification of the function [portfolio.optim](http://www.rdocumentation.org/packages/tseries/functions/portfolio.optim) is as follows:
+$$
+portfolio.optim(x, pm = mean(x),
+                shorts = FALSE,  reshigh = NULL)
+$$
+The argument ``pm`` sets the target return. The argument ``shorts`` is a boolean saying whether negative weights are forbidden (``shorts=FALSE``) and the argument ``reshigh`` specifies the upper constraints on the portfolio weights. By default, when there are no negative weights allows and since the portfolio has to be fully invested, the maximum weight is 1. 
+
+In the exercises we quantify the risk-reward trade-off when choosing the mean-variance efficient portfolio. The higher the target return, the higher will be the corresponding portfolio volatility. 
+
+*** =instructions
+- There is a isk-reward trade-off when choosing the mean-variance efficient portfolio. The higher the target return, the higher will be the corresponding portfolio volatility. When the target return is 10% higher than the average return, how much % increase is there in the portfolio volatility?  
+- Compute the Sharpe ratio of the two portfolios when the monthly risk free rate is 0.1%. 
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+# pec
+library(xts)
+library(PerformanceAnalytics)
+download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
+# load("prices.Rdata")
+prices<- readRDS("prices.rds") 
+returns <- Return.calculate(prices, method="simple")
+returns <- returns[(-1),]
+
+library(tseries)
+```
+
+*** =sample_code
+```{r}
+meanreturns = mean(returns)
+# compute standard deviation when target retun is mean return
+out1 <- portfolio.optim(returns, pm = meanretuurns )
+sd1 <-
+ 
+# compute standard deviation when target retun is 1.1 times the mean return
+out2 <-
+sd2 <- 
+# compute relative increase in standard deviation
+
+```
+
+*** =solution
+```{r}
+# solution code
+# load tseries. 
+library(tseries)
+meanreturns = mean(returns)
+# compute standard deviation when target retun is mean return
+out1 <- portfolio.optim(returns, pm = meanreturns )
+sd1 <- out1$psd
+ 
+# compute standard deviation when target retun is 1.1 times the mean return
+out2 <- portfolio.optim(returns, pm = 1.1*meanreturns )
+sd2 <- out2$psd
+# compute relative increase in standard deviation
+(sd2-sd1)/sd1
 ```
 
 *** =sct
@@ -200,11 +274,12 @@ success_msg("Well done!")
 Investors are often constrained in the maximum values allowed for the portfolio weights. Finding the optimized portfolio under a maximum weight is possible in the function [portfolio.optim](http://www.rdocumentation.org/packages/tseries/functions/portfolio.optim)  by setting the argument
  `reshigh` to the vector of maximum weights for each asset.  
  
- The advantage of a maximum weight constraint is that the portfolio will be less concentrated. Let's verify this statement when the target expected return is still equal to the equally-weighted return.
+ The advantage of a maximum weight constraint is that the portfolio will be less concentrated. Let's verify this statement when the target expected return is still equal to the equally-weighted return. The disadvantage is that the same target return, may no longer be possible or will be obtained at the expense of a higher volatility. 
 
 *** =instructions
 - Modify the sample code to impose a maximum 10% constraint on each of the portfolio weights and compute the number of positions larger than 1%;
 - Repeat the above with a maximum 5% constraint.
+- Print the corresponding volatilities of the optimized portfolios. 
 
 *** =hint
 The argument `reshigh` needs to be a vector. 
@@ -236,14 +311,18 @@ sum( 1*(out$pw > 0.01))
 *** =solution
 ```{r}
 # solution code
-out <- portfolio.optim(returns,reshigh=rep(1,ncol(returns)))
+out1 <- portfolio.optim(returns,reshigh=rep(1,ncol(returns)))
 sum( 1*(out$pw > 0.01))
 
-out <- portfolio.optim(returns,reshigh=rep(0.1,ncol(returns)))
+out2 <- portfolio.optim(returns,reshigh=rep(0.1,ncol(returns)))
 sum( 1*(out$pw > 0.01))
 
-out <- portfolio.optim(returns,reshigh=rep(0.05,ncol(returns)))
+out3 <- portfolio.optim(returns,reshigh=rep(0.05,ncol(returns)))
 sum( 1*(out$pw > 0.01))
+
+out1$ps
+out2$ps
+out3$ps
 ```
 
 *** =sct
@@ -343,6 +422,7 @@ success_msg("Well done!")
 
 In the console you see the previous plot to which the mean and volatilities of the stocks have been added. 
 
+MULTIPLE CHOICE?????
 
 
 *** =instructions
@@ -383,6 +463,12 @@ for( mutarget in grid ){
     mweights = rbind( mweights,out$pw)
   }
 }
+
+# assign the stock names to the column names of mweights
+colnames(mweights) = colnames(returns)
+plot(stocksd,stockmu,col="gray" , xlab="Standard deviation (monthly)", ylab="Average return (monthly)")
+text( stocksd ,  stockmu ,  labels=colnames(returns.estim), cex= 0.7)
+lines(vpsd,vpm,col="red")
 ```
 
 *** =sample_code
@@ -448,7 +534,7 @@ returns <- returns[(-1),]
 # assign the stock names to the column names of mweights
 colnames(mweights) = colnames(returns)
 
-plot(stocksd,stockmu,col="gray" , xlab="Standard deviation (monthly)", ylab="Average return (monthly")
+plot(stocksd,stockmu,col="gray" , xlab="Standard deviation (monthly)", ylab="Average return (monthly)")
 text( stocksd ,  stockmu ,  labels=colnames(returns.estim), cex= 0.7)
 lines(vpsd,vpm,col="red")
 
