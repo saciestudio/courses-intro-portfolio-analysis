@@ -850,10 +850,6 @@ success_msg("Well done!")
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1  key:bdf87df244
 ## Main take-aways on portfolio performance evaluation
 
-###
-### Needs changing 
-###
-
 Does your investment strategy work? This chapter has shown that the answer to this question requires, first of all, to analyzethe portfolio returns, and, secondly, that, often, there is no unique answer to this question.
 
 In fact, very often it depends on how you look at the data. Do you consider the portfolio performance from inception, or only over the most recent 12 months? Do you use standard deviation as the risk measure, or rather the value-at-risk or expected shortfall? And, in terms of performance. Do you consider the average returns, or the returns in excess of some benchmark returns, such as the risk free rate? 
