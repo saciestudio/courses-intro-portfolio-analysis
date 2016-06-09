@@ -610,8 +610,10 @@ and `end`, extracts the subperiod between `start` and `end`  from the object `x`
 
 *** =instructions
 - Split `returns` into the sample `returns.estim` (ending on `2003-12-31`) and `returns.eval` (starting on `2004-01-01`)
-- Compute using `returns.estim` the optimal portfolio under a maximum 30% weight constraint and under a maximum 5% weight constraint, when the target return is the return of the equally weighted portfolio. 
-- Note that the sample period matter since when we re-optimize the portfolio on the period `returns.eval` we obtain different portfolio weights. 
+- Compute using `returns.estim` the optimal portfolio under a maximum 10% weight constraint, when the target return is the return of the equally weighted portfolio. 
+- Compute using `returns.eval` the optimal portfolio under a maximum 10% weight constraint, when the target return is the return of the equally weighted portfolio.
+- Make a scatter plot of the two porfolios to see how different the portfolio weights can be when changing the estimation period. Note that if portfolio weights are identical, they should be on the 45 degrees line. 
+ 
 
 
 *** =hint
@@ -622,6 +624,7 @@ hint comes here
 # pec
 library(xts)
 library(PerformanceAnalytics)
+library(tseries)
 download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
 # load("prices.Rdata")
 prices<- readRDS("prices.rds") 
@@ -631,7 +634,15 @@ returns <- returns[(-1),]
 
 *** =sample_code
 ```{r}
-# sample code
+# Splitting return data in sample for estimation and out of sample evaluation 
+returns.estim = 
+returns.oos = w 
+# optimize portfolios
+weights.estim <- portfolio.optim(x =  , reshigh = rep(0.1,ncol(returns.estim)))$pw
+weights.oos <- portfolio.optim(x =   ,reshigh = rep(0.1,ncol(returns.estim)))$pw
+#scatterplot with 45 degrees lines
+ 
+abline(a=0,b=1,lty=3)
 ```
 
 *** =solution
@@ -642,7 +653,11 @@ returns <- returns[(-1),]
 returns.estim = window(returns, start = "1991-01-01", end = "2003-12-31")
 returns.oos = window(returns, start ="2004-01-01", end = "2015-12-31")
 # optimize portfolios
-portfolio.optim(x = returns ,pm=mutarget)
+weights.estim <- portfolio.optim(x = returns.estim , reshigh = rep(0.1,ncol(returns.estim)))$pw
+weights.oos <- portfolio.optim(x = returns.oos ,reshigh = rep(0.1,ncol(returns.estim)))$pw
+#
+plot(weights.estim,weights.oos)
+abline(a=0,b=1,lty=3)
 ```
 
 *** =sct
@@ -656,12 +671,12 @@ success_msg("Well done!")
 
 How severe is the optimality loss? Let's compare on the out-of-sample period the mean and variance on the optimized portfolio weights using the estimation sample and the out-of-sample evaluation data. 
 
-The 
+
 
 *** =instructions
-- Use `returns.eval` to compute the returns on those two portfolios over the out of sample period
-- Compare the mean and volatility of those returns. 
-- instruction 2
+- Use the function [Return.portfolio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio) to compute the portfolio returns of the portfolio with weights `weights.estim` and monthly rebalancing using the `returns.estim` sample. Call the resulting portfolio returns `returns.estim` and use [table.AnnualizedReturns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.AnnualizedReturns) to evaluate the expected performance based on the estimation data.
+- Repeat this on the out-of-sample return data, still using `weights.estim`. This is the real performance you may expect from the optimized portfolios. 
+
 
 *** =hint
 hint comes here
@@ -671,21 +686,45 @@ hint comes here
 # pec
 library(xts)
 library(PerformanceAnalytics)
+library(tseries)
 download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
 # load("prices.Rdata")
 prices<- readRDS("prices.rds") 
 returns <- Return.calculate(prices, method="simple")
 returns <- returns[(-1),]
+
+# Splitting return data in sample for estimation and out of sample evaluation 
+returns.estim = window(returns, start = "1991-01-01", end = "2003-12-31")
+returns.oos = window(returns, start ="2004-01-01", end = "2015-12-31")
+# optimize portfolios
+weights.estim <- portfolio.optim(x = returns.estim , reshigh = rep(0.1,ncol(returns.estim)))$pw
+weights.oos <- portfolio.optim(x = returns.oos ,reshigh = rep(0.1,ncol(returns.estim)))$pw
+
 ```
 
 *** =sample_code
 ```{r}
 # sample code
+# weights.estim, returns.estim and returns.oos are preloaded
+
+# portfolio returns on returns.estim
+preturns.estim <- Return.portfolio( , ,rebalance_on="months")
+ 
+
+# portfolio returns on returns.oos
+preturns.oos <-  
+ 
 ```
 
 *** =solution
 ```{r}
 # solution code
+# portfolio returns on returns.estim
+preturns.estim <- Return.portfolio(returns.estim,weights.estim,rebalance_on="months")
+table.AnnualizedReturns(preturns.estim)
+# portfolio returns on returns.oos
+preturns.oos <- Return.portfolio(returns.oos,weights.estim,rebalance_on="months")
+table.AnnualizedReturns(preturns.oos)
 ```
 
 *** =sct
@@ -698,45 +737,35 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1   key:9d55676210
 ## It ain't over
  
+You made it! This journey showed you how to compute returns, analyze portfolio performance and optimize portfolios. These are important skills, since whenever you hold or manage more than one asset, you have a portfolio view to consider. 
 
-Importance of optimizing portfolios: Diagram of the different steps: 
-1) define objectives and constraint
-2) implementation:
-* Estimate the parameters needed;
-* Find the solver
-3) backtest
+It is now time to compound and get extra return by exploring other useful R packages for portfolio analysis like [PortfolioAnalytics](). Instead of optimizing the portfolio by minimizing the variance under a return targetg constraint, this package allows you optimize virtually all objective functions under all possible constraints. Even if the solution to the problem is not feasible, it will give you the best possible solution using heuristics such as differential evoluation in the R package [DEoptim](). Since I have been involved in both packages, this last exercise is an act of shameless selfpromotion. 
 
-***
-Discuss extensions
- 
- 
-There are many possible objective functions, such as maximizing the expected return, minimizing the variance, maximizing the skewness, minimizing the portfolio's downside risk [slide should show table with 2 columns]
-
-In terms of constraints, there could be the constraint that all weights have to sum to one, that they should be with a box defined by a lower and upper bound, that the risk is below some risk bound, etc. 
-
-
-The traditional objective of minimizing the portfolio variance under the constraint that the portfolio expected return should be above some target level. This is a quadratic programming problem. At the end of the chapter, I will discuss extensions related to screening stocks using mixed integer linear programming and optimizing more complex objective functions combining different types of objectives and constraints.   
-
-Question about other packages: DEoptim, PortfolioAnalytics. 
+Have fun! 
 
 
 
 *** =instructions
-- Load the library PortfolioAnalytics. 
-- Explore the functionality of this package by entering the instruction `?PortfolioAnalytics`. 
-
+- Load the package PortfolioAnalytics and explore the functionality of this package by entering the instruction `?PortfolioAnalytics`. 
+- Read my article on portfolio optimization with DEoptim. 
 *** =hint
 hint comes here
 
 *** =pre_exercise_code
 ```{r}
 # pec
+library(Biobase)
+uri <- "https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Ardia~et~al.pdf"
+download.file(uri,"deoptim.pdf",method="internal",mode="wb")
 
 ```
 
 *** =sample_code
 ```{r}
-# sample code
+# load and explore the package PortfolioAnalytics
+
+# happy reading!
+openPDF("deoptim.pdf")
 ```
 
 *** =solution
