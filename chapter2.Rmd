@@ -255,8 +255,7 @@ success_msg("The volatility and mean return are very important metrics in every 
 You just learned how to create descriptive statistics of your portfolio returns. Now you will learn how to evaluate your portfolio's performance! 
 
 Performance evaluation involves comparing your investment choicesq with an alternative investment choice. Most commonly used is comparison with an **(almost)** risk free asset, such as the US Treasury Bill. The return from a US Treasury Bill is known as a risk free rate, this is because Treasury Bills (T-Bills) are are guaranteed a future return, and are backed by the US Government. 
-Do you recall the Sharpe Ra
-tio from the video? The Sharpe Ratio is an important metric that tells us the return-to-volatility ratio. The Sharpe ratio is calculated by taking the mean of excess returns (returns - risk free rate), divided by the volatility of the returns. 
+Do you recall the Sharpe Ratio from the video? The Sharpe Ratio is an important metric that tells us the return-to-volatility ratio. The Sharpe ratio is calculated by taking the mean of excess returns (returns - risk free rate), divided by the volatility of the returns. 
 
 In this exercise you will be asked to annualize the risk free rate, this is done using the compound interest formula. The yearly compounded  interest rate is given by $(1+y)^{12}$. The annual rate is used to estimate a yearly return and is very useful for forecasting. 
 
@@ -651,8 +650,8 @@ sd_ann <- StdDev.annualized(sp500_returns)
 sharpe_ann <- SharpeRatio.annualized(sp500_returns, Rf = rf)
 
 # Plotting the 12-month rolling annualized mean
-chart.RollingPerformance(R = sp500_returns, width = 12
-                         ,FUN = "Return.annualized")
+chart.RollingPerformance(R = sp500_returns, width = 12,
+                         FUN = "Return.annualized")
 abline(h = returns_ann)
 
 # plotting the 12-month rolling annualized standard deviation
@@ -661,12 +660,12 @@ chart.RollingPerformance(R = sp500_returns, width = 12,
 abline(h = sd_ann)
 
 # plotting the 12-month rolling annualized Sharpe ratio
-chart.RollingPerformance(R = sp500_returns , width = 12,
-                         FUN = "SharpeRatio.annualized",Rf = rf)
+chart.RollingPerformance(R = sp500_returns, width = 12,
+                         FUN = "SharpeRatio.annualized", Rf = rf)
 abline(h = sharpe_ann)
 
 # all three plots together
-charts.RollingPerformance(R = sp500_returns, width=12, Rf = rf)
+charts.RollingPerformance(R = sp500_returns, width = 12, Rf = rf)
 ```
 
 *** =sct
@@ -773,7 +772,7 @@ sp500_2008 <- window(sp500_returns, start = as.Date("___"), end = "___")
 sp500_2014 <-
 
 # Plotting
-par(mfrow = c(1,2) , mar=c(3,2,2,2))
+par(mfrow = c(1, 2) , mar=c(3, 2, 2, 2))
 names(sp500_2008) <- "sp500_2008"
 names(sp500_2014) <- "sp500_2014"
 
@@ -794,7 +793,7 @@ sp500_2008 <- window(sp500_returns, start  = "2008-01-01", end = "2008-12-31")
 sp500_2014 <- window(sp500_returns, start = "2014-01-01", end = "2014-12-31")
 
 # Plotting
-par( mfrow = c(1,2) , mar=c(3,2,2,2))
+par( mfrow = c(1, 2) , mar=c(3, 2, 2, 2))
 names(sp500_2008) <- "sp500_2008"
 names(sp500_2014) <- "sp500_2014"
 
