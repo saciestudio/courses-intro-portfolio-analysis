@@ -1,20 +1,22 @@
 ---
 title       : Performance drivers
-description : In addition to studying portfolio performance based on the observed portfolio return series, it is relevant to reverse engineer those performance measures and find out how individual (expected) returns, volatilities and correlations interact to determine the total portfolio performance. 
+description : In addition to studying portfolio performance based on the observed portfolio return series, it is relevant to find out how individual (expected) returns, volatilities and correlations interact to determine the total portfolio performance. 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1   key:27fc122215
 ## The sources of portfolio performance
 
-Chapter 2 introduced you to the *univariate* approach of analyzing portfolio performance based on a statistical analysis of the portfolio return series. In this chapter, we consider a *multivariate* analysis and study how the portfolio performance is affected by the interaction between the performance of the individual portfolio positions. 
+The portfolio mean return and volatility depends on the mean return and volatility of the assets in which the portfolio
+is invested. In the videos, I will show you the exact nature of the dependence. But let us first get a feeling for this dependence by analyzing the monthly returns of an investment in US equities and an investment in US bonds.  
 
-As a motivating example, let us consider a portfolio invested in two very diverse exchange traded funds (ETFs), namely an ETF tracking the broad US equities market (ETF with symbol SPY) and an ETF track the US bonds market (ETF with symbol AGG). The monthly returns for these ETFs and the 60/40 portfolio that invests every month 60% in the equities ETF and 40% in the bonds ETF are available in the workspace as `returns_bonds`, `returns_equities` and `returns_6040`.   
+As a reference, we take a 60/40 portfolio that invests every month 60% in equities and 40% in bonds. The individual returns are available in the workspace as `returns_bonds` and `returns_equities`, while the portfolio returns are avalailble as  `returns_6040`.   
+(the ETF. 
 
-Verify in the R-console which of the following statements is false. 
+Verify in the R-console which of the following statements about the relationship between portfolio performance and the individual assets' performance is false. 
 
 
 *** =instructions
 - A portfolio is less volatile than the sum of its component volatilities. This implies that the standard deviation of the 60/40 portfolio is less than `0.6*sd(returns_equities)+0.4*sd(returns_bonds)`. We call this the subadditivity property of the standard deviation.    
-- The portfolio mean return equals the sum of the component average returns, that is, `mean(returns_6040)==0.6*mean(returns_equities)+0.4*mean(returns_bonds)`.  
+- The portfolio mean return equals the position weighted sum of the component mean returns, that is, `mean(returns_6040)==0.6*mean(returns_equities)+0.4*mean(returns_bonds)`.  
 - None of the above statements is correct. 
 
 *** =hint
@@ -70,11 +72,15 @@ test_mc(3) # if 3 is the correct option.
 --- type:NormalExercise lang:r xp:50 skills:1     key:69c5664fdb
 ## Sensitivity of the Sharpe ratio to the porfolio weights
 
-The choice of portfolio weights matters.  
+The portfolio mean return and standard deviation depends on the mean return and standard deviation of the underlying
+asset returns, as well as the portfolio weights. 
+
+In the special case of investing in two assets, namely US equities and US bonds, we can easily find the weight that would produce the highest Sharpe ratio. One way to do so is the brute force approach of trying a large number of possible weights and keeping the weight that yields the highest value for hte portfolio Sharpe ratio. Since the portfolio is fully invested, the weigths sum to one and we thus need to determine only one of the two weights. Let's take the weights of the equity investment as the variable to be optimized. 
+
 
 
 *** =instructions
-- Complete the R script that runs a grid search to determine the portfolio weights for which the Sharpe ratio is the highest, assuming a zero risk free rate.  
+- Complete the R script that runs a brute force search to determine the portfolio weights for which the Sharpe ratio is the highest, assuming a zero risk free rate.  
 
 *** =hint
 hint
@@ -111,7 +117,8 @@ returns_equities <- returns$equities
 
 # grid defining possible weights equities 
 grid <- seq(0,1,0.01)
-# initialize vector in which the Sharpe ratios will be stacked
+print(grid);
+# initialize vector in which the Sharpe ratios will be saved
 vsharpe <- rep(NA,length(grid))
 # initialize counter
 i <- 1
@@ -163,7 +170,9 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:b6a986b0e53bd119933fc39df94f21f2bf1e4318
 ## Interpreting correlation
 
-Let us now compute the correlation between equity returns and bond returns. Just like volatilities, these correlations are dynamic. We thus need to distinguish between a static analysis computing correlations over the complete sample and a dynamic analysis computing correlations over the rolling sample. 
+We have seen that the portfolio variance depends on the correlation between the asset returns. Keeping constant the volatilities, we have that the lower the correlation is, the more diversification there is between the assets and thus the lower the portfolio variance.  
+
+Let us now compute the correlation between equity returns and bond returns. We will do this first taking all returns in the sample. However, just like volatilities, these correlations are dynamic, as can be seen from the time series of correlations that we obtain when estimating the correlations over rolling samples. 
 
 *** =instructions
 - Plot the equity returns (`returns_equities`) against the bond returns (`returns_bonds`) using the function [chart.Scatter](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Scatter) with the bond returns on the x-asis. Do you see a relation? 
