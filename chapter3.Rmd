@@ -399,7 +399,7 @@ abline(h=0,lty=3)
 success_msg("Well done!")
 ```
 
---- type:NormalExercise lang:r xp:100 skills:1 
+--- type:NormalExercise lang:r xp:100 skills:1  key:b7d7806b87
 ## The covariance matrix
 
 The assets' volatitilities reflect the individual risks of the asset. What matters for the portfolio investors is however the portfolio risk caused by each of the assets, which depends also on the return volatilities.  
