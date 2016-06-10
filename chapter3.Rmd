@@ -172,9 +172,9 @@ success_msg("Well done!")
 
 The correlation thus tells us the tendence of two asset returns to move together. In the extreme case of two identical asset returns, the correlation will be one and there is no diversification potential. In the other extreme case where, if one asset return is above average, the other one is almost always below average, the correlation is negative. It is zero, when the asset returns are independent. 
 
-The correlation is an important number, since the lower the correlation is, the more the risks in the indvidual investments offset each other. Those gains in diversification then lead to a lower portfolio volatility, as shown in the video. 
 
-Measuring is knowing. et us now compute the correlation between equity returns and bond returns. We will do this first taking all returns in the sample. However, just like volatilities, these correlations are dynamic, as we will see from the time series of correlations that we obtain when estimating the correlation over rolling samples. 
+
+Measuring is knowing. Let us now compute the correlation between equity returns and bond returns. We will do this first taking all returns in the sample. However, just like volatilities, these correlations are dynamic, as we will see from the time series of correlations that we obtain when estimating the correlation over rolling samples. 
 
 *** =instructions
 - Plot the equity returns (`returns_equities`) against the bond returns (`returns_bonds`) using the function [chart.Scatter](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Scatter) with the bond returns on the x-asis. Do you see a relation? 
@@ -248,18 +248,20 @@ success_msg("Well done!")
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1     key:f4f41f6b81
 ## The impact of correlation on performance.
 
+The correlation is an important driver of portfolio performance in terms of avoiding high risks. In fact,the lower the correlation is, the more the risks in the indvidual investments offset each other. Those gains in diversification then lead to a lower portfolio volatility. 
 
-We thus observed that  like the mean and volatility, the correlation is changing over time. This time-variation can have major effects on the portfolio volatility. In your workspace, a sensitivity plot is shown for the 60/40 and the 40/60 portfolio invested in equities and bonds over the sample. In the plot, the annualized standard deviation and volatilities are kept fixed at their sample estimates, while the correlation varies between -1 and 1. 
+This diversifciation impact of decreasing correlation on portfolio volatility is illustrated in your wokspace.
+The plot shows the annualized volatility of the 60/40 and the 40/60 portfolio invested in equities and bonds for various values of the correlation between -1 and 1. 
 
-Consider an equally weighted portfolio of two assets with 10% and 20% volatility, respectively. Their correlation jumps from 0 to 0.5. Then the portfolio variance:    
+Let us now test whether your understanding of changes in correlation on portfolio volatility is correct. Suppose there is  an equally weighted portfolio of two assets. Their correlation jumps from 0 to 0.5. Then the portfolio variance:    
 
 *** =instructions
-- Decreases with 50%
-- Almost doubles
+- Decreases
+- Increases
 - Does not change  
 
 *** =hint
-hint comes here
+Remember, from the video, that the portfolio variance equals  the squared weight of asset 1 times the variance of asset 1, plus the squared weight of asset 2 times the variance of asset 2, plus two times the product of the weights, the volatilities and their correlation. 
 
 *** =pre_exercise_code
 ```{r}
@@ -318,8 +320,163 @@ test_mc(2)
 *** =video_link
 //player.vimeo.com/video/108225030
 
+--- type:NormalExercise lang:r xp:100 skills:1 key:080c6863fc
+## Making a risk-reward scatter diagram
+
+A realistic portfolio is not only invested in US equities and US bonds. It also seeks for diversification by investing in real estate and commodities, among others. We therefore extend our investment opportunity consisting of the US equities ETF (SPY) and US bonds ETF (AGG) to include also a real estate investment trust (VEIEX) and an ETF tracking the GSCI commodities index (GSG).
+
+The monthly returns on those investment are available as the variable `returns` in your workspace. 
+
+A good way to visualize the relative attractivenss of investments in terms of risk and rewards is to make a scatter 
+plot of the average returns against the portfolio volatilities. 
+
+We need to compute those average returns and volatilities for each asset, corresponding to a column in `returns`. These calculations are made easy using the function `apply` with as first argument the return data file, the second argument is 2 indicating the calculation should be column-wise and the third argument is the name of the function that needs to be applied on each column. 
+
+*** =instructions
+- Compute the vector of average returns on those four investments using the R command `apply(returns,2,"mean")` and call this `vmeans`.
+- Do the same to compute the vector standard deviations and call this `vsd`.
+- Use the following R instructions to produce the scatter plot of average returns with respect to standard deviations:
+`plot(vsd,vmeans,col="gray",xlim=c(0,0.10))
+text( vsd ,  vmu ,  labels=colnames(returns), cex= 0.7)`
+- Add a dashed horizontal line at `h=0` using [abline](http://www.rdocumentation.org/packages/graphics/functions/abline) by setting the argument `lty=3`
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+options(warn=-1)
+library(tseries)# Its function get.hist.quote allows to download prices from Yahoo!Finance
+library(xts) # Its function plot.zoo make simple, but attractive, time series plots
+library(PerformanceAnalytics)
+# download adjusted close prices (that is corrected for dividend payments and stock splits)
+# dates have the format "YYYY-MM-DD"
+eq_prices <- get.hist.quote(instrument="SPY",start=as.Date("2006-08-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+bond_prices <- get.hist.quote(instrument="AGG",start=as.Date("2006-08-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+re_prices <- get.hist.quote(instrument="VEIEX",start=as.Date("2006-08-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+comm_prices <- get.hist.quote(instrument="GSG",start=as.Date("2006-08-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+
+newdates <- seq(as.Date(time(bond_prices ))[2], length=nrow(bond_prices ), by="1 month") - 2
+eq_prices <- xts(eq_prices,newdates)
+bond_prices <- xts(bond_prices,newdates)
+re_prices <- xts(re_prices,newdates)
+comm_prices <- xts(comm_prices,newdates)
+prices <- cbind(eq_prices,bond_prices,re_prices,comm_prices)
+colnames(prices) <- c("equities","bonds","realestate","commodities")
+# calculate returns
+returns <- Return.calculate(prices)
+returns <- returns[(-1),]
+```
+
+*** =sample_code
+```{r}
+# sample code
+# vector of means
+ 
+# vector of standard deviations
+
+# scatter plot
+ 
+
+
+```
+
+
+*** =solution
+```{r}
+# vector of means
+vmeans <- apply(returns,2,"mean")
+# vector of standard deviations
+vsd <- apply(returns,2,"sd")
+# scatter plot
+plot(vsd,vmeans,col="gray",xlim=c(0,0.10))
+text( vsd , vmeans,  labels=colnames(returns), cex= 0.7)
+abline(h=0,lty=3)
+```
+
+*** =sct
+```{r}
+# sct code
+success_msg("Well done!")
+```
+
+--- type:NormalExercise lang:r xp:100 skills:1 
+## The covariance matrix
+
+The assets' volatitilities reflect the individual risks of the asset. What matters for the portfolio investors is however the portfolio risk caused by each of the assets, which depends also on the return volatilities.  
+
+Let us compute and analyze the covariance and correlation matrix on the monthly returns of the four asset classes. 
+
+The monthly returns on the investments are available as the variable `returns` in your workspace, together with the previously computed vector of standard deviations `vsd`. 
+
+
+*** =instructions
+- Compute the covariance matrix;
+- Compute the correlation matrix;
+- Verify that the covariance between bond returns and equity returns equals the product between their standard deviations and correlation. 
+- Do the same to compute the vector standard deviations and call this `vsd`.
+
+*** =hint
+hint comes here
+
+*** =pre_exercise_code
+```{r}
+options(warn=-1)
+library(tseries)# Its function get.hist.quote allows to download prices from Yahoo!Finance
+library(xts) # Its function plot.zoo make simple, but attractive, time series plots
+library(PerformanceAnalytics)
+# download adjusted close prices (that is corrected for dividend payments and stock splits)
+# dates have the format "YYYY-MM-DD"
+eq_prices <- get.hist.quote(instrument="SPY",start=as.Date("2006-08-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+bond_prices <- get.hist.quote(instrument="AGG",start=as.Date("2006-08-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+re_prices <- get.hist.quote(instrument="VEIEX",start=as.Date("2006-08-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+comm_prices <- get.hist.quote(instrument="GSG",start=as.Date("2006-08-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+
+newdates <- seq(as.Date(time(bond_prices ))[2], length=nrow(bond_prices ), by="1 month") - 2
+eq_prices <- xts(eq_prices,newdates)
+bond_prices <- xts(bond_prices,newdates)
+re_prices <- xts(re_prices,newdates)
+comm_prices <- xts(comm_prices,newdates)
+prices <- cbind(eq_prices,bond_prices,re_prices,comm_prices)
+colnames(prices) <- c("equities","bonds","realestate","commodities")
+# calculate returns
+returns <- Return.calculate(prices)
+returns <- returns[(-1),]
+```
+
+*** =sample_code
+```{r}
+# sample code
+# vector of means
+ 
+# vector of standard deviations
+
+# scatter plot
+ 
+
+
+```
+
+
+*** =solution
+```{r}
+# vector of means
+vmeans <- apply(returns,2,"mean")
+# vector of standard deviations
+vsd <- apply(returns,2,"sd")
+# scatter plot
+plot(vsd,vmeans,col="gray",xlim=c(0,0.10))
+text( vsd , vmeans,  labels=colnames(returns), cex= 0.7)
+abline(h=0,lty=3)
+```
+
+*** =sct
+```{r}
+# sct code
+success_msg("Well done!")
+```
+
 --- type:NormalExercise lang:r xp:100 skills:1   key:21e408b8c65335ed2599fcb8ff64b5c9b352c374
-## The asset allocation problem
+## Portfolio performance and matrix formula's in practice (to do)
 
 A realistic portfolio is not only invested in US equities and US bonds. It also seeks for diversification by investing in real estate and commodities, among others. We therefore extend our investment opportunity consisting of the US equities ETF (SPY) and US bonds ETF (AGG) to include also a real estate investment trust (VEIEX) and an ETF tracking the GSCI commodities index (GSG).
 
@@ -410,80 +567,10 @@ success_msg("Well done!")
 
 
 
---- type:NormalExercise lang:r xp:100 skills:1 key:080c6863fc
-## Avoiding loops in calculating vector of estimates 
 
-We could Use colMeans to compute the expected return vector. Then sum(weights*mu).
-
-*** =instructions
-- Compute the vector of average returns on those four investments using the R command `apply(returns,2,"mean")` and call this `vmeans`.
-- Do the same to compute the vector standard deviations and call this `vsd`.
-- Use the following R instructions to produce the scatter plot of average returns with respect to standard deviations:
-`plot(vsd,vmeans,col="gray",xlim=c(0,0.10))
-text( vsd ,  vmu ,  labels=colnames(returns), cex= 0.7)`
-- Add a dashed horizontal line at `h=0` using [abline](http://www.rdocumentation.org/packages/graphics/functions/abline) by setting the argument `lty=3`
-*** =hint
-hint comes here
-
-*** =pre_exercise_code
-```{r}
-options(warn=-1)
-library(tseries)# Its function get.hist.quote allows to download prices from Yahoo!Finance
-library(xts) # Its function plot.zoo make simple, but attractive, time series plots
-library(PerformanceAnalytics)
-# download adjusted close prices (that is corrected for dividend payments and stock splits)
-# dates have the format "YYYY-MM-DD"
-eq_prices <- get.hist.quote(instrument="SPY",start=as.Date("2006-08-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
-bond_prices <- get.hist.quote(instrument="AGG",start=as.Date("2006-08-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
-re_prices <- get.hist.quote(instrument="VEIEX",start=as.Date("2006-08-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
-comm_prices <- get.hist.quote(instrument="GSG",start=as.Date("2006-08-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
-
-newdates <- seq(as.Date(time(bond_prices ))[2], length=nrow(bond_prices ), by="1 month") - 2
-eq_prices <- xts(eq_prices,newdates)
-bond_prices <- xts(bond_prices,newdates)
-re_prices <- xts(re_prices,newdates)
-comm_prices <- xts(comm_prices,newdates)
-prices <- cbind(eq_prices,bond_prices,re_prices,comm_prices)
-colnames(prices) <- c("equities","bonds","realestate","commodities")
-# calculate returns
-returns <- Return.calculate(prices)
-returns <- returns[(-1),]
-```
-
-*** =sample_code
-```{r}
-# sample code
-# vector of means
- 
-# vector of standard deviations
-
-# scatter plot
- 
-
-
-```
-
-
-*** =solution
-```{r}
-# vector of means
-vmeans <- apply(returns,2,"mean")
-# vector of standard deviations
-vsd <- apply(returns,2,"sd")
-# scatter plot
-plot(vsd,vmeans,col="gray",xlim=c(0,0.10))
-text( vsd , vmeans,  labels=colnames(returns), cex= 0.7)
-abline(h=0,lty=3)
-```
-
-*** =sct
-```{r}
-# sct code
-success_msg("Well done!")
-```
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:9786a14448b7689cc1be071bd4f4408ceadd0ee7
-## Portfolio volatility
+## Portfolio mean return and volatility using matrix notation
 
 Use cov to compute the sample covariance matrix. use of %*% or StdDev in PerformanceAnalytics. to see.
 
