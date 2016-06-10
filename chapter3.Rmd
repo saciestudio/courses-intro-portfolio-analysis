@@ -170,9 +170,11 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:b6a986b0e53bd119933fc39df94f21f2bf1e4318
 ## Interpreting correlation
 
-We have seen that the portfolio variance depends on the correlation between the asset returns. Keeping constant the volatilities, we have that the lower the correlation is, the more diversification there is between the assets and thus the lower the portfolio variance.  
+The correlation thus tells us the tendence of two asset returns to move together. In the extreme case of two identical asset returns, the correlation will be one and there is no diversification potential. In the other extreme case where, if one asset return is above average, the other one is almost always below average, the correlation is negative. It is zero, when the asset returns are independent. 
 
-Let us now compute the correlation between equity returns and bond returns. We will do this first taking all returns in the sample. However, just like volatilities, these correlations are dynamic, as can be seen from the time series of correlations that we obtain when estimating the correlations over rolling samples. 
+The correlation is an important number, since the lower the correlation is, the more the risks in the indvidual investments offset each other. Those gains in diversification then lead to a lower portfolio volatility, as shown in the video. 
+
+Measuring is knowing. et us now compute the correlation between equity returns and bond returns. We will do this first taking all returns in the sample. However, just like volatilities, these correlations are dynamic, as we will see from the time series of correlations that we obtain when estimating the correlation over rolling samples. 
 
 *** =instructions
 - Plot the equity returns (`returns_equities`) against the bond returns (`returns_bonds`) using the function [chart.Scatter](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Scatter) with the bond returns on the x-asis. Do you see a relation? 
