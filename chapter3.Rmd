@@ -315,7 +315,27 @@ eq_prices <- get.hist.quote(instrument="SPY",start=as.Date("2006-08-31"),end=Sys
 bond_prices <- get.hist.quote(instrument="AGG",start=as.Date("2006-08-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
 re_prices <- get.hist.quote(instrument="VEIEX",start=as.Date("2006-08-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
 comm_prices <- get.hist.quote(instrument="GSG",start=as.Date("2006-08-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+eq_prices <- eq_prices/as.numeric(eq_prices[1])
+bond_prices <-  bond_prices/as.numeric(bond_prices[1])
+re_prices <- re_prices/as.numeric(re_prices[1])
+comm_prices <-  comm_prices/as.numeric(comm_prices[1])
 
+
+### plot
+
+prices <- cbind(eq_prices,bond_prices,re_prices,comm_prices)
+returns <- Return.calculate(prices)
+returns <- returns[(-1),]
+temp <- c( as.numeric(eq_prices), as.numeric(bond_prices),as.numeric(re_prices), as.numeric(comm_prices)   )
+ylim <- c( min( temp ) , 1.4*max(temp) )
+plot.zoo(eq_prices , main="Performance across asset classes",ylab="", xlab="",ylim=ylim)
+lines(bond_prices,col="red")
+lines(re_prices,col="blue")
+lines(comm_prices,col="purple")
+legend("topleft", legend=c("Equities (ticker: SPY)","Bonds (ticker: AGG)", "Real estate (ticker: VEIEX)",
+                           "Commodities (ticker: GSG)") , col=c("black","red","blue","purple") , lwd = 1 ,ncol=1)
+
+###
 newdates <- seq(as.Date(time(bond_prices ))[2], length=nrow(bond_prices ), by="1 month") - 2
 eq_prices <- xts(eq_prices,newdates)
 bond_prices <- xts(bond_prices,newdates)
@@ -455,8 +475,11 @@ return covariance matrix. Then the portfolio expected return is $w'\mu$ and the 
 Let us verify this in R where matrix multiplication requires to use `%*%` instead of `*`. 
 
 *** =instructions
-- Cast the vector of estimated means returns into a column-matrix using `as.matrix( )`.
-- Merge `returns` and `preturns` and apply the function [table.AnnualizedReturns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.AnnualizedReturns) to the merged object in order to compare the portfolio performance. 
+- Use the function [Return.portfolio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio) to compute the time series of returns for the monthly rebalanced portfolio that is 40% invested in equities, 40% in bonds, 10% in real estate and 10% in commodities. Call this new variable `preturns`. 
+- Compute the annualized mean and volatility of the portfolio return series. 
+- To replicate this with matrix notation, first complete the code to compute the column-matrix of portfolio weights and
+expected returns and the covariance matrix. 
+- Now use the matrix products to compute the annualized mean return and volatility.
 
 *** =hint
 hint comes here
@@ -511,36 +534,47 @@ returns <- returns[(-1),]
 
 *** =sample_code
 ```{r}
-# mu is the column-matrix of estimated expected returns
-vmeans <- apply(returns,2,"mean")
-mu <- 
+# the monthly returns on the four assets are preloaded as  returns
+# define vector of weights
+weights <-  
+# compute portfolio returns
+preturns <- Return.portfolio(returns, weights,rebalance_on="months")
+# print annualized mean and volatility
+
+# turn weights and mean returns into a column-matrix
+weights <- as.matrix(weights)
+mu <- as.matrix(apply(returns,2,"mean"))
 # sigma is the estimated covariance matrix
-sigma <- cov(returns)
-# matrix of weights
-w <- as.matrix(  c(0.4,0.4,0.1,0.1)  )
+sigma <- 
 # transsposed matrix
-tw <- 
-# portfolio mean
-
-# portfolio variance
-
+tweights <- t(weights) 
+# annualized portfolio mean
+12*(tweights%*% )
+# annualized volatility
+sqrt(12)*sqrt( tweights%*%sigma%*%  )
 ```
 
 *** =solution
 ```{r}
-# mu is the column-matrix of estimated expected returns
-vmeans <- apply(returns,2,"mean")
-mu <- as.matrix(vmeans)
+# define vector of weights
+weights <-   c(0.4,0.4,0.1,0.1)
+preturns <- Return.portfolio(returns, weights,rebalance_on="months")
+# Annualized mean and volatility
+12*mean(preturns)
+sqrt(12)*sd(preturns)
+# turn weights and mean returns into a column-matrix
+weights <- as.matrix(weights)
+mu <- as.matrix(apply(returns,2,"mean"))
 # sigma is the estimated covariance matrix
 sigma <- cov(returns)
-# matrix of weights
-w <- as.matrix(  c(0.4,0.4,0.1,0.1)  )
 # transsposed matrix
-tw <- t(w)
-# portfolio mean
-tw%*%mu
-# portfolio variance
-tw%*%sigma%*%w
+tweights <- t(weights)
+# transsposed matrix
+tweights <- t(weights) 
+# annualized portfolio mean
+12*(tweights%*%mu )
+# annualized volatility
+sqrt(12)*sqrt( tweights%*%sigma%*%weights  )
 ```
 
 *** =sct
@@ -549,43 +583,6 @@ tw%*%sigma%*%w
 success_msg("Well done!")
 ```
 
-
-
-
-
-
---- type:NormalExercise lang:r xp:100 skills:1 key:9786a14448b7689cc1be071bd4f4408ceadd0ee7
-## Portfolio mean return and volatility using matrix notation
-
-Use cov to compute the sample covariance matrix. use of %*% or StdDev in PerformanceAnalytics. to see.
-
-*** =instructions
-- instruction 1
-- instruction 2
-
-*** =hint
-hint comes here
-
-*** =pre_exercise_code
-```{r}
-# pec
-```
-
-*** =sample_code
-```{r}
-# sample code
-```
-
-*** =solution
-```{r}
-# solution code
-```
-
-*** =sct
-```{r}
-# sct code
-success_msg("Well done!")
-```
 
 --- type:VideoExercise lang:r xp:50 skills:1   key:ba9b12d382
 ## The portfolio's risk budget
