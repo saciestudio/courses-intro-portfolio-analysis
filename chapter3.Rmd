@@ -287,16 +287,13 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:080c6863fc
 ## Making a risk-reward scatter diagram
 
-A realistic portfolio is not only invested in US equities and US bonds. It also seeks for diversification by investing in real estate and commodities, among others. We therefore extend our investment opportunity consisting of the US equities ETF (SPY) and US bonds ETF (AGG) to include also a real estate investment trust (VEIEX) and an ETF tracking the GSCI commodities index (GSG).
-
-The monthly returns on those investment are available as the variable `returns` in your workspace. 
+A realistic portfolio is not only invested in US equities and US bonds. It also seeks for diversification by investing in real estate and commodities, among others. We therefore extend our investment opportunity consisting of the US equities ETF (SPY) and US bonds ETF (AGG) to include also a real estate investment trust (VEIEX) and an ETF tracking the GSCI commodities index (GSG). The monthly returns on those investment are available as the variable `returns` in your workspace. 
 
 A good way to visualize the relative attractivenss of investments in terms of risk and rewards is to make a scatter 
 plot of the average returns against the portfolio volatilities. 
 
 We need to compute those average returns and volatilities for each asset. In other words, for each return series, and thus for each column in the multivariate return series `returns`, we need to compute the average value and standard deviations.
-
-These calculations are made easy using the function `apply` with as first argument the return data file, the second argument is the value of `2` indicating  that the calculation should be column-wise, while the third argument is the name of the function that needs to be applied on each column. 
+These calculations are made easy by using the function `apply` with as first argument the return data file, the second argument is the value of `2` indicating  that the calculation should be column-wise, while the third argument is the name of the function that needs to be applied on each column. 
 
 *** =instructions
 - Compute the vector of average returns on those four investments using the R command `apply(returns,2,"mean")` and call this `vmeans`.
@@ -340,7 +337,7 @@ vsd    <-
 # scatter plot
 plot( , vmeans,col="gray",xlim=c(0,0.10))
 
-text( vsd ,  vmu ,  labels=colnames(returns), cex= 0.7)` 
+text( vsd ,  vmeans ,  labels=colnames(returns), cex= 0.7)` 
 
 
 ```
@@ -450,14 +447,15 @@ success_msg("Well done!")
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1   key:21e408b8c65335ed2599fcb8ff64b5c9b352c374
-## Portfolio performance and matrix formula's in practice (to do)
+## Matrix-based calculation of portfolio mean and variance
 
-A realistic portfolio is not only invested in US equities and US bonds. It also seeks for diversification by investing in real estate and commodities, among others. We therefore extend our investment opportunity consisting of the US equities ETF (SPY) and US bonds ETF (AGG) to include also a real estate investment trust (VEIEX) and an ETF tracking the GSCI commodities index (GSG).
+When $w$ is the column-matrix of portfolio weights, $\mu$ the column-matrix of expected returns and $\Sigma$ the 
+return covariance matrix. Then the portfolio expected return is $w'\mu$ and the portfolio variance is $w'\Sigma w$.
 
-The monthly returns on those investment are available as the variable `returns` in your workspace. 
+Let us verify this in R where matrix multiplication requires to use `%*%` instead of `*`. 
 
 *** =instructions
-- Use the function [Return.portfolio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio) to compute the time series of returns for the monthly rebalanced portfolio that is 40% invested in equities, 40% in bonds, 10% in real estate and 10% in commodities. Call this new variable `preturns`.
+- Cast the vector of estimated means returns into a column-matrix using `as.matrix( )`.
 - Merge `returns` and `preturns` and apply the function [table.AnnualizedReturns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.AnnualizedReturns) to the merged object in order to compare the portfolio performance. 
 
 *** =hint
@@ -507,29 +505,42 @@ colnames(prices) <- c("equities","bonds","realestate","commodities")
 # calculate returns
 returns <- Return.calculate(prices)
 returns <- returns[(-1),]
+
+
 ```
 
 *** =sample_code
 ```{r}
-# sample code
-weights <-  
-preturns <- Return.portfolio(returns, weights,rebalance_on="months")
-# merge
- 
-# compare annualized performance
-table.AnnualizedReturns(returns_merged) 
+# mu is the column-matrix of estimated expected returns
+vmeans <- apply(returns,2,"mean")
+mu <- 
+# sigma is the estimated covariance matrix
+sigma <- cov(returns)
+# matrix of weights
+w <- as.matrix(  c(0.4,0.4,0.1,0.1)  )
+# transsposed matrix
+tw <- 
+# portfolio mean
+
+# portfolio variance
 
 ```
 
 *** =solution
 ```{r}
-# sample code
-weights <- c(0.4,0.4,0.1,0.1)
-preturns <- Return.portfolio(returns, weights,rebalance_on="months")
-# merge
-returns_merged <- merge(returns,preturns)
-# compare annualized performance
-table.AnnualizedReturns(returns_merged)
+# mu is the column-matrix of estimated expected returns
+vmeans <- apply(returns,2,"mean")
+mu <- as.matrix(vmeans)
+# sigma is the estimated covariance matrix
+sigma <- cov(returns)
+# matrix of weights
+w <- as.matrix(  c(0.4,0.4,0.1,0.1)  )
+# transsposed matrix
+tw <- t(w)
+# portfolio mean
+tw%*%mu
+# portfolio variance
+tw%*%sigma%*%w
 ```
 
 *** =sct
