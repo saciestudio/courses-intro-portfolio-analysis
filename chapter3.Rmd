@@ -585,7 +585,8 @@ Let uw now use the technology of risk budgeting to find out how much % of the to
 To do so, we will use the function [StdDev](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/StdDev).
 
 *** =instructions
-- Set `vol_budget <- StdDev(returns,portfolio_method="component",weights=c(0.4,0.4,0.1,0.1))` and print this variable;
+- Set `vol_budget <- StdDev(returns,portfolio_method="component",
+       weights=c(0.4,0.4,0.1,0.1))` and print this variable;
 - Combine the weights and the percentage risk contributions in a table called `weights_percrisk`;
 - Print the table and note how different the percentage risk contributions are compared to the portfolio weights. 
 
