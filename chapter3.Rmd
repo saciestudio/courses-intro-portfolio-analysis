@@ -294,15 +294,17 @@ The monthly returns on those investment are available as the variable `returns` 
 A good way to visualize the relative attractivenss of investments in terms of risk and rewards is to make a scatter 
 plot of the average returns against the portfolio volatilities. 
 
-We need to compute those average returns and volatilities for each asset, corresponding to a column in `returns`. These calculations are made easy using the function `apply` with as first argument the return data file, the second argument is 2 indicating the calculation should be column-wise and the third argument is the name of the function that needs to be applied on each column. 
+We need to compute those average returns and volatilities for each asset. In other words, for each return series, and thus for each column in the multivariate return series `returns`, we need to compute the average value and standard deviations.
+
+These calculations are made easy using the function `apply` with as first argument the return data file, the second argument is the value of `2` indicating  that the calculation should be column-wise, while the third argument is the name of the function that needs to be applied on each column. 
 
 *** =instructions
 - Compute the vector of average returns on those four investments using the R command `apply(returns,2,"mean")` and call this `vmeans`.
 - Do the same to compute the vector standard deviations and call this `vsd`.
 - Use the following R instructions to produce the scatter plot of average returns with respect to standard deviations:
 `plot(vsd,vmeans,col="gray",xlim=c(0,0.10))
+
 text( vsd ,  vmu ,  labels=colnames(returns), cex= 0.7)`
-- Add a dashed horizontal line at `h=0` using [abline](http://www.rdocumentation.org/packages/graphics/functions/abline) by setting the argument `lty=3`
 *** =hint
 hint comes here
 
