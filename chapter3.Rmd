@@ -2,15 +2,22 @@
 title       : Performance drivers
 description : In addition to studying portfolio performance based on the observed portfolio return series, it is relevant to find out how individual (expected) returns, volatilities and correlations interact to determine the total portfolio performance. 
 
+--- type:VideoExercise lang:r xp:50 skills:1 
+## The drivers in case of two assets
+
+*** =video_link
+//player.vimeo.com/video/108225030
+
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1   key:27fc122215
 ## The sources of portfolio performance
 
-The portfolio mean return and volatility depends on the mean return and volatility of the assets in which the portfolio
-is invested. 
+We have thus seen hat there are three types of drivers for the portfolio performance: the individual performance of the assets in terms of risk and return, the portfolio weight of each of the assets and the correlation between the asset returns.
 
-To get a feeling for this dependence, let us analyze the monthly returns of an investment in US equities and an investment in US bonds.  The individual returns are available in the workspace as `returns_bonds` and `returns_equities`, together with the returns for the so-called 60/40 portfolio that invests every month 60% in equities and 40% in bonds.  
+Let us now first explore further how the portfolio mean return and volatility depends on the mean return and volatility of the assets in which the portfolio is invested. 
 
-Verify in the R-console which of the following statements about the relationship between portfolio performance and the individual assets' performance is false. 
+To do so, we consider the case of investing with with a monthly frequency in US equities and/or US bonds. The individual asset returns are available in the workspace as `returns_bonds` and `returns_equities`, together with the returns for the so-called 60/40 portfolio that invests every month 60% in equities and 40% in bonds.  
+
+Which of the following statements about the relationship between portfolio performance (investing in both equities and bonds) and the individual assets' performance (investing in only one of them) is false. 
 
 
 *** =instructions
@@ -19,7 +26,7 @@ Verify in the R-console which of the following statements about the relationship
 - None of the above statements is correct. 
 
 *** =hint
-The proof is in the pudding. Verify the statements directly in the console and you will find out the solution to the problem.
+The proof is in the pudding. Verify the statements directly in the console and you will find  the solution to the problem.
 
 *** =pre_exercise_code
 ```{r}
@@ -162,11 +169,7 @@ abline(v=grid[vsharpe==max(vsharpe)],lty=3)
 success_msg("Well done!")
 ```
 
---- type:VideoExercise lang:r xp:50 skills:1 key:bf1fc7dc803e342b4475c296bbebc2bab9b26f32
-## The drivers in case of two assets
 
-*** =video_link
-//player.vimeo.com/video/108225030
 
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:b6a986b0e53bd119933fc39df94f21f2bf1e4318
