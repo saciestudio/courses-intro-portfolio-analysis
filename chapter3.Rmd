@@ -593,12 +593,16 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:0931e83c3a402b2fb2d78958981928a327428e4d
 ## Whodunit
 
-compute the portfolio risk budget... barplot? function [StdDev](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/StdDev)
+In the console, you see the monthly volatility of the portfolio invested for 40% in equities, 40% in bonds, 10% in real estate and 10% in commodities. 
+
+Let uw now use the technology of risk budgeting to find out how much % of the total portfolio volatility is caused by each of the positions.  
+
+To do so, we will use the function [StdDev](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/StdDev).
 
 *** =instructions
 - Set `vol_budget <- StdDev(returns,portfolio_method="component",weights=c(0.4,0.4,0.1,0.1))` and print this variable;
 - Combine the weights and the percentage risk contributions in a table called `weights_percrisk`;
-- Make a barplot and note how different the percentage risk contributions are compared to the portfolio weights. 
+- Print the table and note how different the percentage risk contributions are compared to the portfolio weights. 
 
 *** =hint
 hint comes here
@@ -627,21 +631,32 @@ colnames(prices) <- c("equities","bonds","realestate","commodities")
 # calculate returns
 returns <- Return.calculate(prices)
 returns <- returns[(-1),]
+#
+print("Monthly volatility of 40/40/10/10 portfolio in equities, bonds, real estate and commodities")
+print( StdDev(returns,weights=c(0.4,0.4,0.1,0.1)))
 ```
 
 *** =sample_code
 ```{r}
-# sample code
+# define vol_budget
+vol_budget
+# make table
+weights_percrisk <-
+colnames(weights_percrisk) <- c( "weights" , "perc risk contrib")
+# print the table
+
 ```
 
 *** =solution
 ```{r}
 # solution code
-
+# define vol_budget
 vol_budget <- StdDev(returns,portfolio_method="component",weights=c(0.4,0.4,0.1,0.1))
-out <- cbind( c(0.4,0.4,0.1,0.1) ,  vol_budget$pct_contrib_StdDev)
-colnames(out) <- c( "weights" , "perc risk contrib")
-barplot(out)
+# make table
+weights_percrisk<- cbind( c(0.4,0.4,0.1,0.1) ,  vol_budget$pct_contrib_StdDev)
+colnames(weights_percrisk) <- c( "weights" , "perc risk contrib")
+# print the table
+print(weights_percrisk)
  
   
 ```
