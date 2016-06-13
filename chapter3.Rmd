@@ -268,7 +268,7 @@ returns <- merge(returns_equities,returns_bonds)
 # calculation and visualization using chart.Correlation
 chart.Correlation(returns)
 # rolling estimates using chart.RollingCorrelation
-chart.RollingCorrelation(returns_equities, bonds,returns_equities,width=24)
+chart.RollingCorrelation(returns_equities, returns_bonds,width=24)
 ```
 
 *** =sct
