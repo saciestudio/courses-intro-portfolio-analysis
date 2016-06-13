@@ -301,10 +301,8 @@ These calculations are made easy using the function `apply` with as first argume
 *** =instructions
 - Compute the vector of average returns on those four investments using the R command `apply(returns,2,"mean")` and call this `vmeans`.
 - Do the same to compute the vector standard deviations and call this `vsd`.
-- Use the following R instructions to produce the scatter plot of average returns with respect to standard deviations:
-`plot(vsd,vmeans,col="gray",xlim=c(0,0.10))
+- Complete the R instructions to produce the scatter plot of average returns with respect to standard deviations. 
 
-text( vsd ,  vmu ,  labels=colnames(returns), cex= 0.7)`
 *** =hint
 hint comes here
 
@@ -335,13 +333,14 @@ returns <- returns[(-1),]
 
 *** =sample_code
 ```{r}
-# sample code
 # vector of means
- 
+vmeans <- 
 # vector of standard deviations
-
+vsd    <- 
 # scatter plot
- 
+plot( , vmeans,col="gray",xlim=c(0,0.10))
+
+text( vsd ,  vmu ,  labels=colnames(returns), cex= 0.7)` 
 
 
 ```
@@ -376,10 +375,10 @@ The monthly returns on the investments are available as the variable `returns` i
 
 
 *** =instructions
-- Compute the covariance matrix;
-- Compute the correlation matrix;
+- Use `diag(vsd^2)` to print the diagonal matrix with the variances on the diagonal.
+- Use `cov(returns)` to compute the covariance matrix;
+- Use `cor(returns)`to compute the correlation matrix;
 - Verify that the covariance between bond returns and equity returns equals the product between their standard deviations and correlation. 
-- Do the same to compute the vector standard deviations and call this `vsd`.
 
 *** =hint
 hint comes here
@@ -407,32 +406,41 @@ colnames(prices) <- c("equities","bonds","realestate","commodities")
 # calculate returns
 returns <- Return.calculate(prices)
 returns <- returns[(-1),]
+# vector of means
+vmeans <- apply(returns,2,"mean")
+# vector of standard deviations
+vsd <- as.numeric(apply(returns,2,"sd"))
 ```
 
 *** =sample_code
 ```{r}
-# sample code
-# vector of means
- 
-# vector of standard deviations
-
-# scatter plot
- 
-
-
+# covariance matrix with zeros outside the diagonal
+diag_cov <-  
+print(diag_cov)
+# correct covariance matrix
+estim_cov <- 
+print(estim_cov)
+# correlation matrix
+estim_cor <- 
+print(estim_cor)
+# check
+all.equal( estim_cov[1,2] ,     )
 ```
 
 
 *** =solution
 ```{r}
-# vector of means
-vmeans <- apply(returns,2,"mean")
-# vector of standard deviations
-vsd <- apply(returns,2,"sd")
-# scatter plot
-plot(vsd,vmeans,col="gray",xlim=c(0,0.10))
-text( vsd , vmeans,  labels=colnames(returns), cex= 0.7)
-abline(h=0,lty=3)
+# covariance matrix with zeros outside the diagonal
+diag_cov <- diag(vsd^2)
+print(diag_cov)
+# correct covariance matrix
+estim_cov <- cov(returns)
+print(estim_cov)
+# correlation matrix
+estim_cor <- cor(returns)
+print(estim_cor)
+# check
+all.equal( estim_cov[1,2] , estim_cor[1,2]*vsd[1]*vsd[2]   )
 ```
 
 *** =sct
