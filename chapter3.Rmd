@@ -502,21 +502,6 @@ bond_prices <-  bond_prices/as.numeric(bond_prices[1])
 re_prices <- re_prices/as.numeric(re_prices[1])
 comm_prices <-  comm_prices/as.numeric(comm_prices[1])
 
-
-### plot
-
-prices <- cbind(eq_prices,bond_prices,re_prices,comm_prices)
-returns <- Return.calculate(prices)
-returns <- returns[(-1),]
-temp <- c( as.numeric(eq_prices), as.numeric(bond_prices),as.numeric(re_prices), as.numeric(comm_prices)   )
-ylim <- c( min( temp ) , 1.4*max(temp) )
-plot.zoo(eq_prices , main="Performance across asset classes",ylab="", xlab="",ylim=ylim)
-lines(bond_prices,col="red")
-lines(re_prices,col="blue")
-lines(comm_prices,col="purple")
-legend("topleft", legend=c("Equities (ticker: SPY)","Bonds (ticker: AGG)", "Real estate (ticker: VEIEX)",
-                           "Commodities (ticker: GSG)") , col=c("black","red","blue","purple") , lwd = 1 ,ncol=1)
-
 ###
 newdates <- seq(as.Date(time(bond_prices ))[2], length=nrow(bond_prices ), by="1 month") - 2
 eq_prices <- xts(eq_prices,newdates)
