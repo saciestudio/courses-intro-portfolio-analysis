@@ -6,21 +6,20 @@ description : In addition to studying portfolio performance based on the observe
 ## The sources of portfolio performance
 
 The portfolio mean return and volatility depends on the mean return and volatility of the assets in which the portfolio
-is invested. In the videos, I will show you the exact nature of the dependence. But let us first get a feeling for this dependence by analyzing the monthly returns of an investment in US equities and an investment in US bonds.  
+is invested. 
 
-As a reference, we take a 60/40 portfolio that invests every month 60% in equities and 40% in bonds. The individual returns are available in the workspace as `returns_bonds` and `returns_equities`, while the portfolio returns are avalailble as  `returns_6040`.   
-(the ETF. 
+To get a feeling for this dependence, let us analyze the monthly returns of an investment in US equities and an investment in US bonds.  The individual returns are available in the workspace as `returns_bonds` and `returns_equities`, together with the returns for the so-called 60/40 portfolio that invests every month 60% in equities and 40% in bonds.  
 
 Verify in the R-console which of the following statements about the relationship between portfolio performance and the individual assets' performance is false. 
 
 
 *** =instructions
 - A portfolio is less volatile than the sum of its component volatilities. This implies that the standard deviation of the 60/40 portfolio is less than `0.6*sd(returns_equities)+0.4*sd(returns_bonds)`. We call this the subadditivity property of the standard deviation.    
-- The portfolio mean return equals the position weighted sum of the component mean returns, that is, `mean(returns_6040)==0.6*mean(returns_equities)+0.4*mean(returns_bonds)`.  
+- The portfolio mean return equals the position weighted sum of the component mean returns, that is, `all.equal(mean(returns_6040) , 0.6*mean(returns_equities)+0.4*mean(returns_bonds))`.  
 - None of the above statements is correct. 
 
 *** =hint
-hint
+The proof is in the pudding. Verify the statements directly in the console and you will find out the solution to the problem.
 
 *** =pre_exercise_code
 ```{r}
@@ -72,15 +71,17 @@ test_mc(3) # if 3 is the correct option.
 --- type:NormalExercise lang:r xp:50 skills:1     key:69c5664fdb
 ## Sensitivity of the Sharpe ratio to the porfolio weights
 
-The portfolio mean return and standard deviation depends on the mean return and standard deviation of the underlying
-asset returns, as well as the portfolio weights. 
+Investors can optimize the choice of weight to obtain the highest risk-adjusted return, as measured by the portfolio Sharpe ratio.
 
-In the special case of investing in two assets, namely US equities and US bonds, we can easily find the weight that would produce the highest Sharpe ratio. One way to do so is the brute force approach of trying a large number of possible weights and keeping the weight that yields the highest value for hte portfolio Sharpe ratio. Since the portfolio is fully invested, the weigths sum to one and we thus need to determine only one of the two weights. Let's take the weights of the equity investment as the variable to be optimized. 
+In the special case of investing the total portfolio value in only two assets, there is only one weight to determine, since the weight on the second asset equals one minus the weight on the first asset. 
+
+Let us do this in the case of a portfolio invested US equities and US bonds. We will be using the brute force approach of trying a large number of possible weights and keeping the weight that yields the highest value for hte portfolio Sharpe ratio.   
 
 
 
 *** =instructions
-- Complete the R script that runs a brute force search to determine the portfolio weights for which the Sharpe ratio is the highest, assuming a zero risk free rate.  
+- Complete the R script that runs a brute force search to determine the portfolio weights for which the Sharpe ratio is the highest, assuming a zero risk free rate. 
+- Plot the value of the Sharpe ratio as a function of the equity weight in the portfolio, and indicate with a verticle line the value of the equities weight that maximizes the portfolio Sharpe ratio. 
 
 *** =hint
 hint
@@ -131,6 +132,7 @@ for(w in grid){
   # update counter  
   i <- 
 }
+
 # plot the obtained Sharpe ratios against the equity weights
 plot(  ,   ,xlab="Equity weights",ylab="Ann. Sharpe ratio")
 abline(v=grid[vsharpe==max(vsharpe)],lty=3)
