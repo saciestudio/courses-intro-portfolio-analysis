@@ -2,7 +2,7 @@
 title       : Performance drivers
 description : In addition to studying portfolio performance based on the observed portfolio return series, it is relevant to find out how individual (expected) returns, volatilities and correlations interact to determine the total portfolio performance. 
 
---- type:VideoExercise lang:r xp:50 skills:1 
+--- type:VideoExercise lang:r xp:50 skills:1  key:bf1fc7dc803e342b4475c296bbebc2bab9b26f32
 ## The drivers in case of two assets
 
 *** =video_link
