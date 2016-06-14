@@ -8,6 +8,9 @@ description : Asset returns and portfolio weights; those are the building blocks
 *** =video_link
 //player.vimeo.com/video/108225030
 
+*** =video_hls
+//videos.datacamp.com/transcoded/985_portfolio_analysis/v1/hls-ch1_1.master.m3u8
+
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:5df9cc8be3e5717ab2d100eb52a85328bc27d243
 ## Risk and return
 
@@ -183,6 +186,8 @@ test_mc(3) # if 2 is the correct option.
 *** =video_link
 //player.vimeo.com/video/108225030
 
+*** =video_hls
+//videos.datacamp.com/transcoded/985_portfolio_analysis/v1/hls-ch1_2.master.m3u8
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:85a3e5f4f4ca30b9944167e9cbf5eb13692aa7bc
 ## Calculating portfolio weights when component values are given
@@ -339,6 +344,9 @@ success_msg("Well done! Remember that market capitalizations are the market valu
 
 *** =video_link
 //player.vimeo.com/video/108225030
+
+*** =video_hls
+//videos.datacamp.com/transcoded/985_portfolio_analysis/v1/hls-ch1_3.master.m3u8
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:7a2a60bffa8920ebf2121e0ec548f767197060f0
 ## Calculation of portfolio returns
@@ -526,6 +534,9 @@ success_msg("Well done! After 50% loss you would need to double the amount of mo
 
 *** =video_link
 //player.vimeo.com/video/108225030
+
+*** =video_hls
+//videos.datacamp.com/transcoded/985_portfolio_analysis/v1/hls-ch1_4.master.m3u8
 
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:1d4270da1d39343116d0e77f9b897e6b2127914f
