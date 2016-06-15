@@ -278,7 +278,7 @@ out2 <- portfolio.optim(returns,reshigh=rep(0.1,ncol(returns)))
 sum( 1*(out2$pw > 0.01))
 # max 5% weight constraint
 out3 <- portfolio.optim(returns,reshigh=rep(0.05,ncol(returns)))
-sum( 1*(ou3t$pw > 0.01))
+sum( 1*(out3$pw > 0.01))
 
 out1$ps
 out2$ps
