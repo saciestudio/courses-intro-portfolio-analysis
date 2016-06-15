@@ -302,9 +302,11 @@ Concept of minimizing variance given a sequence of return targets starting from 
 //videos.datacamp.com/transcoded/985_portfolio_analysis/v1/hls-ch4_2.master.m3u8
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:2c03a87fc29fb66e35d8cdbf244b3dcf41305824
-## Computing the efficient frontier 
+## Computing the efficient frontier using a grid of target return
 
-As we have seen, we need to first define the grid of target returns. We will set the maximum target return to the maximum average return of the stocks. Ideally, we set the minimum target return to the return of the minimum variance portfolio. Since we don't know this minimum variance portfolio return yet, let's therefore take the largest possible grid starting with the minimum average returns of all stocks. 
+As we have seen, one approach to compute the efficient frontier is to first define the grid of target returns and then find, for each target return, the portfolio that has an expected return equal to the target return at the lowest possible variance. 
+
+But what is a reasonble grid of target returns? We will set the maximum target return to the maximum average return of the stocks. Ideally, we set the minimum target return to the return of the minimum variance portfolio. Since we don't know this minimum variance portfolio return yet, let's therefore take the largest possible grid starting with the minimum average returns of all stocks. 
 
 
 *** =instructions
