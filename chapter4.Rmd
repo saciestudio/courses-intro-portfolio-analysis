@@ -349,7 +349,9 @@ for( mutarget in grid ){
 }
 colnames(mweights) = colnames(returns)
 # report the scatter plot of vpm agains vpsd
-plot( ,  , xlab="(monthly) Volatility" , ylab="(monthly) average returns", main="Minimum variance portfolios under a return target constraint",type="l",lwd=2)
+plot( ,  , xlab="(monthly) Volatility" , ylab="(monthly) average returns", 
+      main="Minimum variance portfolios under a return target constraint",
+      type="l",lwd=2)
 ```
 
 *** =solution
@@ -381,6 +383,127 @@ plot(vpsd,vpm, xlab="(monthly) Volatility" , ylab="(monthly) average returns",
 # sct code
 success_msg("Well done!")
 ```
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1    key:e647c251a7
+## Properties of the efficient frontier
+
+The curve shown in the previous plot shows the solution of minimizing the variance under the constraint that the portfolio expected return equals the target return. When the target return is below the minimum variance return, the obtained portfolio is not efficient, since a higher return at a lower risk can be obtained by investing in the minimum variance porfolio. 
+
+The optimized portfolios often are also not realistic because they tend to invest large weights in only a few assets. A practical solution to avoid this is to impose weight constraints. 
+
+The effect of such a weight constraint is shown in the work space, where you can see the efficient frontier plots obtained for the DJIA stocks under a maximum 100% weight constraint (black line), a maximum 10% weight constraint (red line) and a maximum 5% weight constraint (blue). Which of the following statements is false.  
+
+*** =instructions
+- Imposing a more strict weight constraint, leads to a shift to the right of the efficient frontier.    
+- The portfolios on the dashed lines are not mean-variance efficient. 
+- The observed average return of any risky portfolio is always higher than the risk-free rate. 
+
+*** =hint
+hint
+
+*** =pre_exercise_code
+```{r}
+library(xts)
+library(PerformanceAnalytics)
+library(tseries)
+download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
+# load("prices.Rdata")
+prices<- readRDS("prices.rds") 
+returns <- Return.calculate(prices, method="simple")
+returns <- returns[(-1),]
+
+stockmu = apply( X = returns , MARGIN = 2 , FUN="mean")
+stocksd = apply( X = returns , MARGIN = 2 , FUN="sd")
+
+grid <- seq(min(stockmu),max(stockmu),length.out=100 )  
+# Compute the efficient frontier
+## for each solution, we save the portfolio mean,
+## portfolio standard deviation and the weights
+## Initialize them as an empty vector
+vpm = vpsd = mweights = c()
+
+for( mutarget in grid ){
+  out = try(portfolio.optim(x = returns,pm=mutarget,
+                            reshigh = rep(1,ncol(returns)) ),silent=TRUE)
+  if(class(out)!="try-error"){
+    vpm = c(vpm,out$pm)
+    vpsd = c(vpsd,out$ps)
+    mweights = rbind( mweights,out$pw)
+  }
+}
+
+# assign the stock names to the column names of mweights
+colnames(mweights) = colnames(returns)
+
+
+##################################################################################
+# To avoid the concentration, we will impose now a max weight constraint of 30%
+
+ 
+# Compute the efficient frontier
+## for each solution, we save the portfolio mean,
+## portfolio standard deviation and the weights
+## Initialize them as an empty vector
+vpm.res2 = vpsd.res2 = mweights.res2 = c()
+
+for( mutarget in grid ){
+  out = try(portfolio.optim(x = returns,pm=mutarget,
+                  reshigh = rep(0.1,ncol(returns))),silent=TRUE)
+  if(class(out)!="try-error"){
+    vpm.res2 = c(vpm.res2,out$pm)
+    vpsd.res2 = c(vpsd.res2,out$ps)
+    mweights.res2 = rbind( mweights.res2,out$pw)
+  }
+}
+# assign the stock names to the column names of mweights
+colnames(mweights.res2) = colnames(returns)
+ 
+##################################################################################
+# To avoid the concentration, we will impose now a max weight constraint of 5%
+
+
+ 
+# Compute the efficient frontier
+## for each solution, we save the portfolio mean,
+## portfolio standard deviation and the weights
+## Initialize them as an empty vector
+vpm.res = vpsd.res = mweights.res = c()
+
+for( mutarget in grid ){
+  out = try(portfolio.optim(x = returns,pm=mutarget,
+                  reshigh = rep(0.05,ncol(returns))),silent=TRUE)
+  if(class(out)!="try-error"){
+    vpm.res = c(vpm.res,out$pm)
+    vpsd.res = c(vpsd.res,out$ps)
+    mweights.res = rbind( mweights.res,out$pw)
+  }
+}
+# assign the stock names to the column names of mweights
+colnames(mweights.res) = colnames(returns)
+
+
+# 
+plot(stocksd,stockmu,col="gray" , xlab="Standard deviation (monthly)", ylab="Average return (monthly",
+     xlim=c(0.02,0.15), ylim=c(min(stockmu),max(stockmu)))
+text( stocksd ,  stockmu ,  labels=colnames(returns), cex= 0.7)
+# all portfolios offering less return than the minimum variance portfolio should be excluded
+minvarpm = vpm[vpsd==min(vpsd)]
+minvarpm.res = vpm.res[vpsd.res==min(vpsd.res)]
+minvarpm.res2 = vpm.res2[vpsd.res2==min(vpsd.res2)]
+lines(vpsd,vpm,col="black",lwd=1,lty=3)
+lines(vpsd.res2,vpm.res2,col="red",lwd=1,lty=3)
+lines(vpsd.res,vpm.res,col="blue",lwd=1,lty=3)
+lines(vpsd[vpm>=minvarpm],vpm[vpm>=minvarpm],col="black",lwd=2)
+lines(vpsd.res2[vpm.res2>=minvarpm.res2],vpm.res2[vpm.res2>=minvarpm.res2],col="red",lwd=2)
+lines(vpsd.res[vpm.res>=minvarpm.res],vpm.res[vpm.res>=minvarpm.res],col="blue",lwd=2)
+
+```
+
+*** =sct
+```{r}
+test_mc(3) # if 3 is the correct option.
+```
+
 
 --- type:NormalExercise lang:r xp:100 skills:1   key:897a83541a
 ## The minimum variance and maximum Sharpe ratio portfolio
@@ -470,94 +593,6 @@ success_msg("Well done!")
 ```
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1    key:e647c251a7
-## Properties of the efficient frontier
-
-Consider the efficient frontier plots obtained for the DJIA stocks under a maximum 30% weight constraint (red line) and a maximum 5% weight constraint (blue). Which of the following statements is false.  
-
-*** =instructions
-- Imposing a more strict weight constraint, leads to a shift to the right of the efficient frontier.    
-- The portfolios on the dashed lines are not mean-variance efficient. 
-- The observed average return of any risky portfolio is always higher than the risk-free rate. 
-
-*** =hint
-hint
-
-*** =pre_exercise_code
-```{r}
-library(xts)
-library(PerformanceAnalytics)
-library(tseries)
-download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
-# load("prices.Rdata")
-prices<- readRDS("prices.rds") 
-returns <- Return.calculate(prices, method="simple")
-returns <- returns[(-1),]
-
-stockmu = apply( X = returns , MARGIN = 2 , FUN="mean")
-stocksd = apply( X = returns , MARGIN = 2 , FUN="sd")
-
-grid <- seq(min(stockmu),max(stockmu),length.out=100 )  
-# Compute the efficient frontier
-## for each solution, we save the portfolio mean,
-## portfolio standard deviation and the weights
-## Initialize them as an empty vector
-vpm = vpsd = mweights = c()
-
-for( mutarget in grid ){
-  out = try(portfolio.optim(x = returns,pm=mutarget,
-                            reshigh = rep(0.3,ncol(returns)) ),silent=TRUE)
-  if(class(out)!="try-error"){
-    vpm = c(vpm,out$pm)
-    vpsd = c(vpsd,out$ps)
-    mweights = rbind( mweights,out$pw)
-  }
-}
-
-# assign the stock names to the column names of mweights
-colnames(mweights) = colnames(returns)
-
- 
-##################################################################################
-# To avoid the concentration, we will impose now a max weight constraint of 10%
-
- 
-# Compute the efficient frontier
-## for each solution, we save the portfolio mean,
-## portfolio standard deviation and the weights
-## Initialize them as an empty vector
-vpm.res = vpsd.res = mweights.res = c()
-
-for( mutarget in grid ){
-  out = try(portfolio.optim(x = returns,pm=mutarget,
-                  reshigh = rep(0.05,ncol(returns))),silent=TRUE)
-  if(class(out)!="try-error"){
-    vpm.res = c(vpm.res,out$pm)
-    vpsd.res = c(vpsd.res,out$ps)
-    mweights.res = rbind( mweights.res,out$pw)
-  }
-}
-# assign the stock names to the column names of mweights
-colnames(mweights.res) = colnames(returns)
-
-# 
-plot(stocksd,stockmu,col="gray" , xlab="Standard deviation (monthly)", ylab="Average return (monthly",
-     xlim=c(0.02,0.15), ylim=c(min(stockmu),max(stockmu)))
-text( stocksd ,  stockmu ,  labels=colnames(returns), cex= 0.7)
-# all portfolios offering less return than the minimum variance portfolio should be excluded
-minvarpm = vpm[vpsd==min(vpsd)]
-minvarpm.res = vpm.res[vpsd.res==min(vpsd.res)]
-lines(vpsd,vpm,col="red",lwd=1,lty=3)
-lines(vpsd.res,vpm.res,col="blue",lwd=1,lty=3)
-lines(vpsd[vpm>=minvarpm],vpm[vpm>=minvarpm],col="red",lwd=2)
-lines(vpsd.res[vpm.res>=minvarpm.res],vpm.res[vpm.res>=minvarpm.res],col="blue",lwd=2)
-
-```
-
-*** =sct
-```{r}
-test_mc(3) # if 3 is the correct option.
-```
 
 --- type:VideoExercise lang:r xp:50 skills:1 key:ca405aabc3c21c142aaae409da6302b77b5210ef
 ## In-sample versus out-of-sample evaluation
