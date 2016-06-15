@@ -308,7 +308,7 @@ As we have seen, we need to first define the grid of target returns. We will set
 
 
 *** =instructions
-- Complete the code specifying the grid of 100 equally space return targets starting at the minimum and maximum average return 
+- Complete the code specifying the grid of 50 equally spaced return targets starting at the minimum and maximum average return 
 - Run the loop computing the optimized weights and corresponding mean return and volatility
 - Plot the portfolio mean against the portfolio volatility of the optimized portfolios
 - Improve the efficient frontier plot by removing the inefficient portfolios offering a lower return at a higher risk compared to the minimum variance portfolio.  
@@ -333,7 +333,7 @@ returns <- returns[(-1),]
 ```{r}
 # sample code
 stockmu = colMeans(returns)
-grid = seq( , ,length.out=100 )  
+grid = seq( , ,length.out=50 )  
 # Compute the efficient frontier
 ## for each solution, we save the portfolio mean,
 ## portfolio standard deviation and the weights
@@ -358,7 +358,7 @@ plot( ,  , xlab="(monthly) Volatility" , ylab="(monthly) average returns",
 ```{r}
 # solution code
 stockmu = colMeans(returns)
-grid = seq(min(stockmu),max(stockmu),length.out=100 )  
+grid = seq(min(stockmu),max(stockmu),length.out=50)  
 # Compute the efficient frontier
 ## for each solution, we save the portfolio mean,
 ## portfolio standard deviation and the weights
@@ -415,7 +415,7 @@ returns <- returns[(-1),]
 stockmu = apply( X = returns , MARGIN = 2 , FUN="mean")
 stocksd = apply( X = returns , MARGIN = 2 , FUN="sd")
 
-grid <- seq(min(stockmu),max(stockmu),length.out=100 )  
+grid <- seq(min(stockmu),max(stockmu),length.out=50 )  
 # Compute the efficient frontier
 ## for each solution, we save the portfolio mean,
 ## portfolio standard deviation and the weights
@@ -516,7 +516,9 @@ portfolio standard deviations (`vpsd`) and the matrix of portfolio weights (`mwe
 
 *** =instructions
 - Complete the sample code to obtain the volatility and expected return of the minimum variance portfolio. 
-- Assume a risk free rate of 0.75%. Complete the sample code to compute the risk and reward of the maximum Sharpe ratio portfolio and compare its allocation with the minimum variance portfolio (focus hereby on the weights larger than 1%).
+- Assume a risk free rate of 0.75%. Define `vsr` as the vector holding, for each of the optimized portfolios, the Sharpe ratio computed using `vpm` and `vsd`
+- Complete the sample code to compute the risk and reward of the maximum Sharpe ratio portfolio 
+- Comple the sample code to compare the allocation of the maximum Sharpe ratio portfolio with the minimum variance portfolio using a barplot (focus hereby on the weights larger than 1%).
  
 
 *** =hint
@@ -535,7 +537,7 @@ returns <- Return.calculate(prices, method="simple")
 returns <- returns[(-1),]
 stockmu <- colMeans(returns)
 
-grid = seq(min(stockmu),max(stockmu),length.out=100 )  
+grid = seq(min(stockmu),max(stockmu),length.out=50 )  
 # Compute the efficient frontier
 ## for each solution, we save the portfolio mean,
 ## portfolio standard deviation and the weights
@@ -555,18 +557,21 @@ colnames(mweights) = colnames(returns)
 
 *** =sample_code
 ```{r}
-# sample code
+# vpm and vd are preloaded
 # minimum variance portfolio
 pm_minvar <- vpm[vpsd==min(vpsd)]
 psd_minvar <-
 weights_minvar <-
-# max sharpe 
+# Sharpe ratio 
+rf <- 0.0075
+vsr <- 
+# max sharpe ratio portfolio  
 pm_maxsharpe <-  
 psd_maxsharpe <-
 weights_maxsharpe <-
 #compare weights
 par(mfrow=c(2,1), mar=c(3,2,2,1))
-barplot(weights_minvar)
+barplot(weights_minvar[weights_minvar>0.01])
  
 ```
 
@@ -577,10 +582,15 @@ barplot(weights_minvar)
 pm_minvar <- vpm[vpsd==min(vpsd)]
 psd_minvar <-vpsd[vpsd==min(vpsd)]
 weights_minvar <- mweights[vpsd==min(vpsd),]
+# Sharpe ratio 
+rf <- 0.0075
+vsr <- (vpm-rf)/vpsd
+# max sharpe ratio portfolio  
 # max sharpe 
-pm_maxsharpe <-  vpm[(vpm-0.0075)/vpsd==max((vpm-0.0075)/vpsd)]
-psd_maxsharpe <- vpsd[(vpm-0.0075)vpsd==max((vpm-0.0075)/vpsd)]
-weights_maxsharpe <- mweights[(vpm-0.0075)/vpsd==max((vpm-0.0075)/vpsd),]
+pm_maxsharpe <-  vpm[vsr==max(vsr)]
+psd_maxsharpe <- vpsd[vsr==max(vsr)]
+weights_maxsharpe <- mweights[vsr==max(vsr),]
+# compare weights
 par(mfrow=c(2,1), mar=c(3,2,2,1))
 barplot(weights_minvar[weights_minvar>0.01])
 barplot(weights_maxsharpe[weights_maxsharpe>0.01]) 
