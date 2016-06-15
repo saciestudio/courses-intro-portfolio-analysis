@@ -251,7 +251,7 @@ success_msg("The volatility and mean return are very important metrics in every 
 //player.vimeo.com/video/108225030
 
 *** =video_hls
-//videos.datacamp.com/transcoded/985_portfolio_analysis/v2/hls-ch2_2.master.m3u8
+//videos.datacamp.com/transcoded/985_portfolio_analysis/v3/hls-ch2_2.master.m3u8
 
  
 --- type:NormalExercise lang:r xp:100 skills:1   key:c14e2a1a3a
