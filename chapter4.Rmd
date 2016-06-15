@@ -16,7 +16,7 @@ description : We have up to now considered the portfolio weights as given. In th
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1   key:139d7eabbd827860709b29f2a8d968614d1e3cb0
-## Exploring the problem of mean-variance based investing in DJIA stocks 
+## Mean-variance based investing in DJIA stocks 
 
 The theory of portfolio optimization will be illustrated on the universe of the 30 Dow Jones Industrial Average stocks. 
 
