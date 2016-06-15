@@ -9,7 +9,7 @@ description : The history of portfolio returns reveals valuable information abou
 //player.vimeo.com/video/108225030
 
 *** =video_hls
-//videos.datacamp.com/transcoded/985_portfolio_analysis/v1/hls-ch2_1.master.m3u8
+//videos.datacamp.com/transcoded/985_portfolio_analysis/v2/hls-ch2_1.master.m3u8
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:04255405f1b95fc9587c9350f29c6549b41cc79e
@@ -251,7 +251,7 @@ success_msg("The volatility and mean return are very important metrics in every 
 //player.vimeo.com/video/108225030
 
 *** =video_hls
-//videos.datacamp.com/transcoded/985_portfolio_analysis/v1/hls-ch2_2.master.m3u8
+//videos.datacamp.com/transcoded/985_portfolio_analysis/v2/hls-ch2_2.master.m3u8
 
  
 --- type:NormalExercise lang:r xp:100 skills:1   key:c14e2a1a3a
@@ -584,7 +584,7 @@ success_msg("Well done!")
 //player.vimeo.com/video/108225030
 
 *** =video_hls
-//videos.datacamp.com/transcoded/985_portfolio_analysis/v1/hls-ch2_3.master.m3u8
+//videos.datacamp.com/transcoded/985_portfolio_analysis/v2/hls-ch2_3.master.m3u8
 
 --- type:NormalExercise lang:r xp:150 skills:1 key:737157d7421c452d9ab7cb48fc219403c4db82ff
 ## Rolling annualized mean and volatility
@@ -842,7 +842,7 @@ success_msg("Well done!")
 //player.vimeo.com/video/108225030
 
 *** =video_hls
-//videos.datacamp.com/transcoded/985_portfolio_analysis/v1/hls-ch2_4.master.m3u8
+//videos.datacamp.com/transcoded/985_portfolio_analysis/v2/hls-ch2_4.master.m3u8
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:dfd18e3152bb168fd30148d4b418df9383e2fa19
 ## Detecting non-normality using skewness and kurtosis
