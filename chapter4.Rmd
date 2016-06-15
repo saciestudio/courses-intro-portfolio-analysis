@@ -321,6 +321,7 @@ hint comes here
 # pec
 library(xts)
 library(PerformanceAnalytics)
+library(tseries)
 download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
 # load("prices.Rdata")
 prices<- readRDS("prices.rds") 
@@ -331,7 +332,6 @@ returns <- returns[(-1),]
 *** =sample_code
 ```{r}
 # sample code
-# solution code
 stockmu = colMeans(returns)
 grid = seq( , ,length.out=100 )  
 # Compute the efficient frontier
@@ -349,7 +349,7 @@ for( mutarget in grid ){
 }
 colnames(mweights) = colnames(returns)
 # report the scatter plot of vpm agains vpsd
-
+plot( ,  , xlab="(monthly) Volatility" , ylab="(monthly) average returns", main="Minimum variance portfolios under a return target constraint",type="l",lwd=2)
 ```
 
 *** =solution
@@ -372,7 +372,8 @@ for( mutarget in grid ){
   }
 }
 # report the scatter plot of vpm agains vpsd
-plot(vpm,vpsd)
+plot(vpsd,vpm, xlab="(monthly) Volatility" , ylab="(monthly) average returns", 
+     main="Minimum variance portfolios \n under a return target constraint",type="l",lwd=2)
 ```
 
 *** =sct
