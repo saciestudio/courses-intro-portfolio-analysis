@@ -1,21 +1,37 @@
 ---
 title       : Optimizing the portfolio 
-description : We have up to now considered the portfolio weights as given. Here we consider optimizing the portfolio weights. Markowitz mean variance optimized portfolios.
+description : We have up to now considered the portfolio weights as given. In this chapter you learn how to determine in R the portfolio weights that are optimal in terms of achieving a target return with minimum risk, while satisfying constraints on the portfolio weights.  
+ 
+--- type:VideoExercise lang:r xp:50 skills:1 key:2d45c303bc2e49767a9cd744f15a31938a2ec7d9
+## Modern portfolio theory of Harry Markowitz
+
+
+*** =video_link
+//player.vimeo.com/video/108225030
+
+*** =video_hls
+//videos.datacamp.com/transcoded/985_portfolio_analysis/v1/hls-ch4_1.master.m3u8
+
+
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1   key:139d7eabbd827860709b29f2a8d968614d1e3cb0
-## Comparing investments in portfolios of DJIA stocks 
+## Exploring the data Mean-variance based investments in DJIA stocks 
 
-In the workspace, you see a scatter plot showing the mean and standard deviation of the 30 Dow Jones Industrial Average stocks, as estimated on their monthly returns over the period 1991-2015. Each of the stocks is identified in the plot using
-its ticker. 
+The theory of portfolio optimization will be illustrated on the universe of the 30 Dow Jones Industrial Average stocks. 
 
-Assume an investor who only cares about the mean and variance of the portfolio return distribution. She likes expected returns and dislikes variance.  Which of the following statements is false:
+Like the S&P 500 portfolio studied in Chapter 2, the Dow Jones Industrial Average portfolio is an important reference portfolio for the US equity market. It is invested in 30 large publicly owned companies based in the United States.
+
+We will be using the sample of monthly returns from January 1991 till December 2015. These return data are available in the workspace as the variable `returns`.   
+
+Assume an investor who only cares about the mean and standard deviation of the portfolio return distribution. She likes expected returns and dislikes volatility.  Which of the following statements is false:
 
 *** =instructions
-- If a mean-variance investor has to invest all her wealth in one asset, then the opportunity of investing in Home Depot (ticker: HD) dominates an investment in Caterpillar (ticker: CAT) since it has a higher average return and lower risk.  
-- A mean-variance investor will never combine investments in Home Depot and Caterpillar in her portfolio. 
+- If the investor has to choose between investing all her wealth in Home Depot (ticker: HD) versus investing in Caterpillar (ticker: CAT), she will choose to invest in Home Depot, since it has a higher average return and lower risk.  
+- The investor will never combine investments in Home Depot and Caterpillar in her portfolio. 
 - By combining investments, it may be possible to obtain a portfolio with a lower variance than the variance of the Exxon Mobil Corporation's stock (ticker: XOM). 
 - If an investor is not allowed to borrow, then there is no portfolio invested in thirty Dow Jones Industrial Average stocks, offering a higher average return than the one of Apple (ticker: AAPL).   
+- There is a total of 300 monthly observations in our sample of monthly returns. The highest return is around 88% while the lowest return is around -58%. 
 
 *** =hint
 hint
@@ -38,7 +54,9 @@ stocksd = apply( X = returns , MARGIN = 2 , FUN="sd")
 # make the scatter plot and add tickers
 
 plot(stocksd,stockmu,col="gray" , xlab="Standard deviation (monthly)", ylab="Average return (monthly)",xlim=c(0,1.1*max(stocksd)),ylim=c(0,1*1*max(stockmu)))
-text( stocksd ,  stockmu ,  labels=colnames(returns ), cex= 0.7)
+text( stocksd[!is.element(names(stocksd),c("HD","CAT","XOM","AAPL"))] , 
+       stockmu[!is.element(names(stocksd),c("HD","CAT","XOM","AAPL"))] ,  
+      labels=colnames(returns )[!is.element(names(stocksd),c("HD","CAT","XOM","AAPL"))], cex= 0.7)
 text( stocksd[c("HD","CAT","XOM","AAPL")]  ,  stockmu[c("HD","CAT","XOM","AAPL")] ,  labels=  c("HD","CAT","XOM","AAPL") , cex= 0.9,col="red")
 ```
 
@@ -46,73 +64,6 @@ text( stocksd[c("HD","CAT","XOM","AAPL")]  ,  stockmu[c("HD","CAT","XOM","AAPL")
 ```{r}
 test_mc(2) # if 2 is the correct option.
 ```
-
---- type:NormalExercise lang:r xp:100 skills:1   key:8c67f73515
-## Exploring monthly returns of the 30 DJIA stocks 
-
-The 1991-2015 monthly returns on the 30 DJIA stocks are available in the workspace as the variable `returns`.
-
-
-
-*** =instructions
-- Verify that `returns` is an object of the xts-class using the function `class`.
-- Plot the row means of `returns` (in other words, the returns on the monthly rebalanced equally-weighted  portfolio returns). 
-- Plot the histogram of the correlations between the monthly returns of the DJIA stocks. Because of the symmetry of the correlation matrix, you only need the lower triangular elements, which, for any square matrix `Z`, you can select using `Z[lower.tri(Z)]`.
-*** =hint
-hint comes here
-
-*** =pre_exercise_code
-```{r}
-# pec
-library(xts)
-library(PerformanceAnalytics)
-download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
-# load("prices.Rdata")
-prices<- readRDS("prices.rds") 
-returns <- Return.calculate(prices, method="simple")
-returns <- returns[(-1),]
-```
-
-*** =sample_code
-```{r}
-# returns is pre-loaded
-# class of returns
-
-# plot ew portfolio returns
-
-# histogram of correlations
-
-```
-
-*** =solution
-```{r}
-# returns is pre-loaded
-# class of returns
-class(returns)
-# plot ew portfolio returns
-plot.zoo(rowMeans(returns))
-# histogram of correlations
-Z <- cor(returns)
-hist(Z[lower.tri(Z)])
-```
-
-*** =sct
-```{r}
-# sct code
-success_msg("Well done!")
-```
-
-
---- type:VideoExercise lang:r xp:50 skills:1 key:2d45c303bc2e49767a9cd744f15a31938a2ec7d9
-## Modern portfolio theory of Harry Markowitz
-
-
-*** =video_link
-//player.vimeo.com/video/108225030
-
-*** =video_hls
-//videos.datacamp.com/transcoded/985_portfolio_analysis/v1/hls-ch4_1.master.m3u8
-
 
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:c066b2d5f610d13afdb48831249d18142590def7
