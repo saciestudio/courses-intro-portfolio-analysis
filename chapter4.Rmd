@@ -372,7 +372,7 @@ for( mutarget in grid ){
   }
 }
 # report the scatter plot of vpm agains vpsd
-plot(vpms,vpm)
+plot(vpm,vpsd)
 ```
 
 *** =sct
