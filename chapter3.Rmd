@@ -9,7 +9,7 @@ description : In addition to studying portfolio performance based on the observe
 //player.vimeo.com/video/108225030
 
 *** =video_hls
-//videos.datacamp.com/transcoded/985_portfolio_analysis/v2/hls-ch3_1.master.m3u8
+//videos.datacamp.com/transcoded/985_portfolio_analysis/v4/hls-ch3_1.master.m3u8
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1   key:27fc122215
 ## Driver 1: The assets' individual performance
