@@ -44,7 +44,7 @@ library(xts)
 library(PerformanceAnalytics)
 download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
 # load("prices.Rdata")
-prices<- readRDS("prices.rds") 
+prices <- readRDS("prices.rds") 
 returns <- Return.calculate(prices, method="simple")
 returns <- returns[(-1),]
 
@@ -92,7 +92,7 @@ library(xts)
 library(PerformanceAnalytics)
 download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
 # load("prices.Rdata")
-prices<- readRDS("prices.rds") 
+prices <- readRDS("prices.rds") 
 returns <- Return.calculate(prices, method="simple")
 returns <- returns[(-1),]
 ```
@@ -204,7 +204,7 @@ sd2 <-
 # solution code
 # load tseries. 
 library(tseries)
-meanreturns = mean(returns)
+meanreturns <- mean(returns)
 # compute standard deviation when target retun is mean return
 out1 <- portfolio.optim(returns, pm = meanreturns )
 sd1 <- out1$psd
@@ -334,13 +334,13 @@ returns <- returns[(-1),]
 *** =sample_code
 ```{r}
 # sample code
-stockmu = colMeans(returns)
-grid = seq( , ,length.out=50 )  
+stockmu <- colMeans(returns)
+grid <- seq( , ,length.out=50 )  
 # Compute the efficient frontier
 ## for each solution, we save the portfolio mean,
 ## portfolio standard deviation and the weights
 ## Initialize them as an empty vector
-vpm = vpsd = mweights = c()
+vpm = vpsd = mweights <- c()
 for( mutarget in grid ){
   out <- try(portfolio.optim(x = returns ,pm=mutarget),silent=TRUE)
   if(class(out)!="try-error"){
@@ -349,7 +349,7 @@ for( mutarget in grid ){
     mweights <- rbind( mweights,out$pw)
   }
 }
-colnames(mweights) = colnames(returns)
+colnames(mweights) <- colnames(returns)
 # report the scatter plot of vpm agains vpsd
 plot( ,  , xlab="(monthly) Volatility" , ylab="(monthly) average returns", 
       main="Minimum variance portfolios under a return target constraint",
@@ -359,13 +359,13 @@ plot( ,  , xlab="(monthly) Volatility" , ylab="(monthly) average returns",
 *** =solution
 ```{r}
 # solution code
-stockmu = colMeans(returns)
-grid = seq(min(stockmu),max(stockmu),length.out=50)  
+stockmu <- colMeans(returns)
+grid <- seq(min(stockmu),max(stockmu),length.out=50)  
 # Compute the efficient frontier
 ## for each solution, we save the portfolio mean,
 ## portfolio standard deviation and the weights
 ## Initialize them as an empty vector
-vpm = vpsd = mweights = c()
+vpm = vpsd = mweights <- c()
 
 for( mutarget in grid ){
   out <- try(portfolio.optim(x = returns ,pm=mutarget),silent=TRUE)
@@ -414,8 +414,8 @@ prices<- readRDS("prices.rds")
 returns <- Return.calculate(prices, method="simple")
 returns <- returns[(-1),]
 
-stockmu = apply( X = returns , MARGIN = 2 , FUN="mean")
-stocksd = apply( X = returns , MARGIN = 2 , FUN="sd")
+stockmu <- apply( X = returns , MARGIN = 2 , FUN="mean")
+stocksd <- apply( X = returns , MARGIN = 2 , FUN="sd")
 
 grid <- seq(min(stockmu),max(stockmu),length.out=50 )  
 # Compute the efficient frontier
@@ -425,17 +425,17 @@ grid <- seq(min(stockmu),max(stockmu),length.out=50 )
 vpm = vpsd = mweights = c()
 
 for( mutarget in grid ){
-  out = try(portfolio.optim(x = returns,pm=mutarget,
+  out <- try(portfolio.optim(x = returns,pm=mutarget,
                             reshigh = rep(1,ncol(returns)) ),silent=TRUE)
   if(class(out)!="try-error"){
-    vpm = c(vpm,out$pm)
-    vpsd = c(vpsd,out$ps)
-    mweights = rbind( mweights,out$pw)
+    vpm <- c(vpm,out$pm)
+    vpsd <- c(vpsd,out$ps)
+    mweights <- rbind( mweights,out$pw)
   }
 }
 
 # assign the stock names to the column names of mweights
-colnames(mweights) = colnames(returns)
+colnames(mweights) <- colnames(returns)
 
 
 ##################################################################################
@@ -446,19 +446,19 @@ colnames(mweights) = colnames(returns)
 ## for each solution, we save the portfolio mean,
 ## portfolio standard deviation and the weights
 ## Initialize them as an empty vector
-vpm.res2 = vpsd.res2 = mweights.res2 = c()
+vpm.res2 = vpsd.res2 = mweights.res2 <- c()
 
 for( mutarget in grid ){
-  out = try(portfolio.optim(x = returns,pm=mutarget,
+  out <- try(portfolio.optim(x = returns,pm=mutarget,
                   reshigh = rep(0.1,ncol(returns))),silent=TRUE)
   if(class(out)!="try-error"){
-    vpm.res2 = c(vpm.res2,out$pm)
-    vpsd.res2 = c(vpsd.res2,out$ps)
-    mweights.res2 = rbind( mweights.res2,out$pw)
+    vpm.res2 <- c(vpm.res2,out$pm)
+    vpsd.res2 <- c(vpsd.res2,out$ps)
+    mweights.res2 <- rbind( mweights.res2,out$pw)
   }
 }
 # assign the stock names to the column names of mweights
-colnames(mweights.res2) = colnames(returns)
+colnames(mweights.res2) <- colnames(returns)
  
 ##################################################################################
 # To avoid the concentration, we will impose now a max weight constraint of 5%
@@ -469,15 +469,15 @@ colnames(mweights.res2) = colnames(returns)
 ## for each solution, we save the portfolio mean,
 ## portfolio standard deviation and the weights
 ## Initialize them as an empty vector
-vpm.res = vpsd.res = mweights.res = c()
+vpm.res = vpsd.res = mweights.res <- c()
 
 for( mutarget in grid ){
   out = try(portfolio.optim(x = returns,pm=mutarget,
                   reshigh = rep(0.05,ncol(returns))),silent=TRUE)
   if(class(out)!="try-error"){
-    vpm.res = c(vpm.res,out$pm)
-    vpsd.res = c(vpsd.res,out$ps)
-    mweights.res = rbind( mweights.res,out$pw)
+    vpm.res <- c(vpm.res,out$pm)
+    vpsd.res <- c(vpsd.res,out$ps)
+    mweights.res <- rbind( mweights.res,out$pw)
   }
 }
 # assign the stock names to the column names of mweights
@@ -489,9 +489,9 @@ plot(stocksd,stockmu,col="gray" , xlab="Standard deviation (monthly)", ylab="Ave
      xlim=c(0.02,0.15), ylim=c(min(stockmu),max(stockmu)))
 text( stocksd ,  stockmu ,  labels=colnames(returns), cex= 0.7)
 # all portfolios offering less return than the minimum variance portfolio should be excluded
-minvarpm = vpm[vpsd==min(vpsd)]
-minvarpm.res = vpm.res[vpsd.res==min(vpsd.res)]
-minvarpm.res2 = vpm.res2[vpsd.res2==min(vpsd.res2)]
+minvarpm <- vpm[vpsd==min(vpsd)]
+minvarpm.res <- vpm.res[vpsd.res==min(vpsd.res)]
+minvarpm.res2 <- vpm.res2[vpsd.res2==min(vpsd.res2)]
 lines(vpsd,vpm,col="black",lwd=1,lty=3)
 lines(vpsd.res2,vpm.res2,col="red",lwd=1,lty=3)
 lines(vpsd.res,vpm.res,col="blue",lwd=1,lty=3)
@@ -554,7 +554,7 @@ for( mutarget in grid ){
     mweights <- rbind( mweights,out$pw)
   }
 }
-colnames(mweights) = colnames(returns)
+colnames(mweights) <- colnames(returns)
 ```
 
 *** =sample_code
@@ -649,8 +649,8 @@ returns <- returns[(-1),]
 *** =sample_code
 ```{r}
 # Splitting return data in sample for estimation and out of sample evaluation 
-returns.estim = 
-returns.oos = w 
+returns.estim <- 
+returns.oos <-   
 # optimize portfolios
 weights.estim <- portfolio.optim(x =  , reshigh = rep(0.1,ncol(returns.estim)))$pw
 weights.oos <- portfolio.optim(x =   ,reshigh = rep(0.1,ncol(returns.estim)))$pw
@@ -664,8 +664,8 @@ abline(a=0,b=1,lty=3)
 # solution code
 
 # Splitting return data in sample for estimation and out of sample evaluation 
-returns.estim = window(returns, start = "1991-01-01", end = "2003-12-31")
-returns.oos = window(returns, start ="2004-01-01", end = "2015-12-31")
+returns.estim <- window(returns, start = "1991-01-01", end = "2003-12-31")
+returns.oos <- window(returns, start ="2004-01-01", end = "2015-12-31")
 # optimize portfolios
 weights.estim <- portfolio.optim(x = returns.estim , reshigh = rep(0.1,ncol(returns.estim)))$pw
 weights.oos <- portfolio.optim(x = returns.oos ,reshigh = rep(0.1,ncol(returns.estim)))$pw
@@ -708,8 +708,8 @@ returns <- Return.calculate(prices, method="simple")
 returns <- returns[(-1),]
 
 # Splitting return data in sample for estimation and out of sample evaluation 
-returns.estim = window(returns, start = "1991-01-01", end = "2003-12-31")
-returns.oos = window(returns, start ="2004-01-01", end = "2015-12-31")
+returns.estim <- window(returns, start = "1991-01-01", end = "2003-12-31")
+returns.oos <- window(returns, start ="2004-01-01", end = "2015-12-31")
 # optimize portfolios
 weights.estim <- portfolio.optim(x = returns.estim , reshigh = rep(0.1,ncol(returns.estim)))$pw
 weights.oos <- portfolio.optim(x = returns.oos ,reshigh = rep(0.1,ncol(returns.estim)))$pw
