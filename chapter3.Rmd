@@ -9,7 +9,7 @@ description : In addition to studying portfolio performance based on the observe
 //player.vimeo.com/video/108225030
 
 *** =video_hls
-//videos.datacamp.com/transcoded/985_portfolio_analysis/v1/hls-ch3_1.master.m3u8
+//videos.datacamp.com/transcoded/985_portfolio_analysis/v6/hls-ch3_1.master.m3u8
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1   key:27fc122215
 ## Driver 1: The assets' individual performance
@@ -288,7 +288,7 @@ success_msg("Well done!")
 //player.vimeo.com/video/108225030
 
 *** =video_hls
-//videos.datacamp.com/transcoded/985_portfolio_analysis/v1/hls-ch3_2.master.m3u8
+//videos.datacamp.com/transcoded/985_portfolio_analysis/v2/hls-ch3_2.master.m3u8
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:080c6863fc
 ## Making a risk-reward scatter diagram
@@ -582,7 +582,7 @@ success_msg("Well done!")
 //player.vimeo.com/video/108225030
 
 *** =video_hls
-//videos.datacamp.com/transcoded/985_portfolio_analysis/v1/hls-ch3_3.master.m3u8
+//videos.datacamp.com/transcoded/985_portfolio_analysis/v2/hls-ch3_3.master.m3u8
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:0931e83c3a402b2fb2d78958981928a327428e4d
 ## Whodunit
