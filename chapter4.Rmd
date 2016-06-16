@@ -144,16 +144,16 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:c066b2d5f610d13afdb48831249d18142590def7
 ## Finding the mean-variance efficient portfolio  
 
-A mean-variance efficient portfolio can be obtained as the solution of minimizing the portfolio variance under the constraint that the portfolio expected return equals a target return. A convenient R function for doing so is the function [portfolio.optim](http://www.rdocumentation.org/packages/tseries/functions/portfolio.optim) in the R package [tseries](http://www.rdocumentation.org/packages/tseries). 
+A mean-variance efficient portfolio can be obtained as the solution of minimizing the portfolio variance under the constraint that the portfolio expected return equals a target return. A convenient R function for doing so is the function [`portfolio.optim`](http://www.rdocumentation.org/packages/tseries/functions/portfolio.optim) in the R package [tseries](http://www.rdocumentation.org/packages/tseries). 
 Its default implementation finds the mean-variance efficient portfolio weights under the constraint that the portfolio return equals the return on the equally-weighted portfolio. 
 The only argument needed is the monthly return data on the portfolio components for which the weights need to be determined.
 
 
 *** =instructions
 - load the library `tseries`. 
-- define `out` as the output of applying the default version of `portfolio.optim` on `returns`.
-- the optimized portfolio weights are in `out$pw`. Print them from largest to smallest, with rounding to 4 decimals.
-- Visualize the weights larger than 1% through a barplot graph.
+- Create a mean-variance efficient portfolio of monthly returns using `portfolio.optim`, called `optim`. 
+- Create a vector of optimum asset weights that are larger than or equal to 1%, call this `optim_weights`. Portfolio weights can be found in `optim$pw`. 
+- Create a barplot of `optim_weights`.
 - Print the expect portfolio return (`out$pm`) and volatility (`out$ps`) of the optimized portfolio. 
 - Verify that the optimized portfolio returns in `out$px` dominate the returns of the equally weighted portfolio.
 
@@ -174,14 +174,17 @@ returns <- returns[(-1),]
 
 *** =sample_code
 ```{r}
-# load tseries
+# Load tseries
 
-# optimize
-out <-  
-# output
-optim_weights <- out$pw
+# Create an optimized portfolio of returns
+
+
+# Create a vector of optimum weights
+optim_weights
 names(optim_weights) <- colnames(returns)
-optim_returns <-  out$px 
+
+
+optim_returns <-  out$px[out$px >= .01]
 # round sorted
 round( sort(    ,decreasing=T) ,4)
 # barplot
@@ -198,7 +201,19 @@ ew_returns <- rowMeans(returns)
 
 *** =solution
 ```{r}
-# solution code
+#####josi progress####
+# Load tseries
+library(tseries)
+
+# Create an optimized portfolio of returns
+optim <- portfolio.optim(returns)
+
+# Create a vector of optimum weights
+optim_weights <- optim$pw[optim$pw >= 0.01]
+names(optim_weights) <- colnames(returns)
+
+##### end josi #######
+
 # load tseries. 
 library(tseries)
 # optimize
