@@ -12,25 +12,19 @@ description : We have up to now considered the portfolio weights as given. In th
 *** =video_hls
 //videos.datacamp.com/transcoded/985_portfolio_analysis/v1/hls-ch4_1.master.m3u8
 
-
-
-
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1   key:139d7eabbd827860709b29f2a8d968614d1e3cb0
 ## Mean-variance based investing in DJIA stocks 
 
-The theory of portfolio optimization will be illustrated on the universe of the 30 Dow Jones Industrial Average stocks. 
+In this chapter you will explore portfolio optimization. For the upcoming exercises you will focus on the Dow Jones Industrial Average (DJIA) stocks. Like the S&P 500 portfolio studied in Chapter 2, the Dow Jones Industrial Average portfolio is an important reference portfolio for the US equity market. It is invested in 30 large publicly owned companies based in the United States.
 
-Like the S&P 500 portfolio studied in Chapter 2, the Dow Jones Industrial Average portfolio is an important reference portfolio for the US equity market. It is invested in 30 large publicly owned companies based in the United States.
+You will be using the sample of monthly returns from January 1991 until December 2015. These return data are available in the workspace as the variable `returns`.   
 
-We will be using the sample of monthly returns from January 1991 till December 2015. These return data are available in the workspace as the variable `returns`.   
-
-Assume an investor who only cares about the mean and standard deviation of the portfolio return distribution. She likes expected returns and dislikes volatility.  Which of the following statements is false:
+Assume you an investor that likes high returns with minimum risk. Which of the following statements is false:
 
 *** =instructions
-- If the investor has to choose between investing all her wealth in Home Depot (ticker: HD) versus investing in Caterpillar (ticker: CAT), she will choose to invest in Home Depot, since it has a higher average return and lower risk.  
-- The investor will never combine investments in Home Depot and Caterpillar in her portfolio. 
+- You would rather invest all of your capital in Home Depot (ticket :HD) than in Caterpillar (ticker: CAT) because Home Depot has a higher average return, and lower risk.
 - By combining investments, it may be possible to obtain a portfolio with a lower variance than the variance of the Exxon Mobil Corporation's stock (ticker: XOM). 
-- If an investor is not allowed to borrow, then there is no portfolio invested in thirty Dow Jones Industrial Average stocks, offering a higher average return than the one of Apple (ticker: AAPL).   
+- If an investor is not allowed to borrow, then there is no portfolio invested in thirty Dow Jones Industrial Average stocks, offering a higher average return than the one of Apple (ticker: AAPL).  
 - There is a total of 300 monthly observations in our sample of monthly returns. The highest return is around 88% while the lowest return is around -58%. 
 
 *** =hint
@@ -68,14 +62,16 @@ test_mc(2) # if 2 is the correct option.
 --- type:NormalExercise lang:r xp:100 skills:1   key:8c67f73515
 ## Exploring monthly returns of the 30 DJIA stocks 
 
-The 1991-2015 monthly returns on the 30 DJIA stocks are available in the workspace as the variable `returns`.
-
+The 1991-2015 monthly returns on the 30 DJIA stocks are available in the workspace as the variable `returns`. This exercise will help you get comfortable with the data that you will be using for the remainder of the exercises.
 
 
 *** =instructions
-- Verify that `returns` is an object of the xts-class using the function `class`.
-- Plot the row means of `returns` (in other words, the returns on the monthly rebalanced equally-weighted  portfolio returns). 
-- Plot the histogram of the correlations between the monthly returns of the DJIA stocks. Because of the symmetry of the correlation matrix, you only need the lower triangular elements, which, for any square matrix `Z`, you can select using `Z[lower.tri(Z)]`.
+- Verify that `returns` is an object of the xts-class using the function `class()`.
+- Create a vector of row means of `returns` using the function `rowMeans()`. Assign this to `row_means`.
+- Plot `row_means` using `plot.zoo()`.
+- Create a correlation matrix of the returns called `z`.
+- Plot the histogram of the correlations between the monthly returns of the DJIA stocks. Because of the symmetry of the correlation matrix, you only need the lower triangular elements, which, for any square matrix `z`, you can select using `z[lower.tri(z)]`.
+
 *** =hint
 hint comes here
 
@@ -93,25 +89,38 @@ returns <- returns[(-1),]
 
 *** =sample_code
 ```{r}
-# returns is pre-loaded
-# class of returns
+# Verify the class of returns 
 
-# plot ew portfolio returns
 
-# histogram of correlations
+# Create a vector of row means
+
+
+# Plot row_means
+
+
+# Create a correlation matrix
+
+
+# Plot the histogram of the correlation matrix
 
 ```
 
 *** =solution
 ```{r}
-# returns is pre-loaded
-# class of returns
+# Verify the class of returns 
 class(returns)
-# plot ew portfolio returns
-plot.zoo(rowMeans(returns))
-# histogram of correlations
-Z <- cor(returns)
-hist(Z[lower.tri(Z)])
+
+# Create a vector of row means
+row_means <- rowMeans(retrns)
+
+# Plot row_means
+plot.zoo(row_means)
+
+# Create a correlation matrix
+z <- cor(returns)
+
+# Plot the histogram of the correlation matrix
+hist(z[lower.tri(z)])
 ```
 
 *** =sct
@@ -222,13 +231,14 @@ success_msg("Well done!")
 ## Effect of the return target 
 
 A more general specification of the function [portfolio.optim](http://www.rdocumentation.org/packages/tseries/functions/portfolio.optim) is as follows:
-$$
+```
 portfolio.optim(x, pm = mean(x),
                 shorts = FALSE,  reshigh = NULL)
-$$
-The argument ``pm`` sets the target return. The argument ``shorts`` is a boolean saying whether negative weights are forbidden (``shorts=FALSE``) and the argument ``reshigh`` specifies the upper constraints on the portfolio weights. By default, when there are no negative weights allows and since the portfolio has to be fully invested, the maximum weight is 1. 
+```
 
-In the exercises we quantify the risk-reward trade-off when choosing the mean-variance efficient portfolio. The higher the target return, the higher will be the corresponding portfolio volatility. 
+The argument ``pm`` sets the target return. The argument `reshigh` specifies the upper constraints on the portfolio weights.The argument ``shorts`` is a logical statement specifying whether negative weights are forbidden or not, by default `shorts=FALSE`. 
+
+In this exercise you will quantify the risk-reward trade-off when choosing the mean-variance efficient portfolio. Note that the higher the target return, the higher the portfolio volatility. 
 
 *** =instructions
 - There is a isk-reward trade-off when choosing the mean-variance efficient portfolio. The higher the target return, the higher will be the corresponding portfolio volatility. When the target return is 10% higher than the average return, how much % increase is there in the portfolio volatility?  
@@ -255,7 +265,7 @@ library(tseries)
 ```{r}
 meanreturns = mean(returns)
 # compute standard deviation when target retun is mean return
-out1 <- portfolio.optim(returns, pm = meanretuurns )
+out1 <- portfolio.optim(returns, pm = meanreturns )
 sd1 <-
  
 # compute standard deviation when target retun is 1.1 times the mean return
@@ -291,15 +301,23 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:6f3df5bc7125d675f226ddc4c69639e2cf24d23c
 ## Imposing weight constraints
 
-Investors are often constrained in the maximum values allowed for the portfolio weights. Finding the optimized portfolio under a maximum weight is possible in the function [portfolio.optim](http://www.rdocumentation.org/packages/tseries/functions/portfolio.optim)  by setting the argument
- `reshigh` to the vector of maximum weights for each asset.  
- 
- The advantage of a maximum weight constraint is that the portfolio will be less concentrated. Let's verify this statement when the target expected return is still equal to the equally-weighted return. The disadvantage is that the same target return, may no longer be possible or will be obtained at the expense of a higher volatility. 
+Investors are often constrained by the maximum values allowed for the portoflio weights. This constraints can actually be an advantage. The advantage of a maximum weight constraint is that the subsequent portfolio will be less concentrated in certain assets. There is a disadvantage to this though. The disadvantage is that the same target return, may no longer be possible or will be obtained at the expense of a higher volatility. 
+
+Finding the optimized portfolio under weight constraints is made easy with the `PerformanceAnalytics` package. The function [`portfolio.optim`](http://www.rdocumentation.org/packages/tseries/functions/portfolio.optim) allows you to set weight constraints within the `reshigh` argument. `reshigh` requires a vector of maximum weights for each asset. 
+
+In this exercise you will create three portfolios with different maximum weight constraints. For this exercise it is important to know the output of the `portfolio.optim` function. This function creates a list containing four components:
+  - `$pw`: the portfolio weights
+  - `$px`: the returns of the overall portfolio
+  - `$pm`: the exepcted return portfolio
+  - `$ps`: the standard deviation of the portfolio returns
 
 *** =instructions
-- Modify the sample code to impose a maximum 10% constraint on each of the portfolio weights and compute the number of positions larger than 1%;
-- Repeat the above with a maximum 5% constraint.
-- Print the corresponding volatilities of the optimized portfolios. 
+- Create three vectors of maximum weights for each asset (column) in `returns` using the `rep()` function. The first vector will contain maximum weights of 100%, the second 10%, and the third 5%. Call these `weights1`, `weights2`, `weights3`, respectively. 
+- Create an optimum portfolio with maximum weights of 100% called `optim1`.
+- Create an optimum portfolio with maximum weights of 10% called `optim2`.
+- Create an optimum portfolio with maximum weights of 5% called `optim3`.
+- Calculate how many positions (assets) have a weight that is greater than 1% for each portfolio. Access weights by using `$pw` after the portfolio name.
+- Print the volatilities of the portfolio you created. 
 
 *** =hint
 The argument `reshigh` needs to be a vector. 
@@ -320,32 +338,46 @@ library(tseries)
 
 *** =sample_code
 ```{r}
-# sample code
-# tseries is pre-loaded
-# max 100% weight constraint
-out1 <- portfolio.optim(returns,reshigh=rep(1,ncol(returns)))
-sum( 1*(ou1$pw > 0.01))
-# max 10% weight constraint
-out2 <-
+# Create vectors of maximum weights
 
-# max 5% weight constraint
-out3 <- 
 
+# Create an optimum portfolio with max weights of 100%
+
+
+# Create an optimum portfolio with max weights of 10%
+
+
+# Create an optimum portfolio with max weights of 5%
+
+
+# Calculate how many assets have a weight that is greater than 1% for each portfolio
+
+
+# Print portfolio volatilites 
 ```
 
 *** =solution
 ```{r}
-# solution code
-# max 100% weight constraint
-out1 <- portfolio.optim(returns,reshigh=rep(1,ncol(returns)))
-sum( 1*(out1$pw > 0.01))
-# max 10% weight constraint
-out2 <- portfolio.optim(returns,reshigh=rep(0.1,ncol(returns)))
-sum( 1*(out2$pw > 0.01))
-# max 5% weight constraint
-out3 <- portfolio.optim(returns,reshigh=rep(0.05,ncol(returns)))
-sum( 1*(out3$pw > 0.01))
+# Create vectors of maximum weights
+weights1 <- rep(1, ncol(returns))
+weights2 <- rep(.1, ncol(returns))
+weights3 <- rep(.05, ncol(returns))
 
+# Create an optimum portfolio with max weights of 100%
+optim1 <- portfolio.optim(returns, reshigh = weights1)
+
+# Create an optimum portfolio with max weights of 10%
+optim2 <- portfolio.optim(returns, reshigh = weights2)
+
+# Create an optimum portfolio with max weights of 5%
+optim3 <- portfolio.optim(returns, reshigh = weights3)
+
+# Calculate how many assets have a weight that is greater than 1% for each portfolio
+sum(optim1 > .01)
+sum(optim2 > .01)
+sum(optim3 > .01)
+
+# Print portfolio volatilites 
 out1$ps
 out2$ps
 out3$ps
@@ -360,7 +392,6 @@ success_msg("Well done!")
 --- type:VideoExercise lang:r xp:50 skills:1 key:461436d2ee4b426f97b3c95b6ee39836ae38b34f
 ## The efficient frontier
 
-Concept of minimizing variance given a sequence of return targets starting from the lowest to highest expected returns
 *** =video_link
 //player.vimeo.com/video/108225030
 
@@ -455,8 +486,7 @@ success_msg("Well done!")
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1    key:e647c251a7
 ## Properties of the efficient frontier
 
-The curve shown in the previous plot shows the solution of minimizing the variance under the constraint that the portfolio expected return equals the target return. When the target return is below the minimum variance return, the obtained portfolio is not efficient, since a higher return at a lower risk can be obtained by investing in the minimum variance porfolio. 
-
+The curve shown in the previous plot shows the solution of minimizing the variance under the constraint that the portfolio expected return equals the target return. When the target return is below the minimum variance return, the obtained portfolio is not efficient because a higher return at a lower risk can be optained by investing in the minimum variance portfolio.
 The optimized portfolios often are also not realistic because they tend to invest large weights in only a few assets. A practical solution to avoid this is to impose weight constraints. 
 
 The effect of such a weight constraint is shown in the work space, where you can see the efficient frontier plots obtained for the DJIA stocks under a maximum 100% weight constraint (black line), a maximum 10% weight constraint (red line) and a maximum 5% weight constraint (blue). Which of the following statements is false.  
@@ -645,6 +675,31 @@ barplot(weights_minvar[weights_minvar>0.01])
 
 *** =solution
 ```{r}
+######## Josi Concept / potential simplify #######
+#combine vectors of expected returns & standarad deviation
+grid_portfolios <- data.frame(vpm, vpsd)
+colnames(grid_portfolios) <- c("er", "sd")
+
+#compute sharpe ratio 
+#sharpe = E[R] / portfolio volatility
+#initialze risk free rate of 0.75% first
+rf <- .0075
+#calculate sharpe ratio
+grid_portfolios$sr <- (grid_portfolios$er - rf) / grid_portfolios$sd
+
+#now find minimum variance portfolio
+min_var_pf_index <- which(grid_portfolios$sd == min(grid_portfolios$sd))
+min_var_pf <- grid_portfolios[min_var_pf_index, ]
+
+#now find max sharpe ratio portfolio 
+max_sr_pf_index <- which(grid_portfolios$sr == max(grid_portfolios$sr))
+max_sr_pf <- grid_portfolios[max_sr_pf_index, ]
+
+########## END ##########
+
+
+
+
 # solution code
 # minimum variance portfolio
 pm_minvar <- vpm[vpsd==min(vpsd)]
@@ -817,7 +872,7 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1   key:9d55676210
 ## It ain't over
  
-You made it! This journey showed you how to compute returns, analyze portfolio performance and optimize portfolios. These are important skills, since whenever you hold or manage more than one asset, you have a portfolio view to consider. 
+You made it! This journey showed you how to compute returns, analyze portfolio performance and optimize portfolios. These are important skills, since whenever you hold or manage more than one asset, you have a portfolio to consider. 
 
 It is now time to compound and get extra return by exploring other useful R packages for portfolio analysis like [PortfolioAnalytics](). Instead of optimizing the portfolio by minimizing the variance under a return targetg constraint, this package allows you optimize virtually all objective functions under all possible constraints. Even if the solution to the problem is not feasible, it will give you the best possible solution using heuristics such as differential evoluation in the R package [DEoptim](). Since I have been involved in both packages, this last exercise is an act of shameless selfpromotion. 
 
