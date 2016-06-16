@@ -14,14 +14,14 @@ description : In addition to studying portfolio performance based on the observe
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1   key:27fc122215
 ## Driver 1: The assets' individual performance
 
-We have thus seen hat there are three types of drivers for the portfolio performance: the individual performance of the assets in terms of risk and return, the portfolio weight of each of the assets and the correlation between the asset returns.
-
-Let us now first explore further how the portfolio mean return and volatility depends on the mean return and volatility of the assets in which the portfolio is invested. 
-
-To do so, we consider the case of investing with with a monthly frequency in US equities and/or US bonds. The individual asset returns are available in the workspace as `returns_bonds` and `returns_equities`, together with the returns for the so-called 60/40 portfolio that invests every month 60% in equities and 40% in bonds.  
+So far in the previous chapters you have seen that there are three types of drivers for a portfolio's performance:
+  - the individual performance of the assets in terms of risk and return
+  - the portfolio weight of each of the assets
+  - the correlation between the asset returns. 
+  
+You will now explore how the portfolio mean return and volatility depends on the mean returns and volatility of the assets that a portfolio is invested in. In this example you will consider investing—with monthly frequency—in US equities and US bonds. Each asset's returns are stored in your workspace as  `returns_equities`, and `returns_bonds`. You have a portfolio that is invested 60/40, meaning that every month you invest 60% in equities, and 40% bonds.
 
 Which of the following statements about the relationship between portfolio performance (investing in both equities and bonds) and the individual assets' performance (investing in only one of them) is false. 
-
 
 *** =instructions
 - A portfolio is less volatile than the sum of its component volatilities. This implies that the standard deviation of the 60/40 portfolio is less than `0.6*sd(returns_equities)+0.4*sd(returns_bonds)`. We call this the subadditivity property of the standard deviation.    
@@ -29,7 +29,7 @@ Which of the following statements about the relationship between portfolio perfo
 - None of the above statements is correct. 
 
 *** =hint
-The proof is in the pudding. Verify the statements directly in the console and you will find  the solution to the problem.
+The proof is in the pudding. Use the code in the instructions in the console and you will find the solution to the problem.
 
 *** =pre_exercise_code
 ```{r}
@@ -76,6 +76,7 @@ returns_equities <- returns$equities
 *** =sct
 ```{r}
 test_mc(3) # if 3 is the correct option.
+success_msg("Good job!")
 ```
 
 --- type:NormalExercise lang:r xp:50 skills:1     key:69c5664fdb
@@ -175,13 +176,13 @@ success_msg("Well done!")
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1     key:f4f41f6b81
 ## Driver 3: The correlation between the asset returns
 
-The third driver of portfolio performance is the correlation between the asset returns. Generally speaking, the correlation tells us the tendency of the two asset returns to move together. 
+The third driver of portfolio performance is the correlation between the asset returns. Generally speaking, the correlation tells you how two asset returns tend to move together.
 
-The value of the correlation has important consequences on the portfolio performance in terms of volatility reduction through diversification. In fact, the lower the correlation, the more succesful the portfolio is in terms of partially offsetting large losses in one asset with only a minor loss or even a gain in the other asset. 
+The correlation of assets has important consequences in overall portfolio performance. This correlation is important because it can reduce volatility through diversification, or reducing overall correlation. In fact, the lower the correlation, the more succesful the portfolio tends to be in regards to partially offsetting large losses in one asset with only a minor loss, or even a gain in another asset. 
 
-In the extreme case of two identical asset returns, the correlation will be one and there is no diversification potential. In the other extreme case where, if one asset return is above average, the other one is almost always below average, the correlation is negative. It is zero, when the asset returns are independent. 
+In the extreme case of two identical asset returns, the correlation will be 1, and there is no diversification potential. In the other extreme case where, if one asset return is above average, and the other is almost always below average, the correlation is negative. The correlation is 0 when the asset returns are independent of eachother.
 
-As a simple exercise, suppose you have an equally weighted portfolio of two assets. Their correlation jumps from 0 to 0.5. Then the portfolio variance:    
+As an exercise, suppose you have an equally weighted portfolio of two assets. Their correlation jumps from 0 to 0.5. Then the portfolio variance:    
 
 *** =instructions
 - Decreases
@@ -189,7 +190,7 @@ As a simple exercise, suppose you have an equally weighted portfolio of two asse
 - Does not change  
 
 *** =hint
-Remember, from the video, that the portfolio variance equals  the squared weight of asset 1 times the variance of asset 1, plus the squared weight of asset 2 times the variance of asset 2, plus two times the product of the weights, the volatilities and their correlation. 
+Remember from the video that the portfolio variance equals the squared weight of asset 1 times the variance of asset 1, plus the squared weight of asset 2 times the variance of asset 2, plus two times the product of the weights, the volatilities and their correlation. 
 
 *** =pre_exercise_code
 ```{r}
@@ -201,6 +202,7 @@ Remember, from the video, that the portfolio variance equals  the squared weight
 ```{r}
 # sct code
 test_mc(2) 
+success_msg("Great work!")
 ```
 
 
@@ -208,19 +210,19 @@ test_mc(2)
 --- type:NormalExercise lang:r xp:100 skills:1 key:b6a986b0e53bd119933fc39df94f21f2bf1e4318
 ## Interpreting correlation
 
+Now you will learn how to compute the correlation between equity returns and bond returns. Just like volatilities, these correlations are dynamic. Therefore you need to distinguish between a static analysis that calculates correlations over a complete samples, and a dynamic analysis that calculates correlations over a rolling sample. This is a similar analysis as you did for the time-varying performance evaluation in terms of mean return and volatility. 
 
-Measuring is knowing. Let us now compute the correlation between equity returns and bond returns. We will do this first taking all returns in the sample. 
-
-Next, we account for the dynamic nature of correlations, and compute the time series of correlations that we obtain when estimating the correlation over rolling samples. This is a similar analysis as we did for the time-varying performance evaluation in terms of mean return and volatility. 
+In this exercise you will learn 3 new functions from the PerformanceAnalytics package. These are `chart.Scatter`, `chart.Correlation`, and `chart.RollingCorrelation`. 
 
 *** =instructions
-- Plot the equity returns (`returns_equities`) against the bond returns (`returns_bonds`) using the function [chart.Scatter](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Scatter) with the bond returns on the x-asis. Do you see a relation? 
-- Compute first the correlation between the variables `returns_equities` and `returns_bonds` using the standard function [cor](). 
-- Repeat this using the function [chart.Correlation](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Correlation), with as argument the multivariate time series `returns`. 
-- Commpute the rolling 24-month estimates of the bond-equity correlation using the function [chart.RollingCorrelation](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.RollingCorrelation). 
+- Plot the equity returns (`returns_equities`) against the bond returns (`returns_bonds`) using the function [`chart.Scatter`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Scatter) with the bond returns on the x-asis. Do you see a relation? 
+- Compute the correlation between the variables `returns_equities` and `returns_bonds` using the standard function `cor()`.
+- Merge `return_equities`, and `returns_bonds`. Call this `returns`.
+- Compute and visualize the correlation again, except using `chart.Correlation` with `returns` as the argument. 
+- Commpute the rolling 24-month estimates of the bond-equity correlation using the function `chart.RollingCorrelation`, use the arguments `"R"`, and `"width"`. 
 
 *** =hint
-hint comes here
+`chart.RollingCorrelation` uses two time-series for the argument `"R"`, and the `"width"` is the number of months
 
 *** =pre_exercise_code
 ```{r}
@@ -248,35 +250,59 @@ returns_equities <- returns$equities
 
 *** =sample_code
 ```{r}
-# scatter plot
+# Create a scatter plot
 
-# calculation using cor
 
-# merge returns_equities and returns_bonds into returns
+# Find the correlation
 
-# calculation and visualization using chart.Correlation
 
-# rolling estimates using chart.RollingCorrelation
+# Merge returns_equities and returns_bonds 
+
+
+# Find and visualize the correlation using chart.Correlation
+
+
+# Visualize the rolling estimates using chart.RollingCorrelation
+chart.RollingCorrelation(___, ___, width = ___)
+
 
 ```
 
 *** =solution
 ```{r}
-# scatter plot
+# Create a scatter plot
 chart.Scatter(returns_equities,  returns_bonds)
-# calculation using cor
-cor(returns_equities,  returns_bonds)
-# merge returns_equities and returns_bonds into returns
+
+# Find the correlation
+cor(returns_equities, returns_bonds)
+
+# Merge returns_equities and returns_bonds 
 returns <- merge(returns_equities,returns_bonds)
-# calculation and visualization using chart.Correlation
+
+# Find and visualize the correlation using chart.Correlation
 chart.Correlation(returns)
-# rolling estimates using chart.RollingCorrelation
-chart.RollingCorrelation(returns_equities, returns_bonds,width=24)
+
+# Visualize the rolling estimates using chart.RollingCorrelation
+chart.RollingCorrelation(returns_equities, returns_bonds, width = 24)
 ```
 
 *** =sct
 ```{r}
 # sct code
+#1st
+test_function("chart.Scatter", c("x", "y"))
+
+#2nd
+test_function("cor", c("x", "y"))
+
+#3rd
+test_object("returns")
+
+#4th
+test_function("chart.Correlation", c("R"))
+
+#5th
+test_function("chart.RollingCorrelation", c("Ra", "Rb", "width"))
 success_msg("Well done!")
 ```
 
@@ -293,12 +319,15 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:080c6863fc
 ## Making a risk-reward scatter diagram
 
-A realistic portfolio is not only invested in US equities and US bonds. It also seeks for diversification by investing in real estate and commodities, among others. We therefore extend our investment opportunity consisting of the US equities ETF (SPY) and US bonds ETF (AGG) to include also a real estate investment trust (VEIEX) and an ETF tracking the GSCI commodities index (GSG). The monthly returns on those investment are available as the variable `returns` in your workspace. 
+Investors know that each asset that they invest in has risk, and that each asset performs differently. Thats why you will not only invest in US equities and US bonds, but you will *diversify* your portfolio by investing in real estate, commoditites, among others! 
+
+In this example you have decided to extend your investment opportunity by creating a portfolio that consists of US equities ETF (SPY), US bonds ETF (AGG), a real estate investment trust (VEIEX), and an ETF tracking in the GSCI commodities index (GSG). The plot in the environment displays the performance of these investments.
 
 A good way to visualize the relative attractivenss of investments in terms of risk and rewards is to make a scatter 
 plot of the average returns against the portfolio volatilities. 
 
 We need to compute those average returns and volatilities for each asset. In other words, for each return series, and thus for each column in the multivariate return series `returns`, we need to compute the average value and standard deviations.
+
 These calculations are made easy by using the function `apply` with as first argument the return data file, the second argument is the value of `2` indicating  that the calculation should be column-wise, while the third argument is the name of the function that needs to be applied on each column. 
 
 *** =instructions
@@ -390,18 +419,17 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1  key:b7d7806b87
 ## The covariance matrix
 
-The assets' volatitilities reflect the individual risks of the asset. What matters for the portfolio investors is however the portfolio risk caused by each of the assets, which depends also on the return volatilities.  
+The assets' volatilities reflect the individual risks of the asset. This is what matters the most. Investors want to reduce risk while maximizing gains. Volatilities reflect to the investor the amount of risk in a portfolio caused by each asset, which is dependent on the return volatility. 
 
-Let us compute and analyze the covariance and correlation matrix on the monthly returns of the four asset classes. 
+In this exercise you will compute and analyze the covariance, and correlation matrix on the monthly returns of the four asset classes from the previous exercise. To refresh, these asset classes are: equities, bonds, real-estate, and commoditites. To create these matrices you will use the standard functions `cov()` and `cor()`. 
 
-The monthly returns on the investments are available as the variable `returns` in your workspace, together with the previously computed vector of standard deviations `vsd`. 
-
+In your workspace are the monthly investments as `returns`, and the vector of standard deviations `vsd` that you created previously.
 
 *** =instructions
-- Use `diag(vsd^2)` to print the diagonal matrix with the variances on the diagonal.
-- Use `cov(returns)` to compute the covariance matrix;
-- Use `cor(returns)`to compute the correlation matrix;
-- Verify that the covariance between bond returns and equity returns equals the product between their standard deviations and correlation. 
+- Use `diag(vsd^2)` create a vector of the diagonal matrix with the variances on the diagonal. Call this `diag_cov`. 
+- Use `cov()` to compute the covariance matrix of returns. Call this `cov_matrix`.
+- Use `cor()`to compute the correlation matrix of returns. Call this `cor_matrix`.
+- Verify that the covariance between bond returns and equity returns equals the product between their standard deviations and correlation, by running the pre-loaded code.
 
 *** =hint
 hint comes here
@@ -437,58 +465,78 @@ vsd <- as.numeric(apply(returns,2,"sd"))
 
 *** =sample_code
 ```{r}
-# covariance matrix with zeros outside the diagonal
-diag_cov <-  
-print(diag_cov)
-# correct covariance matrix
-estim_cov <- 
-print(estim_cov)
-# correlation matrix
-estim_cor <- 
-print(estim_cor)
-# check
-all.equal( estim_cov[1,2] ,     )
+# Create a matrix with variances on the diagonal
+
+
+# Create a covariance matrix of returns
+
+
+# Create a correlation matrix of returns
+
+
+# Verify covariances equal the product of standard deviations and correlation
+cov_matrix[1,2] == cor_matrix[1,2]*vsd[1]*vsd[2]
 ```
 
 
 *** =solution
 ```{r}
-# covariance matrix with zeros outside the diagonal
+# Create a matrix with variances on the diagonal
 diag_cov <- diag(vsd^2)
-print(diag_cov)
-# correct covariance matrix
-estim_cov <- cov(returns)
-print(estim_cov)
-# correlation matrix
-estim_cor <- cor(returns)
-print(estim_cor)
-# check
-all.equal( estim_cov[1,2] , estim_cor[1,2]*vsd[1]*vsd[2]   )
+
+# Create a covariance matrix of returns
+cov_matrix <- cov(returns)
+
+# Create a correlation matrix of returns
+cor_matrix <- cor(returns)
+
+
+# Verify covariances equal the product of standard deviations and correlation
+cov_matrix[1,2] == cor_matrix[1,2]*vsd[1]*vsd[2]
 ```
 
 *** =sct
 ```{r}
 # sct code
+#1st
+test_object("diag_cov")
+
+#2nd
+test_object("cov_matrix")
+
+#3rd
+test_object("cor_matrix")
+
+#4th
+test_output_contains("cov_matrix[1,2] == cor_matrix[1,2]*vsd[1]*vsd[2]", incorrect_msg = "Oops! Be sure to run the last line of code loaded in your script!")
+
 success_msg("Well done!")
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1   key:21e408b8c65335ed2599fcb8ff64b5c9b352c374
 ## Matrix-based calculation of portfolio mean and variance
 
-When $w$ is the column-matrix of portfolio weights, $\mu$ the column-matrix of expected returns and $\Sigma$ the 
-return covariance matrix. Then the portfolio expected return is $w'\mu$ and the portfolio variance is $w'\Sigma w$.
 
-Let us verify this in R where matrix multiplication requires to use `%*%` instead of `*`. 
+When $w$ is the column-matrix of portfolio weights, $\mu$ the column-matrix of expected returns, and $\Sigma$ the return covariance matrix. Then the portfolio expected return is $w'\mu$, and the portfolio variance is $w'\Sigma w$.
+
+You will practice matrix multiplication in R using the `%*%` function, instead of the standard `*`. In addition you will transpose the matrices by using the standard function `t()`. Remember that transposing a matrix is simply changing the rows of the matrix to the columns.
+
 
 *** =instructions
-- Use the function [Return.portfolio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio) to compute the time series of returns for the monthly rebalanced portfolio that is 40% invested in equities, 40% in bonds, 10% in real estate and 10% in commodities. Call this new variable `preturns`. 
+- Create a vector of the weights of a portfiol that is invested 40% in equities, 40% in bonds, 10% in real estate, and 10% in commodities. Call this new variable `weights`.
+- Calculate the portfolio returns using `Return.portfolio`, and rebalance your weights monthly. Assign this to `preturns`.
+- Calculate the annualized mean, and the annualized volatility of `preturns`.
+
+
+
 - Compute the annualized mean and volatility of the portfolio return series. 
 - To replicate this with matrix notation, first complete the code to compute the column-matrix of portfolio weights and
 expected returns and the covariance matrix. 
 - Now use the matrix products to compute the annualized mean return and volatility.
 
 *** =hint
-hint comes here
+- annualized mean = 12 * mean(preturns)
+- annualized volatility = sqrt(12) * sd(preturns)
 
 *** =pre_exercise_code
 ```{r}
@@ -589,12 +637,12 @@ success_msg("Well done!")
 
 In the console, you see the monthly volatility of the portfolio invested for 40% in equities, 40% in bonds, 10% in real estate and 10% in commodities. 
 
-Let uw now use the technology of risk budgeting to find out how much % of the total portfolio volatility is caused by each of the positions.  
+Let us now use the technology of risk budgeting to find out how much % of the total portfolio volatility is caused by each of the positions.  
 
 To do so, we will use the function [StdDev](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/StdDev).
 
 *** =instructions
-- Set `vol_budget <- StdDev(returns,portfolio_method="component",
+- Set `vol_budget` <- StdDev(returns,portfolio_method="component",
        weights=c(0.4,0.4,0.1,0.1))` and print this variable;
 - Combine the weights and the percentage risk contributions in a table called `weights_percrisk`;
 - Print the table and note how different the percentage risk contributions are compared to the portfolio weights. 
