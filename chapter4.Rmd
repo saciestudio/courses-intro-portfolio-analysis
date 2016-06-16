@@ -121,7 +121,7 @@ success_msg("Well done!")
 ```
 
 
---- type:VideoExercise lang:r xp:50 skills:1 key:2d45c303bc2e49767a9cd744f15a31938a2ec7d9
+--- type:VideoExercise lang:r xp:50 skills:1 key:b48ce393f1
 ## Modern portfolio theory of Harry Markowitz
 
 
