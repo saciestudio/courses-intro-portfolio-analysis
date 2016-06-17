@@ -19,7 +19,7 @@ To the right you see three return distributions. The x-axis corresponds to the r
 
 Notice that the distributions are all symmetric and the center of the distribution corresponds to the average return. 
 
-Return distributions A and B have the same expected return. But distribution B has a higher volatility and therefore has a wider range of possible outcomes.This indicates that the risk of a large deviation from the mean return is higher for investing in B than when investing in A. Distribution C has the same level of volatility as distribution A but a higher return.
+Return distributions A and B have the same expected return. But distribution B has a higher volatility and therefore has a wider range of possible outcomes. This indicates that the risk of a large deviation from the mean return is higher for investing in B than when investing in A. Distribution C has the same level of volatility as distribution A but a higher return.
 
 You're the type of investor who likes returns, but dislikes risks. Which distribution do you prefer?
 
@@ -99,7 +99,7 @@ plot.zoo(sp500 , main="Value of the S&P 500 portfolio",ylab="", xlab="")
 
 *** =sample_code
 ```{r}
-# The package PerformanceAnalytics and xts, and the variable s500  are pre-loaded
+# The package PerformanceAnalytics and xts, and the variable sp500  are pre-loaded
 
 # Convert sp500 to monthly returns
 
@@ -260,10 +260,10 @@ success_msg("The volatility and mean return are very important metrics in every 
 
 You just learned how to create descriptive statistics of your portfolio returns. Now you will learn how to evaluate your portfolio's performance! 
 
-Performance evaluation involves comparing your investment choicesq with an alternative investment choice. Most commonly used is comparison with an **(almost)** risk free asset, such as the US Treasury Bill. The return from a US Treasury Bill is known as a risk free rate, this is because Treasury Bills (T-Bills) are are guaranteed a future return, and are backed by the US Government. 
-Do you recall the Sharpe Ratio from the video? The Sharpe Ratio is an important metric that tells us the return-to-volatility ratio. The Sharpe ratio is calculated by taking the mean of excess returns (returns - risk free rate), divided by the volatility of the returns. 
+Performance evaluation involves comparing your investment choices with an alternative investment choice. Most commonly used is comparison with an **(almost)** risk free asset, such as the US Treasury Bill. The return from a US Treasury Bill is known as a risk free rate, this is because Treasury Bills (T-Bills) are backed by the US Government. 
+As you might recall from the video, the Sharpe Ratio is an important metric that tells us the return-to-volatility ratio. It is calculated by taking the mean of excess returns (returns - risk free rate), divided by the volatility of the returns. 
 
-In this exercise you will be asked to annualize the risk free rate, this is done using the compound interest formula. The yearly compounded  interest rate is given by $(1+y)^{12}$. The annual rate is used to estimate a yearly return and is very useful for forecasting. 
+In this exercise you will be asked to annualize the risk free rate by using the compound interest formula. The yearly compounded  interest rate is given by $(1+y)^{12}$. The annual rate is used to estimate a yearly return and is very useful for forecasting. 
 
 Pre-loaded in your workspace is the object `rf` which contains the one-month rate of a T-Bill. The S&P 500 portfolio returns are still available as `sp500_returns`.
 
