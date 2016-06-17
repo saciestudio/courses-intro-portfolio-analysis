@@ -84,12 +84,11 @@ ko_pep <-
   
   
 # Note that when the value of the ratio increases, the price of the share of Coca Cola Company increases more than the price of PepsiCo, and vice versa
-
   
 # Add as a reference, a horizontal line at 1
   
   
-# Where the value of the ratio is larger than one, the Coca Cola Company outperforms PepsiCo (when evaluating since January 2003).
+# Where the value of the ratio is larger than one, the Coca Cola Company outperforms PepsiCo (when evaluating since January 2003)
 ```
 
 *** =solution
@@ -102,11 +101,10 @@ plot.zoo(ko_pep)
 
 # Note that, when the value of the ratio increases, the price of the share of Coca Cola Company increases more than the price of PepsiCo, and vice versa
 
-
 # Add, as a reference a horizontal line at 1
 abline(h=1)  
 
-# Where the value of the ratio is larger than one, the Coca Cola Company outperforms PepsiCo (when evaluating since January 2003).
+# Where the value of the ratio is larger than one, the Coca Cola Company outperforms PepsiCo (when evaluating since January 2003)
 ```
 
 *** =sct
@@ -130,7 +128,7 @@ success_msg("Well done!")
 The choice of investment matters, even when the underlying risky assets are similar. As a second example, you will now consider the stock price of Apple and Microsoft from January 2006 until today. The time series plot shows you the value evolution of one dollar invested in each of them. 
 
 It is time to consider our first portfolio. The portfolio approach that you will use to invest is to invest half of the budget in Apple, and the other half of your budget in Microsoft. 
-Over time, the portfolio weights will change. You will have two choices as an investor. The first choice is to be passive and not trade any further. This is called a *buy and hold* strategy. The second choice is to buy and trade at the close of each day that results in a **rebalance** of the portfolio such that your portfolio is equally invested in shares of Microsoft and Apple. This is a *rebalanced portfolio*. 
+Over time, the portfolio weights will change. You will have two choices as an investor. The first choice is to be **passive and not trade any further**. This is called a *buy and hold* strategy. The second choice is to buy and trade at the close of each day that results in a **rebalance** of the portfolio such that your portfolio is equally invested in shares of Microsoft and Apple. This is a *rebalanced portfolio*. 
 
 Which of the following statements is false?
 
@@ -233,7 +231,7 @@ print(weights)
 ```{r}
 # sct code
 #1st instruction
-test_object("values", incorrect_msg = "Did you use the correct dollar values for the `value` object?")
+test_object("values", incorrect_msg = "Did you use the correct dollar values for the `values` object?")
 
 #2nd instruction
 test_object("weights", incorrect_msg = "Did you calculate the weights correctly?")
@@ -267,7 +265,7 @@ test_mc(2) # if 2 is the correct option.
 --- type:NormalExercise lang:r xp:100 skills:1 key:ccb1301f85e423d2c1f28ba595bf9e688611fff5
 ## The weights of a market capitalization weighted portfolio
 
-In a market capitalization weighted portfolio, the weight is given by the asset's market capitalization divided by the sum of the market capitalization of all assets. A typical example is the S&P 500 invested in the 500 largest companies listed on the US stock exchanges (NYSE, Nasdaq).  Note that dividing by the total value of the characteristic across all assets guarantees that the portfolio weights sum up to unity. 
+In a market capitalization weighted portfolio, the weights are given by the individual assets' market capitalizations divided by the sum of the market capitalizations of all assets. A typical example is the S&P 500 invested in the 500 largest companies listed on the US stock exchanges (NYSE, Nasdaq).  Note that dividing by the total value of the characteristic across all assets guarantees that the portfolio weights sum up to unity. 
 
 As an exercise, inspect the distribution of market capitalization based weights when the portfolio is invested in 10 stocks. For this exercise use market capitalizations of 5, 8, 9, 20, 25, 100, 100, 500, 700 and 2000 million USD. 
 
@@ -276,8 +274,6 @@ As an exercise, inspect the distribution of market capitalization based weights 
 - Calculate the weights of `marketcaps` and assign them to `weights`
 - Print a summary of `weights`
 - Plot a histogram of `weights`
-
-`summary(weights)` and make a histogram
 
 *** =hint
 A histogram in R can be made using the function [hist()](http://www.rdocumentation.org/packages/graphics/functions/hist).
@@ -364,7 +360,7 @@ Assume that you invested in three assets. Their intial values are 1000 USD, 5000
 - Create a vector of the initial weights, `weights`.
 - Use the simple return definition to compute the vector of returns on the three component assets. Assign return values to `returns`.
 - Assign the portfolio returns to `preturns`
-- Verify that the weighted average portfolio return equals the percentage change in the total portfolio value using `all.equal(). Run the provided code.
+- Verify that the weighted average portfolio return equals the percentage change in the total portfolio value using [all.equal()](http://www.rdocumentation.org/packages/base/functions/all.equal). Run the provided code.
 
 *** =hint
 Use the portfolio return formula to compute the simple portfolio return!
@@ -410,7 +406,7 @@ returns <- (fin_values - in_values)/in_values
 weights <-  in_values/sum(in_values)
 
 # Compute portfolio return using the portfolio return formula
-preturn  <- sum(weights*returns)
+preturns  <- sum(weights*returns)
 
 # Verify that it matches with the percentage change in the portfolio value
 all.equal(preturns,
@@ -433,7 +429,7 @@ test_object("returns", incorrect_msg = "Are you sure you calculated the simple r
 test_object("weights", incorrect_msg = "Make sure you calculated weights correctly!")
 
 #5th instruction
-test_object("preturn", incorrect_msg = "Make sure you calculated the portfolio return correctly!")
+test_object("preturns", incorrect_msg = "Make sure you calculated the portfolio return correctly!")
 
 #6th instruction
 test_student_typed("all.equal(preturns,
