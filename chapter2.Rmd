@@ -834,7 +834,7 @@ test_error()
 success_msg("Well done!")
 ```
 
---- type:NormalExercise lang:r xp:100 skills:1 
+--- type:NormalExercise lang:r xp:100 skills:1  key:ba7cc3e5b5
 ## tryout of performance analysis and the function window 
 
 In the previous exercise you computed the performance measure on each possible sample of a fixed size by rolling through time. Often investors are interested in the performance of a specific subwindow. You can create subsets of a time series in R using the function `window`. The first argument is the return series that needs subsetting. The second argument is the starting date of the subset in the form `"YYYY-MM-DD"`, and the third argument is the ending date in the same format. 
