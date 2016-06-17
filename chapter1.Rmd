@@ -45,10 +45,10 @@ The time series plot shows you the value evolution of one dollar invested in eac
 *** =instructions
 - Define `ko_pep` as the ratio expressing the value of the share price of the Coca Cola company in terms
 of the share price of PepsiCo
-- Use `plot.zoo` to visualize the variation in this ratio over time. 
+- Use [plot.zoo()](http://www.rdocumentation.org/packages/zoo/functions/plot.zoo) to visualize the variation in this ratio over time. 
 - Use `abline` to include a horizontal line at `h=1`.
 - Note that when the value of the ratio increases, `ko` outperforms `pep` and vice versa
-- Note that when the value of the ratio is larger than 1, the performance of `ko` since Jan. 2003 is higher than that of `pep`. Therefore, as a reference line, use `abline` to include a horizontal line at `h=1`.
+- Note that when the value of the ratio is larger than 1, the performance of `ko` since January 2003 is higher than that of `pep`. Therefore, as a reference line, use `abline` to include a horizontal line at `h=1`.
 
 
 *** =hint
@@ -77,20 +77,19 @@ legend("topleft", legend=c("Coca-Cola","PepsiCo") , col=c("black","red") , lwd =
 
 *** =sample_code
 ```{r}
-# ko and pep are pre-loaded
 # Define ko_pep 
 ko_pep <- 
 
 # Make a time series plot of ko_pep
   
   
-# Note that when the value of the ratio increases, the price of the share of CocaCola Company increases more than the price of PepsiCo, and vice versa
+# Note that when the value of the ratio increases, the price of the share of Coca Cola Company increases more than the price of PepsiCo, and vice versa
 
   
 # Add as a reference, a horizontal line at 1
   
   
-# When the value of the ratio is larger than one, the cumulative performance of an investment in the CocaCola Company since Jan 2003 is higher than that of an investment in PepsiCo. 
+# Where the value of the ratio is larger than one, the Coca Cola Company outperforms PepsiCo (when evaluating since January 2003).
 ```
 
 *** =solution
@@ -101,13 +100,13 @@ ko_pep <- ko/pep
 # Make a time series plot of ko_pep
 plot.zoo(ko_pep)  
 
-# Note that, when the value of the ratio increases, the price of the share of CocaCola Company increases more than the price of PepsiCo, and vice versa
+# Note that, when the value of the ratio increases, the price of the share of Coca Cola Company increases more than the price of PepsiCo, and vice versa
 
 
 # Add, as a reference a horizontal line at 1
 abline(h=1)  
 
-# When the value of the ratio is larger than one, the cumulative performance of an investment in the CocaCola Company since Jan 2003 is higher than that of an investment in PepsiCo. 
+# Where the value of the ratio is larger than one, the Coca Cola Company outperforms PepsiCo (when evaluating since January 2003).
 ```
 
 *** =sct
