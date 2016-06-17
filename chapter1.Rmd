@@ -470,7 +470,7 @@ test_mc(1) # if 2 is the correct option.
 
 The simple return $R$ expresses the percentage change in value of an investment. The corresponding so-called "gross" return is defined as the future value of $1 invested in the asset for one period, and is thus equal to *$1+R$*. 
 
-The gross returns over two periods is obtained similarly. Let *$R_1$* be the return in the first period and *$R_2$* the return in the second period. Then the end-value of a 1 USD investment is  $(1+R_{1})*(1+R_{2})$ . 
+The gross returns over two periods is obtained similarly. Let *$R_1$* be the return in the first period and *$R_2$* the return in the second period. Then the end-value of a 1 USD investment is  *$(1+R_1)*(1+R_2)$* . 
 
 The corresponding simple return over those two periods is: $(1+R_1)*(1+R_2)-1$ .
 
