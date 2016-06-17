@@ -470,7 +470,7 @@ test_mc(1) # if 2 is the correct option.
 
 The simple return $R$ expresses the percentage change in value of an investment. The corresponding so-called "gross" return is defined as the future value of $1 invested in the asset for one period, and is thus equal to *$1+R$*.
 
-The gross returns over two periods is obtained similarly. Let *$R_1$* be the return in the first period and *$R_2$* the return in the second period. Then the end value of a 1 USD investment is $(1 + R_1)*(1 + R_2)$. 
+The gross returns over two periods is obtained similarly. Let *$R_1$* be the return in the first period and *$R_2$* the return in the second period. Then the end-value of a 1 USD investment is $(1 + R_1)*(1 + R_2)$. 
 
 The corresponding simple return over those two periods is: $(1+R_1)*(1+R_2)-1$ .
 
@@ -565,9 +565,9 @@ msft <- get.hist.quote(instrument="MSFT",start=as.Date("2005-12-31"),end=Sys.Dat
 
 *** =sample_code
 ```{r}
-# aapl and msft are pre-loaded
-
 # Load the packages xts and PerformanceAnalytics 
+
+
 
 # Define prices as the merged time series of aapl and msft
 prices <-  merge(___ , ___)
@@ -575,6 +575,7 @@ colnames(prices) <- c("AAPL","MSFT")
 
 # Print the first and last six rows of prices
  
+
 
 # Create the variable returns using Return.calculate()  
  
@@ -714,18 +715,23 @@ plot.zoo(endWeights_rebal$AAPL , ylim=c(0,1))
 ```{r}
 # define the vector of equally-weighted portfolio weights
 weights <- c(0.5,0.5)
+
 # compute portfolio return for each date
 preturns_bh <- Return.portfolio(returns, weights )
 preturns_rebal <- Return.portfolio(returns, weights,rebalance_on="months")
+
 # plot the time series of portfolio returns
 par(mfrow=c(2,1),mar=c(2,4,2,2))
 plot.zoo(preturns_bh)
 plot.zoo(preturns_rebal)
-# verbose=TRUE 
+
+# verbose = TRUE 
 out_bh <- Return.portfolio(returns, weights,verbose=TRUE)
 out_rebal <- Return.portfolio(returns, weights,rebalance_on="months",verbose=TRUE)
+
 # who are you
 names(out_bh)
+
 # eop weights
 endWeights_bh <- out_bh$EOP.Weight 
 endWeights_rebal <- out_rebal$EOP.Weight 
@@ -822,14 +828,14 @@ The *fin*ancial theory of portfolio analysis and the *fun* of applying portfolio
 
 It's about the landmark contributions of Nobel prize winners like Daniel Kahneman, Harry Markowitz, William Sharpe, James Tobin and Robert Engle. 
 
-To maky you hungry for more, look at the nice output tables and plots printed in the workspace. This is what we will be doing in the next chapter, leveragin mainly the functionality in the package [PerformanceAnalytics](). 
+To maky you hungry for more, look at the nice output tables and plots printed in the workspace. This is what we will be doing in the next chapter, leveragin mainly the functionality in the package [PerformanceAnalytics](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/PerformanceAnalytics-package). 
 
-Which of the following functions is not in the package [PerformanceAnalytics](). 
+Which of the following functions is not in the package [PerformanceAnalytics](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/PerformanceAnalytics-package). 
 
 
 *** =instructions
 - According to Daniel Kahneman, in decision involving risk, most people are anything but rational. They fail to have the broad view and are carried away by individual gains and losses. You win a few, you lose a few. It's the bottom line that matters. This is to be computed using: [Return.annualized](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.annualized). 
-- [SharpeRatio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/SharpeRatio).  Shapre and tobin. 
+- [SharpeRatio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/SharpeRatio).  Sharpe and Tobin. 
 - [optim.portfolio](http://www.rdocumentation.org/packages/tseries/functions/optim.portfolio]). Harry Markowitz of the portfolio returns compared to the returns of a benchmark strategy, the higher the risk that the returns on the portfolio strategy will deviate from the benchmark returns. 
 - Rolling standard deviations. Engle  
 
