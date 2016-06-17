@@ -470,9 +470,9 @@ test_mc(1) # if 2 is the correct option.
 
 The simple return $R$ expresses the percentage change in value of an investment. The corresponding so-called "gross" return is defined as the future value of $1 invested in the asset for one period, and is thus equal to *$1+R$*. 
 
-The gross returns over two periods is obtained similarly. Let *$R_1$* be the return in the first period and *$R_2$* the return in the second period. Then the end-value of a 1 USD investment is  $$(1+R_1)*(1+R_2)$$. 
+The gross returns over two periods is obtained similarly. Let *$R_1$* be the return in the first period and *$R_2$* the return in the second period. Then the end-value of a 1 USD investment is  $(1+R_1)\times(1+R_2)$ . 
 
-The corresponding simple return over those two periods is: $$(1+R_1)*(1+R_2)-1$$. 
+The corresponding simple return over those two periods is: $(1+R_1)\times(1+R_2)-1$ . 
 
 Suppose that you have an investment horizon of two periods. In the first period you make a 10% return. But in the second period you take a loss of 5%. 
 
@@ -486,7 +486,7 @@ Which of the three following answers do you obtain?
 - End-value = 1050
 
 *** =hint
-If $R_1$ is the return in the first period and $R_2$ is the return in the second period, then the end-value of a $1 investment is $(1+R_1)*(1+R_2)$.
+If $R_1$ is the return in the first period and $R_2$ is the return in the second period, then the end-value of a $1 investment is $(1+R_1)*(1+R_2)$ .
 
 *** =pre_exercise_code
 ```{r}
