@@ -220,14 +220,14 @@ Now you will learn how to compute the correlation between equity returns and bon
 In this exercise you will learn 3 new functions from the PerformanceAnalytics package. These are `chart.Scatter`, `chart.Correlation`, and `chart.RollingCorrelation`. 
 
 *** =instructions
-- Plot the equity returns (`returns_equities`) against the bond returns (`returns_bonds`) using the function [`chart.Scatter`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Scatter) with the bond returns on the x-asis. Do you see a relation? 
+- Plot the equity returns (`returns_equities`) against the bond returns (`returns_bonds`) using the function [chart.Scatter()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Scatter) with the bond returns on the x-asis. Do you see a relation? 
 - Compute the correlation between the variables `returns_equities` and `returns_bonds` using the standard function `cor()`.
 - Merge `return_equities`, and `returns_bonds`. Call this `returns`.
 - Compute and visualize the correlation again, except using `chart.Correlation` with `returns` as the argument. 
-- Commpute the rolling 24-month estimates of the bond-equity correlation using the function `chart.RollingCorrelation`, use the arguments `"R"`, and `"width"`. 
+- Commpute the rolling 24-month estimates of the bond-equity correlation using the function [chart.RollingCorrelation()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.RollingCorrelation), use the arguments `"R"`, and `"width"`. 
 
 *** =hint
-`chart.RollingCorrelation` uses two time-series for the argument `"R"`, and the `"width"` is the number of months
+[chart.RollingCorrelation()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.RollingCorrelation) uses two time-series for the argument `"R"`, and the `"width"` is the number of months
 
 *** =pre_exercise_code
 ```{r}
@@ -328,20 +328,19 @@ Investors know that each asset that they invest in has risk, and that each asset
 
 In this example you have decided to extend your investment opportunity by creating a portfolio that consists of US equities ETF (SPY), US bonds ETF (AGG), a real estate investment trust (VEIEX), and an ETF tracking in the GSCI commodities index (GSG). The plot in the environment displays the performance of these investments.
 
-A good way to visualize the relative attractivenss of investments in terms of risk and rewards is to make a scatter 
-plot of the average returns against the portfolio volatilities. 
+A good way to visualize the relative attractivenss of investments in terms of risk and rewards is to make a scatter plot of the average returns against the portfolio volatilities. In order to do this you need to the averages and volatilities for each asset. This corresponds to each column in the return series `returns`. 
 
-We need to compute those average returns and volatilities for each asset. In other words, for each return series, and thus for each column in the multivariate return series `returns`, we need to compute the average value and standard deviations.
-
-These calculations are made easy by using the function `apply` with as first argument the return data file, the second argument is the value of `2` indicating  that the calculation should be column-wise, while the third argument is the name of the function that needs to be applied on each column. 
+These calculations are made easy by using the function [apply()](http://www.rdocumentation.org/packages/base/functions/apply) with as first argument the return data, the second argument is the value of `2` indicating  that the calculation should be column-wise, while the third argument is the name of the function that needs to be applied on each column. 
 
 *** =instructions
-- Compute the vector of average returns on those four investments using the R command `apply(returns,2,"mean")` and call this `vmeans`.
-- Do the same to compute the vector standard deviations and call this `vsd`.
-- Complete the R instructions to produce the scatter plot of average returns with respect to standard deviations. 
+- Compute the vector of average returns on those four investments using the R command `apply(returns, 2, "mean")` and call this `means`.
+- Do the same to compute the vector standard deviations and call this `sds`.
+- Create a scatter plot using the base plot function, where volatilities are the on x axis, and means on the y axis.
+- We've added labels and a reference line to your plot. Don't change the code!
+
 
 *** =hint
-hint comes here
+In order to calculate column-wise means and standard deviations, you will use the [apply()](http://www.rdocumentation.org/packages/base/functions/apply) function. Look at the documentation if you need help.
 
 *** =pre_exercise_code
 ```{r}
@@ -390,35 +389,48 @@ returns <- returns[(-1),]
 
 *** =sample_code
 ```{r}
-# vector of means
-vmeans <- 
-# vector of standard deviations
-vsd    <- 
-# scatter plot
-plot( , vmeans,col="gray",xlim=c(0,0.10))
+# Create a vector of returns 
+means <- apply(___, 2, "___")
+  
+# Create a vector of standard deviation
 
-text( vsd ,  vmeans ,  labels=colnames(returns), cex= 0.7)` 
 
+# Create a scatter plot
+plot(___, ___)
+text(sds, means, labels=colnames(returns), cex= 0.7)
+abline(h = 0, lty = 3)
 
 ```
 
 
 *** =solution
 ```{r}
-# vector of means
-vmeans <- apply(returns,2,"mean")
-# vector of standard deviations
-vsd <- apply(returns,2,"sd")
-# scatter plot
-plot(vsd,vmeans,col="gray",xlim=c(0,0.10))
-text( vsd , vmeans,  labels=colnames(returns), cex= 0.7)
-abline(h=0,lty=3)
+# Create a vector of returns 
+means <- apply(returns, 2, "mean")
+  
+# Create a vector of standard deviation
+sds <- apply(returns, 2, "sd")
+
+# Create a scatter plot
+plot(sds, means)
+text(sds, means, labels = colnames(returns), cex = 0.7)
+abline(h = 0, lty = 3)
 ```
 
 *** =sct
 ```{r}
-# sct code
-success_msg("Well done!")
+#1st
+test_function("apply", c("X", "MARGIN", "FUN"), not_called_msg not_called_msg = "Be sure to calculate column-wise means!", incorrect_msg = "Did you specify the correct function?")
+
+#2nd
+test_function("apply", c("X", "MARGIN", "FUN"), not_called_msg = "Oops! Did you calculate column-wise standard deviations?", incorrect_msg = "Did you specify the correct function?")
+
+#3rd
+test_function("plot", c("x", "y"), incorrect_msg = "Oops! Are the standard deviations plotted on the correct axis?")
+test_output_contains("text(sds, means, labels = colnames(returns), cex = 0.7)", incorrect_msg = "Oops! Did you alter the code we provided?!")
+test_output_contains("abline(h = 0, lty = 3", "He! Did you change our code?")
+
+success_msg("Well done! Take a look the plot you just created. Do you see you any patterns?")
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1  key:b7d7806b87
@@ -428,10 +440,10 @@ The assets' volatilities reflect the individual risks of the asset. This is what
 
 In this exercise you will compute and analyze the covariance, and correlation matrix on the monthly returns of the four asset classes from the previous exercise. To refresh, these asset classes are: equities, bonds, real-estate, and commoditites. To create these matrices you will use the standard functions `cov()` and `cor()`. 
 
-In your workspace are the monthly investments as `returns`, and the vector of standard deviations `vsd` that you created previously.
+In your workspace are the monthly investments as `returns`, and the vector of standard deviations `sds` that you created previously.
 
 *** =instructions
-- Use `diag(vsd^2)` create a vector of the diagonal matrix with the variances on the diagonal. Call this `diag_cov`. 
+- Use `diag(sds^2)` create a vector of the diagonal matrix with the variances on the diagonal. Call this `diag_cov`. 
 - Use `cov()` to compute the covariance matrix of returns. Call this `cov_matrix`.
 - Use `cor()`to compute the correlation matrix of returns. Call this `cor_matrix`.
 - Verify that the covariance between bond returns and equity returns equals the product between their standard deviations and correlation, by running the pre-loaded code.
@@ -463,9 +475,9 @@ colnames(prices) <- c("equities","bonds","realestate","commodities")
 returns <- Return.calculate(prices)
 returns <- returns[(-1),]
 # vector of means
-vmeans <- apply(returns,2,"mean")
+means <- apply(returns,2,"mean")
 # vector of standard deviations
-vsd <- as.numeric(apply(returns,2,"sd"))
+sds <- as.numeric(apply(returns,2,"sd"))
 ```
 
 *** =sample_code
@@ -480,14 +492,14 @@ vsd <- as.numeric(apply(returns,2,"sd"))
 
 
 # Verify covariances equal the product of standard deviations and correlation
-cov_matrix[1,2] == cor_matrix[1,2]*vsd[1]*vsd[2]
+cov_matrix[1,2] == cor_matrix[1,2] * sds[1] * sds[2]
 ```
 
 
 *** =solution
 ```{r}
 # Create a matrix with variances on the diagonal
-diag_cov <- diag(vsd^2)
+diag_cov <- diag(sds^2)
 
 # Create a covariance matrix of returns
 cov_matrix <- cov(returns)
@@ -497,30 +509,29 @@ cor_matrix <- cor(returns)
 
 
 # Verify covariances equal the product of standard deviations and correlation
-cov_matrix[1,2] == cor_matrix[1,2]*vsd[1]*vsd[2]
+cov_matrix[1,2] == cor_matrix[1,2] * sds[1] * sds[2]
 ```
 
 *** =sct
 ```{r}
 # sct code
 #1st
-test_object("diag_cov")
+test_object("diag_cov", undefined_msg = "Oops! You forgot to create a vector of covariances.", incorrect_msg = "Take a look at the instructions again. Be sure to calculate the covariance correctly!")
 
 #2nd
-test_object("cov_matrix")
+test_object("cov_matrix", undefined_msg = "Hey, it looks like you forgot to create a covariance matrix!", incorrect_msg = "Use `cov()` to create your matrix!")
 
 #3rd
-test_object("cor_matrix")
+test_object("cor_matrix", undefined_msg = "Did you create your correlation matrix?", incorrect_msg = "Use `cor()` to create your correlation matrix!")
 
 #4th
-test_output_contains("cov_matrix[1,2] == cor_matrix[1,2]*vsd[1]*vsd[2]", incorrect_msg = "Oops! Be sure to run the last line of code loaded in your script!")
+test_output_contains("cov_matrix[1,2] == cor_matrix[1,2]*vsd[1]*vsd[2]", incorrect_msg = "Oops! Make sure you didn't change the last line of code we provide you!")
 
-success_msg("Well done!")
+success_msg("Well done! These matrices can help you in your calculation, and are also a good reference to see the relationship between your assets.")
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1   key:21e408b8c65335ed2599fcb8ff64b5c9b352c374
 ## Matrix-based calculation of portfolio mean and variance
-
 
 When $w$ is the column-matrix of portfolio weights, $\mu$ the column-matrix of expected returns, and $\Sigma$ the return covariance matrix. Then the portfolio expected return is $w'\mu$, and the portfolio variance is $w'\Sigma w$.
 
@@ -638,22 +649,24 @@ success_msg("Well done!")
 //videos.datacamp.com/transcoded/985_portfolio_analysis/v2/hls-ch3_3.master.m3u8
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:0931e83c3a402b2fb2d78958981928a327428e4d
-## Whodunit
+## Who did it?
 
-In the console, you see the monthly volatility of the portfolio invested for 40% in equities, 40% in bonds, 10% in real estate and 10% in commodities. 
+In the previous video you saw the difference between a captial allocation budget, and a risk budget. In this exercise you will construct a risk budget. You will disover how large each assets percent risk contribution is in the total portfolio volatility. 
 
-Let us now use the technology of risk budgeting to find out how much % of the total portfolio volatility is caused by each of the positions.  
+For this last exercise you will calculate the risk contributions for a portfolio that is invested *40% in equities, 40% in bonds, 10% in real estate, and 10% in commodities*. To do so, you will use the function [StdDev()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/StdDev). The [StdDev()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/StdDev) function creates a list of the assets' standard deviation (`$StdDev`), their risk contribution (`$contribution`), and their percent risk contribution (`$pct_contrib_StdDev`). 
 
-To do so, we will use the function [StdDev](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/StdDev).
+You will be using three arguments in the [StdDev()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/StdDev) function to do this calculation. The first is `R`, a vector, matrix, data frame, time series or zoo object of returns. The second is `portfolio_method`, which you will be setting to `"component"`, and the third is `weights`.
+
+The object `returns` is loaded in your workspace.
 
 *** =instructions
-- Set `vol_budget` <- StdDev(returns,portfolio_method="component",
-       weights=c(0.4,0.4,0.1,0.1))` and print this variable;
-- Combine the weights and the percentage risk contributions in a table called `weights_percrisk`;
+- Create a vector of the portfolio weights. 
+- Calculate your volatility budget using [StdDev()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/StdDev). Set `portfiol_method = "component" and `weights` equal to the vector of weights. Call this `vol_budget`.
+- Combine the weights and the percentage risk contributions in a table called `weights_percrisk` using `cbind()`.
 - Print the table and note how different the percentage risk contributions are compared to the portfolio weights. 
 
 *** =hint
-hint comes here
+If you're struggling with the [StdDev()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/StdDev) function, look at the exercise description. Everything you need is there!
 
 *** =pre_exercise_code
 ```{r}
@@ -686,24 +699,31 @@ print( StdDev(returns,weights=c(0.4,0.4,0.1,0.1)))
 
 *** =sample_code
 ```{r}
-# define vol_budget
-vol_budget
-# make table
-weights_percrisk <-
-colnames(weights_percrisk) <- c( "weights" , "perc risk contrib")
-# print the table
+# Create portfolio weights
+
+
+# Create volatility budget
+
+
+# Make a table of weights and risk contribution
+
+
+# Print the table
 
 ```
 
 *** =solution
 ```{r}
-# solution code
-# define vol_budget
-vol_budget <- StdDev(returns,portfolio_method="component",weights=c(0.4,0.4,0.1,0.1))
-# make table
-weights_percrisk<- cbind( c(0.4,0.4,0.1,0.1) ,  vol_budget$pct_contrib_StdDev)
-colnames(weights_percrisk) <- c( "weights" , "perc risk contrib")
-# print the table
+# Create portfolio weights
+weights <- c(0.4, 0.4, 0.1, 0.1)
+
+# Create volatility budget
+vol_budget <- StdDev(returns, portfolio_method = "component", weights = weights)
+
+# Make a table of weights and risk contribution
+weights_percrisk <- cbind(weights, vol_budget$pct_contrib_StdDev)
+
+# Print the table
 print(weights_percrisk)
  
   
