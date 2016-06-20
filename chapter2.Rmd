@@ -651,18 +651,16 @@ sp500_returns <- sp500_returns[time(rf )]
 
 
 
+
 # Plotting the 12-month rolling annualized mean
-chart.RollingPerformance(R = sp500_returns, width = 12,
-                         FUN = "Return.annualized")
+chart.RollingPerformance(R = sp500_returns, width = 12, FUN = "Return.annualized")
 abline(h = returns_ann)
 
 # plotting the 12-month rolling annualized standard deviation
 
 
 
-
 # plotting the 12-month rolling annualized Sharpe ratio
-
 
 
 
@@ -681,18 +679,16 @@ sd_ann <- StdDev.annualized(sp500_returns)
 sharpe_ann <- SharpeRatio.annualized(sp500_returns, Rf = rf)
 
 # Plotting the 12-month rolling annualized mean
-chart.RollingPerformance(R = sp500_returns, width = 12,
-                         FUN = "Return.annualized")
+chart.RollingPerformance(R = sp500_returns, width = 12, FUN = "Return.annualized")
+
 abline(h = returns_ann)
 
 # plotting the 12-month rolling annualized standard deviation
-chart.RollingPerformance(R = sp500_returns, width = 12, 
-                         FUN = "StdDev.annualized")
+chart.RollingPerformance(R = sp500_returns, width = 12,  FUN = "StdDev.annualized")
 abline(h = sd_ann)
 
 # plotting the 12-month rolling annualized Sharpe ratio
-chart.RollingPerformance(R = sp500_returns, width = 12,
-                         FUN = "SharpeRatio.annualized", Rf = rf)
+chart.RollingPerformance(R = sp500_returns, width = 12, FUN = "SharpeRatio.annualized", Rf = rf)
 abline(h = sharpe_ann)
 
 # all three plots together
