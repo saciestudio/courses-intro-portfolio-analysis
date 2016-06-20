@@ -89,8 +89,7 @@ Investors can optimize the choice of weight to obtain the highest risk-adjusted 
 
 In the special case of investing the total portfolio value in only two assets, there is only one weight to determine, since the weight on the second asset equals one minus the weight of the first asset. 
 
-Let us do this in the case of a portfolio invested US equities and US bonds. We will be using the brute force approach of trying a large number of possible weights and keeping the weight that yields the highest value for hte portfolio Sharpe ratio.   
-
+Let us do this in the case of a portfolio invested US equities and US bonds. We will be using the brute force approach of trying a large number of possible weights and keeping the weight that yields the highest value for the portfolio Sharpe ratio.   
 
 
 *** =instructions
@@ -188,13 +187,13 @@ In the extreme case of two identical asset returns, the correlation will be 1, a
 As an exercise, suppose you have an equally weighted portfolio of two assets. Their correlation jumps from 0 to 0.5. Then the portfolio variance:    
 
 *** =instructions
-- Decreases
-- Increases
-- Does not change  
+- Decreases.
+- Increases.
+- Does not change.
+- This cannot be determined with the provided information.
 
 *** =hint
-Remember from the video that the portfolio variance equals the squared weight of asset 1 times the variance of asset 1, plus the squared weight of asset 2 times the variance of asset 2, plus two times the product of the weights, the volatilities and their correlation. 
-
+When correlation increases, potential risk increases. What is one measurement of risk?
 *** =pre_exercise_code
 ```{r}
 
@@ -203,8 +202,11 @@ Remember from the video that the portfolio variance equals the squared weight of
 
 *** =sct
 ```{r}
-# sct code
-test_mc(2) 
+msg1 <- "Not quite! Increased correlation increases risk."
+msg2 <- "Great work! Having correlated assets can increase potential risk. Correlated asset prices rise and fall together, so when you suffer a loss in one asset there is a greater chance of suffering a loss on the other asset!"
+msg3 <- "Not quite! Give it another go."
+msg4 <- "Note quite! Re-read the exercise."
+test_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4)) 
 success_msg("Great work!")
 ```
 
