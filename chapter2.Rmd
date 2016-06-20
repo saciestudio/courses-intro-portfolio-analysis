@@ -865,7 +865,7 @@ success_msg("Well done!")
 
 The central limit theorem states that the average of data observed over time will show a normal distribution if enough measurements are taken. By this theorem, it turns out that the longer the horizon of a return is computed, the more normal its distribution is. This property is known as aggregational Gaussianity and is illustrated in the plot environment. The histograms in the plot environment compare the daily and monthly returns of the S&P 500 over the period of 1986 until today.
 
-In this exercise you will verify whether the [`skewness()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/skewness) and [`kurtosis()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/kurtosis) statistics confirm the graphical analysis in the plot environment. By default, the [`kurtosis()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/kurtosis) reports the excess kurtosis (that is, the kurtosis minus three). 
+In this exercise you will verify whether the [skewness()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/skewness) and [kurtosis()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/kurtosis) statistics confirm the graphical analysis in the plot environment. By default, the [kurtosis()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/kurtosis) reports the excess kurtosis (that is, the kurtosis minus three). 
 
 The objects `sp500_daily` and `sp500_monthly` are already loaded in your workspace. 
 
@@ -904,12 +904,12 @@ chart.Histogram(sp500_monthly, methods = c( "add.density", "add.normal"))
 ```{r}
 #  Compute the skewness 
   
+  
 
 # Compute the excess kurtois 
 
 
    
-
 ```
 
 *** =solution
@@ -946,16 +946,16 @@ Another more popular measure is the so-called *Value-at-Risk* (or VaR). Loosely 
 
 The *expected shortfall* is another measure of risk that focuses on the average loss below the 5% VaR quantile.
 
-In this exercise you will examine the potential risk of the monthly returns of the S&P 500. You will use the functions [`SemiDeviation()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/DownsideDeviation),
-[`VaR()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/VaR),
-and [`ES()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/ES).
-These functions all require the argument `"R"`, which is an xts, vector, matrix, data.frame, timeSeries, or zoo object of asset returns. However the [`VaR()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/VaR),
-and [`ES()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/ES) require another argument `"p"`, or confidence level.
+In this exercise you will examine the potential risk of the monthly returns of the S&P 500. You will use the functions [SemiDeviation()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/DownsideDeviation),
+[VaR()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/VaR),
+and [ES()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/ES).
+These functions all require the argument `R`, which is an xts, vector, matrix, data.frame, timeSeries, or zoo object of asset returns. However the [VaR()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/VaR),
+and [ES()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/ES) require another argument `p`, or confidence level.
 
 *** =instructions
-- Compute the [`SemiDeviation()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/DownsideDeviation) of the monthly returns.
-- Use the default implementation in the function [`VaR()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/VaR) to estimate the 2.5% and 5% value-at-risk of a monthly investment in S&P 500 returns. 
-- Use the default implementation in the function [`ES()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/ES) to estimate the 2.5% and 5% expected shortfall of a monthly investment in S&P 500 returns. 
+- Compute the [SemiDeviation()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/DownsideDeviation) of the monthly returns.
+- Use the default implementation in the function [VaR()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/VaR) to estimate the 2.5% and 5% value-at-risk of a monthly investment in S&P 500 returns. 
+- Use the default implementation in the function [ES()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/ES) to estimate the 2.5% and 5% expected shortfall of a monthly investment in S&P 500 returns. 
 
 *** =hint
 The values 2.5%, and 5% should be used for your p-values in `VaR` and `ES`. 
@@ -984,7 +984,9 @@ chart.Histogram(sp500_monthly, methods = c( "add.density", "add.normal"))
 # Calculate the value at risk
 
 
+
 # Calculate the expected shortfall
+
 
 ```
 
@@ -1024,16 +1026,16 @@ success_msg("Well done! You now know how to calculate the potential risk of your
 
 The volatility, semi-deviation, value-at-risk, and expected shortfall are all measures that describe risk over 1 period. These metrics do not do a great job at describing the the worst case risk of buying at a peak, and selling at a trough. This sort of risk can be quantified by analyzing the portfolio's drawdowns, or peak-to-trough decline in cumulative returns.
 
-The function [`table.Drawdowns()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.Drawdowns) in *PerformanceAnalytics* reports the five largest drawdown episodes over a sample period. The package also has another function [`chart.Drawdown()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Drawdown) to visualize the evolution of the drawdowns from each peak over time. 
+The function [table.Drawdowns()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.Drawdowns) in *PerformanceAnalytics* reports the five largest drawdown episodes over a sample period. The package also has another function [chart.Drawdown()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Drawdown) to visualize the evolution of the drawdowns from each peak over time. 
 
 You will now explore the historic drawdown episodes of the monthly returns of the S&P 500. The returns are loaded into your workspace as `sp500_monthly`.
 
 *** =instructions
-- Calculate the five largest drawdowns using [`table.Drawdowns()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.Drawdowns).
-- Visualize the drawdowns of the monthly returns using [`chart.Drawdown()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Drawdown).
+- Calculate the five largest drawdowns using [table.Drawdowns()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.Drawdowns).
+- Visualize the drawdowns of the monthly returns using [chart.Drawdown()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Drawdown).
 
 *** =hint
-Drawdowns can be visualized using [`chart.Drawdown()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Drawdown). 
+Drawdowns can be visualized using [chart.Drawdown()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Drawdown). 
 
 *** =pre_exercise_code
 ```{r}
