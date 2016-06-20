@@ -74,7 +74,7 @@ These daily prices are available in your workspace as the variable `sp500`. This
 *** =instructions
 - Use the function [`to.monthly()`](http://www.rdocumentation.org/packages/xts/functions/to.period) with the argument `sp500` and assign this to `sp500_monthly`
 - Print the first six rows of `sp500_monthly`. Notice how aggregating the data has resulted in a table of four columns holding the opening, lowest, highest, and closing price of `sp500` for each month.
-- Create `sp500_returns` using the function `Return.calculate()` on `sp500_monthly` using the *closing prices* (fourth column in sp500_monthly).
+- Create `sp500_returns` using the function `Return.calculate()` on `sp500_monthly` using the *closing prices* (fourth column in `sp500_monthly`).
 - Convert `sp500_returns` to the desired time series format using `xts()`.
 - Use `plot.zoo()` to plot the time series.
 - Use the function [`table.CalendarReturns()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.CalendarReturns) in PerformanceAnalytics to present the monthly return data a table format showing year by month.
