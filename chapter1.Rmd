@@ -680,6 +680,7 @@ You will use the function `Return.portfolio()` for your calculations. For this f
 # pec
 options(warn=-1)
 library(tseries)
+library(xts)
 library(PerformanceAnalytics)
 aapl <- get.hist.quote(instrument="AAPL",start=as.Date("2005-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T)
 msft <- get.hist.quote(instrument="MSFT",start=as.Date("2005-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T)
@@ -718,7 +719,7 @@ weights <- c(0.5, 0.5)
 pf_bh <- Return.portfolio(returns, weights = weights)
 
 # Create a portfolio rebalancing monthly 
-pf_rebal <- Return.portfolio(returns, weights = weights, rebalance_on = “months”)
+pf_rebal <- Return.portfolio(returns, weights = weights, rebalance_on = "months")
 
 
 # Plot the time-series
@@ -805,7 +806,7 @@ weights <- c(0.5, 0.5)
 pf_bh <- Return.portfolio(returns, weights = weights, verbose = TRUE)
 
 # Create a portfolio that rebalances monthly
-pf_rebal <- Return.portfolio(returns, weights = weights, rebalance_on = “months”, verbose = TRUE)
+pf_rebal <- Return.portfolio(returns, weights = weights, rebalance_on = "months", verbose = TRUE)
 
 # Create end of eop_weight_bh
 eop_weight_bh <- pf_bh$EOP.Weight
