@@ -819,40 +819,6 @@ success_msg("Well done!")
 ```
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1   key:9953e9ca351425f91036a223de3ba9ee04c5a282
-## Sneak preview of the portfolio fin and fun ahead
-
-The *fin*ancial theory of portfolio analysis and the *fun* of applying portfolio management in R, that's what this course is all about.
-
-It's about the landmark contributions of Nobel prize winners like Daniel Kahneman, Harry Markowitz, William Sharpe, James Tobin and Robert Engle. 
-
-To maky you hungry for more, look at the nice output tables and plots printed in the workspace. This is what we will be doing in the next chapter, leveragin mainly the functionality in the package [PerformanceAnalytics](). 
-
-Which of the following functions is not in the package [PerformanceAnalytics](). 
-
-
-*** =instructions
-- According to Daniel Kahneman, in decision involving risk, most people are anything but rational. They fail to have the broad view and are carried away by individual gains and losses. You win a few, you lose a few. It's the bottom line that matters. This is to be computed using: [Return.annualized](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.annualized). 
-- [SharpeRatio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/SharpeRatio).  Shapre and tobin. 
-- [optim.portfolio](http://www.rdocumentation.org/packages/tseries/functions/optim.portfolio]). Harry Markowitz of the portfolio returns compared to the returns of a benchmark strategy, the higher the risk that the returns on the portfolio strategy will deviate from the benchmark returns. 
-- Rolling standard deviations. Engle  
-
-*** =hint
-hint
-
-*** =pre_exercise_code
-```{r}
-library(PerformanceAnalytics)
-```
-
-*** =sct
-```{r}
-test_mc(1) 
-```
- 
-
-
-
 
 
 
