@@ -94,7 +94,7 @@ Let us do this in the case of a portfolio invested US equities and US bonds. We 
 
 *** =instructions
 - Complete the R script that runs a brute force search to determine the portfolio weights for which the Sharpe ratio is the highest, assuming a zero risk free rate. 
-- Plot the value of the Sharpe ratio as a function of the equity weight in the portfolio, and indicate with a verticle line the value of the equities weight that maximizes the portfolio Sharpe ratio. 
+- Plot the value of the Sharpe ratio as a function of the equity weight in the portfolio, and indicate with a vertical line the value of the equities weight that maximizes the portfolio Sharpe ratio. 
 
 *** =hint
 hint
@@ -203,7 +203,7 @@ When correlation increases, potential risk increases. What is one measurement of
 *** =sct
 ```{r}
 msg1 <- "Not quite! Increased correlation increases risk."
-msg2 <- "Great work! Having correlated assets can increase potential risk. Correlated asset prices rise and fall together, so when you suffer a loss in one asset there is a greater chance of suffering a loss on the other asset!"
+msg2 <- "Great work! Having correlated assets can increase potential risk. Correlated asset prices rise and fall together. So when you suffer a loss in one asset there is a greater chance of suffering a loss on the other asset!"
 msg3 <- "Not quite! Give it another go."
 msg4 <- "Note quite! Re-read the exercise."
 test_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4)) 
@@ -217,17 +217,17 @@ success_msg("Great work!")
 
 Now you will learn how to compute the correlation between equity returns and bond returns. Just like volatilities, these correlations are dynamic. Therefore you need to distinguish between a static analysis that calculates correlations over a complete samples, and a dynamic analysis that calculates correlations over a rolling sample. This is a similar analysis as you did for the time-varying performance evaluation in terms of mean return and volatility. 
 
-In this exercise you will learn 3 new functions from the PerformanceAnalytics package. These are `chart.Scatter`, `chart.Correlation`, and `chart.RollingCorrelation`. 
+In this exercise you will learn 3 new functions from the PerformanceAnalytics package. These are [chart.Scatter()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Scatter)`, [chart.Correlation()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Correlation), and [chart.RollingCorrelation()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.RollingCorrelation). 
 
 *** =instructions
 - Plot the equity returns (`returns_equities`) against the bond returns (`returns_bonds`) using the function [chart.Scatter()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Scatter) with the bond returns on the x-asis. Do you see a relation? 
 - Compute the correlation between the variables `returns_equities` and `returns_bonds` using the standard function `cor()`.
-- Merge `return_equities`, and `returns_bonds`. Call this `returns`.
-- Compute and visualize the correlation again, except using `chart.Correlation` with `returns` as the argument. 
-- Commpute the rolling 24-month estimates of the bond-equity correlation using the function [chart.RollingCorrelation()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.RollingCorrelation), use the arguments `"R"`, and `"width"`. 
+- Merge `return_equities`, and `returns_bonds` using [merge()](http://www.rdocumentation.org/packages/base/functions/merge). Call this `returns`.
+- Compute and visualize the correlation again, except using [chart.Correlation()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Correlation) with `returns` as the argument. 
+- Commpute the rolling 24-month estimates of the bond-equity correlation using the function [chart.RollingCorrelation()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.RollingCorrelation), use the arguments `R`, and `width`. 
 
 *** =hint
-[chart.RollingCorrelation()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.RollingCorrelation) uses two time-series for the argument `"R"`, and the `"width"` is the number of months
+[chart.RollingCorrelation()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.RollingCorrelation) uses two time-series for the argument `R`, and the `width` is the number of months.
 
 *** =pre_exercise_code
 ```{r}
@@ -276,7 +276,7 @@ chart.RollingCorrelation(___, ___, width = ___)
 *** =solution
 ```{r}
 # Create a scatter plot
-chart.Scatter(returns_equities,  returns_bonds)
+chart.Scatter(returns_bonds, returns_equities)
 
 # Find the correlation
 cor(returns_equities, returns_bonds)
@@ -295,19 +295,20 @@ chart.RollingCorrelation(returns_equities, returns_bonds, width = 24)
 ```{r}
 # sct code
 #1st
-test_function("chart.Scatter", c("x", "y"))
+test_function("chart.Scatter", c("x", "y"), not_called_msg = "Oops! Did you create a scatter plot?", incorrect_msg = "Be sure to plot bond returns on the correct axis!")
 
 #2nd
-test_function("cor", c("x", "y"))
+test_function("cor", c("x", "y"), not_called_msg not_called_msg = "Be sure to find the correlation of returns!")
 
 #3rd
-test_object("returns")
+test_object("returns", undefined_msg = "Hey, it looks like you didn't merge the asset returns!")
 
 #4th
-test_function("chart.Correlation", c("R"))
+test_function("chart.Correlation", c("R"), not_called_msg = "Oops! It looks like you didn't chart the corrlelation of `returns`.", incorrect_msg = "Did you chart the correlation of `returns`?")
 
 #5th
-test_function("chart.RollingCorrelation", c("Ra", "Rb", "width"))
+test_function("chart.RollingCorrelation", c("Ra", "Rb", "width"), not_called_msg = "Did you chart the rolling correlation of your asset returns?", incorrect_msg = "Be sure to use the vectors `returns_equities` and `returns_bonds`, and supply the proper window length!")
+
 success_msg("Well done!")
 ```
 
@@ -420,10 +421,10 @@ abline(h = 0, lty = 3)
 *** =sct
 ```{r}
 #1st
-test_function("apply", c("X", "MARGIN", "FUN"), not_called_msg not_called_msg = "Be sure to calculate column-wise means!", incorrect_msg = "Did you specify the correct function?")
+test_function("apply", c("X", "MARGIN", "FUN"), not_called_msg not_called_msg = "Be sure to calculate column-wise means!", incorrect_msg = "Did you specify the correct function?", index = 1)
 
 #2nd
-test_function("apply", c("X", "MARGIN", "FUN"), not_called_msg = "Oops! Did you calculate column-wise standard deviations?", incorrect_msg = "Did you specify the correct function?")
+test_function("apply", c("X", "MARGIN", "FUN"), not_called_msg = "Oops! Did you calculate column-wise standard deviations?", incorrect_msg = "Did you specify the correct function?", index = 2)
 
 #3rd
 test_function("plot", c("x", "y"), incorrect_msg = "Oops! Are the standard deviations plotted on the correct axis?")
@@ -449,7 +450,7 @@ In your workspace are the monthly investments as `returns`, and the vector of st
 - Verify that the covariance between bond returns and equity returns equals the product between their standard deviations and correlation, by running the pre-loaded code.
 
 *** =hint
-hint comes here
+Proivde `returns` to both `cov()` and `cor()`.
 
 *** =pre_exercise_code
 ```{r}
@@ -551,6 +552,7 @@ expected returns and the covariance matrix.
 - Now use the matrix products to compute the annualized mean return and volatility.
 
 *** =hint
+
 - annualized mean = 12 * mean(preturns)
 - annualized volatility = sqrt(12) * sd(preturns)
 
@@ -731,7 +733,19 @@ print(weights_percrisk)
 
 *** =sct
 ```{r}
-# sct code
+#1
+test_object("weights", undefined_msg = "Be sure to create a vector of portfolio weights!", incorrect_msg = "Did you use the correct weights? Order matters!")
+
+#2
+test_function("StdDev", c("R", "portfolio_method", "weights"), not_called_msg = "Oops! Be sure to use the `StdDev()` function.", incorrect_msg = "Look over `vol_budget`. Did you supply the correct values for the arguments in `StdDev()`?")
+
+#3
+test_object("weights_percrisk", undefined_msg = "It looks like you didn't merge your weights and risk contributions!", incorrect_msg = "Make sure you use `cbind()` to merge `weights` and the percent contribution from `vol_budget`!")
+
+#4
+test_output_contains("weights_percrisk")
+
+
 success_msg("Well done!")
 ```
 
