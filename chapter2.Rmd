@@ -756,14 +756,14 @@ test_mc(2)
 --- type:NormalExercise lang:r xp:100 skills:1 key:012c07fe20924387617cef2df90e9ac6458f6fa8
 ## Subperiod performance analysis and the function window 
 
-In the previous exercise you computed the performance measure on each possible sample of a fixed size by rolling through time. Often investors are interested in the performance of a specific subwindow. You can create subsets of a time series in R using the function [`window`](http://www.rdocumentation.org/packages/stats/functions/window). The first argument is the return series that needs subsetting. The second argument is the starting date of the subset in the form `"YYYY-MM-DD"`, and the third argument is the ending date in the same format. 
+In the previous exercise you computed the performance measure on each possible sample of a fixed size by rolling through time. Often investors are interested in the performance of a specific subwindow. You can create subsets of a time series in R using the function [window()](http://www.rdocumentation.org/packages/stats/functions/window). The first argument is the return series that needs subsetting. The second argument is the starting date of the subset in the form `"YYYY-MM-DD"`, and the third argument is the ending date in the same format. 
 
 In this exercise you will be working the the daily S&P 500 returns which is available as the object `sp500_returns`. 
 
 *** =instructions
 - Fill in the missing arguments to the object `sp500_2008` so that you have subsetted the entire year of 2008.
 - Define the object `sp500_2014` as the S&P 500 portfolio returns for 2014.
-- Plot histograms of returns in those two years using the function [`chart.Histogram`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Histogram). Set the argument `methods = c("add.density", "add.normal")` to visualize the non-parametric estimate of the density and the density under and assumed normal distribution.
+- Plot histograms of returns in those two years using the function [chart.Histogram()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Histogram). Set the argument `methods = c("add.density", "add.normal")` to visualize the non-parametric estimate of the density and the density under and assumed normal distribution.
 
 *** =hint
 The first day of the year in 2008 is: "2008-01-01". The last day of the year in 2008 is: "2008-12-31".
@@ -788,7 +788,7 @@ names(sp500_returns) <- "sp500"
 *** =sample_code
 ```{r}
 # Fill in window for 2008
-sp500_2008 <- window(sp500_returns, start = as.Date("___"), end = "___")
+sp500_2008 <- window(sp500_returns, start = "___", end = "___")
 
 # Create window for 2014
 sp500_2014 <-
