@@ -383,7 +383,7 @@ success_msg("Well done! Remember that the Sharpe Ratio is calculated by taking t
 
 The mean and volatility of monthly returns corresponds to the average and standard deviation over a monthly investment horizon. Investors annualize those statistics by mutiplying the mean with 12, and the volatility with the square root of 12. Annualizing the sharpe ratio is also done by multiplying by the square root of 12
 
-In the previous exercise you calculated the excess returns manually. However the package *PerformanceAnalytics* has a function [`Return.annualized()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.annualized) which will compute the returns for you!
+In the previous exercise you calculated the excess returns manually. However the package `PerformanceAnalytics` has a function [`Return.annualized()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.annualized) which will compute the returns for you!
 
 *** =instructions
 - Use the function [Return.annualized](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.annualized) to compute the annualized mean of `sp500_returns`.
