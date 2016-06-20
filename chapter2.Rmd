@@ -63,20 +63,19 @@ test_mc(3) # if 3 is the correct option.
 
 ## Exploring the monthly S&P 500 returns 
 
-Let us now examine the monthly performance of the S&P 500 portfolio. 
-A picture is worth a thousand word. This is why most analyses of performance start by studying the time series plot of the value of the investment. 
+For the upcoming exercises you will examine the monthly performance of the S&P 500.
+
+A picture is worth a thousand words. This is why most analyses of performance start by studying the time series plot of the value of the investment. 
 
 A plot of the S&P 500 for the period of 1986 until today is shown to your right. Each observation on this plot is an end-of-day value. This chart shows a number of booms and busts. Take a look at the chart, do you see why the 2000s are so often called the lost decade of investing?
 
-These daily prices are available in your workspace as the variable `sp500`. This variable is an [xts](http://www.rdocumentation.org/packages/xts/) time series class. This means that each observation has a time-stamp. Your job is describe the monthly performance of the S&P 500. To do so, you will first need to aggregate daily price series to end-of-month prices. You will then calculate the monthly returns and visualize them in a table.
+These daily prices are available in your workspace as the variable `sp500`. This variable is an [*xts*](http://www.rdocumentation.org/packages/xts/) time series class. This means that each observation has a time-stamp. Your job is describe the monthly performance of the S&P 500. To do so, you will first need to aggregate daily price series to end-of-month prices. You will then calculate the monthly returns and visualize them in a table.
 
 *** =instructions
-- Use the function `to.monthly()` with the argument `sp500` and assign this to `sp500_monthly`
+- Use the function [`to.monthly()`](http://www.rdocumentation.org/packages/xts/functions/to.period) with the argument `sp500` and assign this to `sp500_monthly`
 - Print the first six rows of `sp500_monthly`. Notice how aggregating the data has resulted in a table of four columns holding the opening, lowest, highest, and closing price of `sp500` for each month.
-- Create `sp500_returns` using the function `Return.calculate` on `sp500_monthly` using the closing prices.
-- Convert `sp500_returns` to a time-series using `xts()` and assign it to sp500_returns.
-- Make the time series plot of the monthly returns.
-- Use the function [table.CalendarReturns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.CalendarReturns) in PerformanceAnalytics to present the monthly return data in the visually attractive format year x month. 
+- Create `sp500_returns` using the function `Return.calculate()` on `sp500_monthly` using the closing prices.
+- Use the function [`table.CalendarReturns()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.CalendarReturns) in PerformanceAnalytics to present the monthly return data a table format showing year by month.
 
 *** =hint
 Remember that closing prices were printed in the 4th column of `sp500_monthly`. Use `sp500_monthly[ , 4]`
@@ -271,7 +270,7 @@ Pre-loaded in your workspace is the object `rf` which contains the one-month rat
 - Calculate the annualized risk free rate using the compound interest formula, assign it to `annualized_rf`.
 - Plot the time-series of `annualized_rf`.
 - Calculate the excess monthly portfolio return, assign it to `sp500_excess`.
-- Print the mean returns and the mean excess returns. Compare the two. 
+- Print the mean returns and the mean excess returns. Compare the two.
 - Calculate the monthly Sharpe ratio, assign it to `sp500_sharpe`. 
 
 *** =hint
@@ -380,7 +379,9 @@ success_msg("Well done! Remember that the Sharpe Ratio is calculated by taking t
 
 ## Annualized mean and volatility
 
-The mean and volatility of monthly returns corresponds to the average and standard deviation over a monthly investment horizon. Investors annualize those statistics by mutiplying the mean with 12, and the volatility with the square root of twelve. Compute the annualized mean and volatility of the portfolios.
+The mean and volatility of monthly returns corresponds to the average and standard deviation over a monthly investment horizon. Investors annualize those statistics by mutiplying the mean with 12, and the volatility with the square root of 12. Annualizing the sharpe ratio is also done by multiplying by the square root of 12
+
+In the previous exercise you calculated the excess returns manually. However the package *PerformanceAnalytics* has a function [`Return.annualized()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.annualized) which will compute the returns for you!
 
 *** =instructions
 - Use the function [Return.annualized](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.annualized) to compute the annualized mean of `sp500_returns`.
@@ -388,7 +389,7 @@ The mean and volatility of monthly returns corresponds to the average and standa
 - Calculate the annualized Sharpe Ratio, assign it to `ann_sharpe`. Assume the risk free rate is 0. 
 - Obtain all the above results at one using the function   [table.AnnualizedReturns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.AnnualizedReturns).
 *** =hint
-hint comes here
+Remember that the sharpe ratio is found by taking the mean returns subtracted by the risk-free rate, and then divided by the volatility! 
 
 *** =pre_exercise_code
 ```{r}
@@ -463,31 +464,26 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:9d2eb4bc6c13e8cdabe71c739978050d8809058c
 ## Don't be fooled by randomness
 
-The probabilistic view of portfolio performance evaluation considers that the time series of returns is driven by an underlying process.Performance evaluation aims at inferring future returns from past returns. Perfomance evaluation attemps to answer questions such as: 
-  - (i) What is on average the value of a return that will be generated?
-  - (ii) What will be the standard deviation of the returns?
+Portfolio performance evaluation considers that the time series of returns is driven by an underlying process. Performance evaluation aims at inferring future returns from past returns. It attemps to answer questions such as: (i) What is on average the value of a return that will be generated? (ii) What will be the standard deviation of the returns?
 
-It is important to remember that when trying to aswer those questions, you as an investor, expose yourself to estimation errors. Investors will never know exactly what the underlying processes are, they can only make a guess about them from past returns. This is the limitation of any estimation approach. It is almost sure that the estimates of the mean and volatility will be different from the true mean and standard deviation.
+It is important to remember that when trying to aswer those questions, you expose yourself to estimation errors. Investors will never know exactly what the underlying processes are, they can only make a guess about them from past returns. It is almost sure that the estimates of the mean and volatility will be different from the true mean and standard deviation.
 
-In this exercise, you will begin to familiarize yourself with uncertainty in estimation. You will do this by drawing random samples from a normal distribution with a mean of 5%, and a standard deviation of 10%. You will see how uncertainty is reduced when the sample size grows. We will use the `rnorm()` function with arguments `"n", "mean", "sd"` to take a sample from the normal distribution.
+In this exercise, you will begin to familiarize yourself with uncertainty in estimation. You will do this by drawing random samples from a normal distribution with a mean of 5%, and a standard deviation of 10%. You will see how uncertainty is reduced when the sample size grows. We will use the [`rnorm()`](http://www.rdocumentation.org/packages/stats/functions/Normal) function with arguments `"n", "mean", "sd"` to take a sample from the normal distribution.
+
 
 
 *** =instructions
-- Use the function`rnorm()` to sample 12 observations with a mean of 5%, and a standard deviation of 10%. Assign this to `returns`.
-- Compute the mean and standard deviation of `returns`
-- Use `rnorm` to sample another 12 observations with a mean of 5%, and a standard deviation of 10% and assign this to `returns2`,.
+- Use the function[`rnorm()`](http://www.rdocumentation.org/packages/stats/functions/Normal) to sample 12 observations with a mean of 5%, and a standard deviation of 10%. Assign this to `returns`.
+- Compute the mean and standard deviation of `returns`.
+- Use [`rnorm()`](http://www.rdocumentation.org/packages/stats/functions/Normal) to sample another 12 observations with a mean of 5%, and a standard deviation of 10% and assign this to `returns2`.
 - Compute the mean and standard deviation of `returns2`.
-- Use `rnorm` to sample 60 observations with a mean of 5% and a standard deviation of 10% and assign it to `returns3`
-- Compute the mean and standard deviation of `returns3`
-- Use `rnorm` to sample 60 observations with a mean of 5% and standard deviation of 10% and assign it to `returns4`
-- Compute the mean and standard deviation of `returns4`
+- Use [`rnorm()`](http://www.rdocumentation.org/packages/stats/functions/Normal) to sample 60 observations with a mean of 5% and a standard deviation of 10% and assign it to `returns3`.
+- Compute the mean and standard deviation of `returns3`.
+- Use [`rnorm()`](http://www.rdocumentation.org/packages/stats/functions/Normal) to sample 60 observations with a mean of 5% and standard deviation of 10% and assign it to `returns4`.
+- Compute the mean and standard deviation of `returns4`.
 
--  Set the variable `returns` to the sample of 12 observations obtained by using the function `rnorm` to sample from the normal distribution with mean 5% and standard deviation of 10%.  
-- Compute the mean and standard deviation of the return series. 
-- Repeat the first two instructions and see how different the numbers are for a different sample. 
-- Repeat the first three instructions but for a sample of 60 observations.  
 *** =hint
-
+If you are struggling with the [`rnorm()`](http://www.rdocumentation.org/packages/stats/functions/Normal) function, check out the documentation.
 
 *** =pre_exercise_code
 ```{r}
@@ -590,16 +586,17 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:150 skills:1 key:737157d7421c452d9ab7cb48fc219403c4db82ff
 ## Rolling annualized mean and volatility
 
-In previous exercises you have already familiarized yourself with the `Return.annualized` and `StdDev.annualized` functions. In this exercise you will use the function `SharpeRatio.annualized` to calculate the annualized Sharpe Ratio. This function takes the arguments `"R"`, and `"Rf"`. The `"R"` argument takes an xts, vector, matrix, data.frame, timeSeries or zoo object of asset returns. The `"Rf"` argument takes a risk-free rate in the same period of your returns. For this example you can use the object `rf` to fulfill the `"Rf"` argument. By default `SharpeRatio.annualized` geometric aggregation.
+In previous exercises you have already familiarized yourself with the [`Return.annualized()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.annualized) and [`StdDev.annualized()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/StdDev.annualized) functions. In this exercise you will use the function [`SharpeRatio.annualized()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/SharpeRatio.annualized) to calculate the annualized Sharpe Ratio. This function takes the arguments `"R"`, and `"Rf"`. The `"R"` argument takes an xts, vector, matrix, data.frame, timeSeries or zoo object of asset returns. The `"Rf"` argument takes a risk-free rate in the same period of your returns. For this example you can use the object `rf` to fulfill the `"Rf"` argument. By default [`SharpeRatio.annualized()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/SharpeRatio.annualized) geometric aggregation.
 
-The function [chart.RollingPerformance](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.RollingPerformance) makes it easy to visualize the rolling estimates of performance in R. Familiarize yourself first with the syntax of this function. It requires to specify the time series of portfolio returns (by setting the argument `R`), the length of the window (`width`) and the function used to compute the performance (argument `FUN`).
+The function [`chart.RollingPerformance()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.RollingPerformance) makes it easy to visualize the rolling estimates of performance in R. Familiarize yourself first with the syntax of this function. It requires to specify the time series of portfolio returns (by setting the argument `R`), the length of the window (`width`) and the function used to compute the performance (argument `FUN`).
 
 *** =instructions
 - Calculate the annualized returns, volatility, and Sharpe Ratio. Assign these values to `returns_ann`, `sd_ann`, and `sharpe_ann` respectively.
-- Plot the rolling 12-month estimates of the annualized mean. Plot the unconditional long run estimate of the annualized return (`returns_ann`) as a horizontal references.
-- Plot the rolling 12-month estimates of the annualized volatility of the S&P 500 returns. Plot the unconditional long run estimate of the annualized standard deviation (`sd_ann`) as a horizontal reference.
-- Plot the rolling 12-month estimates of the annualized Sharpe Ratio of the S&P 500 returns. Plot the unconditional long run estimate of the annualized Sharpe Ratio (`sharpe_ann`) as a horizontal reference.
-- To see all three plots together, now use the function [charts.RollingPerformance](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/charts.RollingPerformance).
+- We provided the code for a plot of rolling 12-month estimate of annualized mean with (`returns_ann`) as a horizontal reference. Use this to help with the other plots!
+- Plot the rolling 12-month estimates of the annualized volatility of the S&P 500 returns. Add `sd_ann` as a horizontal reference.
+- Plot the rolling 12-month estimates of the annualized Sharpe Ratio of the S&P 500 returns. Add `sharpe_ann` as a horizontal reference. 
+- To see all three plots together, use the function [`charts.RollingPerformance()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/charts.RollingPerformance).
+
 *** =hint
 Use the function `abline()` with the argument `h` set to your horizontal reference. 
 
@@ -638,23 +635,31 @@ rf <- rf[time(sp500_returns )]
 sp500_returns <- sp500_returns[time(rf )]
 ```
 
+
 *** =sample_code
 ```{r}
-# unconditional mean, vol and sharpe
+# sp500_returns is preloaded in your workspace
 
-# plotting the 12-month rolling annualized mean
+# Calculate the mean, volatility, and sharpe ratio
 
-# plotting the 12-month rolling annualized standard deviation
+# Plotting the 12-month rolling annualized mean
+chart.RollingPerformance(R = sp500_returns, width = 12,
+                         FUN = "Return.annualized")
+abline(h = returns_ann)
 
-# plotting the 12-month rolling annualized Sharpe ratio
+# Plotting the 12-month rolling annualized standard deviation
 
-# all three plots together
+# Plotting the 12-month rolling annualized Sharpe ratio
+
+# All three plots together
 
 ```
 
 *** =solution
 ```{r}
-# Mean, volatility, sharp ratio
+# sp500_returns is preloaded in your workspace
+
+# Calculate the mean, volatility, and sharpe ratio
 returns_ann <- Return.annualized(sp500_returns)
 sd_ann <- StdDev.annualized(sp500_returns)
 sharpe_ann <- SharpeRatio.annualized(sp500_returns, Rf = rf)
@@ -704,9 +709,8 @@ success_msg("Well done!")
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:2169b00c723410a1ee9217836b284bf4cdd7dc2c
 ## Effect of window length choice
 
-To the right are two plots of rolling annualized volatility.
+To the right are two plots of rolling annualized volatility. One of the plots has rolling windows of 6 months, and the other has windows of 24 months. Which one is more timely in terms of reacting to recent shocks?
 
-I show two plots, one with rolling windows of 6 months and one with rolling windows of 24 months. Which one is more timely in terms of reacting to recent shocks?
 
 *** =instructions
 
@@ -745,16 +749,17 @@ test_mc(2)
 --- type:NormalExercise lang:r xp:100 skills:1 key:012c07fe20924387617cef2df90e9ac6458f6fa8
 ## Subperiod performance analysis and the function window 
 
-In the previous exercise you computed the performance measure on each possible sample of a fixed size by rolling through time. Often investors are interested in the performance of a specific subwindow. You can create subsets of a time series in R using the function `window`. The first argument is the return series that needs subsetting. The second argument is the starting date of the subset in the form `"YYYY-MM-DD"`, and the third argument is the ending date in the same format. 
+In the previous exercise you computed the performance measure on each possible sample of a fixed size by rolling through time. Often investors are interested in the performance of a specific subwindow. You can create subsets of a time series in R using the function [`window`](http://www.rdocumentation.org/packages/stats/functions/window). The first argument is the return series that needs subsetting. The second argument is the starting date of the subset in the form `"YYYY-MM-DD"`, and the third argument is the ending date in the same format. 
 
 In this exercise you will be working the the daily S&P 500 returns which is available as the object `sp500_returns`. 
 
 *** =instructions
 - Fill in the missing arguments to the object `sp500_2008` so that you have subsetted the entire year of 2008.
 - Define the object `sp500_2014` as the S&P 500 portfolio returns for 2014.
-- Plot histograms of returns in those two years using the function `chart.Histogram`. Set the argument `methods = c("add.density", "add.normal")` to visualize the non-parametric estimate of the density and the density under and assumed normal distribution. 
+- Plot histograms of returns in those two years using the function [`chart.Histogram`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Histogram). Set the argument `methods = c("add.density", "add.normal")` to visualize the non-parametric estimate of the density and the density under and assumed normal distribution.
 
 *** =hint
+The first day of the year in 2008 is: "2008-01-01". The last day of the year in 2008 is: "2008-12-31".
 
 
 *** =pre_exercise_code
@@ -849,7 +854,7 @@ success_msg("Well done!")
 
 The central limit theorem states that the average of data observed over time will show a normal distribution if enough measurements are taken. By this theorem, it turns out that the longer the horizon of a return is computed, the more normal its distribution is. This property is known as aggregational Gaussianity and is illustrated in the plot environment. The histograms in the plot environment compare the daily and monthly returns of the S&P 500 over the period of 1986 until today.
 
-In this exercise you will verify whether the `skewness` and `kurtosis` statistics confirm the graphical analysis in the plot environment. By default, the `kurtosis` reports the excess kurtosis (that is, the kurtosis minus three). 
+In this exercise you will verify whether the [`skewness()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/skewness) and [`kurtosis()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/kurtosis) statistics confirm the graphical analysis in the plot environment. By default, the [`kurtosis()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/kurtosis) reports the excess kurtosis (that is, the kurtosis minus three). 
 
 The objects `sp500_daily` and `sp500_monthly` are already loaded in your workspace. 
 
@@ -858,7 +863,7 @@ The objects `sp500_daily` and `sp500_monthly` are already loaded in your workspa
 - Compute the excess kurtois of `sp500_daily` and `sp500_monthly`.
 
 *** =hint
-Use the functions `skewness` and `kurtosis`.
+Use the functions `skewness()` and `kurtosis()` on each preloaded object.
 
 *** =pre_exercise_code
 ```{r}
@@ -924,19 +929,22 @@ success_msg("Well done! The excess kurtosis can be thought of as how volatile an
 --- type:NormalExercise lang:r xp:100 skills:1 key:774962285dd78c6a424e6a1eebc8c1cea5949cd3
 ## Downside risk measures
 
-The standard deviation gives equal weight to positive and negative returns in calcuting the return variability. 
-When the return distribution is asymmetric, investors use additional risk measures that focus on describing the potential losses. One such measure of downside risk is the `SemiDeviation`. The `SemiDeviation` is the calculation of the variability of returns below the mean return.
+The standard deviation gives equal weight to positive and negative returns in calcuting the return variability. When the return distribution is asymmetric, investors use additional risk measures that focus on describing the potential losses. One such measure of downside risk is the Semi-Deviation. The Semi-Deviation is the calculation of the variability of returns below the mean return.
 
-Another more popular measure is the so-called *Value-at-Risk* (or VaR). Value-at-Risk has three major components: pre-defined loss amount (loss percentage), a confidence level, and a time period. Loosely speaking, the VaR corresponds to the 5% quantile of the return distribution, meaning that a more negative return can only happen with a probability of 5%. For example you might ask:"what is the largest loss I could potentially take within the next quarter, with 95% confidence?" 
+Another more popular measure is the so-called *Value-at-Risk* (or VaR). Loosely speaking, the VaR corresponds to the 5% quantile of the return distribution, meaning that a more negative return can only happen with a probability of 5%. For example you might ask:"what is the largest loss I could potentially take within the next quarter, with 95% confidence?" 
 
 The *expected shortfall* is another measure of risk that focuses on the average loss below the 5% VaR quantile.
 
-In this exercise you will examine the potential risk of the monthly returns of the S&P 500. You will use the functions `SemiDeviation`, `VaR`, and `ES`. These functions all require the argument `"R"`, which is an xts, vector, matrix, data.frame, timeSeries, or zoo object of asset returns. However the `VaR`, and `ES` require another argument `"p"`, or confidence level.
+In this exercise you will examine the potential risk of the monthly returns of the S&P 500. You will use the functions [`SemiDeviation()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/DownsideDeviation),
+[`VaR()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/VaR),
+and [`ES()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/ES).
+These functions all require the argument `"R"`, which is an xts, vector, matrix, data.frame, timeSeries, or zoo object of asset returns. However the [`VaR()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/VaR),
+and [`ES()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/ES) require another argument `"p"`, or confidence level.
 
 *** =instructions
-- Compute the `SemiDeviation` of the monthly returns.
-- Use the default implementation in the function `VaR` to estimate the 2.5% and 5% value-at-risk of a monthly investment in S&P 500 returns. 
-- Use the default implementation in the function `ES` to estimate the 2.5% and 5% expected shortfall of a monthly investment in S&P 500 returns. 
+- Compute the [`SemiDeviation()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/DownsideDeviation) of the monthly returns.
+- Use the default implementation in the function [`VaR()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/VaR) to estimate the 2.5% and 5% value-at-risk of a monthly investment in S&P 500 returns. 
+- Use the default implementation in the function [`ES()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/ES) to estimate the 2.5% and 5% expected shortfall of a monthly investment in S&P 500 returns. 
 
 *** =hint
 The values 2.5%, and 5% should be used for your p-values in `VaR` and `ES`. 
@@ -1005,16 +1013,16 @@ success_msg("Well done! You now know how to calculate the potential risk of your
 
 The volatility, semi-deviation, value-at-risk, and expected shortfall are all measures that describe risk over 1 period. These metrics do not do a great job at describing the the worst case risk of buying at a peak, and selling at a trough. This sort of risk can be quantified by analyzing the portfolio's drawdowns, or peak-to-trough decline in cumulative returns.
 
-The function `table.Drawdowns` in PerformanceAnalytics reports the five largest drawdown episodes over a sample period. The package also has another function `chart.Drawdown` to visualize the evolution of the drawdowns from each peak over time. 
+The function [`table.Drawdowns()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.Drawdowns) in *PerformanceAnalytics* reports the five largest drawdown episodes over a sample period. The package also has another function [`chart.Drawdown()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Drawdown) to visualize the evolution of the drawdowns from each peak over time. 
 
 You will now explore the historic drawdown episodes of the monthly returns of the S&P 500. The returns are loaded into your workspace as `sp500_monthly`.
 
 *** =instructions
-- Calculate the five largest drawdowns using `table.Drawdowns`.
-- Visualize the drawdowns of the monthly returns using `chart.Drawdown`.
+- Calculate the five largest drawdowns using [`table.Drawdowns()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.Drawdowns).
+- Visualize the drawdowns of the monthly returns using [`chart.Drawdown()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Drawdown).
 
 *** =hint
-Drawdowns can be visualized using `chart.Drawdown`. 
+Drawdowns can be visualized using [`chart.Drawdown()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Drawdown). 
 
 *** =pre_exercise_code
 ```{r}
