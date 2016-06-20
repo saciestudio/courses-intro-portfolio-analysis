@@ -398,7 +398,7 @@ Use the portfolio return formula to compute the simple portfolio return!
   
 # Verify that it matches with the percentage change in the portfolio value
 all.equal(preturns,
-          (sum(fin.values) - sum(in.values)) / sum(in.values))
+          (sum(fin_values) - sum(in_values)) / sum(in_values))
 ```
 
 *** =solution
@@ -936,9 +936,3 @@ library(PerformanceAnalytics)
 test_mc(1) 
 ```
  
-
-
-
-
-
-
