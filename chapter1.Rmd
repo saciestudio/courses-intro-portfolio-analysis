@@ -826,15 +826,21 @@ plot.zoo(eop_weight_rebal$AAPL)
 # sct code
 success_msg("Well done!")
 ```
-
+<!---
+!!! changes in progress
 --- type:NormalExercise lang:r xp:100 skills:1 key:e2b13d9ade5d7b168bb6157909da1cffbc6729e1
 ## From daily to monthly portfolio returns
 
 You have now plotted the daily return series. In practice, portfolio managers rarely communicate their daily returns, but focus on the total (compound) performance over a longer period, such as a month or a year. 
-The next chapter is devoted to performance evaluation. But before you dive into that, it would do you well to look at a bit of investment history. In this exercise you will focus on the evolution of returns during September, 2008. This was an exception month for investors. However, the bankruptcy of Lehman Brother on September 15th was an important turning point. Complete the exercise for a closer look.
+Monthly returns can be obtained by using the formula of compound returns. A compound return at the $k$-th period is given by the cumulative product of the returns for periods 1 to $k$, which is given by the chain $(1 +$*$R_1$*$) * (1 + $*$R_2$*$) * \ldots * (1+$*$R_K$*$)$. To get to the return *over* a certain period (let's say the period 1 to $K$), you have to substract the compound return at the $K$-th period  
+
+
+The next chapter is devoted to performance evaluation. But before you dive into that, it would do you well to look at a bit of investment history, using a daily rebalanced portfolio containing the Apple and Microsoft stocks used previously.
+
+In this exercise you will focus on the evolution of portfolio returns in September 2008. This was an exceptional month for investors. However, the bankruptcy of Lehman Brother on September 15th was an important turning point. Complete the exercise for a closer look.
 
 *** =instructions
-- Print the daily returns in September 2008 using `preturns["2008-09"]`.
+- Print the daily returns in September 2008. This can be done using `preturns["YYYY-MM"]`.
 - In order to see how a one dollar investment evolved over that month, print `cumprod(1+preturns["2008-09"])`. Its $k$-th observation  corresponds to the chain $(1 +$*$R_1$*$) * (1 + $*$R_2$*$) * \ldots * (1+$*$R_K$*$)$ with *$R_i$* the $i$-th return of that month.
 - Compute the return over this month as the simple percentage change between the final and initial value of this one-dollar investment.
 - Verify that you obtain the same number as when using the function `Return.cumulative(preturns["2008-09"])]`.
@@ -867,7 +873,8 @@ preturns <- Return.portfolio(returns, weights,rebalance_on="days")
 
 *** =sample_code
 ```{r}
-# preturns is pre-loaded
+# returns is pre-loaded, and the formula for a daily rebalanced equally weighted portfolio is given below
+preturns <- Return.portfolio(returns, weights, rebalance_on= "days")
 
 # Print the daily returns in September 2008
 
@@ -884,7 +891,8 @@ preturns <- Return.portfolio(returns, weights,rebalance_on="days")
 
 *** =solution
 ```{r}
-# preturns is pre-loaded
+# returns is pre-loaded, and the formula for a daily rebalanced equally weighted portfolio is given below
+preturns <- Return.portfolio(returns, weights, rebalance_on= "days")
 
 # Print the daily returns in September 2008
 preturns["2008-09"]
@@ -904,5 +912,5 @@ Return.cumulative(preturns["2008-09"])
 # sct code
 success_msg("Well done!")
 ```
-
+-->
  
