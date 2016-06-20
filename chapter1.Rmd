@@ -826,10 +826,11 @@ plot.zoo(eop_weight_rebal$AAPL)
 # sct code
 success_msg("Well done!")
 ```
-<!---
-!!! changes in progress
+
 --- type:NormalExercise lang:r xp:100 skills:1 key:e2b13d9ade5d7b168bb6157909da1cffbc6729e1
 ## From daily to monthly portfolio returns
+
+WE WANT TO REMOVE THIS EXERCISE
 
 You have now plotted the daily return series. In practice, portfolio managers rarely communicate their daily returns, but focus on the total (compound) performance over a longer period, such as a month or a year. 
 Monthly returns can be obtained by using the formula of compound returns. A compound return at the $k$-th period is given by the cumulative product of the returns for periods 1 to $k$, which is given by the chain $(1 +$*$R_1$*$) * (1 + $*$R_2$*$) * \ldots * (1+$*$R_K$*$)$. To get to the return *over* a certain period (let's say the period 1 to $K$), you have to substract the compound return at the $K$-th period  
@@ -912,5 +913,4 @@ Return.cumulative(preturns["2008-09"])
 # sct code
 success_msg("Well done!")
 ```
--->
  
