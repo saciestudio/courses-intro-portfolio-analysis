@@ -477,11 +477,12 @@ test_mc(1) # if 2 is the correct option.
 
 ## From simple to gross and multi-period returns   
 
-The simple return $R$ expresses the percentage change in value of an investment. The corresponding so-called "gross" return is defined as the future value of $1 invested in the asset for one period, and is thus equal to *$1+R$*.
+The simple return $R$ expresses the percentage change in value of an investment. The corresponding so-called "gross" return is defined as the future value of 1 USD invested in the asset for one period, and is thus equal to *$1+R$*.
 
-The gross returns over two periods is obtained similarly. Let *$R_1$* be the return in the first period and *$R_2$* the return in the second period. Then the end-value of a 1 USD investment is $(1 + R_1)*(1 + R_2)$. 
+The gross returns over two periods is obtained similarly. Let *$R_1$* be the return in the first period and *$R_2$* the return in the second period. Then the end-value of a 1 USD investment is   $(1 +$*$R_1$*$) * (1 + $*$R_2$*$)$.
+ 
 
-The corresponding simple return over those two periods is: $(1+R_1)*(1+R_2)-1$ .
+The corresponding simple return over those two periods is: $(1 +$*$R_1$*$) * (1 + $*$R_2$*$)-1$.
 
 Suppose that you have an investment horizon of two periods. In the first period you make a 10% return. But in the second period you take a loss of 5%. 
 
@@ -833,9 +834,12 @@ The next chapter is devoted to performance evaluation. But before you dive into 
 
 *** =instructions
 - Print the daily returns in September 2008 using `preturns["2008-09"]`.
-- In order to see how a one dollar investment evolved over that month, print `cumprod(1+preturns["2008-09"])`. Its $k$-th observation  corresponds to the chain $(1+R_1)*(1+R_2)*...*(1+R_K),$ with $R_i$ the $i$-th return of that month
+- In order to see how a one dollar investment evolved over that month, print `cumprod(1+preturns["2008-09"])`. Its $k$-th observation  corresponds to the chain $(1 +$*$R_1$*$) * (1 + $*$R_2$*$) * \ldots * (1+$*$R_K$*$)$ with *$R_i$* the $i$-th return of that month.
 - Compute the return over this month as the simple percentage change between the final and initial value of this one-dollar investment.
 - Verify that you obtain the same number as when using the function `Return.cumulative(preturns["2008-09"])]`.
+
+
+
 
 *** =hint
 hint comes here
