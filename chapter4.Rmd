@@ -22,10 +22,10 @@ You will be using the sample of monthly returns from January 1991 until December
 Assume you an investor that likes high returns with minimum risk. Which of the following statements is false:
 
 *** =instructions
-- You would rather invest all of your capital in Home Depot (ticket :HD) than in Caterpillar (ticker: CAT) because Home Depot has a higher average return, and lower risk.
-- By combining investments, it may be possible to obtain a portfolio with a lower variance than the variance of the Exxon Mobil Corporation's stock (ticker: XOM). 
-- If an investor is not allowed to borrow, then there is no portfolio invested in thirty Dow Jones Industrial Average stocks, offering a higher average return than the one of Apple (ticker: AAPL).  
-- There is a total of 300 monthly observations in our sample of monthly returns. The highest return is around 88% while the lowest return is around -58%. 
+- You would rather invest all of your capital in Home Depot (ticker: HD) than in Caterpillar (ticker: CAT) because Home Depot has a higher average return, and lower risk.
+- By combining investments, it may be possible to obtain a portfolio with a lower variance than the variance of the Exxon Mobil Corporation’s stock (ticker: XOM).
+- An investor can create a portfolio of the thirty Dow Jones Industrial Average stocks that offers a higher average return than Apple (ticker: AAPL)
+- None of the above are true. 
 
 *** =hint
 hint
@@ -56,7 +56,11 @@ text( stocksd[c("HD","CAT","XOM","AAPL")]  ,  stockmu[c("HD","CAT","XOM","AAPL")
 
 *** =sct
 ```{r}
-test_mc(2) # if 2 is the correct option.
+msg1 <- "That right! Home Depot has a lower monthly standard deviation and a higher monthly return than Caterpillar."
+msg2 <- "Incorrect! Try again!"
+msg3 <- "Oops! Try again!"
+msg4 <- "Not quite!"
+test_mc(1) 
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1   key:8c67f73515
@@ -66,14 +70,14 @@ The 1991-2015 monthly returns on the 30 DJIA stocks are available in the workspa
 
 
 *** =instructions
-- Verify that `returns` is an object of the xts-class using the function `class()`.
-- Create a vector of row means of `returns` using the function `rowMeans()`. Assign this to `row_means`.
-- Plot `row_means` using `plot.zoo()`.
+- Verify that `returns` is an object of the xts-class using the function [class()](http://www.rdocumentation.org/packages/base/functions/class).
+- Create a vector of row means of `returns` using the function [rowMeans()](http://www.rdocumentation.org/packages/base/functions/colSums). Assign this to `row_means`.
+- Plot `row_means` using [plot.zoo()](http://www.rdocumentation.org/packages/zoo/functions/plot.zoo).
 - Create a correlation matrix of the returns called `z`.
 - Plot the histogram of the correlations between the monthly returns of the DJIA stocks. Because of the symmetry of the correlation matrix, you only need the lower triangular elements, which, for any square matrix `z`, you can select using `z[lower.tri(z)]`.
 
 *** =hint
-hint comes here
+Remeber that you can use `cor()` to create a correlation matrix.
 
 *** =pre_exercise_code
 ```{r}
@@ -111,7 +115,7 @@ returns <- returns[(-1),]
 class(returns)
 
 # Create a vector of row means
-row_means <- rowMeans(retrns)
+row_means <- rowMeans(returns)
 
 # Plot row_means
 plot.zoo(row_means)
@@ -125,7 +129,21 @@ hist(z[lower.tri(z)])
 
 *** =sct
 ```{r}
-# sct code
+#1
+test_function("class", "x", not_called_msg = "Did you verify that `returns` is an xts-class object?")
+
+#2
+test_object("row_means", undefined_msg = "Did you calculate the row means of `returns`?", incorrect_msg = "Did you calculate the row means of `returns` correctly?")
+
+#3
+test_function("plot.zoo", "x", not_called_msg = "Be sure to plot the row means!")
+
+#4
+test_object("z", undefined_msg = "Hey, don't forget to create a correlation matrix called `z`!", incorrect_msg = "Did you use the correct function to make your correlation matrix?")
+
+#5
+test_output_contains("hist(z[lower.tri(z)]", incorrect_msg = "Oops! Have you plotted the lower triangle of your correlation matrix properly?")
+
 success_msg("Well done!")
 ```
 
@@ -144,18 +162,19 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:c066b2d5f610d13afdb48831249d18142590def7
 ## Finding the mean-variance efficient portfolio  
 
-A mean-variance efficient portfolio can be obtained as the solution of minimizing the portfolio variance under the constraint that the portfolio expected return equals a target return. A convenient R function for doing so is the function [`portfolio.optim`](http://www.rdocumentation.org/packages/tseries/functions/portfolio.optim) in the R package [tseries](http://www.rdocumentation.org/packages/tseries). 
+A mean-variance efficient portfolio can be obtained as the solution of minimizing the portfolio variance under the constraint that the portfolio expected return equals a target return. A convenient R function for doing so is the function [portfolio.optim()](http://www.rdocumentation.org/packages/tseries/functions/portfolio.optim) in the R package [tseries](http://www.rdocumentation.org/packages/tseries). 
 Its default implementation finds the mean-variance efficient portfolio weights under the constraint that the portfolio return equals the return on the equally-weighted portfolio. 
 The only argument needed is the monthly return data on the portfolio components for which the weights need to be determined.
 
 
 *** =instructions
 - load the library `tseries`. 
-- Create a mean-variance efficient portfolio of monthly returns using `portfolio.optim`, called `optim`. 
-- Create a vector of optimum asset weights that are larger than or equal to 1%, call this `optim_weights`. Portfolio weights can be found in `optim$pw`. 
+- Create a mean-variance efficient portfolio of monthly returns using [portfolio.optim()](http://www.rdocumentation.org/packages/tseries/functions/portfolio.optim), called `optim`. 
+- Create a vector of weights from your optimized portfolio. Portfolio weights can be found in `optim$pw`. Call this `pf_weights`.
+- Assign the names to the assets using the provided code.
+- Select the optimum weights from `pf_weights` that are greater than or equal to 1%, call this `optim_weights`. 
 - Create a barplot of `optim_weights`.
-- Print the expect portfolio return (`out$pm`) and volatility (`out$ps`) of the optimized portfolio. 
-- Verify that the optimized portfolio returns in `out$px` dominate the returns of the equally weighted portfolio.
+- Print the expect portfolio return (`optim$pm`) and volatility (`optim$ps`) of the optimized portfolio. 
 
 *** =hint
 hint comes here
@@ -176,64 +195,51 @@ returns <- returns[(-1),]
 ```{r}
 # Load tseries
 
+
 # Create an optimized portfolio of returns
 
 
-# Create a vector of optimum weights
-optim_weights
-names(optim_weights) <- colnames(returns)
+# Create pf_weights
 
 
-optim_returns <-  out$px[out$px >= .01]
-# round sorted
-round( sort(    ,decreasing=T) ,4)
-# barplot
-   (optim_weights[optim_weights>=0.01])
-# print expected return and volatility 
+# Assign asset names
 
-# equally weighted returns
-ew_returns <- rowMeans(returns)
-# strict lower standard deviation
- 
-# same or higher return
+
+# Select optimum weights optim_weights
+
+
+# Barplot of optim_weights
+
+
+# Print expected portfolio return and volatility
+
  
 ```
 
 *** =solution
 ```{r}
-#####josi progress####
 # Load tseries
 library(tseries)
 
 # Create an optimized portfolio of returns
 optim <- portfolio.optim(returns)
 
-# Create a vector of optimum weights
-optim_weights <- optim$pw[optim$pw >= 0.01]
-names(optim_weights) <- colnames(returns)
+# Create pf_weights
+pf_weights<- optim$pw
 
-##### end josi #######
+# Assign asset names
+names(pf_weights) <- colnames(returns)
 
-# load tseries. 
-library(tseries)
-# optimize
-out <- portfolio.optim(returns)
-# output
-optim_weights <- out$pw
-names(optim_weights) <- colnames(returns)
-optim_returns <- xts(out$px,order.by=time(returns))
-# round sorted
-round(sort(optim_weights,decreasing=T) ,4)
-# barplot
-barplot(optim_weights[optim_weights>=0.01])
-# dominate
-ew_returns <- rowMeans(returns)
-# strict lower standard deviation
-out$ps ; sd(ew_returns)
-( out$ps < sd(ew_returns) )
-# same or higher return
-out$pm ; mean(ew_returns)
-out$pm >= mean(ew_returns)
+# Select optimum weights optim_weights
+optim_weights <- pf_weights[pf_weights >= 0.01]
+
+# Barplot of optim_weights
+barplot(optim_weights)
+
+# Print expected portfolio return and volatility
+optim$pm
+optim$ps
+
 ```
 
 *** =sct
@@ -243,21 +249,27 @@ success_msg("Well done!")
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1  key:2240e86100
-## Effect of the return target 
+## Affect of the return target 
 
-A more general specification of the function [portfolio.optim](http://www.rdocumentation.org/packages/tseries/functions/portfolio.optim) is as follows:
+This exercise will show the affect of increasing your target return on your potential risk. 
+
+The function [portfolio.optim](http://www.rdocumentation.org/packages/tseries/functions/portfolio.optim) has arguments that allow for more general specifications. The arguments are as follows:
+
 ```
 portfolio.optim(x, pm = mean(x),
-                shorts = FALSE,  reshigh = NULL)
+                        shorts = FALSE, reshigh = NULL)
 ```
 
-The argument ``pm`` sets the target return. The argument `reshigh` specifies the upper constraints on the portfolio weights.The argument ``shorts`` is a logical statement specifying whether negative weights are forbidden or not, by default `shorts=FALSE`. 
+The argument `pm` sets the target return, the argument `reshigh` specifies the upper constraints on the portfolio weights, and the argument `shorts` is a logical statement specifying whether negative weights are forbidden or not, by default `shorts = FALSE`. 
 
-In this exercise you will quantify the risk-reward trade-off when choosing the mean-variance efficient portfolio. Note that the higher the target return, the higher the portfolio volatility. 
+You will create a portfolio that is optimized for a target return that is the equivalent of the mean return from the return series `returns`. Then you will create a portfolio that has a target return that is 10% higher than the mean return series, and calculate the percent change in risk.
+
 
 *** =instructions
-- There is a isk-reward trade-off when choosing the mean-variance efficient portfolio. The higher the target return, the higher will be the corresponding portfolio volatility. When the target return is 10% higher than the average return, how much % increase is there in the portfolio volatility?  
-- Compute the Sharpe ratio of the two portfolios when the monthly risk free rate is 0.1%. 
+- Create a portfolio where the target return is the mean of `returns`. Call this `pf_mean`.
+- Create a portfolio where the target return is 10% greater than the mean of `returns`. Call this `pf_10plus`.
+- Print the standard deviations of both portfolios. Remember that the portfolio standard deviation is stored in `$ps`. 
+- Calculate the percent increase in standard deviation.
 
 *** =hint
 hint comes here
@@ -278,33 +290,35 @@ library(tseries)
 
 *** =sample_code
 ```{r}
-meanreturns = mean(returns)
-# compute standard deviation when target retun is mean return
-out1 <- portfolio.optim(returns, pm = meanreturns )
-sd1 <-
- 
-# compute standard deviation when target retun is 1.1 times the mean return
-out2 <-
-sd2 <- 
-# compute relative increase in standard deviation
+# Create portfolio with target return of average returns 
+
+
+# Create portfolio with target return 10% greater than average returns
+
+
+# Print the standard deviations of both portfolios
+
+
+# Calculate the percent increase in standard deviation
+
 
 ```
 
 *** =solution
 ```{r}
-# solution code
-# load tseries. 
-library(tseries)
-meanreturns <- mean(returns)
-# compute standard deviation when target retun is mean return
-out1 <- portfolio.optim(returns, pm = meanreturns )
-sd1 <- out1$psd
- 
-# compute standard deviation when target retun is 1.1 times the mean return
-out2 <- portfolio.optim(returns, pm = 1.1*meanreturns )
-sd2 <- out2$psd
-# compute relative increase in standard deviation
-(sd2-sd1)/sd1
+# Create portfolio with target return of average returns 
+pf_mean <- portfolio.optim(returns, pm = mean(returns))
+
+# Create portfolio with target return 10% greater than average returns
+pf_10plus <- portfolio.optim(returns, pm = 1.1 * mean(returns))
+
+# Print the standard deviations of both portfolios
+pf_mean$ps
+pf_10plus$ps
+
+# Calculate the percent increase in standard deviation
+(pf_10plus$ps - pf_mean$ps) / (pf_mean$ps) * 100
+
 ```
 
 *** =sct
@@ -318,20 +332,16 @@ success_msg("Well done!")
 
 Investors are often constrained by the maximum values allowed for the portoflio weights. This constraints can actually be an advantage. The advantage of a maximum weight constraint is that the subsequent portfolio will be less concentrated in certain assets. There is a disadvantage to this though. The disadvantage is that the same target return, may no longer be possible or will be obtained at the expense of a higher volatility. 
 
-Finding the optimized portfolio under weight constraints is made easy with the `PerformanceAnalytics` package. The function [`portfolio.optim`](http://www.rdocumentation.org/packages/tseries/functions/portfolio.optim) allows you to set weight constraints within the `reshigh` argument. `reshigh` requires a vector of maximum weights for each asset. 
+Finding the optimized portfolio under weight constraints is made easy with the *PerformanceAnalytics* package. The function [portfolio.optim](http://www.rdocumentation.org/packages/tseries/functions/portfolio.optim) allows you to set weight constraints within the `reshigh` argument. `reshigh` requires a vector of maximum weights for each asset. 
 
-In this exercise you will create three portfolios with different maximum weight constraints. For this exercise it is important to know the output of the `portfolio.optim` function. This function creates a list containing four components:
-  - `$pw`: the portfolio weights
-  - `$px`: the returns of the overall portfolio
-  - `$pm`: the exepcted return portfolio
-  - `$ps`: the standard deviation of the portfolio returns
+In this exercise you will create three portfolios with different maximum weight constraints. For this exercise it is important to know the output of the [portfolio.optim](http://www.rdocumentation.org/packages/tseries/functions/portfolio.optim) function. This function creates a list containing four components: (i) `$pw`: the portfolio weights, (ii) `$px`: the returns of the overall portfolio, (iii) `$pm`: the exepcted return portfolio, (iv) `$ps`: the standard deviation of the portfolio returns.
 
 *** =instructions
 - Create three vectors of maximum weights for each asset (column) in `returns` using the `rep()` function. The first vector will contain maximum weights of 100%, the second 10%, and the third 5%. Call these `weights1`, `weights2`, `weights3`, respectively. 
 - Create an optimum portfolio with maximum weights of 100% called `optim1`.
 - Create an optimum portfolio with maximum weights of 10% called `optim2`.
 - Create an optimum portfolio with maximum weights of 5% called `optim3`.
-- Calculate how many positions (assets) have a weight that is greater than 1% for each portfolio. Access weights by using `$pw` after the portfolio name.
+- Calculate how many assets have a weight that is greater than 1% for each portfolio. Access weights by using `$pw` after the portfolio name.
 - Print the volatilities of the portfolio you created. 
 
 *** =hint
@@ -375,8 +385,8 @@ library(tseries)
 ```{r}
 # Create vectors of maximum weights
 weights1 <- rep(1, ncol(returns))
-weights2 <- rep(.1, ncol(returns))
-weights3 <- rep(.05, ncol(returns))
+weights2 <- rep(0.1, ncol(returns))
+weights3 <- rep(0.05, ncol(returns))
 
 # Create an optimum portfolio with max weights of 100%
 optim1 <- portfolio.optim(returns, reshigh = weights1)
@@ -388,18 +398,42 @@ optim2 <- portfolio.optim(returns, reshigh = weights2)
 optim3 <- portfolio.optim(returns, reshigh = weights3)
 
 # Calculate how many assets have a weight that is greater than 1% for each portfolio
-sum(optim1 > .01)
-sum(optim2 > .01)
-sum(optim3 > .01)
+sum(optim1$pw > .01)
+sum(optim2$pw > .01)
+sum(optim3$pw > .01)
 
 # Print portfolio volatilites 
-out1$ps
-out2$ps
-out3$ps
+optim1$ps
+optim2$ps
+optim3$ps
 ```
 
 *** =sct
 ```{r}
+#1
+test_object("weights1", undefined_msg = "Be sure you create the three weights vectors!", incorrect_msg = "Make sure that this is a vector where each value is equal to 1.")
+test_object("weights2", undefined_msg = "Be sure you create the three weights vectors!", incorrect_msg = "Make sure that this is a vector where each value is equal to 0.1")
+test_object("weights3", undefined_msg = "Be sure you create the three weights vectors!", incorrect_msg = "Make sure that this is a vector where each value is equal to 0.05")
+
+#2
+test_function("portfolio.optim", c("x", "reshigh"), not_called_msg = "Make sure to create a portfolio where the max weights are equal to 100%!", incorrect_msg = "Did you supply the correct weights vector to `optim1`?", index = 1)
+
+#3
+test_function("portfolio.optim", c("x", "reshigh"), not_called_msg = "Make sure to create a portfolio where the max weights are equal to 10%!", incorrect_msg = "Did you supply the correct weights vector to `optim2`?", index = 2)
+
+#4
+test_function("portfolio.optim", c("x", "reshigh"), not_called_msg = "Make sure to create a portfolio where the max weights are equal to 5%!", incorrect_msg = "Did you supply the correct weights vector to `optim3`?", index = 3)
+
+#5
+test_function("sum", "...", index = 1)
+test_function("sum", "...", index = 2)
+test_function("sum", "...", index = 3)
+
+#6
+test_output_contains("optim1$ps")
+test_output_contains("optim2$ps")
+test_output_contains("optim3$ps")
+
 # sct code
 success_msg("Well done!")
 ```
@@ -504,15 +538,18 @@ success_msg("Well done!")
 The curve shown in the previous plot shows the solution of minimizing the variance under the constraint that the portfolio expected return equals the target return. When the target return is below the minimum variance return, the obtained portfolio is not efficient because a higher return at a lower risk can be optained by investing in the minimum variance portfolio.
 The optimized portfolios often are also not realistic because they tend to invest large weights in only a few assets. A practical solution to avoid this is to impose weight constraints. 
 
-The effect of such a weight constraint is shown in the work space, where you can see the efficient frontier plots obtained for the DJIA stocks under a maximum 100% weight constraint (black line), a maximum 10% weight constraint (red line) and a maximum 5% weight constraint (blue). Which of the following statements is false.  
+The effect of such a weight constraint is shown in the work space, where you can see the efficient frontier plots obtained for the DJIA stocks under a maximum 100% weight constraint (black line), a maximum 10% weight constraint (red line) and a maximum 5% weight constraint (blue). 
+
+Which of the following statements is false.  
 
 *** =instructions
 - Imposing a more strict weight constraint, leads to a shift to the right of the efficient frontier.    
 - The portfolios on the dashed lines are not mean-variance efficient. 
 - The observed average return of any risky portfolio is always higher than the risk-free rate. 
+- None of the above.
 
 *** =hint
-hint
+Even some risky portfolios can have a lower return than a risk-free rate.
 
 *** =pre_exercise_code
 ```{r}
@@ -630,7 +667,7 @@ portfolio standard deviations (`vpsd`) and the matrix of portfolio weights (`mwe
 *** =instructions
 - Complete the sample code to obtain the volatility and expected return of the minimum variance portfolio. 
 - Assume a risk free rate of 0.75%. Define `vsr` as the vector holding, for each of the optimized portfolios, the Sharpe ratio computed using `vpm` and `vsd`
-- Complete the sample code to compute the risk and reward of the maximum Sharpe ratio portfolio 
+- Complete the sample code to compute the risk and reward of the maximum Sharpe ratio portfolio.
 - Comple the sample code to compare the allocation of the maximum Sharpe ratio portfolio with the minimum variance portfolio using a barplot (focus hereby on the weights larger than 1%).
  
 
@@ -755,19 +792,22 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:69f72e3a22916ec2ef924a7f212d354f28022366
 ## Split-sample evaluation
 
-The function [window](http://www.rdocumentation.org/packages/stats/functions/window), with arguments `x`, `start` 
-and `end`, extracts the subperiod between `start` and `end`  from the object `x`. 
+In chapter 2 you used the function [window()](http://www.rdocumentation.org/packages/stats/functions/window) to subset your returns for graphical purposes. In this exercise you will use the `window() to create two samples: an estimation sample and an evaluation sample. This exercise will illustrate how portfolio weights can differ when changing the estimation window.
+
+To remind you, the function [window()](http://www.rdocumentation.org/packages/stats/functions/window) has argument of `x`, `start`, and `end`. Where `start` and `end` are in the format `"YYYY-MM-DD"`.
+
+The object `returns` is loaded in your workspace. 
 
 *** =instructions
-- Split `returns` into the sample `returns.estim` (ending on `2003-12-31`) and `returns.eval` (starting on `2004-01-01`)
-- Compute using `returns.estim` the optimal portfolio under a maximum 10% weight constraint, when the target return is the return of the equally weighted portfolio. 
-- Compute using `returns.eval` the optimal portfolio under a maximum 10% weight constraint, when the target return is the return of the equally weighted portfolio.
-- Make a scatter plot of the two porfolios to see how different the portfolio weights can be when changing the estimation period. Note that if portfolio weights are identical, they should be on the 45 degrees line. 
- 
-
+- Create the sample `returns_estim` by subsetting `returns`, where the sample begins on January 1st, 1991, and ends of December 31st, 2003.
+- Create the sample `returns_eval` by subsetting `returns`, where the sample begins on the first day of 2004, and ends on the last day of 2015.
+- Create a vector of maximum weights equal to 10%, with a length as the number of columns there are in `returns` called `max_weights`.
+- Create a portfolio with the estimation sample called `pf_estim`, where the maximum weight (`reshigh`) is set to `max_weights`.
+- Create a portfolio with the evaluation sample called `pf_eval`, where the maximum weight (`reshigh`) is set to `max_weights`.
+- Create a scatter plot of the estimation portfolio weights versus the evaluation portfolio weights. Note that if portfolio weights are identical, they should be on the 45 degree line.
 
 *** =hint
-hint comes here
+You can use the `rep()` function to create your `max_weights` vector. In addition you can access the portfolio weights using `$pw` followed by the portfolio name.
 
 *** =pre_exercise_code
 ```{r}
@@ -784,30 +824,46 @@ returns <- returns[(-1),]
 
 *** =sample_code
 ```{r}
-# Splitting return data in sample for estimation and out of sample evaluation 
-returns.estim <- 
-returns.oos <-   
-# optimize portfolios
-weights.estim <- portfolio.optim(x =  , reshigh = rep(0.1,ncol(returns.estim)))$pw
-weights.oos <- portfolio.optim(x =   ,reshigh = rep(0.1,ncol(returns.estim)))$pw
-#scatterplot with 45 degrees lines
- 
-abline(a=0,b=1,lty=3)
+# Create returns_estim 
+
+
+# Create returns_eval
+
+
+# Create vector of max weights
+
+
+# Create portfolio with estimation sample 
+
+
+# Create portfolio with evaluation sample
+
+
+# Create a scatter plot
+plot()
+abline(h = 0, b = 1, lty = 3)
 ```
 
 *** =solution
 ```{r}
-# solution code
+# Create returns_estim 
+returns_estim <- window(returns, start = "1991-01-01", end = "2003-12-31")
 
-# Splitting return data in sample for estimation and out of sample evaluation 
-returns.estim <- window(returns, start = "1991-01-01", end = "2003-12-31")
-returns.oos <- window(returns, start ="2004-01-01", end = "2015-12-31")
-# optimize portfolios
-weights.estim <- portfolio.optim(x = returns.estim , reshigh = rep(0.1,ncol(returns.estim)))$pw
-weights.oos <- portfolio.optim(x = returns.oos ,reshigh = rep(0.1,ncol(returns.estim)))$pw
-#
-plot(weights.estim,weights.oos)
-abline(a=0,b=1,lty=3)
+# Create returns_eval
+returns_eval <- window(returns, start ="2004-01-01", end = "2015-12-31")
+
+# Create vector of max_weights
+max_weights <- rep(0.1, ncol(returns))
+
+# Create portfolio with estimation sample 
+pf_estim <- portfolio.optim(returns_estim, reshigh = max_weights)
+
+# Create portfolio with evaluation sample
+pf_eval <- portfolio.optim(returns_eval, reshigh = max_weights)
+
+# Create a scatter plot
+plot(pf_estim$pw, pf_eval$pw)
+abline(h = 0, b = 1, lty = 3)
 ```
 
 *** =sct
@@ -820,8 +876,6 @@ success_msg("Well done!")
 ## Out of sample performance evaluation
 
 How severe is the optimality loss? Let's compare on the out-of-sample period the mean and variance on the optimized portfolio weights using the estimation sample and the out-of-sample evaluation data. 
-
-
 
 *** =instructions
 - Use the function [Return.portfolio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio) to compute the portfolio returns of the portfolio with weights `weights.estim` and monthly rebalancing using the `returns.estim` sample. Call the resulting portfolio returns `returns.estim` and use [table.AnnualizedReturns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.AnnualizedReturns) to evaluate the expected performance based on the estimation data.
