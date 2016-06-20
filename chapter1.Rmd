@@ -545,15 +545,15 @@ success_msg("Well done! After 50% loss you would need to double the amount of mo
 --- type:NormalExercise lang:r xp:100 skills:1 key:1d4270da1d39343116d0e77f9b897e6b2127914f
 ## The time series of asset returns  
 
-Calculating the returns for one period is pretty forward to do in R. When the returns need to be calculated for different dates the functions [Return.calculate](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.calculate) and [Return.portfolio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio), in the R package [PerformanceAnalytics](http://www.rdocumentation.org/packages/performanceanalytics/functions/performanceanalytics-package) are extremely helpful. They require the input data to be of the [xts-time series class](http://www.rdocumentation.org/packages/xts/functions/xts-package). You will explore the functionality of the [PerformanceAnalytics](http://www.rdocumentation.org/packages/performanceanalytics/functions/performanceanalytics-package) package in this exercise. 
+Calculating the returns for one period is pretty straight forward to do in R. When the returns need to be calculated for different dates the functions [`Return.calculate()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.calculate) and [`Return.portfolio()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio), in the R package [`PerformanceAnalytics()`](http://www.rdocumentation.org/packages/performanceanalytics/functions/performanceanalytics-package) are extremely helpful. They require the input data to be of the [xts-time series class](http://www.rdocumentation.org/packages/xts/functions/xts-package). You will explore the functionality of the [*PerformanceAnalytics*](http://www.rdocumentation.org/packages/performanceanalytics/functions/performanceanalytics-package) package in this exercise. 
 
 You have a portfolio invested in Apple stock, and Microsoft stock. The prices for each stock are available in the variables `aapl` and `msft` in your workspace.
 
 *** =instructions
 - Load the packages `xts` and `PerformanceAnalytics` in your R session.
-- Use the function [merge](http://www.rdocumentation.org/packages/xts/functions/merge) to bind the variables `aapl` and `msft`, call this `prices`.
+- Use the function [`merge()`](http://www.rdocumentation.org/packages/xts/functions/merge) to bind the variables `aapl` and `msft`, call this `prices`.
 - Print the first and last six row of `prices` using `head` and `tail`.
-- Use the function [Return.calculate](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.calculate) with as only argument `prices` to compute for each date the return as the percentage change in the price compared to the previous date, call this `returns`.
+- Use the function [`Return.calculate()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.calculate) with as only argument `prices` to compute for each date the return as the percentage change in the price compared to the previous date, call this `returns`.
 - Print the first six rows of `returns`.
 - Remove the first row of `returns`
  
@@ -652,22 +652,25 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1   key:7fd5556f94
 ## The time series of portfolio returns
 
-Let us now continue the exercise by computing the portfolio returns under different choices of rebalancing the portfolio weights.
+In the previous exercise you create a variable called `returns` from the daily prices of stocks of Apple and Microsoft. In this exercise you will create two portfolios using the return series you previously created. The two portfolios will differ in one way, and that is the weighting of the assets.
 
-The first choice is the buy-and-hold. 
+In the last video you were introduced to two weighting strategies: the buy and hold strategy, and a monthly rebalancing strategy. In this exercise you will create a portfolio in which you don’t rebalance, and one where you rebalance monthly. You will then visualize the portfolio returns of both.
 
-The second choice is to rebalance at a monthly frequency. The target weights are assumed to be the same for each rebalancing date. We call this the constant mix portfolio allocation strategy.   
+You will use the function `Return.portfolio()` for your calculations. For this function you will provide three arguments: `R`, `weights`, and `rebalance_on`. `R` is a time series of returns, `weights` is a vector of asset returns, and `rebalance_on` specifies which calendar-period to rebalance on.  If you need help be sure to check the documentation by clicking on the function!
+
+`returns` is pre-loaded in your workspace.
 
 
 *** =instructions
-- Define `weights` as the vector of equal weights for a portfolio fully invested in two assets. 
-- Use the function [Return.portfolio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio) with as first argument `returns` and as second argument `weights` to compute for each date the return of the buy-and-hold portfolio for which the initial weights are set to `weights`.
-- Do the same but for the monthly rebalanced portfolio.
-- Make a time series plot of the portfolio returns. 
-- Repeat the above, but now set the arguments `verbose=TRUE`. It will now return an object holding various arguments. Investigate this using `names()`
-- Compare the end-of period weights
+- Define the vector `weights` for two equally weighted assets.
+- Create a portfolio using the buy and hold strategy using `Return.portfolio()`. Note, you do not need to specify a rebalance period. Call this `pf_bh`.
+- Create a portfolio where you rebalance your weights monthly. Use `Return.portfolio()` with the argument `rebalance_on = “months”`. Call this `pf_monthly`.
+- Plot the time series of each portfolio using `plot.zoo()`. 
+- Note that `par(mfrow=c(2,1),mar=c(2,4,2,2))` is used to organize the plots you create. Do not alter this code.
+
 *** =hint
-hint comes here
+- Remember that weights should always add to 1!
+- Provide `returns` as the first arguments for `Return.portfolio()`, and `weights` second.
 
 *** =pre_exercise_code
 ```{r}
@@ -689,62 +692,130 @@ colnames(returns) <- c("AAPL","MSFT")
 
 *** =sample_code
 ```{r}
-# Returns is pre-loaded
-# Define the vector of equally-weighted portfolio weights
+# Create the weights
 
-  
-# Compute portfolio return for each date
-preturns_bh <-  
-preturns_rebal <- 
-  
-# Plot the time series of portfolio returns
+
+# Create a portfolio using buy and hold
+pf_bh <- Return.portfolio(___, weights = ___)
+
+# Create a portfolio rebalancing monthly 
+
+
+# Plot the time-series
 par(mfrow=c(2,1),mar=c(2,4,2,2))
-plot.zoo(preturns_bh)
-plot.zoo(___)
-
-# verbose=TRUE 
-out_bh <-
-out_rebal <-
-
-# Who are you
-names(out_bh)
-
-# eop (end of period) weights
-endWeights_bh <- out_bh$EOP.Weight 
-endWeights_rebal <- out_rebal$EOP.Weight
-
-# Plot the eop weights of Apple
-plot.zoo(endWeights_bh$AAPL ,ylim=c(0,1))
-plot.zoo(endWeights_rebal$AAPL , ylim=c(0,1))
 ```
 
 *** =solution
 ```{r}
-# define the vector of equally-weighted portfolio weights
-weights <- c(0.5,0.5)
 
-# compute portfolio return for each date
-preturns_bh <- Return.portfolio(returns, weights )
-preturns_rebal <- Return.portfolio(returns, weights,rebalance_on="months")
+# Create the weights
+weights <- c(0.5, 0.5)
 
-# plot the time series of portfolio returns
+# Create a portfolio using buy and hold
+pf_bh <- Return.portfolio(returns, weights = weights)
+
+# Create a portfolio rebalancing monthly 
+pf_rebal <- Return.portfolio(returns, weights = weights, rebalance_on = “months”)
+
+
+# Plot the time-series
 par(mfrow=c(2,1),mar=c(2,4,2,2))
-plot.zoo(preturns_bh)
-plot.zoo(preturns_rebal)
-
-# verbose = TRUE 
-out_bh <- Return.portfolio(returns, weights,verbose=TRUE)
-out_rebal <- Return.portfolio(returns, weights,rebalance_on="months",verbose=TRUE)
-
-# who are you
-names(out_bh)
-
-# eop weights
-endWeights_bh <- out_bh$EOP.Weight 
-endWeights_rebal <- out_rebal$EOP.Weight 
-plot.zoo(endWeights_bh$AAPL ,ylim=c(0,1))
-plot.zoo(endWeights_rebal$AAPL , ylim=c(0,1) )
+plot.zoo(pf_bh)
+plot.zoo(pf_rebal)
 ```
+
+*** =sct
+```{r}
+# sct code
+success_msg("Well done!")
+```
+
+--- type:NormalExercise lang:r xp:100 skills:1 
+##  The time series of weights 
+
+In the previous exercise you explored the functionality of the `Return.portfolio()` function and created portfolios using two strategies. However, by setting the argument `verbose = TRUE` in `Return.portfolio()` you can create a list of beginning of period and end of period, weights and values in addition to the portfolio returns, and contributions.
+
+You can access these from the resultant list-object created from `Return.portfolio()`. The resultant list contains `$returns`, `$contributions`, `$BOP.Weight`, `$EOP.Weight`, `$BOP.Value`, and `$EOP.Value`.
+
+In this exercise you will recreate the portfolios you made in the last exercise but extend it by creating a list of calculations using `verbose = TRUE`. You will then visualize the end of period weights of Apple.
+
+The object `returns` is pre-loaded in your workspace.
+
+*** =instructions
+- Define the vector `weights` for two equally weighted assets.
+- Create a portfolio of returns by using the buy and hold strategy and setting `verbose = TRUE`. Call this `pf_bh`.
+- Create a portfolio of returns using the a monthly rebalancing strategy, and setting `verbose = TRUE`. Call this `pf_rebal`.
+- Create a new object called `eop_weight_bh`using the end of period weights of `pf_bh`.
+- Create a new object called `eop_weight_rebal` using the end of period weights of `pf_rebal`.
+- Plot the end of period weights of Apple in `eop_weight_bh` using `plot.zoo()`
+- Plot the end of period weights of Apple in `eop_weight_rebal` using `plot.zoo()`
+- Note that `par(mfrow=c(2,1),mar=c(2,4,2,2))` is used to organize the plots you create. Do not alter this code.
+
+*** =hint
+
+*** =pre_exercise_code
+```{r}
+# pec
+options(warn=-1)
+library(tseries)
+library(PerformanceAnalytics)
+aapl <- get.hist.quote(instrument="AAPL",start=as.Date("2005-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T)
+msft <- get.hist.quote(instrument="MSFT",start=as.Date("2005-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T)
+
+# define prices as the merged time series of aapl and msft
+prices <-  merge(aapl,msft)
+# print the first and last six rows of prices
+returns <-  Return.calculate(prices)  
+# remove the first row
+returns <- returns[-1,]
+colnames(returns) <- c("AAPL","MSFT")
+```
+
+*** = sample_code 
+``` {r}
+# Create the weights
+
+
+# Create a portfolio using buy and hold
+
+
+
+# Create a portfolio that rebalances monthly
+
+
+# Create end of eop_weight_bh
+
+
+# Create eop_weight_reabl
+
+
+# Plot end of period weights
+par(mfrow=c(2,1),mar=c(2,4,2,2))
+```
+
+*** =solution 
+```{r}
+# Create the weights
+weights <- c(0.5, 0.5)
+
+# Create a portfolio using buy and hold
+pf_bh <- Return.portfolio(returns, weights = weights, verbose = TRUE)
+
+# Create a portfolio that rebalances monthly
+pf_rebal <- Return.portfolio(returns, weights = weights, rebalance_on = “months”, verbose = TRUE)
+
+# Create end of eop_weight_bh
+eop_weight_bh <- pf_bh$EOP.Weight
+
+# Create eop_weight_reabl
+eop_weight_rebal <- pf_rebal$EOP.Weight
+
+# Plot end of period weights
+par(mfrow=c(2,1),mar=c(2,4,2,2))
+plot.zoo(eop_weight_bh$AAPL)
+plot.zoo(eop_weight_rebal$AAPL)
+```
+
 
 *** =sct
 ```{r}
@@ -755,9 +826,8 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:e2b13d9ade5d7b168bb6157909da1cffbc6729e1
 ## From daily to monthly portfolio returns
 
-We have now plotted the daily return series. In practice, portfolio managers rarely communicate their daily returns, but focus on the total (compound) performance over a longer period, such as a month or a year. 
-
-The next chapter is devoted to performance evaluation.  But let us  touch intuition now by focussing on the cumulative return evoluation in September 2008. This was an exceptional month for investors, with the bankruptcy of Lehman Brother on September 15 as an important turning point.  
+You have now plotted the daily return series. In practice, portfolio managers rarely communicate their daily returns, but focus on the total (compound) performance over a longer period, such as a month or a year. 
+The next chapter is devoted to performance evaluation. But before you dive into that, it would do you well to look at a bit of investment history. In this exercise you will focus on the evolution of returns during September, 2008. This was an exception month for investors. However, the bankruptcy of Lehman Brother on September 15th was an important turning point. Complete the exercise for a closer look.
 
 *** =instructions
 - Print the daily returns in September 2008 using `preturns["2008-09"]`.
@@ -817,6 +887,7 @@ cumprod(1+preturns["2008-09"])
 
 # Compute the monthly return as the percentage change of final value with respect to the initial value
 (0.7682575-1)/1
+
 # Verify that this leads to the same results as using the function Return.cumulative
 Return.cumulative(preturns["2008-09"])
 ```
