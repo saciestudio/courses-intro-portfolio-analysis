@@ -12,27 +12,34 @@ description : Asset returns and portfolio weights; those are the building blocks
 //videos.datacamp.com/transcoded/985_portfolio_analysis/v2/hls-ch1_1.master.m3u8
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:5df9cc8be3e5717ab2d100eb52a85328bc27d243
-## Risk and return
+## Getting a grasp of the basics
 
-Which of the following statements is false:
+Welcome to Introduction to Portfolio Analysis! In the last video you were given a brief overview of some of the key concepts in portfolio analysis. The goal of every stock investor is to make profits while reducing the amount of risk involved. Investors create strategies to reduce these risks.
+
+Which of the following is true about investment:
 
 *** =instructions
-- Because most investors do not like risk, risky stocks sell on average at lower market prices.
-- Investment risk is time-invariant: it is not influenced by the changes in the business cyle, investor sentiment or other changes in the  market environment. 
-- If all assets have the same expected return and risk, an investor is better off by investing in a portfolio with many assets than a portfolio invested in just a few assets. 
+- Portfolios are that consist of very different assets are poorly diversified.
+- Portfolios that consist of very different assets are diversified.
+- Investors reduce risk by investing in a fewer number of assets.
+- Portfolio strategies cannot be tested.
 
 *** =hint
-
+If you're struggling, try rewatching the video!
 
 *** =pre_exercise_code
 ```{r}
-# pec
+#
 ```
 
 *** =sct
 ```{r}
-test_error()
-test_mc(2) # if 2 is the correct option.
+msg1 <- "Close! Investors can reduce their risk by investing in a number of assets that are independent of each other!"
+msg2 <- "Good job! Diversified portfolios reduce risk by offsetting loss with a potential gain in another asset!"
+msg3 <- "Almost! It's not always smart to put all of your eggs in one basket."
+msg4 <- "Not quite. You can test an investmet strategy on historical data!"
+
+test_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4))
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:3eba4bd8de6fe4123ea68cc159aa5e8a117fc27d
@@ -45,14 +52,14 @@ The time series plot shows you the value evolution of one dollar invested in eac
 *** =instructions
 - Define `ko_pep` as the ratio expressing the value of the share price of the Coca Cola company in terms
 of the share price of PepsiCo
-- Use [plot.zoo()](http://www.rdocumentation.org/packages/zoo/functions/plot.zoo) to visualize the variation in this ratio over time. 
+- Use [`plot.zoo()`](http://www.rdocumentation.org/packages/zoo/functions/plot.zoo) to visualize the variation in this ratio over time. 
 - Use `abline` to include a horizontal line at `h=1`.
 - Note that when the value of the ratio increases, `ko` outperforms `pep` and vice versa
 - Note that when the value of the ratio is larger than 1, the performance of `ko` since January 2003 is higher than that of `pep`. Therefore, as a reference line, use `abline` to include a horizontal line at `h=1`.
 
 
 *** =hint
-`plot.zoo` only needs one argument, ko_pep.
+[`plot.zoo()`](http://www.rdocumentation.org/packages/zoo/functions/plot.zoo) only needs one argument, ko_pep.
 
 *** =pre_exercise_code
 ```{r}
@@ -173,7 +180,7 @@ legend("topleft", legend=c("Apple","Microsoft","50-50 buy and hold","50-50 rebal
 
 *** =sct
 ```{r}
-test_mc(3) # if 2 is the correct option.
+test_mc(3) # if 3 is the correct option.
 ```
 
 
