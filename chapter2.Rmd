@@ -649,16 +649,25 @@ sp500_returns <- sp500_returns[time(rf )]
 
 # Calculate the mean, volatility, and sharpe ratio
 
+
+
 # Plotting the 12-month rolling annualized mean
 chart.RollingPerformance(R = sp500_returns, width = 12,
                          FUN = "Return.annualized")
 abline(h = returns_ann)
 
-# Plotting the 12-month rolling annualized standard deviation
+# plotting the 12-month rolling annualized standard deviation
 
-# Plotting the 12-month rolling annualized Sharpe ratio
 
-# All three plots together
+
+
+# plotting the 12-month rolling annualized Sharpe ratio
+
+
+
+
+# all three plots together
+
 
 ```
 
