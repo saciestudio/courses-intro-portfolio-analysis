@@ -500,11 +500,13 @@ set.seed(0)
 
 # Compute the mean and standard deviation returns
   
+  
 
 # Draw a random sample returns2
 
 
 # Compute mean and standard deviation of returns2
+
 
 
 # Draw a random sample of 60 observations returns3
@@ -513,10 +515,13 @@ set.seed(0)
 # Compute mean and standard deviation of returns3
 
 
+
 # Draw a random sample of 60 observations returns4
 
 
 # Compute mean and standard deviation of returns4
+
+
 ```
 
 *** =solution
