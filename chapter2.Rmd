@@ -69,12 +69,14 @@ A picture is worth a thousand words. This is why most analyses of performance st
 
 A plot of the S&P 500 for the period of 1986 until today is shown to your right. Each observation on this plot is an end-of-day value. This chart shows a number of booms and busts. Take a look at the chart, do you see why the 2000s are so often called the lost decade of investing?
 
-These daily prices are available in your workspace as the variable `sp500`. This variable is an [*xts*](http://www.rdocumentation.org/packages/xts/) time series class. This means that each observation has a time-stamp. Your job is describe the monthly performance of the S&P 500. To do so, you will first need to aggregate daily price series to end-of-month prices. You will then calculate the monthly returns and visualize them in a table.
+These daily prices are available in your workspace as the variable `sp500`. This variable is an [xts](http://www.rdocumentation.org/packages/xts/) time series class. This means that each observation has a time-stamp. Your job is describe the monthly performance of the S&P 500. To do so, you will first need to aggregate daily price series to end-of-month prices. You will then calculate the monthly returns and visualize them in a table.
 
 *** =instructions
 - Use the function [`to.monthly()`](http://www.rdocumentation.org/packages/xts/functions/to.period) with the argument `sp500` and assign this to `sp500_monthly`
 - Print the first six rows of `sp500_monthly`. Notice how aggregating the data has resulted in a table of four columns holding the opening, lowest, highest, and closing price of `sp500` for each month.
-- Create `sp500_returns` using the function `Return.calculate()` on `sp500_monthly` using the closing prices.
+- Create `sp500_returns` using the function `Return.calculate()` on `sp500_monthly` using the *closing prices* (fourth column in sp500_monthly).
+- Convert `sp500_returns` to the desired time series format using `xts()`.
+- Use `plot.zoo()` to plot the time series.
 - Use the function [`table.CalendarReturns()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.CalendarReturns) in PerformanceAnalytics to present the monthly return data a table format showing year by month.
 
 *** =hint
