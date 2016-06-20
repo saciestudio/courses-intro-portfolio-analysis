@@ -19,7 +19,7 @@ Welcome to Introduction to Portfolio Analysis! In the last video you were given 
 Which of the following is true about investment:
 
 *** =instructions
-- Portfolios are that consist of very different assets are poorly diversified.
+- Portfolios that consist of very different assets are poorly diversified.
 - Portfolios that consist of very different assets are diversified.
 - Investors reduce risk by investing in a fewer number of assets.
 - Portfolio strategies cannot be tested.
