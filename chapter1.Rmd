@@ -730,7 +730,7 @@ plot.zoo(pf_rebal)
 success_msg("Well done!")
 ```
 
---- type:NormalExercise lang:r xp:100 skills:1 
+--- type:NormalExercise lang:r xp:100 skills:1  key:6d949a6e63
 ##  The time series of weights 
 
 In the previous exercise you explored the functionality of the `Return.portfolio()` function and created portfolios using two strategies. However, by setting the argument `verbose = TRUE` in `Return.portfolio()` you can create a list of beginning of period and end of period, weights and values in addition to the portfolio returns, and contributions.
