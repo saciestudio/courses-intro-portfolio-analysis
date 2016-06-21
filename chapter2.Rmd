@@ -55,7 +55,10 @@ abline(v=0.15,lty=3)
 
 *** =sct
 ```{r}
-test_mc(3) # if 3 is the correct option.
+msg1 <- "Distribution A has a somewhat higher average return with low volatility in the tails."
+msg2 <- "Distribution B has a somewat higher average return with a higher volatility in the tails."
+msg3 <- "Thats right! Distribution C has the highest average retun with low volatility in the tails."
+test_mc(3, feedback_msgs = c(msg1, msg2, msg3)) # if 3 is the correct option.
 ```
 
 
@@ -148,10 +151,10 @@ table.CalendarReturns(sp500_returns)
 ```{r}
 # sct code
 #1st instruction
-test_object("sp500_monthly", incorrect_msg = "Did you call the correct function, `to.monthly`?")
+test_object("sp500_monthly", incorrect_msg = "Did you call the correct function, `to.monthly`?", undefined_msg = "Remember that you need to convert `sp500` to monthly returns!")
 
 #2nd instruction
-test_student_typed("head(sp500_monthly)", not_typed_msg = "Did you preview the head of `sp500_monthly`?")
+test_output_contains("head(sp500_monthly)", incorrect_msg = "Did you preview the head of `sp500_monthly`?")
 
 #3rd instruction
 test_function("Return.calculate", c("prices"), incorrect_msg = "Did you use the correct vector?", not_called_msg = "Make sure you call `Return.calculate`.")
@@ -358,20 +361,20 @@ sp500_sharpe <- mean(sp500_excess)/sd(sp500_returns)
 ```{r}
 # sct code
 #1st in struction
-test_object("annualized_rf", incorrect_msg = "Use the compounded interest formula!")
+test_object("annualized_rf", incorrect_msg = "Use the compounded interest formula!", undefined_msg = "Hey, don't forget to create your annualized risk free rate!")
 
 #second instruction
-test_function("plot.zoo", "x", incorrect_msg = "Did you provide the correct object?")
+test_function("plot.zoo", "x", incorrect_msg = "Did you provide the correct object?", not_called_msg = "Don't forget to plot your annualized risk free rate!")
 
 #3rd instruction
-test_object("sp500_excess", incorrect_msg = "Be sure to calculate excess returns properly!")
+test_object("sp500_excess", incorrect_msg = "Be sure to calculate excess returns properly!", undefined_msg = "You need to create a vector of excess returns!")
 
 #4th instruction
-test_function("mean", "x", incorrect_msg = "Did you supply the correct object?")
-test_function("mean", "x", incorrect_msg = "Did you supply the correct bject?")
+test_function("mean", "x", incorrect_msg = "Did you supply the correct object?", index = 1, not_called_msg = "Don't forget to calculate the mean of `sp500_excess`!")
+test_function("mean", "x", incorrect_msg = "Did you supply the correct bject?", not_called_msg = "Don't forget to calculate the mean of `sp500_returns`!", index = 2)
 
 #5th instruction
-test_object("sp500_sharpe", incorrect_msg = "Make sure you calculated the Sharpe Ratio correctly!")
+test_object("sp500_sharpe", incorrect_msg = "Make sure you calculated the Sharpe Ratio correctly!", undefined_msg = "Be sure to calculate the sharpe ratio!")
 
 test_error()
 success_msg("Well done! Remember that the Sharpe Ratio is calculated by taking the mean of excess returns and dividing by the volatility of those returns.")
@@ -389,7 +392,7 @@ In the previous exercise you calculated the excess returns manually. However the
 - Use the function [Return.annualized](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.annualized) to compute the annualized mean of `sp500_returns`.
 - Use the function [StdDev.annualized](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/StdDev.annualized) to compute the annualized standard deviation of `sp500_returns`.
 - Calculate the annualized Sharpe Ratio, assign it to `ann_sharpe`. Assume the risk free rate is 0. 
-- Obtain all the above results at one using the function   [table.AnnualizedReturns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.AnnualizedReturns).
+- Obtain all the above results at one using the function   [table.AnnualizedReturns()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.AnnualizedReturns).
 *** =hint
 Remember that the sharpe ratio is found by taking the mean returns subtracted by the risk-free rate, and then divided by the volatility! 
 
@@ -445,16 +448,16 @@ table.AnnualizedReturns(sp500_returns)
 *** =sct
 ```{r}
 #1st instruction
-test_function("Return.annualized", "R", incorrect_msg = "Did you supply the correct object?", not_called_msg = "Remember to use `Return.annualized`!")
+test_function("Return.annualized", "R", incorrect_msg = "Did you supply the correct object?", not_called_msg = "Remember to use `Return.annualized()`!")
 
 #2nd instruction
-test_function("StdDev.annualized", "x", incorrect_msg = "Did you supply the correct object?", not_called_msg = "Remember to use `StdDev.annualized`!")
+test_function("StdDev.annualized", "x", incorrect_msg = "Did you supply the correct object?", not_called_msg = "Remember to use `StdDev.annualized()`!")
 
 #3rd instruction
 test_object("ann_sharpe", incorrect_msg = "Did you use the functions from the `PerformanceAnalytics` package?")
 
 #4th instruction
-test_function("table.AnnualizedReturns", "R", incorrect_msg = "Be sure to supply `sp500_returns`!")
+test_function("table.AnnualizedReturns", "R", incorrect_msg = "Be sure to supply `sp500_returns`!", not_called_msg = "Make sure you create a table of your returns!")
 
 # sct code
 test_error()
@@ -470,18 +473,18 @@ Portfolio performance evaluation considers that the time series of returns is dr
 
 It is important to remember that when trying to aswer those questions, you expose yourself to estimation errors. Investors will never know exactly what the underlying processes are, they can only make a guess about them from past returns. It is almost sure that the estimates of the mean and volatility will be different from the true mean and standard deviation.
 
-In this exercise, you will begin to familiarize yourself with uncertainty in estimation. You will do this by drawing random samples from a normal distribution with a mean of 5%, and a standard deviation of 10%. You will see how uncertainty is reduced when the sample size grows. We will use the [`rnorm()`](http://www.rdocumentation.org/packages/stats/functions/Normal) function with arguments `"n", "mean", "sd"` to take a sample from the normal distribution.
+In this exercise, you will begin to familiarize yourself with uncertainty in estimation. You will do this by drawing random samples from a normal distribution with a mean of 5%, and a standard deviation of 10%. You will see how uncertainty is reduced when the sample size grows. We will use the [rnorm()](http://www.rdocumentation.org/packages/stats/functions/Normal) function with arguments `n, mean',and `sd` to take a sample from the normal distribution.
 
 
 
 *** =instructions
-- Use the function[`rnorm()`](http://www.rdocumentation.org/packages/stats/functions/Normal) to sample 12 observations with a mean of 5%, and a standard deviation of 10%. Assign this to `returns`.
+- Use the function `rnorm()` to sample 12 observations with a mean of 5%, and a standard deviation of 10%. Assign this to `returns`.
 - Compute the mean and standard deviation of `returns`.
-- Use [`rnorm()`](http://www.rdocumentation.org/packages/stats/functions/Normal) to sample another 12 observations with a mean of 5%, and a standard deviation of 10% and assign this to `returns2`.
+- Use `rnorm()` to sample another 12 observations with a mean of 5%, and a standard deviation of 10% and assign this to `returns2`.
 - Compute the mean and standard deviation of `returns2`.
-- Use [`rnorm()`](http://www.rdocumentation.org/packages/stats/functions/Normal) to sample 60 observations with a mean of 5% and a standard deviation of 10% and assign it to `returns3`.
+- Use `rnorm()` to sample 60 observations with a mean of 5% and a standard deviation of 10% and assign it to `returns3`.
 - Compute the mean and standard deviation of `returns3`.
-- Use [`rnorm()`](http://www.rdocumentation.org/packages/stats/functions/Normal) to sample 60 observations with a mean of 5% and standard deviation of 10% and assign it to `returns4`.
+- Use `rnorm()` to sample 60 observations with a mean of 5% and standard deviation of 10% and assign it to `returns4`.
 - Compute the mean and standard deviation of `returns4`.
 
 *** =hint
@@ -561,21 +564,21 @@ sd(returns4)
 ```{r}
 # sct code
 
-test_function("rnorm", c("n", "mean", "sd"))
-test_function("mean", "x")
-test_function("sd", "x")
+test_function("rnorm", c("n", "mean", "sd"), index = 1)
+test_function("mean", "x", index = 1)
+test_function("sd", "x", index = 1)
 
-test_function("rnorm", c("n", "mean", "sd"))
-test_function("mean", "x")
-test_function("sd", "x")
+test_function("rnorm", c("n", "mean", "sd"), index = 2)
+test_function("mean", "x", index = 2)
+test_function("sd", "x", index = 2)
 
-test_function("rnorm", c("n", "mean", "sd"))
-test_function("mean", "x")
-test_function("sd", "x")
+test_function("rnorm", c("n", "mean", "sd"), index = 3)
+test_function("mean", "x", index = 3)
+test_function("sd", "x", index = 3)
 
-test_function("rnorm", c("n", "mean", "sd"))
-test_function("mean", "x")
-test_function("sd", "x")
+test_function("rnorm", c("n", "mean", "sd"), index = 4)
+test_function("mean", "x", index = 4)
+test_function("sd", "x", index = 4)
 
 success_msg("Well done!")
 ```
@@ -593,7 +596,7 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:150 skills:1 key:737157d7421c452d9ab7cb48fc219403c4db82ff
 ## Rolling annualized mean and volatility
 
-In previous exercises you have already familiarized yourself with the [Return.annualized()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.annualized) and [StdDev.annualized()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/StdDev.annualized) functions. In this exercise you will also use the function [SharpeRatio.annualized()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/SharpeRatio.annualized) to calculate the annualized Sharpe Ratio. This function takes the arguments `R`, and `Rf`. The `R` argument takes an xts, vector, matrix, data.frame, timeSeries or zoo object of asset returns. The `Rf` argument is necessary in `SharpeRatio.annualized()`, as it takes into account the risk-free rate in the same period of your returns. For this example you can use the object `rf` to fulfill the `Rf` argument. 
+In previous exercises you have already familiarized yourself with the `Return.annualized()` and `StdDev.annualized()` functions. In this exercise you will also use the function [SharpeRatio.annualized()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/SharpeRatio.annualized) to calculate the annualized Sharpe Ratio. This function takes the arguments `R`, and `Rf`. The `R` argument takes an xts, vector, matrix, data.frame, timeSeries or zoo object of asset returns. The `Rf` argument is necessary in `SharpeRatio.annualized()`, as it takes into account the risk-free rate in the same period of your returns. For this example you can use the object `rf` to fulfill the `Rf` argument. 
 
 The function [chart.RollingPerformance()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.RollingPerformance) makes it easy to visualize the rolling estimates of performance in R. Familiarize yourself first with the syntax of this function. It requires to specify the time series of portfolio returns (by setting the argument `R`), the length of the window (`width`) and the function used to compute the performance (argument `FUN`).
 
@@ -602,11 +605,12 @@ The function [chart.RollingPerformance()](http://www.rdocumentation.org/packages
 - We provided the code for a plot of rolling 12-month estimate of annualized mean with (`returns_ann`) as a horizontal reference. Use this to help with the other plots!
 - Plot the rolling 12-month estimates of the annualized volatility of the S&P 500 returns. Add `sd_ann` as a horizontal reference.
 - Plot the rolling 12-month estimates of the annualized Sharpe Ratio of the S&P 500 returns. Add `sharpe_ann` as a horizontal reference. 
-- To see all three plots together, use the function [charts.RollingPerformance()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/charts.RollingPerformance).
+- To see all three plots together, use the function `charts.RollingPerformance()`.
 
 *** =hint
 -Use the function `abline()` with the argument `h` set to your horizontal reference. 
-- Do not forget to include the argument `Rf` for `SharpeRatio.annualized()`, `charts.RollingPerformance()` when `FUN = "SharpeRatio.annualized"`, and `charts.RollingPerformance()`. 
+- Do not forget to include the argument `Rf` for `SharpeRatio.annualized()`, `charts.RollingPerformance()` when `FUN = "SharpeRatio.annualized"`, and `charts.RollingPerformance()`.
+
 *** =pre_exercise_code
 ```{r}
 # pec
@@ -648,8 +652,6 @@ sp500_returns <- sp500_returns[time(rf )]
 # sp500_returns is preloaded in your workspace
 
 # Calculate the mean, volatility, and sharpe ratio
-
-
 
 
 # Plotting the 12-month rolling annualized mean
@@ -697,23 +699,24 @@ charts.RollingPerformance(R = sp500_returns, width = 12, Rf = rf)
 *** =sct
 ```{r}
 #1st instruction
-test_object("returns_ann", incorrect_msg = "Did you calculate the returns on the correct object?")
-test_object("sd_ann", incorrect_msg = "Did you calculate the annualized standar deviation on the correct object?")
+test_object("returns_ann", incorrect_msg = "Did you calculate the returns on the correct object?", undefined_msg = "You need to calclulate the annualized returns!")
+test_object("sd_ann", incorrect_msg = "Did you calculate the annualized standar deviation on the correct object?", undefined_msg = "You need to calculate the annualized standard deviation!")
+test_object("sharpe_ann", incorrect_msg = "Did you calculate the annualized sharpe ratio with the correct object?", undefined_msg = "You need to calculate the annualized sharpe ratio!")
 
 #2nd instruction
-test_function("chart.RollingPerformance", c("R", "width", "FUN"))
-test_function("abline", "h")
+test_function("chart.RollingPerformance", c("R", "width", "FUN"), index = 1, incorrect_msg = "Did you specify the correct function for the argument `FUN`?")
+test_function("abline", "h", index = 1, incorrect_msg = "Make sure you use the correct horizontal reference!")
 
 #3rd instruction
-test_function("chart.RollingPerformance", c("R", "width", "FUN"))
-test_function("abline", "h")
+test_function("chart.RollingPerformance", c("R", "width", "FUN"), index = 2, incorrect_msg = "Did you specify the correct function for the argument `FUN`?")
+test_function("abline", "h", index = 2, incorrect_msg = "Make sure you use the correct horizontal reference!")
 
 #4th instruction
-test_function("chart.RollingPerformance", c("R", "width", "FUN", "Rf"))
-test_function("abline", "h")
+test_function("chart.RollingPerformance", c("R", "width", "FUN", "Rf"), index = 3, incorrect_msg = "Did you specify the correct function for the argument `FUN`?")
+test_function("abline", "h", index = 3, incorrect_msg = "Make sure you use the correct horizontal reference!")
 
 #5th
-test_function("chart.RollingPerformance", c("R", "width", "Rf"))
+test_function("chart.RollingPerformance", c("R", "width", "Rf"), index = 4)
 success_msg("Well done!")
 ```
 
@@ -926,11 +929,11 @@ kurtosis(sp500_monthly)
 
 *** =sct
 ```{r}
-test_function("skewness", "x")
-test_function("skewness", "x")
+test_function("skewness", "x", index = 1)
+test_function("skewness", "x", index = 2)
 
-test_function("kurtosis", "x")
-test_function("kurtosis", "x")
+test_function("kurtosis", "x" index = 1)
+test_function("kurtosis", "x", index = 2)
 
 
 # sct code
@@ -949,13 +952,13 @@ The *expected shortfall* is another measure of risk that focuses on the average 
 In this exercise you will examine the potential risk of the monthly returns of the S&P 500. You will use the functions [SemiDeviation()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/DownsideDeviation),
 [VaR()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/VaR),
 and [ES()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/ES).
-These functions all require the argument `R`, which is an xts, vector, matrix, data.frame, timeSeries, or zoo object of asset returns. However the [VaR()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/VaR),
-and [ES()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/ES) require another argument `p`, or confidence level.
+These functions all require the argument `R`, which is an xts, vector, matrix, data.frame, timeSeries, or zoo object of asset returns. However the `VaR()`, 
+and `ES()` require another argument `p`, or confidence level.
 
 *** =instructions
 - Compute the [SemiDeviation()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/DownsideDeviation) of the monthly returns.
-- Use the default implementation in the function [VaR()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/VaR) to estimate the 2.5% and 5% value-at-risk of a monthly investment in S&P 500 returns. 
-- Use the default implementation in the function [ES()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/ES) to estimate the 2.5% and 5% expected shortfall of a monthly investment in S&P 500 returns. 
+- Use the default implementation in the function `VaR()` to estimate the 2.5% and 5% value-at-risk of a monthly investment in S&P 500 returns. 
+- Use the default implementation in the function `ES()` to estimate the 2.5% and 5% expected shortfall of a monthly investment in S&P 500 returns. 
 
 *** =hint
 The values 2.5%, and 5% should be used for your p-values in `VaR` and `ES`. 
@@ -1010,12 +1013,12 @@ ES(sp500_monthly, p = 0.025)
 test_function("SemiDeviation", "R")
 
 #2nd
-test_function("VaR", c("R", "p"))
-test_function("VaR", c("R", "p"))
+test_function("VaR", c("R", "p"), index = 1)
+test_function("VaR", c("R", "p"), index = 2)
 
 #3rd
-test_function("ES", c("R", "p"))
-test_function("ES", c("R", "p"))
+test_function("ES", c("R", "p"), index = 1)
+test_function("ES", c("R", "p"), index = 2)
 
 # sct code
 success_msg("Well done! You now know how to calculate the potential risk of your investments.")
@@ -1031,8 +1034,8 @@ The function [table.Drawdowns()](http://www.rdocumentation.org/packages/Performa
 You will now explore the historic drawdown episodes of the monthly returns of the S&P 500. The returns are loaded into your workspace as `sp500_monthly`.
 
 *** =instructions
-- Calculate the five largest drawdowns using [table.Drawdowns()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.Drawdowns).
-- Visualize the drawdowns of the monthly returns using [chart.Drawdown()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Drawdown).
+- Calculate the five largest drawdowns using `table.Drawdowns()`.
+- Visualize the drawdowns of the monthly returns using `chart.Drawdown()`.
 
 *** =hint
 Drawdowns can be visualized using [chart.Drawdown()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Drawdown). 
@@ -1084,6 +1087,8 @@ success_msg("Congratulations! You now know how to report and visualize drawdown 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1  key:bdf87df244
 ## Main take-aways on portfolio performance evaluation
+
+----THIS NEEDS EDITING / CHANGING ----
 
 Does your investment strategy work? This chapter has shown that the answer to this question requires, first of all, to analyzethe portfolio returns, and, secondly, that, often, there is no unique answer to this question.
 
