@@ -59,7 +59,7 @@ of the share price of PepsiCo
 
 
 *** =hint
-[`plot.zoo()`](http://www.rdocumentation.org/packages/zoo/functions/plot.zoo) only needs one argument, ko_pep.
+`plot.zoo()` only needs one argument, ko_pep.
 
 *** =pre_exercise_code
 ```{r}
@@ -109,7 +109,7 @@ plot.zoo(ko_pep)
 # Note that, when the value of the ratio increases, the price of the share of Coca Cola Company increases more than the price of PepsiCo, and vice versa
 
 # Add, as a reference a horizontal line at 1
-abline(h=1)  
+abline(h = 1)  
 
 # Where the value of the ratio is larger than one, the Coca Cola Company outperforms PepsiCo (when evaluating since January 2003)
 ```
@@ -156,7 +156,7 @@ Which of the following statements is false?
 - Because the prices of Microsoft and Apple have evolved differently, the investor who spent initially half of his wealth on Microsoft and Apple ends up with a portfolio that is no longer equally invested. 
 
 *** =hint
-
+Having a large quantity of capital isn't always necessary to begin investing!
 
 *** =pre_exercise_code
 ```{r}
@@ -251,13 +251,16 @@ success_msg("Well done! Remember that the weight of an asset is calculated by ta
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:ca2625a363bea895fda8cc4f1d12f3a2cca25da3
 ## The weights of an equally weighted portfolio
 
-The equally weighted portfolio is one of the most used portfolios. Suppose the portfolio is equally invested in $N$ assets. Let `N <- 100`. By testing this in the R console, find out which of the following commands does not define properly the weights for the equally-weighted portfolio.  
+The equally weighted portfolio is one of the most used portfolios. Suppose the portfolio is equally invested in $N$ assets. Let `N <- 100`. Use the R console to determine which of the following commands creates an equally weighted portfolio. 
+
+
+.  
 
 *** =instructions
-- `weights <- rep(1,N)/N`
 - `weights <- 1/N`
 - `weights <- rep(1/N,N)`
-
+- `weights` <- rep(N, 1)
+- `weights` <- rep(1/N, 1)
 *** =hint
 The function `rep(arg1,arg2)` creates a vector in which `arg1` is replicated `arg2` times. 
 
@@ -268,7 +271,11 @@ The function `rep(arg1,arg2)` creates a vector in which `arg1` is replicated `ar
 
 *** =sct
 ```{r}
-test_mc(2) # if 2 is the correct option.
+ms1 <- Not quite! This creates a vector of one value!
+msg2 <- That's right! This creates a vector of length `N`, or 100 where each value is the same! 
+msg3 <- Oops! This creates a vector of length 1.
+msg4 <- Not quite! This creates a vector of length 1, where the value is 1/100!
+test_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4)) 
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:ccb1301f85e423d2c1f28ba595bf9e688611fff5
@@ -326,16 +333,16 @@ hist(weights)
 ```{r}
 # sct code
 #1st instruction
-test_object("marketcaps", incorrect_msg = "Did you use the given values for market caps?")
+test_object("marketcaps", incorrect_msg = "Did you use the given values for market caps?", undefined_msg = "Oops! Did you create a vector of `marketcaps`?")
 
 #2nd instruction
-test_object("weights", incorrect_msg = "Remember that weights are calculated by taking the market cap of an asset divided by the sum of all market caps.")
+test_object("weights", incorrect_msg = "Remember that weights are calculated by taking the market cap of an asset divided by the sum of all market caps.", undefined_msg = "Don't forget to create a vector of asset weights!")
 
 #3rd instruction
-test_student_typed("summary(weights)", not_typed_msg = "Make sure to plot a summary of `weights`!")
+test_student_typed("summary(weights)", not_typed_msg = "Make sure to plot a summary of `weights`!", not_typed_msg = "Make sure you print a summary of the weights!")
 
 #4th instruction
-test_student_type("hist(weights)", not_typed_msg = "Make sure to create a histogram of `weights`!")
+test_output_contains("hist(weights)", incorrect_msg = "Make sure to create a histogram of `weights`!")
 
 success_msg("Well done! Remember that market capitalizations are the market value of a company's shares, and that weights are calculated by taking the market cap and dividing by the sum of market caps for all assets in a portfolio. ")
 ```
@@ -427,19 +434,19 @@ all.equal(preturns,
 ```{r}
 # sct code
 #1st instruction
-test_object("in_values", incorrect_msg = "Did you use the correct asset values?")
+test_object("in_values", incorrect_msg = "Did you use the correct asset values?", undefined_msg = "Be sure to create a vector of initial values!")
 
 #2nd instruction
-test_object("fin_values", incorrect_msg = "Did you use the correct final asset values?")
+test_object("fin_values", incorrect_msg = "Did you use the correct final asset values?", undefined_msg = "Be sure to create a vector of final values!")
 
 #3rd instruction
-test_object("returns", incorrect_msg = "Are you sure you calculated the simple return correctly?")
+test_object("returns", incorrect_msg = "Are you sure you calculated the simple return correctly?", undefined_msg = "Did you create a vector of returns?")
 
 #4th instruction
-test_object("weights", incorrect_msg = "Make sure you calculated weights correctly!")
+test_object("weights", incorrect_msg = "Make sure you calculated weights correctly!", undefined_msg = "Oops! You need to create a vector called `weights`!")
 
 #5th instruction
-test_object("preturns", incorrect_msg = "Make sure you calculated the portfolio return correctly!")
+test_object("preturns", incorrect_msg = "Make sure you calculated the portfolio return correctly!", undefined_msg = "You need to calculate the portfolio returns!")
 
 #6th instruction
 test_student_typed("all.equal(preturns,
@@ -453,12 +460,14 @@ success_msg("Congratulations! You proved that portfolio returns are the weighted
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:f40515851bfc2aae1bb2f094ba4f5b8d51c5d272
 ## The returns of an equally weighted portfolio
 
-Below you find three commands to compute the portfolio return of an equally weighted portfolio of `N <- 100` assets with return vector `returns`. By testing this in the R console, find out which of the following commands is false.
+Below you find three commands to compute the portfolio return of an equally weighted portfolio of `N <- 100` assets with return vector `returns`. Using your R console, determine which of the following commands creates your portfolio returns. 
 
 *** =instructions
-- `preturn  <- mean(returns)`
-- `preturn  <- sum(rep(1/N, N) * returns)`
-- `preturn  <- rep(mean(returns), N)`
+- `preturn <- mean(returns / N)`
+- `preturn <- mean(returns)`
+- `preturn <- rep(mean(returns), N / returns)`
+- None of the above.
+
 
 *** =hint
 The portfolio return is a single number. 
@@ -470,7 +479,7 @@ The portfolio return is a single number.
 
 *** =sct
 ```{r}
-test_mc(1) # if 2 is the correct option.
+test_mc(2) # if 2 is the correct option.
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:6fda9fa37a19f2326c9e7164c8617f1936dc7124
@@ -520,7 +529,7 @@ It is important to be aware of the fact that a positive and negative return of t
 - 200%
 
 *** =hint
-hint
+In order to return to your initial value, what percent of your value after a loss do you need to return to your intial value?
 
 *** =pre_exercise_code
 ```{r}
@@ -548,21 +557,21 @@ success_msg("Well done! After 50% loss you would need to double the amount of mo
 --- type:NormalExercise lang:r xp:100 skills:1 key:1d4270da1d39343116d0e77f9b897e6b2127914f
 ## The time series of asset returns  
 
-Calculating the returns for one period is pretty straight forward to do in R. When the returns need to be calculated for different dates the functions [`Return.calculate()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.calculate) and [`Return.portfolio()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio), in the R package [PerformanceAnalytics](http://www.rdocumentation.org/packages/performanceanalytics/functions/performanceanalytics-package) are extremely helpful. They require the input data to be of the [xts-time series class](http://www.rdocumentation.org/packages/xts/functions/xts-package). You will explore the functionality of the `PerformanceAnalytics` package in this exercise. 
+Calculating the returns for one period is pretty straight forward to do in R. When the returns need to be calculated for different dates the functions [Return.calculate()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.calculate) and [`Return.portfolio()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio), in the R package [PerformanceAnalytics](http://www.rdocumentation.org/packages/performanceanalytics/functions/performanceanalytics-package) are extremely helpful. They require the input data to be of the [xts-time series class](http://www.rdocumentation.org/packages/xts/functions/xts-package). You will explore the functionality of the `PerformanceAnalytics` package in this exercise. 
 
 You have a portfolio invested in Apple stock, and Microsoft stock. The prices for each stock are available in the variables `aapl` and `msft` in your workspace.
 
 *** =instructions
 - Load the packages `xts` and `PerformanceAnalytics` in your R session.
-- Use the function [`merge()`](http://www.rdocumentation.org/packages/xts/functions/merge) to bind the variables `aapl` and `msft`, call this `prices`.
+- Use the function [merge()](http://www.rdocumentation.org/packages/xts/functions/merge) to bind the variables `aapl` and `msft`, call this `prices`.
 - Print the first and last six row of `prices` using `head` and `tail`.
-- Use the function [`Return.calculate()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.calculate) with as only argument `prices` to compute for each date the return as the percentage change in the price compared to the previous date, call this `returns`.
+- Use the function `Return.calculate()` with the only argument `prices` to compute for each date the return as the percentage change in the price compared to the previous date, call this `returns`.
 - Print the first six rows of `returns`.
 - Remove the first row of `returns`
  
 
 *** =hint
-hint comes here
+Look at the documentation for `merge()` if you need help combining your vectors!
 
 *** =pre_exercise_code
 ```{r}
@@ -631,23 +640,23 @@ test_library_function(xts, not_called_msg = "Make sure to call the xts library!"
 test_library_function(PerformanceAnalytics, not_called_msg = "Make sure to call the PerformanceAnalytics library!")
 
 #2nd instruction
-test_object("prices")
+test_object("prices", incorrect_msg = "Did you use the merge function properly? Also, be sure not to alter the `colnames()` function!", undefined_msg = "You need to merge your return series!")
 
 #3rd instruction
-test_student_typed("head(prices)")
-test_student_typed("tail(prices)")
+test_output_contains("head(prices)", incorrect_msg = "Oops! Be sure to look at the head of `prices`!")
+test_student_typed("tail(prices)", incorrect_msg = "Oops! Be sure to look at the tail of `prices`!")
 
 #4th instruction
-test_object("returns")
+test_object("returns", incorrect_msg = "Did you provide the correct object to `Return.calculate()`?", undefined_msg = "You need to create an object of returns!", index = 1)
 
 #5th instruction
-test_student_typed("head(returns)")
+test_output_contains("head(returns)", incorrect_msg = "It looks like you didn't print the head of your returns!")
 
 #6th instruction
-test_object("returns")
+test_object("returns", index = 2)
 
 test_error()
-success_msg("Well done!")
+success_msg("Well done! Notice that you removed the first row of your returns because they were `NA` values!")
 ```
 
 
@@ -815,7 +824,7 @@ eop_weight_bh <- pf_bh$EOP.Weight
 eop_weight_rebal <- pf_rebal$EOP.Weight
 
 # Plot end of period weights
-par(mfrow=c(2,1),mar=c(2,4,2,2))
+par(mfrow = c(2, 1), mar = c(2, 4, 2, 2))
 plot.zoo(eop_weight_bh$AAPL)
 plot.zoo(eop_weight_rebal$AAPL)
 ```
@@ -823,6 +832,25 @@ plot.zoo(eop_weight_rebal$AAPL)
 
 *** =sct
 ```{r}
+#1
+test_object("weights", incorrect_msg = "Remember that weights need to add to unity (1)!", undefined_msg = "Don't forget to create a vector of weights!")
+
+#2
+test_obect("pf_bh", incorrect_msg = "You should set your weights argument equal to `weights` and `verbose = TRUE`!", undefined_msg = "Oops! You forgot to create a portfolio using a buy and hold technique.")
+
+#3
+test_obect("pf_rebal", incorrect_msg = "You should set your `rebalance_on` argument to `"months"`, and `verbose = TRUE`!" undefined_msg = "Oops! You forgot to create a portfolio using a monthly rebalancing technique.")
+
+#4
+test_object("eop_weight_bh", incorrect_msg = "Did you select the `$EOP.Weight` to create your end of period weight vector?", undefined_msg = "Don't forget to create a vector of the end of period weights for your buy and hold portfolio!")
+
+#5
+test_object("eop_weight_rebal", incorrect_msg = "Did you select the `$EOP.Weight` to create your end of period weight vector?", undefined_msg = "Don't forget to create a vector of the end of period weights for your monthly rebalanced portfolio!")
+
+test_output_contains("par(mfrow = c(2,1), mar = c(2, 4, 2, 2))")
+test_output_contains("plot.zoo(eop_weight_bh$AAPL")
+test_output_contains("plot.zoo(eop_weight_rebal$AAPL")
+
 # sct code
 success_msg("Well done!")
 ```
