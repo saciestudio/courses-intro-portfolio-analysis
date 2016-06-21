@@ -85,6 +85,8 @@ success_msg("Good job!")
 --- type:NormalExercise lang:r xp:50 skills:1     key:69c5664fdb
 ## Driver 2: the choice of porfolio weights
 
+---NEEDS REWORKING---
+
 Investors can optimize the choice of weight to obtain the highest risk-adjusted return, as measured by the portfolio Sharpe ratio.
 
 In the special case of investing the total portfolio value in only two assets, there is only one weight to determine, since the weight on the second asset equals one minus the weight of the first asset. 
@@ -194,6 +196,7 @@ As an exercise, suppose you have an equally weighted portfolio of two assets. Th
 
 *** =hint
 When correlation increases, potential risk increases. What is one measurement of risk?
+
 *** =pre_exercise_code
 ```{r}
 
@@ -220,14 +223,14 @@ Now you will learn how to compute the correlation between equity returns and bon
 In this exercise you will learn 3 new functions from the PerformanceAnalytics package. These are [chart.Scatter()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Scatter)`, [chart.Correlation()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Correlation), and [chart.RollingCorrelation()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.RollingCorrelation). 
 
 *** =instructions
-- Plot the equity returns (`returns_equities`) against the bond returns (`returns_bonds`) using the function [chart.Scatter()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Scatter) with the bond returns on the x-asis. Do you see a relation? 
+- Plot the equity returns (`returns_equities`) against the bond returns (`returns_bonds`) using the function `chart.Scatter()` with the bond returns on the x-asis. Do you see a relation? 
 - Compute the correlation between the variables `returns_equities` and `returns_bonds` using the standard function `cor()`.
-- Merge `return_equities`, and `returns_bonds` using [merge()](http://www.rdocumentation.org/packages/base/functions/merge). Call this `returns`.
+- Merge `return_equities`, and `returns_bonds` using `merge()`. Call this `returns`.
 - Compute and visualize the correlation again, except using [chart.Correlation()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Correlation) with `returns` as the argument. 
-- Commpute the rolling 24-month estimates of the bond-equity correlation using the function [chart.RollingCorrelation()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.RollingCorrelation), use the arguments `R`, and `width`. 
+- Commpute the rolling 24-month estimates of the bond-equity correlation using the function `chart.RollingCorrelation()`, use the arguments `R`, and `width`. 
 
 *** =hint
-[chart.RollingCorrelation()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.RollingCorrelation) uses two time-series for the argument `R`, and the `width` is the number of months.
+`chart.RollingCorrelation()` uses two time-series for the argument `R`, and the `width` is the number of months.
 
 *** =pre_exercise_code
 ```{r}
@@ -298,7 +301,7 @@ chart.RollingCorrelation(returns_equities, returns_bonds, width = 24)
 test_function("chart.Scatter", c("x", "y"), not_called_msg = "Oops! Did you create a scatter plot?", incorrect_msg = "Be sure to plot bond returns on the correct axis!")
 
 #2nd
-test_function("cor", c("x", "y"), not_called_msg not_called_msg = "Be sure to find the correlation of returns!")
+test_function("cor", c("x", "y"),  not_called_msg = "Be sure to find the correlation of returns!")
 
 #3rd
 test_object("returns", undefined_msg = "Hey, it looks like you didn't merge the asset returns!")
@@ -421,7 +424,7 @@ abline(h = 0, lty = 3)
 *** =sct
 ```{r}
 #1st
-test_function("apply", c("X", "MARGIN", "FUN"), not_called_msg not_called_msg = "Be sure to calculate column-wise means!", incorrect_msg = "Did you specify the correct function?", index = 1)
+test_function("apply", c("X", "MARGIN", "FUN"), not_called_msg = "Be sure to calculate column-wise means!", incorrect_msg = "Did you specify the correct function?", index = 1)
 
 #2nd
 test_function("apply", c("X", "MARGIN", "FUN"), not_called_msg = "Oops! Did you calculate column-wise standard deviations?", incorrect_msg = "Did you specify the correct function?", index = 2)
@@ -429,7 +432,7 @@ test_function("apply", c("X", "MARGIN", "FUN"), not_called_msg = "Oops! Did you 
 #3rd
 test_function("plot", c("x", "y"), incorrect_msg = "Oops! Are the standard deviations plotted on the correct axis?")
 test_output_contains("text(sds, means, labels = colnames(returns), cex = 0.7)", incorrect_msg = "Oops! Did you alter the code we provided?!")
-test_output_contains("abline(h = 0, lty = 3", "He! Did you change our code?")
+test_output_contains("abline(h = 0, lty = 3", "Hey! Did you change our code?")
 
 success_msg("Well done! Take a look the plot you just created. Do you see you any patterns?")
 ```
@@ -528,12 +531,13 @@ test_object("cor_matrix", undefined_msg = "Did you create your correlation matri
 #4th
 test_output_contains("cov_matrix[1,2] == cor_matrix[1,2]*vsd[1]*vsd[2]", incorrect_msg = "Oops! Make sure you didn't change the last line of code we provide you!")
 
-success_msg("Well done! These matrices can help you in your calculation, and are also a good reference to see the relationship between your assets.")
+success_msg("Well done! These matrices can help you in your calculations, and are also a good reference to see the relationship between your assets.")
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1   key:21e408b8c65335ed2599fcb8ff64b5c9b352c374
 ## Matrix-based calculation of portfolio mean and variance
 
+--- NEEDS REWORKING ---
 When $w$ is the column-matrix of portfolio weights, $\mu$ the column-matrix of expected returns, and $\Sigma$ the return covariance matrix. Then the portfolio expected return is $w'\mu$, and the portfolio variance is $w'\Sigma w$.
 
 You will practice matrix multiplication in R using the `%*%` function, instead of the standard `*`. In addition you will transpose the matrices by using the standard function `t()`. Remember that transposing a matrix is simply changing the rows of the matrix to the columns.
@@ -655,15 +659,15 @@ success_msg("Well done!")
 
 In the previous video you saw the difference between a captial allocation budget, and a risk budget. In this exercise you will construct a risk budget. You will disover how large each assets percent risk contribution is in the total portfolio volatility. 
 
-For this last exercise you will calculate the risk contributions for a portfolio that is invested *40% in equities, 40% in bonds, 10% in real estate, and 10% in commodities*. To do so, you will use the function [StdDev()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/StdDev). The [StdDev()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/StdDev) function creates a list of the assets' standard deviation (`$StdDev`), their risk contribution (`$contribution`), and their percent risk contribution (`$pct_contrib_StdDev`). 
+For this last exercise you will calculate the risk contributions for a portfolio that is invested *40% in equities, 40% in bonds, 10% in real estate, and 10% in commodities*. To do so, you will use the function [StdDev()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/StdDev). The `StdDev()` function creates a list of the assets' standard deviation (`$StdDev`), their risk contribution (`$contribution`), and their percent risk contribution (`$pct_contrib_StdDev`). 
 
-You will be using three arguments in the [StdDev()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/StdDev) function to do this calculation. The first is `R`, a vector, matrix, data frame, time series or zoo object of returns. The second is `portfolio_method`, which you will be setting to `"component"`, and the third is `weights`.
+You will be using three arguments in the `StdDev()` function to do this calculation. The first is `R`, a vector, matrix, data frame, time series or zoo object of returns. The second is `portfolio_method`, which you will be setting to `"component"`, and the third is `weights`.
 
 The object `returns` is loaded in your workspace.
 
 *** =instructions
 - Create a vector of the portfolio weights. 
-- Calculate your volatility budget using [StdDev()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/StdDev). Set `portfiol_method = "component" and `weights` equal to the vector of weights. Call this `vol_budget`.
+- Calculate your volatility budget using `StdDev()`. Set `portfiol_method = "component" and `weights` equal to the vector of weights. Call this `vol_budget`.
 - Combine the weights and the percentage risk contributions in a table called `weights_percrisk` using `cbind()`.
 - Print the table and note how different the percentage risk contributions are compared to the portfolio weights. 
 
