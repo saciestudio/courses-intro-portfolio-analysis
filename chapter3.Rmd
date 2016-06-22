@@ -545,28 +545,26 @@ success_msg("Well done! These matrices can help you in your calculations, and ar
 --- type:NormalExercise lang:r xp:100 skills:1   key:21e408b8c65335ed2599fcb8ff64b5c9b352c374
 ## Matrix-based calculation of portfolio mean and variance
 
---- NEEDS REWORKING ---
+NEEDS REWORKING 
+
 When $w$ is the column-matrix of portfolio weights, $\mu$ the column-matrix of expected returns, and $\Sigma$ the return covariance matrix. Then the portfolio expected return is $w'\mu$, and the portfolio variance is $w'\Sigma w$.
 
 You will practice matrix multiplication in R using the `%*%` function, instead of the standard `*`. In addition you will transpose the matrices by using the standard function `t()`. Remember that transposing a matrix is simply changing the rows of the matrix to the columns.
 
+The object `returns` is pre-loaded in your workspace!
+
 
 *** =instructions
-- Create a vector of the weights of a portfiol that is invested 40% in equities, 40% in bonds, 10% in real estate, and 10% in commodities. Call this new variable `weights`.
-- Calculate the portfolio returns using `Return.portfolio`, and rebalance your weights monthly. Assign this to `preturns`.
-- Calculate the annualized mean, and the annualized volatility of `preturns`.
-
-
-
-- Compute the annualized mean and volatility of the portfolio return series. 
-- To replicate this with matrix notation, first complete the code to compute the column-matrix of portfolio weights and
-expected returns and the covariance matrix. 
-- Now use the matrix products to compute the annualized mean return and volatility.
+- Create a vector of weights called `weights`.
+- Convert weights to a matrix called `w` using `as.matrix()`.
+- Calculate the row means of returns using `apply()`, and convert this to a matrix called `mu`.
+- Create a covariance matrix of returns called `sigma`.
+- Calculate portfolio mean monthly return. Remember the function `t()` transposes a vector.
+- Calculate the portfolio volatility.
 
 *** =hint
 
-- annualized mean = 12 * mean(preturns)
-- annualized volatility = sqrt(12) * sd(preturns)
+Reference the formulas in the exercise description to do your calculations. 
 
 *** =pre_exercise_code
 ```{r}
@@ -603,51 +601,58 @@ returns <- returns[(-1),]
 
 *** =sample_code
 ```{r}
-# the monthly returns on the four assets are preloaded as  returns
-# define vector of weights
-weights <-  
-# compute portfolio returns
-preturns <- Return.portfolio(returns, weights,rebalance_on="months")
-# print annualized mean and volatility
+# Define a vector of weights
 
-# turn weights and mean returns into a column-matrix
-weights <- as.matrix(weights)
-mu <- as.matrix(apply(returns,2,"mean"))
-# sigma is the estimated covariance matrix
-sigma <- 
-# transsposed matrix
-tweights <- t(weights) 
-# annualized portfolio mean
-12*(tweights%*% )
-# annualized volatility
-sqrt(12)*sqrt(tweights %*% sigma %*% ___)
+
+# Create a weight matrix w
+
+
+# Calculate mean returns mu
+
+
+# Create a covariance matrix of returns sigma
+
+
+# Calculate portfolio mean monthly returns
+
+
+# Calculate portfolio volatility
 ```
 
 *** =solution
 ```{r}
-# define vector of weights
-weights <-   c(0.4,0.4,0.1,0.1)
-preturns <- Return.portfolio(returns, weights,rebalance_on="months")
-# Annualized mean and volatility
-12*mean(preturns)
-sqrt(12)*sd(preturns)
-# turn weights and mean returns into a column-matrix
-weights <- as.matrix(weights)
-mu <- as.matrix(apply(returns,2,"mean"))
-# sigma is the estimated covariance matrix
+# Define a vector of weights
+weights <- c(0.4, 0.4, 0.1, 0.1)
+
+# Create a weight matrix w
+w <- as.matrix(weights)
+
+# Calculate mean returns mu
+mu <- as.matrix(apply(returns, 2, “mean”))
+
+# Create a covariance matrix of returns sigma
 sigma <- cov(returns)
-# transsposed matrix
-tweights <- t(weights)
-# transsposed matrix
-tweights <- t(weights) 
-# annualized portfolio mean
-12*(tweights %*% mu )
-# annualized volatility
-sqrt(12)*sqrt(tweights %*% sigma %*% weights)
+
+# Calculate portfolio mean monthly returns
+t(w) %*% mu
+
+# Calculate portfolio volatility
+sqrt(t(w) %*% sigma %*% w)
 ```
 
 *** =sct
 ```{r}
+#1
+test_object("weights", undefined_msg = "Make sure you create a vector of weights!", incorrect_msg = "Oops! It looks like you used the wrong weights!")
+
+#2
+test_object("w", undefined_msg = "It looks like you need to make your matrix of weights!", incorrect_msg = "Make sure you use the function `as.matrix()`!")
+#3
+test_object("mu", undefined_msg = "Hey! You forgot to create a matrix of mean returns!", incorrect_msg = "Make sure you convert your calculations to a matrix!")
+#4
+test_object("sigma", undefined_msg = "Oops! You didn't make a covariance matrix!", incorrect_msg = "Whoops! You didn't create your covariance matrix properly. Try using `cov()`!")
+#5
+test_output_contains("t(w) %*% mu", incorrect_msg = "Make sure you multiply by the transpose of w!")
 # sct code
 success_msg("Well done!")
 ```
