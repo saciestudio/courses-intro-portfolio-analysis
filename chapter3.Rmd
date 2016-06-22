@@ -16,7 +16,7 @@ description : In addition to studying portfolio performance based on the observe
 
 So far in the previous chapters you have seen that there are three types of drivers for a portfolio's performance: (i) the individual performance of the assets in terms of risk and return, (ii) the portfolio weight of each of the assets, (iii) the correlation between the asset returns. 
   
-You will now explore how the portfolio mean return and volatility depends on the mean returns and volatility of the assets that a portfolio is invested in. In this example you will consider investing—with monthly frequency—in US equities and US bonds. Each asset's returns are stored in your workspace as  `returns_equities`, and `returns_bonds`, in addition the portfolio returns are stored as `returns_6040`. You have a portfolio that is invested 60/40, meaning that every month you invest 60% in equities, and 40% bonds.
+You will now explore how the portfolio mean return and volatility depends on the mean returns and volatility of the assets that a portfolio is invested in. In this example you will consider investing—with monthly frequency—in US equities and US bonds. Each asset's returns are stored in your workspace as `returns_equities`, and `returns_bonds`, in addition the portfolio returns are stored as `returns_6040`. You have a portfolio that is invested 60/40, meaning that every month you invest 60% in equities, and 40% bonds.
 
 Which of the following statements about the relationship between portfolio performance (investing in both equities and bonds) and the individual assets' performance (investing in only one of them) is false. 
 
@@ -511,7 +511,6 @@ cov_matrix <- cov(returns)
 # Create a correlation matrix of returns
 cor_matrix <- cor(returns)
 
-
 # Verify covariances equal the product of standard deviations and correlation
 cov_matrix[1,2] == cor_matrix[1,2] * sds[1] * sds[2]
 ```
@@ -661,7 +660,7 @@ In the previous video you saw the difference between a captial allocation budget
 
 For this last exercise you will calculate the risk contributions for a portfolio that is invested *40% in equities, 40% in bonds, 10% in real estate, and 10% in commodities*. To do so, you will use the function [StdDev()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/StdDev). The `StdDev()` function creates a list of the assets' standard deviation (`$StdDev`), their risk contribution (`$contribution`), and their percent risk contribution (`$pct_contrib_StdDev`). 
 
-You will be using three arguments in the `StdDev()` function to do this calculation. The first is `R`, a vector, matrix, data frame, time series or zoo object of returns. The second is `portfolio_method`, which you will be setting to `"component"`, and the third is `weights`.
+You will be using three arguments in the `StdDev()` function to do this calculation. The first is `R`, a vector, matrix, data frame, time series or zoo object of returns. The second is `portfolio_method`, which you will be setting to `component`, and the third is `weights`.
 
 The object `returns` is loaded in your workspace.
 
@@ -672,7 +671,7 @@ The object `returns` is loaded in your workspace.
 - Print the table and note how different the percentage risk contributions are compared to the portfolio weights. 
 
 *** =hint
-If you're struggling with the [StdDev()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/StdDev) function, look at the exercise description. Everything you need is there!
+If you're struggling with the `StdDev()` function, look at the exercise description. Everything you need is there!
 
 *** =pre_exercise_code
 ```{r}
@@ -748,8 +747,6 @@ test_object("weights_percrisk", undefined_msg = "It looks like you didn't merge 
 
 #4
 test_output_contains("weights_percrisk")
-
-
 success_msg("Well done!")
 ```
 
