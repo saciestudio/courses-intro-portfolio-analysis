@@ -19,7 +19,7 @@ In this chapter you will explore portfolio optimization. For the upcoming exerci
 
 You will be using the sample of monthly returns from January 1991 until December 2015. These return data are available in the workspace as the variable `returns`.   
 
-Assume you an investor that likes high returns with minimum risk. Which of the following statements is false:
+Assume you are an investor that likes high returns with minimum risk. Which of the following statements is false:
 
 *** =instructions
 - You would rather invest all of your capital in Home Depot (ticker: HD) than in Caterpillar (ticker: CAT) because Home Depot has a higher average return, and lower risk.
