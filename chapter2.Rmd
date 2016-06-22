@@ -384,10 +384,10 @@ success_msg("Well done! Remember that the Sharpe Ratio is calculated by taking t
 
 The mean and volatility of monthly returns corresponds to the average and standard deviation over a monthly investment horizon. Investors annualize those statistics by mutiplying the mean with 12, and the volatility with the square root of 12. Annualizing the sharpe ratio is also done by multiplying by the square root of 12
 
-In the previous exercise you calculated the excess returns manually. However the package `PerformanceAnalytics` has a function [`Return.annualized()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.annualized) which will compute the returns for you!
+In the previous exercise you calculated the excess returns manually. However the package `PerformanceAnalytics` has a function [Return.annualized()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.annualized) which will compute the returns for you!
 
 *** =instructions
-- Use the function [Return.annualized](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.annualized) to compute the annualized mean of `sp500_returns`.
+- Use the function `Return.annualized()` to compute the annualized mean of `sp500_returns`.
 - Use the function [StdDev.annualized](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/StdDev.annualized) to compute the annualized standard deviation of `sp500_returns`.
 - Calculate the annualized Sharpe Ratio, assign it to `ann_sharpe`. Assume the risk free rate is 0. 
 - Obtain all the above results at one using the function   [table.AnnualizedReturns()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.AnnualizedReturns).
@@ -471,7 +471,7 @@ Portfolio performance evaluation considers that the time series of returns is dr
 
 It is important to remember that when trying to aswer those questions, you expose yourself to estimation errors. Investors will never know exactly what the underlying processes are, they can only make a guess about them from past returns. It is almost sure that the estimates of the mean and volatility will be different from the true mean and standard deviation.
 
-In this exercise, you will begin to familiarize yourself with uncertainty in estimation. You will do this by drawing random samples from a normal distribution with a mean of 5%, and a standard deviation of 10%. You will see how uncertainty is reduced when the sample size grows. We will use the [rnorm()](http://www.rdocumentation.org/packages/stats/functions/Normal) function with arguments `n, mean',and `sd` to take a sample from the normal distribution.
+In this exercise, you will begin to familiarize yourself with uncertainty in estimation. You will do this by drawing random samples from a normal distribution with a mean of 5%, and a standard deviation of 10%. You will see how uncertainty is reduced when the sample size grows. We will use the [rnorm()](http://www.rdocumentation.org/packages/stats/functions/Normal) function with arguments `n`, `mean`, and `sd` to take a sample from the normal distribution.
 
 
 
@@ -650,6 +650,8 @@ sp500_returns <- sp500_returns[time(rf )]
 # sp500_returns is preloaded in your workspace
 
 # Calculate the mean, volatility, and sharpe ratio
+
+
 
 
 # Plotting the 12-month rolling annualized mean
@@ -866,7 +868,7 @@ success_msg("Well done!")
 
 The central limit theorem states that the average of data observed over time will show a normal distribution if enough measurements are taken. By this theorem, it turns out that the longer the horizon of a return is computed, the more normal its distribution is. This property is known as aggregational Gaussianity and is illustrated in the plot environment. The histograms in the plot environment compare the daily and monthly returns of the S&P 500 over the period of 1986 until today.
 
-In this exercise you will verify whether the [skewness()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/skewness) and [kurtosis()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/kurtosis) statistics confirm the graphical analysis in the plot environment. By default, the [kurtosis()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/kurtosis) reports the excess kurtosis (that is, the kurtosis minus three). 
+In this exercise you will verify whether the [skewness()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/skewness) and [kurtosis()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/kurtosis) statistics confirm the graphical analysis in the plot environment. By default, `kurtosis()` reports the excess kurtosis (that is, the kurtosis minus three). 
 
 The objects `sp500_daily` and `sp500_monthly` are already loaded in your workspace. 
 
@@ -930,7 +932,7 @@ kurtosis(sp500_monthly)
 test_function("skewness", "x", index = 1)
 test_function("skewness", "x", index = 2)
 
-test_function("kurtosis", "x" index = 1)
+test_function("kurtosis", "x", index = 1)
 test_function("kurtosis", "x", index = 2)
 
 
@@ -943,7 +945,7 @@ success_msg("Well done! The excess kurtosis can be thought of as how volatile an
 
 The standard deviation gives equal weight to positive and negative returns in calcuting the return variability. When the return distribution is asymmetric, investors use additional risk measures that focus on describing the potential losses. One such measure of downside risk is the Semi-Deviation. The Semi-Deviation is the calculation of the variability of returns below the mean return.
 
-Another more popular measure is the so-called *Value-at-Risk* (or VaR). Loosely speaking, the VaR corresponds to the 5% quantile of the return distribution, meaning that a more negative return can only happen with a probability of 5%. For example you might ask:"what is the largest loss I could potentially take within the next quarter, with 95% confidence?" 
+Another more popular measure is the so-called *Value-at-Risk* (or VaR). Loosely speaking, the VaR corresponds to the 5% quantile of the return distribution, meaning that a more negative return can only happen with a probability of 5%. For example you might ask: "what is the largest loss I could potentially take within the next quarter, with 95% confidence?" 
 
 The *expected shortfall* is another measure of risk that focuses on the average loss below the 5% VaR quantile.
 
