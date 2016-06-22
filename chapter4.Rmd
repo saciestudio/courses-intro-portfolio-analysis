@@ -683,7 +683,7 @@ lines(vpsd.res[vpm.res>=minvarpm.res],vpm.res[vpm.res>=minvarpm.res],col="blue",
 
 *** =sct
 ```{r}
-test_mc(3) # if 3 is the correct option.
+test_mc(3) 
 ```
 
 
@@ -825,7 +825,7 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:69f72e3a22916ec2ef924a7f212d354f28022366
 ## Split-sample evaluation
 
-In chapter 2 you used the function [window()](http://www.rdocumentation.org/packages/stats/functions/window) to subset your returns for graphical purposes. In this exercise you will use the `window() to create two samples: an estimation sample and an evaluation sample. This exercise will illustrate how portfolio weights can differ when changing the estimation window.
+In chapter 2 you used the function [window()](http://www.rdocumentation.org/packages/stats/functions/window) to subset your returns for graphical purposes. In this exercise you will use the `window()` to create two samples: an estimation sample and an evaluation sample. This exercise will illustrate how portfolio weights can differ when changing the estimation window.
 
 To remind you, the function [window()](http://www.rdocumentation.org/packages/stats/functions/window) has argument of `x`, `start`, and `end`. Where `start` and `end` are in the format `"YYYY-MM-DD"`.
 
@@ -902,7 +902,19 @@ abline(h = 0, b = 1, lty = 3)
 *** =sct
 ```{r}
 #1
+test_object("returns_estim", undefined_msg = "Oops! You need to make your estimation window sample!")
+#2
+test_object("returns_eval", undefined_msg = "Looks like you need to make your evaluation window sample!")
+#3
+test_object("max_weights", undefined_msg = "Don't forget to create a vector of maximum weights!")
+#4
+test_object("pf_estim", undefined_msg = "Oh no! You forgot to create a portfolio using your estimation sample!")
+#5
+test_object("pf_eval", undefined_msg = "Oopsies! You need to create a portfolio using your evaluation sample.")
 
+#6
+test_output_contains("plot(pf_estim$pw, pf_eval$pw)")
+test_output_contains("abline(h = 0, b = 1, lty =3)")
 # sct code
 success_msg("Well done!")
 ```
@@ -910,15 +922,17 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:6d3bdc717d87317d8c4ccf468836039b35f78440
 ## Out of sample performance evaluation
 
+This example will illustrate how your returns can change based on the weighting created by an optimized portfolio. You will use the two portfolios you created in the previous exercise (`pf_estim` and `pf_eval`).
+
 How severe is the optimality loss? Let's compare on the out-of-sample period the mean and variance on the optimized portfolio weights using the estimation sample and the out-of-sample evaluation data. 
 
 *** =instructions
-- Use the function [Return.portfolio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio) to compute the portfolio returns of the portfolio with weights `weights.estim` and monthly rebalancing using the `returns.estim` sample. Call the resulting portfolio returns `returns.estim` and use [table.AnnualizedReturns](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.AnnualizedReturns) to evaluate the expected performance based on the estimation data.
-- Repeat this on the out-of-sample return data, still using `weights.estim`. This is the real performance you may expect from the optimized portfolios. 
-
+- Use the function `table.AnnualizedReturns()` on `pf_estim`.
+- Use the function `table.AnnualizedReturns()` on `pf_eval`.
+- Compare the return, risk, and sharpe ratio of these portfolios. The results from the `pf_eval` are what you may expect in a real performance.
 
 *** =hint
-hint comes here
+The only argument you need to provide is the portfolio return object name.
 
 *** =pre_exercise_code
 ```{r}
@@ -938,38 +952,46 @@ returns.oos <- window(returns, start ="2004-01-01", end = "2015-12-31")
 # optimize portfolios
 weights.estim <- portfolio.optim(x = returns.estim , reshigh = rep(0.1,ncol(returns.estim)))$pw
 weights.oos <- portfolio.optim(x = returns.oos ,reshigh = rep(0.1,ncol(returns.estim)))$pw
+returns_estim <- window(returns, start = "1991-01-01", end = "2003-12-31")
+
+# Create returns_eval
+returns_eval <- window(returns, start ="2004-01-01", end = "2015-12-31")
+
+# Create vector of max_weights
+max_weights <- rep(0.1, ncol(returns))
+
+# Create portfolio with estimation sample 
+pf_estim <- portfolio.optim(returns_estim, reshigh = max_weights)
+
+# Create portfolio with evaluation sample
+pf_eval <- portfolio.optim(returns_eval, reshigh = max_weights)
 
 ```
 
 *** =sample_code
 ```{r}
-# sample code
-# weights.estim, returns.estim and returns.oos are preloaded
+# Print a table for your estimation portfolio
 
-# portfolio returns on returns.estim
-preturns.estim <- Return.portfolio( , ,rebalance_on="months")
- 
 
-# portfolio returns on returns.oos
-preturns.oos <-  
+# Print a table for your evaluation portfolio
  
 ```
 
 *** =solution
 ```{r}
-# solution code
-# portfolio returns on returns.estim
-preturns.estim <- Return.portfolio(returns.estim,weights.estim,rebalance_on="months")
-table.AnnualizedReturns(preturns.estim)
-# portfolio returns on returns.oos
-preturns.oos <- Return.portfolio(returns.oos,weights.estim,rebalance_on="months")
-table.AnnualizedReturns(preturns.oos)
+# Print a table for your estimation portfolio
+table.AnnualizedReturns(pf_estim)
+
+# Print a table for your evaluation portfolio
+table.AnnualizedReturns(pf_eval)
 ```
 
 *** =sct
 ```{r}
 # sct code
-success_msg("Well done!")
+test_function("table.AnnualizedReturns","R", index = 1)
+test_function("table.AnnualizedReturns","R", index = 2)
+success_msg("Good job!")
 ```
 
  
@@ -978,11 +1000,9 @@ success_msg("Well done!")
  
 You made it! This journey showed you how to compute returns, analyze portfolio performance and optimize portfolios. These are important skills, since whenever you hold or manage more than one asset, you have a portfolio to consider. 
 
-It is now time to compound and get extra return by exploring other useful R packages for portfolio analysis like [PortfolioAnalytics](). Instead of optimizing the portfolio by minimizing the variance under a return targetg constraint, this package allows you optimize virtually all objective functions under all possible constraints. Even if the solution to the problem is not feasible, it will give you the best possible solution using heuristics such as differential evoluation in the R package [DEoptim](). Since I have been involved in both packages, this last exercise is an act of shameless selfpromotion. 
+It is now time to compound and get extra return by exploring other useful R packages for portfolio analysis like *PortfolioAnalytics*. Instead of optimizing the portfolio by minimizing the variance under a return targetg constraint, this package allows you optimize virtually all objective functions under all possible constraints. Even if the solution to the problem is not feasible, it will give you the best possible solution using heuristics such as differential evolution in the R package *DEoptim*. Since I have been involved in both packages, this last exercise is an act of shameless selfpromotion. 
 
 Have fun! 
-
-
 
 *** =instructions
 - Load the package PortfolioAnalytics and explore the functionality of this package by entering the instruction `?PortfolioAnalytics`. 
