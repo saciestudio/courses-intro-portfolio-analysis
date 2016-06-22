@@ -259,8 +259,8 @@ The equally weighted portfolio is one of the most used portfolios. Suppose the p
 *** =instructions
 - `weights <- 1/N`
 - `weights <- rep(1/N,N)`
-- `weights` <- rep(N, 1)
-- `weights` <- rep(1/N, 1)
+- `weights <- rep(N, 1)`
+- `weights <- rep(1/N, 1)`
 *** =hint
 The function `rep(arg1,arg2)` creates a vector in which `arg1` is replicated `arg2` times. 
 
@@ -271,7 +271,7 @@ The function `rep(arg1,arg2)` creates a vector in which `arg1` is replicated `ar
 
 *** =sct
 ```{r}
-ms1 <- Not quite! This creates a vector of one value!
+msg1 <- Not quite! This creates a vector of one value!
 msg2 <- That's right! This creates a vector of length `N`, or 100 where each value is the same! 
 msg3 <- Oops! This creates a vector of length 1.
 msg4 <- Not quite! This creates a vector of length 1, where the value is 1/100!
@@ -557,7 +557,7 @@ success_msg("Well done! After 50% loss you would need to double the amount of mo
 --- type:NormalExercise lang:r xp:100 skills:1 key:1d4270da1d39343116d0e77f9b897e6b2127914f
 ## The time series of asset returns  
 
-Calculating the returns for one period is pretty straight forward to do in R. When the returns need to be calculated for different dates the functions [Return.calculate()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.calculate) and [`Return.portfolio()`](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio), in the R package [PerformanceAnalytics](http://www.rdocumentation.org/packages/performanceanalytics/functions/performanceanalytics-package) are extremely helpful. They require the input data to be of the [xts-time series class](http://www.rdocumentation.org/packages/xts/functions/xts-package). You will explore the functionality of the `PerformanceAnalytics` package in this exercise. 
+Calculating the returns for one period is pretty straight forward to do in R. When the returns need to be calculated for different dates the functions [Return.calculate()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.calculate) and [Return.portfolio()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio), in the R package [PerformanceAnalytics](http://www.rdocumentation.org/packages/performanceanalytics/functions/performanceanalytics-package) are extremely helpful. They require the input data to be of the [xts-time series class](http://www.rdocumentation.org/packages/xts/functions/xts-package). You will explore the functionality of the `PerformanceAnalytics` package in this exercise. 
 
 You have a portfolio invested in Apple stock, and Microsoft stock. The prices for each stock are available in the variables `aapl` and `msft` in your workspace.
 
@@ -839,7 +839,7 @@ test_object("weights", incorrect_msg = "Remember that weights need to add to uni
 test_obect("pf_bh", incorrect_msg = "You should set your weights argument equal to `weights` and `verbose = TRUE`!", undefined_msg = "Oops! You forgot to create a portfolio using a buy and hold technique.")
 
 #3
-test_obect("pf_rebal", incorrect_msg = "You should set your `rebalance_on` argument to `"months"`, and `verbose = TRUE`!" undefined_msg = "Oops! You forgot to create a portfolio using a monthly rebalancing technique.")
+test_obect("pf_rebal", incorrect_msg = "You should set your `rebalance_on` argument to `months`, and `verbose = TRUE`!" undefined_msg = "Oops! You forgot to create a portfolio using a monthly rebalancing technique.")
 
 #4
 test_object("eop_weight_bh", incorrect_msg = "Did you select the `$EOP.Weight` to create your end of period weight vector?", undefined_msg = "Don't forget to create a vector of the end of period weights for your buy and hold portfolio!")
@@ -858,7 +858,7 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:e2b13d9ade5d7b168bb6157909da1cffbc6729e1
 ## From daily to monthly portfolio returns
 
-WE WANT TO REMOVE THIS EXERCISE
+-- WE WOULD LIKE TO REMOVE THIS EXERCISE, because compound returns are not introduced previously and do not occur anymore in the remaindder of this course (except for annualizing, (1+i)^12). Also, the numbers seem to be wriong.--
 
 You have now plotted the daily return series. In practice, portfolio managers rarely communicate their daily returns, but focus on the total (compound) performance over a longer period, such as a month or a year. 
 Monthly returns can be obtained by using the formula of compound returns. A compound return at the $k$-th period is given by the cumulative product of the returns for periods 1 to $k$, which is given by the chain $(1 +$*$R_1$*$) * (1 + $*$R_2$*$) * \ldots * (1+$*$R_K$*$)$. To get to the return *over* a certain period (let's say the period 1 to $K$), you have to substract the compound return at the $K$-th period  
