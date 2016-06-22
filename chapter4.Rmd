@@ -276,8 +276,7 @@ This exercise will show the affect of increasing your target return on your pote
 The function [portfolio.optim](http://www.rdocumentation.org/packages/tseries/functions/portfolio.optim) has arguments that allow for more general specifications. The arguments are as follows:
 
 ```
-portfolio.optim(x, pm = mean(x),
-                        shorts = FALSE, reshigh = NULL)
+portfolio.optim(x, pm = mean(x), shorts = FALSE, reshigh = NULL)
 ```
 
 The argument `pm` sets the target return, the argument `reshigh` specifies the upper constraints on the portfolio weights, and the argument `shorts` is a logical statement specifying whether negative weights are forbidden or not, by default `shorts = FALSE`. 
