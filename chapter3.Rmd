@@ -22,7 +22,7 @@ Which of the following statements about the relationship between portfolio perfo
 
 *** =instructions
 - Investing entirely in `returns_equities` has a lower risk than investing in the portfolio. 
-`all.equal(0.6*sd(returns_equities)+0.4*sd(returns_bonds), sd(returns_equities)).
+`all.equal(0.6 * sd(returns_equities) + 0.4 * sd(returns_bonds), sd(returns_equities))`.
 - The portfolio mean return equals the position weighted sum of the component mean returns. This is written as: `all.equal(mean(returns_6040), 0.6 * mean(returns_equities) + 0.4 * mean(returns_bonds))`.
 - Investing `returns_bonds` has a lower risk and thus a higher reward!
 - None of the above statements are correct.
@@ -160,9 +160,10 @@ abline(v=grid[vsharpe==max(vsharpe)],lty=3)
 # returns_equities and returns_bonds are preloaded
 grid <- seq(0,1,0.01)
 vsharpe <- rep(NA,length(grid))
+
 i <- 1
 for(w in grid){
-  preturns <- w*returns_equities+(1-w)*returns_bonds
+  preturns <- w * returns_equities+(1-w)*returns_bonds
   vsharpe[i] <- SharpeRatio.annualized(preturns)
   #vsharpe[i] <- SharpeRatio.annualized(preturns)
   i <- i+1
@@ -611,7 +612,7 @@ tweights <- t(weights)
 # annualized portfolio mean
 12*(tweights%*% )
 # annualized volatility
-sqrt(12)*sqrt( tweights%*%sigma%*%  )
+sqrt(12)*sqrt(tweights %*% sigma %*% ___)
 ```
 
 *** =solution
@@ -632,9 +633,9 @@ tweights <- t(weights)
 # transsposed matrix
 tweights <- t(weights) 
 # annualized portfolio mean
-12*(tweights%*%mu )
+12*(tweights %*% mu )
 # annualized volatility
-sqrt(12)*sqrt( tweights%*%sigma%*%weights  )
+sqrt(12)*sqrt(tweights %*% sigma %*% weights)
 ```
 
 *** =sct
