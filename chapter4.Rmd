@@ -481,7 +481,7 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:2c03a87fc29fb66e35d8cdbf244b3dcf41305824
 ## Computing the efficient frontier using a grid of target returns
 
---- NEEDS REWORKING ---
+NEEDS REWORKING
 
 As we have seen, one approach to compute the efficient frontier is to first define the grid of target returns and then find, for each target return, the portfolio that has an expected return equal to the target return at the lowest possible variance. 
 
@@ -691,7 +691,7 @@ test_mc(3) # if 3 is the correct option.
 --- type:NormalExercise lang:r xp:100 skills:1   key:897a83541a
 ## The minimum variance and maximum Sharpe ratio portfolio
 
---- NEEDS WORK ---
+ NEEDS WORK 
 
 Let us investigate further the previous output consistent of the vector of expected portfolio returns (`vpm`), the 
 portfolio standard deviations (`vpsd`) and the matrix of portfolio weights (`mweights`).   
