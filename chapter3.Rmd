@@ -461,13 +461,13 @@ In this exercise you will compute and analyze the covariance, and correlation ma
 In your workspace are the monthly investments as `returns`, and the vector of standard deviations `sds` that you created previously.
 
 *** =instructions
-- Use `diag(sds^2)` create a vector of the diagonal matrix with the variances on the diagonal. Call this `diag_cov`. 
+- Create a diagonal matrix that contains the variances on the diagonal. You can use the function [diag()](http://www.rdocumentation.org/packages/base/functions/diag) to do this, using a squared `sds` as the only argument. Call this `diag_cov`. 
 - Use `cov()` to compute the covariance matrix of returns. Call this `cov_matrix`.
 - Use `cor()`to compute the correlation matrix of returns. Call this `cor_matrix`.
 - Verify that the covariance between bond returns and equity returns equals the product between their standard deviations and correlation, by running the pre-loaded code.
 
 *** =hint
-Proivde `returns` to both `cov()` and `cor()`.
+Provide `returns` to both `cov()` and `cor()`.
 
 *** =pre_exercise_code
 ```{r}
