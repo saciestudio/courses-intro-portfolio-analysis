@@ -560,7 +560,7 @@ The object `returns` is pre-loaded in your workspace!
 
 
 *** =instructions
-- Create a vector of weights called `weights`.
+- Create a vector of weights that leads to 40% invested in equities, 40% in bonds, 10% in real estate and 10% in commodities. Call this vector `weights`.
 - Convert weights to a matrix called `w` using `as.matrix()`.
 - Calculate the row means of returns using `apply()`, and convert this to a matrix called `mu`.
 - Create a covariance matrix of returns called `sigma`.
