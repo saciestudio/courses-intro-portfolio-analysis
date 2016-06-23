@@ -626,7 +626,7 @@ weights <- c(0.4, 0.4, 0.1, 0.1)
 w <- as.matrix(weights)
 
 # Calculate mean returns mu
-mu <- as.matrix(apply(returns, 2, “mean”))
+mu <- as.matrix(apply(returns, 2, "mean"))
 
 # Create a covariance matrix of returns sigma
 sigma <- cov(returns)
@@ -706,7 +706,7 @@ weights <- c(0.4, 0.4, 0.1, 0.1)
 w <- as.matrix(weights)
 
 # Calculate mean returns mu
-mu <- as.matrix(apply(returns, 2, “mean”))
+mu <- as.matrix(apply(returns, 2, "mean"))
 
 # Create a covariance matrix of returns sigma
 sigma <- cov(returns)
