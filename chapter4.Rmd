@@ -485,8 +485,6 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:2c03a87fc29fb66e35d8cdbf244b3dcf41305824
 ## Computing the efficient frontier using a grid of target returns
 
-
-
 NEEDS REWORKING
 
 As we have seen, one approach to compute the efficient frontier is to first define the grid of target returns and then find, for each target return, the portfolio that has an expected return equal to the target return at the lowest possible variance. 
@@ -921,9 +919,11 @@ The only argument you need to provide is the portfolio return object name.
 library(xts)
 library(PerformanceAnalytics)
 library(tseries)
+library(utils)
 download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
 # load("prices.Rdata")
-prices<- readRDS("prices.rds") 
+
+prices <- readRDS("prices.rds") 
 returns <- Return.calculate(prices, method="simple")
 returns <- returns[(-1),]
 
@@ -935,8 +935,11 @@ weights.estim <- portfolio.optim(x = returns.estim , reshigh = rep(0.1,ncol(retu
 weights.oos <- portfolio.optim(x = returns.oos ,reshigh = rep(0.1,ncol(returns.estim)))$pw
 returns_estim <- window(returns, start = "1991-01-01", end = "2003-12-31")
 
+
+
+
 # Create returns_eval
-returns_eval <- window(returns, start ="2004-01-01", end = "2015-12-31")
+returns_eval <- window(returns, start = "2004-01-01", end = "2015-12-31")
 
 # Create vector of max_weights
 max_weights <- rep(0.1, ncol(returns))
