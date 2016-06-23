@@ -531,15 +531,14 @@ returns <- returns[(-1),]
 
 
 # Create your for loop
+for (i in 2:lenght(grid)) {
+  optim <- 
+  vpm <- append(vpm, ___)
+  vpsd <- append(vpsd, ___)
+  mweights <- rbind(mweights, ___) 
+}
 
-  
-  
-  
-  
-
-
-
-#### THIS SHOULD BE ITS OWN EXERCISE WITH A MC ####
+#### THIS SHOULD BE ITS OWN EXERCISE WITH A MC ?####
 # report the scatter plot of vpm agains vpsd
 plot(vpsd,vpm, xlab="(monthly) Volatility" , ylab="(monthly) average returns", 
      main="Minimum variance portfolios \n under a return target constraint",type="l",lwd=2)
@@ -566,8 +565,7 @@ for(i in 2:length(grid)) {
   mweights <- rbind(mweights, out$pw)
 }
 
-
-#### THIS SHOULD BE ITS OWN EXERCISE WITH A MC ####
+#### THIS SHOULD BE ITS OWN EXERCISE WITH A MC ?####
 # report the scatter plot of vpm agains vpsd
 plot(vpsd,vpm, xlab="(monthly) Volatility" , ylab="(monthly) average returns", 
      main="Minimum variance portfolios \n under a return target constraint",type="l",lwd=2)
@@ -575,6 +573,11 @@ plot(vpsd,vpm, xlab="(monthly) Volatility" , ylab="(monthly) average returns",
 
 *** =sct
 ```{r}
+test_object("vpm")
+test_object("vpsd")
+test_object("mweights")
+
+test_output_contains("for(i in 2:lenght(grid))", incorrect_msg = "Make sure that your for loops starts on the second iteration of `grid`.")
 # sct code
 success_msg("Well done!")
 ```
