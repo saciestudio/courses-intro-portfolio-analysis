@@ -485,18 +485,21 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:2c03a87fc29fb66e35d8cdbf244b3dcf41305824
 ## Computing the efficient frontier using a grid of target returns
 
-NEEDS REWORKING
+As you have seen, one approach to compute the efficient frontier is to first define the grid of target returns and then find for each target return, the portfolio that has an expected return equal to the target return at the lowest possible variance. 
 
-As we have seen, one approach to compute the efficient frontier is to first define the grid of target returns and then find, for each target return, the portfolio that has an expected return equal to the target return at the lowest possible variance. 
+But what is a reasonble grid of target returns? You will set the maximum target return to the maximum average return of the stocks. Ideally you would set the minimum target return to the return of the minimum variance portfolio. Because you don't know this minimum variance portfolio return yet, you create a grid using the minimum of average returns from all stocks.
 
-But what is a reasonble grid of target returns? We will set the maximum target return to the maximum average return of the stocks. Ideally, we set the minimum target return to the return of the minimum variance portfolio. Since we don't know this minimum variance portfolio return yet, let's therefore take the largest possible grid starting with the minimum average returns of all stocks. 
-
+In this exercise you will use a for loop to calculate your grid of potential portfolio means, deviations, and weights. For this exercise, note that your for loop will begin on the second iteration because you cannot calculate returns when there have been no prior observations. 
 
 *** =instructions
-- Complete the code specifying the grid of 50 equally spaced return targets starting at the minimum and maximum average return 
-- Run the loop computing the optimized weights and corresponding mean return and volatility
-- Plot the portfolio mean against the portfolio volatility of the optimized portfolios
-- Improve the efficient frontier plot by removing the inefficient portfolios offering a lower return at a higher risk compared to the minimum variance portfolio.  
+- Calculate the column means of `returns`, and call this `stockmu`.
+- Create a sequence of length 50, that begins at the minimum value of `stockmu` and ends at the maximum value of `stockmu` called `grid`.
+- Create three empty vectors where you will store the portfolio means, standard deviations, and weights. Call these `vpm`, `vpsd`, `mweights` respectively.
+- Create a for loop that starts on the second value of `grid` and ends on the last. 
+- The for loop should create a portfolio called `optim` using `returns` and with a target return of `grid`.
+- With each iteration the for loop should fill the vectors `vpm`, `vpsd` with their respective values from `optim`. You can use the function [append()](http://www.rdocumentation.org/packages/base/functions/append) to do this.
+- Use `rbind()` to merge the weights of each portfolio to `mweights`.
+
 
 *** =hint
 hint comes here
@@ -516,48 +519,55 @@ returns <- returns[(-1),]
 
 *** =sample_code
 ```{r}
-# sample code
-stockmu <- colMeans(returns)
-grid <- seq( , ,length.out=50 )  
-# Compute the efficient frontier
-## for each solution, we save the portfolio mean,
-## portfolio standard deviation and the weights
-## Initialize them as an empty vector
-vpm = vpsd = mweights <- c()
-for( mutarget in grid ){
-  out <- try(portfolio.optim(x = returns ,pm=mutarget),silent=TRUE)
-  if(class(out)!="try-error"){
-    vpm <- c(vpm,out$pm)
-    vpsd <- c(vpsd,out$ps)
-    mweights <- rbind( mweights,out$pw)
-  }
-}
-colnames(mweights) <- colnames(returns)
+# Calculate each stocks mean returns
+
+
+# Create a grid of target values
+  
+
+# Create empty vectors to store means, deviations and your matrix of weights
+
+
+
+
+# Create your for loop
+
+  
+  
+  
+  
+
+
+
+#### THIS SHOULD BE ITS OWN EXERCISE WITH A MC ####
 # report the scatter plot of vpm agains vpsd
-plot( ,  , xlab="(monthly) Volatility" , ylab="(monthly) average returns", 
-      main="Minimum variance portfolios under a return target constraint",
-      type="l",lwd=2)
+plot(vpsd,vpm, xlab="(monthly) Volatility" , ylab="(monthly) average returns", 
+     main="Minimum variance portfolios \n under a return target constraint",type="l",lwd=2)
 ```
 
 *** =solution
 ```{r}
-# solution code
+# Calculate each stocks mean returns
 stockmu <- colMeans(returns)
-grid <- seq(min(stockmu),max(stockmu),length.out=50)  
-# Compute the efficient frontier
-## for each solution, we save the portfolio mean,
-## portfolio standard deviation and the weights
-## Initialize them as an empty vector
-vpm = vpsd = mweights <- c()
 
-for( mutarget in grid ){
-  out <- try(portfolio.optim(x = returns ,pm=mutarget),silent=TRUE)
-  if(class(out)!="try-error"){
-    vpm <- c(vpm,out$pm)
-    vpsd <- c(vpsd,out$ps)
-    mweights <- rbind( mweights,out$pw)
-  }
+# Create a grid of target values
+grid <- seq(min(stockmu), max(stockmu), length.out = 50)  
+
+# Create empty vectors to store means, deviations and your matrix of weights
+vpm <- c()
+vpsd <- c()
+mweights <- c()
+
+# Create your for loop
+for(i in 2:length(grid)) {
+  optim <- portfolio.optim(x = returns , pm = grid[i])
+  vpm <- append(vpm, out$pm)
+  vpsd <- append(vpsd, out$ps)
+  mweights <- rbind(mweights, out$pw)
 }
+
+
+#### THIS SHOULD BE ITS OWN EXERCISE WITH A MC ####
 # report the scatter plot of vpm agains vpsd
 plot(vpsd,vpm, xlab="(monthly) Volatility" , ylab="(monthly) average returns", 
      main="Minimum variance portfolios \n under a return target constraint",type="l",lwd=2)
