@@ -772,7 +772,7 @@ weights_max_sr <- mweights[vsr == max(vsr), ]
 # Create barplot of weights_minvar and weights_max_sr
 par(mfrow = c(2, 1), mar = c(3, 2, 2, 1))
 barplot(weights_minvar[weights_minvar > 0.01])
-barplot(weights_max_sr[weights_maxsharpe > 0.01]) 
+barplot(weights_max_sr[weights_max_sr > 0.01]) 
 
 ```
 
