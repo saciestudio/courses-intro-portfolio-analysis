@@ -351,7 +351,7 @@ A good way to visualize the relative attractivenss of investments in terms of ri
 These calculations are made easy by using the function [apply()](http://www.rdocumentation.org/packages/base/functions/apply) with as first argument the return data, the second argument is the value of `2` indicating  that the calculation should be column-wise, while the third argument is the name of the function that needs to be applied on each column. 
 
 *** =instructions
-- Compute the vector of average returns on those four investments using the R command `apply(returns, 2, "mean")` and call this `means`.
+- Compute the vector of average returns on those four investments using `apply()` and call this `means` (Note that you could have used `colMeans()` as well!).
 - Do the same to compute the vector standard deviations and call this `sds`.
 - Create a scatter plot using the base plot function, where volatilities are the on x axis, and means on the y axis.
 - We've added labels and a reference line to your plot. Don't change the code!
