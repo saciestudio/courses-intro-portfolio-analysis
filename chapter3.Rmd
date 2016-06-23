@@ -773,9 +773,9 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:0931e83c3a402b2fb2d78958981928a327428e4d
 ## Who did it?
 
-In the previous video you saw the difference between a captial allocation budget, and a risk budget. In this exercise you will construct a risk budget. You will disover how large each assets percent risk contribution is in the total portfolio volatility. 
+In the previous video you saw the difference between a captial allocation budget, and a risk budget. In this exercise you will construct a risk budget, and discover how large each assets percent risk contribution is in the total portfolio volatility. 
 
-For this last exercise you will calculate the risk contributions for a portfolio that is invested *40% in equities, 40% in bonds, 10% in real estate, and 10% in commodities*. To do so, you will use the function [StdDev()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/StdDev). The `StdDev()` function creates a list of the assets' standard deviation (`$StdDev`), their risk contribution (`$contribution`), and their percent risk contribution (`$pct_contrib_StdDev`). 
+For this last exercise you will calculate the risk contributions for a portfolio that is again invested 40% in equities, 40% in bonds, 10% in real estate, and 10% in commodities. Function [StdDev()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/StdDev) plays an important role in this exercise. The `StdDev()` function creates a list of the assets' standard deviation (`$StdDev`), their risk contribution (`$contribution`), and their percent risk contribution (`$pct_contrib_StdDev`). 
 
 You will be using three arguments in the `StdDev()` function to do this calculation. The first is `R`, a vector, matrix, data frame, time series or zoo object of returns. The second is `portfolio_method`, which you will be setting to `component`, and the third is `weights`.
 
@@ -783,7 +783,7 @@ The object `returns` is loaded in your workspace.
 
 *** =instructions
 - Create a vector of the portfolio weights. 
-- Calculate your volatility budget using `StdDev()`. Set `portfiol_method = "component" and `weights` equal to the vector of weights. Call this `vol_budget`.
+- Calculate your volatility budget using `StdDev()`. Set `portfolio_method` = "component" and `weights` equal to the created vector of `weights`. Call this `vol_budget`.
 - Combine the weights and the percentage risk contributions in a table called `weights_percrisk` using `cbind()`.
 - Print the table and note how different the percentage risk contributions are compared to the portfolio weights. 
 
