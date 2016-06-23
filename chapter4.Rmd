@@ -560,9 +560,9 @@ mweights <- c()
 # Create your for loop
 for(i in 2:length(grid)) {
   optim <- portfolio.optim(x = returns , pm = grid[i])
-  vpm <- append(vpm, out$pm)
-  vpsd <- append(vpsd, out$ps)
-  mweights <- rbind(mweights, out$pw)
+  vpm <- append(vpm, optim$pm)
+  vpsd <- append(vpsd, optim$ps)
+  mweights <- rbind(mweights, optim$pw)
 }
 
 #### THIS SHOULD BE ITS OWN EXERCISE WITH A MC ?####
