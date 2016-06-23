@@ -18,7 +18,7 @@ So far in the previous chapters you have seen that there are three types of driv
   
 You will now explore how the portfolio mean return and volatility depends on the mean returns and volatility of the assets that a portfolio is invested in. In this example you will consider investing—with monthly frequency—in US equities and US bonds. Each asset's returns are stored in your workspace as `returns_equities`, and `returns_bonds`, in addition the portfolio returns are stored as `returns_6040`. You have a portfolio that is invested 60/40, meaning that every month you invest 60% in equities, and 40% bonds.
 
-Which of the following statements about the relationship between portfolio performance (investing in both equities and bonds) and the individual assets' performance (investing in only one of them) is false. 
+Which of the following statements about the relationship between portfolio performance (investing in both equities and bonds) and the individual assets' performance (investing in only one of them) is true. 
 
 *** =instructions
 - Investing entirely in `returns_equities` has a lower risk than investing in the portfolio. 
@@ -94,11 +94,12 @@ Let us do this in the case of a portfolio invested US equities and US bonds. We 
 
 *** =instructions
 - Create a vector called `grid` using `seq()` that begins at 0, ends at 1, by and increment of 0.01.
-- Initialize empty vector `vsharpe` with the same length as `grid`.
-- Create a for loop that creates `weight` equal to `grid[i]`. 
-- Within your loop create `preturns` which is the value of the returns of `returns_equities` and `returns_bonds`, where `returns_equities` has a weight of `weight`.
-- Fill your `vsharpe` vector with the annualized sharpe ratio (`SharpeRatio.annualized()`) of `preturns`.
-- Fill in the plot function where the x-axis are the weights, and the y-axis the sharpe ratios.
+- Initialize empty vector `vsharpe` with the same length as `grid`. A popular way of doing this is by creating a vector that contains NA's (using function [rep()](http://www.rdocumentation.org/packages/base/functions/rep). You will replace these NA's in the loop that you will create next.
+- In the for loop, you will compute the Sharpe ratio for each of the possible weights in `grid`.
+- The first command in the for-loop selects the i-th element of grid and stores it in object `weight`, which changes in each iteration.  
+- You want to see how the portfolio return changes with a changing weight. Create an object `preturns` that equals the sum of `weights` times `returns_equities` and `1-weights` times `returns_bonds`.
+- Next, you will replace the NAs in `vsharpe` by the annualized sharpe ratio (`SharpeRatio.annualized()`) of `preturns`.
+- Fill in the plot function where `weights` is plotted on the x-axis, and the Sharpe ratios on the y-axis.
 
 *** =hint
 hint
@@ -135,12 +136,16 @@ returns_equities <- returns$equities
 
 
 # Initialize an empty vector for sharpe ratios
+vsharpe <- rep(NA, times = ___ )
 
+# Create a for loop to calculate Sharpe ratios
+for(i in 1:length(grid)) {
+	weight <- 
+	preturns <- 
+	vsharpe[i] <-
+}
 
-# Create a for loop to calculate sharpe ratios
-
-
-# Plot weights and sharpe ratio
+# Plot weights and Sharpe ratio
 plot(___, ___, xlab = "Weights", ylab= "Ann. Sharpe ratio")
 abline(v = grid[vsharpe == max(vsharpe)], lty = 3)
 ```
@@ -152,13 +157,13 @@ abline(v = grid[vsharpe == max(vsharpe)], lty = 3)
 grid <- seq(0, 1, 0.01)
 
 # Initialize an empty vector for sharpe ratios
-vsharpe <- rep(NA,length(grid))
+vsharpe <- rep(NA, times = length(grid))
 
 # Create a for loop to calculate sharpe ratios
 for(i in 1:length(grid)) {
 	weight <- grid[i]
 	preturns <- weight * returns_equities + (1-weight) * returns_bonds
-	vsharpe[i] <- preturns
+	vsharpe[i] <- SharpeRatio.annualized(preturns)
 }
 
 # Plot weights and sharpe ratio
