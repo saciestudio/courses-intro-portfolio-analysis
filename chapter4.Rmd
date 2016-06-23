@@ -493,7 +493,7 @@ In this exercise you will use a for loop to calculate your grid of potential por
 
 *** =instructions
 - Calculate the column means of `returns`, and call this `stockmu`.
-- Create a sequence of length 50, that begins at the minimum value of `stockmu` and ends at the maximum value of `stockmu` called `grid`.
+- Create a sequence (`seq()`) of length 50, that begins at the minimum value of `stockmu` and ends at the maximum value of `stockmu` called `grid`.
 - Create three empty vectors where you will store the portfolio means, standard deviations, and weights. Call these `vpm`, `vpsd`, `mweights` respectively.
 - Create a for loop that starts on the second value of `grid` and ends on the last. 
 - The for loop should create a portfolio called `optim` using `returns` and with a target return of `grid`.
@@ -531,7 +531,7 @@ returns <- returns[(-1),]
 
 
 # Create your for loop
-for (i in 2:lenght(grid)) {
+for (i in 2:length(grid)) {
   optim <- 
   vpm <- append(vpm, ___)
   vpsd <- append(vpsd, ___)
@@ -577,7 +577,12 @@ test_object("vpm")
 test_object("vpsd")
 test_object("mweights")
 
-test_output_contains("for(i in 2:lenght(grid))", incorrect_msg = "Make sure that your for loops starts on the second iteration of `grid`.")
+test_output_contains("for(i in 2:length(grid)) {
+  optim <- portfolio.optim(x = returns , pm = grid[i])
+  vpm <- append(vpm, optim$pm)
+  vpsd <- append(vpsd, optim$ps)
+  mweights <- rbind(mweights, optim$pw)
+}")
 # sct code
 success_msg("Well done!")
 ```
