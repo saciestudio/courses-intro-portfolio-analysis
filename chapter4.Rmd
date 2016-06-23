@@ -784,7 +784,10 @@ test_object("vsr", undefined_msg = "Oops! Don't forget to create a vector of sha
 
 test_object("weights_max_sr", undefined_msg = "It looks like you select the portfolio with the maximum sharpe ratio!")
 
-test_output_contains(get_solution_env())
+test_output_contains("par(mfrow = c(2, 1), mar = c(3, 2, 2, 1))")
+test_output_contains("barplot(weights_minvar[weights_minvar > 0.01])")
+test_output_contains("barplot(weights_max_sr[weights_max_sr > 0.01])")
+
 # sct code
 success_msg("Well done!")
 ```
