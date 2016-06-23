@@ -485,6 +485,8 @@ success_msg("Well done!")
 --- type:NormalExercise lang:r xp:100 skills:1 key:2c03a87fc29fb66e35d8cdbf244b3dcf41305824
 ## Computing the efficient frontier using a grid of target returns
 
+
+
 NEEDS REWORKING
 
 As we have seen, one approach to compute the efficient frontier is to first define the grid of target returns and then find, for each target return, the portfolio that has an expected return equal to the target return at the lowest possible variance. 
@@ -695,22 +697,17 @@ test_mc(3)
 --- type:NormalExercise lang:r xp:100 skills:1   key:897a83541a
 ## The minimum variance and maximum Sharpe ratio portfolio
 
- NEEDS WORK 
-
-Let us investigate further the previous output consistent of the vector of expected portfolio returns (`vpm`), the 
-portfolio standard deviations (`vpsd`) and the matrix of portfolio weights (`mweights`).   
-
- 
+In the previous exercises you computed the efficient fronteir using a grid of target returns. The output of your calculation of the efficient fronteir was a series of two vectors, `vpm` (vector of portfolio means), and `vpsd` (vector of standard deviations, or volatilities), and a matrix of weights called `mweights`. You will use these outputs to identify the portfolios with the least volatility, and the greatest sharpe ratio, and then plot them.
 
 *** =instructions
-- Complete the sample code to obtain the volatility and expected return of the minimum variance portfolio. 
-- Assume a risk free rate of 0.75%. Define `vsr` as the vector holding, for each of the optimized portfolios, the Sharpe ratio computed using `vpm` and `vsd`
-- Complete the sample code to compute the risk and reward of the maximum Sharpe ratio portfolio.
-- Comple the sample code to compare the allocation of the maximum Sharpe ratio portfolio with the minimum variance portfolio using a barplot (focus hereby on the weights larger than 1%).
- 
+- Create `weights_minvar` as the rows in `mweights` equivalent to the minimum standard deviation in `vpsd`. 
+- Calculate the sharpe ratio of portfolio returns where the risk free rate is *0.75%*. Call this `vsr`.
+- Create `weights_max_sr` as the rows in `mweights` equivalent to the maximum sharpe ratio in `vsr`.
+- Create a barplot of the weights that are greater than 1% in the `weights_minvar` portfolio.
+- Create a barplot of the weights that are greater than 1% in the `weights_max_sr` portfolio.
 
 *** =hint
-hint comes here
+Use a logical in the selection bracket when selecting rows from `mweights`. For example `mweights[row == value, ]`.
 
 *** =pre_exercise_code
 ```{r}
@@ -745,72 +742,49 @@ colnames(mweights) <- colnames(returns)
 
 *** =sample_code
 ```{r}
-# vpm and vd are preloaded
-# minimum variance portfolio
-pm_minvar <- vpm[vpsd==min(vpsd)]
-psd_minvar <-
-weights_minvar <-
-# Sharpe ratio 
-rf <- 0.0075
-vsr <- 
-# max sharpe ratio portfolio  
-pm_maxsharpe <-  
-psd_maxsharpe <-
-weights_maxsharpe <-
-#compare weights
-par(mfrow=c(2,1), mar=c(3,2,2,1))
-barplot(weights_minvar[weights_minvar>0.01])
+# Create weights_minvar as the portfolio with the least risk
+
+
+# Calculate the sharpe ratio
+
+
+# Create weights_max_sr as the portfolio with the maximum sharpe ratio
+
+
+# Create barplot of weights_minvar and weights_max_sr
+
+
+ 
  
 ```
 
 *** =solution
 ```{r}
-######## Josi Concept / potential simplify #######
-#combine vectors of expected returns & standarad deviation
-grid_portfolios <- data.frame(vpm, vpsd)
-colnames(grid_portfolios) <- c("er", "sd")
+# Create weights_minvar as the portfolio with the least risk
+weights_minvar <- mweights[vpsd == min(vpsd),]
 
-#compute sharpe ratio 
-#sharpe = E[R] / portfolio volatility
-#initialze risk free rate of 0.75% first
-rf <- .0075
-#calculate sharpe ratio
-grid_portfolios$sr <- (grid_portfolios$er - rf) / grid_portfolios$sd
+# Calculate the sharpe ratio
+vsr <- (vpm - 0.0075) / vpsd
 
-#now find minimum variance portfolio
-min_var_pf_index <- which(grid_portfolios$sd == min(grid_portfolios$sd))
-min_var_pf <- grid_portfolios[min_var_pf_index, ]
+# Create weights_max_sr as the portfolio with the maximum sharpe ratio
+weights_max_sr <- mweights[vsr == max(vsr), ]
 
-#now find max sharpe ratio portfolio 
-max_sr_pf_index <- which(grid_portfolios$sr == max(grid_portfolios$sr))
-max_sr_pf <- grid_portfolios[max_sr_pf_index, ]
+# Create barplot of weights_minvar and weights_max_sr
+par(mfrow= c(2, 1), mar = c(3,2,2,1))
+barplot(weights_minvar[weights_minvar > 0.01])
+barplot(weights_max_sr[weights_maxsharpe > 0.01]) 
 
-########## END ##########
-
-
-
-
-# solution code
-# minimum variance portfolio
-pm_minvar <- vpm[vpsd==min(vpsd)]
-psd_minvar <-vpsd[vpsd==min(vpsd)]
-weights_minvar <- mweights[vpsd==min(vpsd),]
-# Sharpe ratio 
-rf <- 0.0075
-vsr <- (vpm-rf)/vpsd
-# max sharpe ratio portfolio  
-# max sharpe 
-pm_maxsharpe <-  vpm[vsr==max(vsr)]
-psd_maxsharpe <- vpsd[vsr==max(vsr)]
-weights_maxsharpe <- mweights[vsr==max(vsr),]
-# compare weights
-par(mfrow=c(2,1), mar=c(3,2,2,1))
-barplot(weights_minvar[weights_minvar>0.01])
-barplot(weights_maxsharpe[weights_maxsharpe>0.01]) 
 ```
 
 *** =sct
 ```{r}
+test_object("weights_minvar", undefined_msg = "Make sure you select the portfolio with the minimum variance!")
+
+test_object("vsr", undefined_msg = "Oops! Don't forget to create a vector of sharpe ratios.")
+
+test_object("weights_max_sr", undefined_msg = "It looks like you select the portfolio with the maximum sharpe ratio!")
+
+test_output_contains(get_solution_env())
 # sct code
 success_msg("Well done!")
 ```
