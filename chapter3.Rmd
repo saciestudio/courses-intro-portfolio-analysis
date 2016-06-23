@@ -550,8 +550,6 @@ success_msg("Well done! These matrices can help you in your calculations, and ar
 --- type:NormalExercise lang:r xp:100 skills:1   key:21e408b8c65335ed2599fcb8ff64b5c9b352c374
 ## Matrix-based calculation of portfolio mean and variance
 
-NEEDS REWORKING 
-
 When $w$ is the column-matrix of portfolio weights, $\mu$ the column-matrix of expected returns, and $\Sigma$ the return covariance matrix. Then the portfolio expected return is $w'\mu$, and the portfolio variance is $w'\Sigma w$.
 
 You will practice matrix multiplication in R using the `%*%` function, instead of the standard `*`. In addition you will transpose the matrices by using the standard function `t()`. Remember that transposing a matrix is simply changing the rows of the matrix to the columns.
