@@ -136,7 +136,7 @@ test_function("class", "x", not_called_msg = "Did you verify that `returns` is a
 test_object("row_means", undefined_msg = "Did you calculate the row means of `returns`?", incorrect_msg = "Did you calculate the row means of `returns` correctly?")
 
 #3
-test_function("plot.zoo", "x", not_called_msg = "Be sure to plot the row means!")
+test_function("plot.zoo", "x", not_called_msg = "Be sure to plot the row means using `plot.zoo()`!")
 
 #4
 test_object("z", undefined_msg = "Hey, don't forget to create a correlation matrix called `z`!", incorrect_msg = "Did you use the correct function to make your correlation matrix?")
@@ -318,6 +318,7 @@ library(tseries)
 # Print the standard deviations of both portfolios
 
 
+
 # Calculate the percent increase in standard deviation
 
 
@@ -336,7 +337,7 @@ pf_mean$ps
 pf_10plus$ps
 
 # Calculate the percent increase in standard deviation
-(pf_10plus$ps - pf_mean$ps) / (pf_mean$ps) * 100
+(pf_10plus$ps - pf_mean$ps) / (pf_mean$ps)
 
 ```
 
@@ -396,6 +397,8 @@ library(tseries)
 # Create vectors of maximum weights
 
 
+
+
 # Create an optimum portfolio with max weights of 100%
 
 
@@ -406,6 +409,8 @@ library(tseries)
 
 
 # Calculate how many assets have a weight that is greater than 1% for each portfolio
+
+
 
 
 # Print portfolio volatilites 
