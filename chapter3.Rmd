@@ -93,7 +93,7 @@ Let us do this in the case of a portfolio invested US equities and US bonds. We 
 
 *** =instructions
 - Create a vector called `grid` using `seq()` that begins at 0, ends at 1, by and increment of 0.01.
-- Initialize empty vector `vsharpe` with the same length as `grid`. A popular way of doing this is by creating a vector that contains NA's (using function [rep()](http://www.rdocumentation.org/packages/base/functions/rep). You will replace these NA's in the loop that you will create next.
+- Initialize empty vector `vsharpe` with the same length as `grid`. A popular way of doing this is by creating a vector that contains NA's using function [rep()](http://www.rdocumentation.org/packages/base/functions/rep). You will replace these NA's in the loop that you will create next.
 - In the for loop, you will compute the Sharpe ratio for each of the possible weights in `grid`.
 - The first command in the for-loop selects the i-th element of grid and stores it in object `weight`, which changes in each iteration.  
 - You want to see how the portfolio return changes with a changing weight. Create an object `preturns` that equals the sum of `weights` times `returns_equities` and `1-weights` times `returns_bonds`.
@@ -177,14 +177,13 @@ test_object("grid", undefined_msg = "Looks like you need to create a vector of w
 #2
 #test_object("vsharpe", undefined_msg = "Oops! You forgot to create an empty vector for the sharpe ratios!", incorrect_msg = "Remember that `vsharpe` needs to be the same length as `grid`.")
 #3
-test_correct(
   test_expression_output(
 "for(i in 1:length(grid)) {
 	weight <- grid[i]
 	preturns <- weight * returns_equities + (1-weight) * returns_bonds
 	vsharpe[i] <- preturns
 }", incorrect_msg = "Make sure your for loop is constructed properly!")
-)
+
 
 # sct code
 success_msg("Well done!")
