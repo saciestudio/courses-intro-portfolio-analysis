@@ -175,14 +175,19 @@ abline(v = grid[vsharpe==max(vsharpe)], lty=3)
 #1 
 test_object("grid", undefined_msg = "Looks like you need to create a vector of weights!", incorrect_msg = "Remember that the weights need to start at 0, and end 1 by an increment of 0.01!")
 #2
-#test_object("vsharpe", undefined_msg = "Oops! You forgot to create an empty vector for the sharpe ratios!", incorrect_msg = "Remember that `vsharpe` needs to be the same length as `grid`.")
+test_object("vsharpe", undefined_msg = "Oops! You forgot to create an empty vector for the sharpe ratios!", incorrect_msg = "Remember that `vsharpe` needs to be the same length as `grid`.", index = 1)
+
+test_object("vsharpe")
+
+test_function("plot", c("x", "y", "xlab", "ylab"))
+test_function("abline", c("v", "lty"))
 #3
-  test_expression_output(
-"for(i in 1:length(grid)) {
-	weight <- grid[i]
-	preturns <- weight * returns_equities + (1-weight) * returns_bonds
-	vsharpe[i] <- preturns
-}", incorrect_msg = "Make sure your for loop is constructed properly!")
+#test_expression_output(
+#"for(i in 1:length(grid)) {
+#	weight <- grid[i]
+#	preturns <- weight * returns_equities + (1-weight) * returns_bonds
+#	vsharpe[i] <- preturns
+#}", incorrect_msg = "Make sure your for loop is constructed properly!")
 
 
 # sct code
