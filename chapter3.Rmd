@@ -759,10 +759,10 @@ sqrt(12) * sd(preturns)
 
 *** =sct
 ```{r}
-test_output_contains("12 * (t(w) %*% mu)")
-test_output_contains("sqrt(12) * sqrt(t(w) %*% sigma %*% w)")
-test_output_contains("12 * mean(preturns)")
-test_output_contains("sqrt(12) * sd(preturns)")
+test_output_contains("12 * (t(w) %*% mu)", incorrect_msg = "Oops! It looks like you need to calculate the annualized portfolio returns using matrices.")
+test_output_contains("sqrt(12) * sqrt(t(w) %*% sigma %*% w)", incorrect_msg = "Make sure you calculate the annualized volatility using matrices!")
+test_output_contains("12 * mean(preturns)", incorrect_msg = "Be sure to calculate annualized portfolio returns using `preturns`!")
+test_output_contains("sqrt(12) * sd(preturns)", incorrect_msg = "Did you calculate the annualized volatility using `preturns`?")
 
 # sct code
 success_msg("Well done!")
