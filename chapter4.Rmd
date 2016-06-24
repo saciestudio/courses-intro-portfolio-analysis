@@ -142,7 +142,7 @@ test_function("plot.zoo", "x", not_called_msg = "Be sure to plot the row means u
 test_object("z", undefined_msg = "Hey, don't forget to create a correlation matrix called `z`!", incorrect_msg = "Did you use the correct function to make your correlation matrix?")
 
 #5
-test_output_contains("hist(z[lower.tri(z)]", incorrect_msg = "Oops! Have you plotted the lower triangle of your correlation matrix properly?")
+test_function("hist", "x", incorrect_msg = "Oops! Have you plotted the lower triangle of your correlation matrix properly?")
 
 success_msg("Well done!")
 ```
