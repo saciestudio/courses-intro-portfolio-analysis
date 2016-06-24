@@ -363,7 +363,7 @@ success_msg("Well done!")
 
 Investors are often constrained by the maximum values allowed for the portoflio weights. This constraints can actually be an advantage. The advantage of a maximum weight constraint is that the subsequent portfolio will be less concentrated in certain assets. There is a disadvantage to this though. The disadvantage is that the same target return, may no longer be possible or will be obtained at the expense of a higher volatility. 
 
-Finding the optimized portfolio under weight constraints is made easy with the *PerformanceAnalytics* package. The function `portfolio.optim()` allows you to set weight constraints within the `reshigh` argument. `reshigh` requires a vector of maximum weights for each asset. 
+Using the *PerformanceAnalytics* package makes finding the optimized portfolio under weight constraints easy. The function `portfolio.optim()` allows you to set weight constraints within the `reshigh` argument. `reshigh` requires a vector of maximum weights for each asset. 
 
 In this exercise you will create three portfolios with different maximum weight constraints. For this exercise it is important to know the output of the `portfolio.optim()` function. This function creates a list containing four components: (i) `$pw`: the portfolio weights, (ii) `$px`: the returns of the overall portfolio, (iii) `$pm`: the exepcted return portfolio, (iv) `$ps`: the standard deviation of the portfolio returns.
 
