@@ -759,10 +759,10 @@ sqrt(12) * sd(preturns)
 
 *** =sct
 ```{r}
-test_output_contains("12 * (t(w) %*% mu)", index = 1)
-test_output_contains("sqrt(12) * sqrt(t(w) %*% sigma %*% w)", index = 1)
-test_output_contains("12 * mean(preturns)", index = 2)
-test_output_contains("sqrt(12) * sd(preturns)", index = 2)
+test_output_contains("12 * (t(w) %*% mu)")
+test_output_contains("sqrt(12) * sqrt(t(w) %*% sigma %*% w)")
+test_output_contains("12 * mean(preturns)")
+test_output_contains("sqrt(12) * sd(preturns)")
 
 # sct code
 success_msg("Well done!")
