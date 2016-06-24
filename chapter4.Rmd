@@ -71,7 +71,7 @@ The 1991-2015 monthly returns on the 30 DJIA stocks are available in the workspa
 
 *** =instructions
 - Verify that `returns` is an object of the xts-class using the function [class()](http://www.rdocumentation.org/packages/base/functions/class).
-- Create a vector of row means of `returns` using the function [rowMeans()](http://www.rdocumentation.org/packages/base/functions/colSums). Assign this to `row_means`.
+- Create a vector of row means of `returns` using the function [rowMeans()](http://www.rdocumentation.org/packages/base/functions/colSums). Assign this to `row_means`. Note that you could have used `apply()` here as well.
 - Plot `row_means` using `plot.zoo()`.
 - Create a correlation matrix of the returns called `z`.
 - Plot the histogram of the correlations between the monthly returns of the DJIA stocks. Because of the symmetry of the correlation matrix, you only need the lower triangular elements, which, for any square matrix `z`, you can select using `z[lower.tri(z)]`.
