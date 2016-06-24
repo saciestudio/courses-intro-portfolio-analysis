@@ -517,7 +517,7 @@ sds <- as.numeric(apply(returns,2,"sd"))
 
 
 # Verify covariances equal the product of standard deviations and correlation
-cov_matrix[1,2] == cor_matrix[1,2] * sds[1] * sds[2]
+all.equal(cov_matrix[1,2], cor_matrix[1,2] * sds[1] * sds[2])
 ```
 
 
@@ -533,7 +533,7 @@ cov_matrix <- cov(returns)
 cor_matrix <- cor(returns)
 
 # Verify covariances equal the product of standard deviations and correlation
-cov_matrix[1,2] == cor_matrix[1,2] * sds[1] * sds[2]
+all.equal(cov_matrix[1,2], cor_matrix[1,2] * sds[1] * sds[2])
 ```
 
 *** =sct
@@ -549,7 +549,7 @@ test_object("cov_matrix", undefined_msg = "Hey, it looks like you forgot to crea
 test_object("cor_matrix", undefined_msg = "Did you create your correlation matrix?", incorrect_msg = "Use `cor()` to create your correlation matrix!")
 
 #4th
-test_output_contains("cov_matrix[1,2] == cor_matrix[1,2]*vsd[1]*vsd[2]", incorrect_msg = "Oops! Make sure you didn't change the last line of code we provide you!")
+test_function("all.equal", c("target", "current"))
 
 success_msg("Well done! These matrices can help you in your calculations, and are also a good reference to see the relationship between your assets.")
 ```
