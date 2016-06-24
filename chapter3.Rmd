@@ -96,12 +96,12 @@ Let us do this in the case of a portfolio invested US equities and US bonds. We 
 - Initialize empty vector `vsharpe` with the same length as `grid`. A popular way of doing this is by creating a vector that contains NA's using function [rep()](http://www.rdocumentation.org/packages/base/functions/rep). You will replace these NA's in the loop that you will create next.
 - In the for loop, you will compute the Sharpe ratio for each of the possible weights in `grid`.
 - The first command in the for-loop selects the i-th element of grid and stores it in object `weight`, which changes in each iteration.  
-- You want to see how the portfolio return changes with a changing weight. Create an object `preturns` that equals the sum of `weights` times `returns_equities` and `1-weights` times `returns_bonds`.
-- Next, you will replace the NAs in `vsharpe` by the annualized sharpe ratio (`SharpeRatio.annualized()`) of `preturns`.
-- Fill in the plot function where `weights` is plotted on the x-axis, and the Sharpe ratios on the y-axis.
+- You want to see how the portfolio return changes with a changing weight. Create an object `preturns` that equals the sum of `weights` times `returns_equities`, and `1-weights` times `returns_bonds`.
+- Next, you will replace the NAs in `vsharpe` with the annualized sharpe ratio (`SharpeRatio.annualized()`) of `preturns`.
+- Fill in the plot function where potential weights (`grid`) is plotted on the x-axis, and the Sharpe ratios on the y-axis.
 
 *** =hint
-hint
+To calculate your portfolio returns, tour code should look like: `preturns <- weight * returns_equities + (1 - weight) * returns_bonds`.
 
 *** =pre_exercise_code
 ```{r}
