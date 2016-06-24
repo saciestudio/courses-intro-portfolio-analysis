@@ -494,11 +494,11 @@ In this exercise you will use a for loop to calculate your grid of potential por
 *** =instructions
 - Calculate the column means of `returns`, and call this `stockmu`.
 - Create a sequence (`seq()`) of length 50, that begins at the minimum value of `stockmu` and ends at the maximum value of `stockmu` called `grid`.
-- Create three empty vectors with the same length as `grid`, where you will store the portfolio means, standard deviations, and weights. Call these `vpm`, `vpsd`, `mweights` respectively.
+- Create three empty vectors with the same length as `grid`, where you will store the portfolio means, standard deviations, and weights. Call these `vpm`, `vpsd`, `mweights` respectively. Note that the first observations of `vpm`, and `vpsd` will remain `NA` because returns cannot be calculated on the initial observation.
 - Create a for loop that starts on the second value of `grid` and ends on the last. 
 - The for loop should create a portfolio called `optim` using `returns` and with a target return of `grid`.
 - With each iteration the for loop should fill the vectors `vpm`, `vpsd` with their respective values from `optim`.
-- Use `rbind()` to merge the weights of each portfolio to `mweights`.
+- Use `rbind()` to merge the weights of each portfolio to `mweights` to build your weight matrix.
 
 
 *** =hint
