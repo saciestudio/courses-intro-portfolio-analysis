@@ -460,9 +460,9 @@ test_function("portfolio.optim", c("x", "reshigh"), not_called_msg = "Make sure 
 test_function("portfolio.optim", c("x", "reshigh"), not_called_msg = "Make sure to create a portfolio where the max weights are equal to 5%!", incorrect_msg = "Did you supply the correct weights vector to `optim3`?", index = 3)
 
 #5
-test_function("sum", "...", index = 1)
-test_function("sum", "...", index = 2)
-test_function("sum", "...", index = 3)
+test_output_contains("sum(optim1$pw > .01)", incorrect_msg = "Make sure you count how many assets have a weight greater than 1% for `optim1`!")
+test_output_contains("sum(optim2$pw > .01)", incorrect_msg = "Make sure you count how many assets have a weight greater than 1% for `optim2`!")
+test_output_contains("sum(optim3$pw > .01)", incorrect_msg = "Make sure you count how many assets have a weight greater than 1% for `optim3`!")
 
 #6
 test_output_contains("optim1$ps")
