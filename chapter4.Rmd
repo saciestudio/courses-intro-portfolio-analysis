@@ -258,7 +258,7 @@ test_student_typed("names(pf_weights) <- colnames(returns)", not_typed_msg = "Oo
 test_object("optim_weights", undefined_msg = "You need to create your optimum weights object!", incorrect_msg = "Remember that optimum weights are greater than or equal to 1%!")
 
 #5
-test_function("barplot", "x", not_called_msg = "Remember to plot your optimum weights!", incorrect_msg = "Make sure you selected the correct values for your optimum weights.")
+test_function("barplot", "height", not_called_msg = "Remember to plot your optimum weights!", incorrect_msg = "Make sure you selected the correct values for your optimum weights.")
 
 #5
 test_output_contains("optim$pm")
