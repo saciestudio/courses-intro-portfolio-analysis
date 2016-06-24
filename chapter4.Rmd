@@ -352,7 +352,7 @@ test_output_contains("pf_mean$ps")
 test_output_contains("pf_10plus$ps")
 
 #4
-test_output_contains("(pf_10plus$ps - pf_mean$ps) / (pf_mean$ps) * 100")
+test_output_contains("(pf_10plus$ps - pf_mean$ps) / (pf_mean$ps)", incorrect_msg = "Make sure you calculate the percent increase in standard deviation!")
 
 # sct code
 success_msg("Well done!")
