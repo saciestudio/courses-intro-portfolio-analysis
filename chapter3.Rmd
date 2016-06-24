@@ -177,7 +177,7 @@ test_object("grid", undefined_msg = "Looks like you need to create a vector of w
 #2
 test_object("vsharpe", undefined_msg = "Oops! You forgot to create an empty vector for the sharpe ratios!", incorrect_msg = "Remember that `vsharpe` needs to be the same length as `grid`.", index = 1)
 
-test_object("vsharpe")
+test_object("vsharpe", index = 2)
 
 test_function("plot", c("x", "y", "xlab", "ylab"))
 test_function("abline", c("v", "lty"))
