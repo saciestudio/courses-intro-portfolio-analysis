@@ -537,11 +537,6 @@ for (i in 2:length(grid)) {
   vpsd <- append(vpsd, ___)
   mweights <- rbind(mweights, ___) 
 }
-
-#### THIS SHOULD BE ITS OWN EXERCISE WITH A MC ?####
-# report the scatter plot of vpm agains vpsd
-plot(vpsd,vpm, xlab="(monthly) Volatility" , ylab="(monthly) average returns", 
-     main="Minimum variance portfolios \n under a return target constraint",type="l",lwd=2)
 ```
 
 *** =solution
@@ -565,10 +560,6 @@ for(i in 2:length(grid)) {
   mweights <- rbind(mweights, optim$pw)
 }
 
-#### THIS SHOULD BE ITS OWN EXERCISE WITH A MC ?####
-# report the scatter plot of vpm agains vpsd
-plot(vpsd,vpm, xlab="(monthly) Volatility" , ylab="(monthly) average returns", 
-     main="Minimum variance portfolios \n under a return target constraint",type="l",lwd=2)
 ```
 
 *** =sct
@@ -586,6 +577,64 @@ test_output_contains("for(i in 2:length(grid)) {
 # sct code
 success_msg("Well done!")
 ```
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:04255405f1b95fc9587c9350f29c6549b41cc79e
+## Interpreting the efficient frontier
+
+In the previous exercise you computed the efficient frontier from a grid of potential target returns. In this exercise you will interpret the chart produced from the info data you created in the previous exercise.
+
+Look at the chart to your right and identify which of the following is true. 
+
+*** =instructions
+- The minimum variance portfolio has a monthly volatility of around 1.05
+- The maximum return portfolio has a monthly volatility that is lower than the tangency portfolio.
+- The portfolio with the greatest return for its given standard deviation is the tangency portfolio.
+- None of the above are true.
+
+*** =hint
+
+
+*** =pre_exercise_code
+```{r}
+library(xts)
+library(PerformanceAnalytics)
+library(tseries)
+download.file("http://s3.amazonaws.com/assets.datacamp.com/course/portfolio-analysis/prices.rds", destfile="prices.rds")
+# load("prices.Rdata")
+prices<- readRDS("prices.rds") 
+returns <- Return.calculate(prices, method="simple")
+returns <- returns[(-1),]
+
+# Calculate each stocks mean returns
+stockmu <- colMeans(returns)
+
+# Create a grid of target values
+grid <- seq(min(stockmu), max(stockmu), length.out = 50)  
+
+# Create empty vectors to store means, deviations and your matrix of weights
+vpm <- c()
+vpsd <- c()
+mweights <- c()
+
+# Create your for loop
+for(i in 2:length(grid)) {
+  optim <- portfolio.optim(x = returns , pm = grid[i])
+  vpm <- append(vpm, optim$pm)
+  vpsd <- append(vpsd, optim$ps)
+  mweights <- rbind(mweights, optim$pw)
+}
+
+
+plot(vpsd,vpm, xlab="(monthly) Volatility" , ylab="(monthly) average returns", 
+     main="Minimum variance portfolios \n under a return target constraint",type="l",lwd=2)
+
+```
+
+*** =sct
+```{r}
+test_mc(3)
+```
+
+
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1    key:e647c251a7
 ## Properties of the efficient frontier
