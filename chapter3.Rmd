@@ -451,7 +451,9 @@ test_function("plot", c("x", "y"), incorrect_msg = "Oops! Are the standard devia
 
 test_student_typed("text(sds, means, labels = colnames(returns), cex = 0.7)", not_typed_msg = "Oops! Did you alter the code we provided?!")
 
-test_student_typed("abline(h = 0, lty = 3)", "Hey! Did you change our code?")
+test_function("abline", c("h"))
+
+
 
 success_msg("Well done! Take a look the plot you just created. Do you see you any patterns?")
 ```
