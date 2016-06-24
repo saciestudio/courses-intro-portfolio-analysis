@@ -670,7 +670,7 @@ success_msg("Well done!")
 
 In the previous exercise you practiced calclulating returns, and volatility using matrix notation. In this exercise you will practice annualizing those returns! You will also compare the outputs from matrix calculations and the standard calculations you have been practicing.
 
-The matrices you created in the last exercise are loaded in your workspace as `w`, `mu`, and `sigma`. In addition the return series of created from using `Return.portfolio()` is loaded as `preturns`. You will compare this to the matrices.
+The matrices you created in the last exercise are loaded in your workspace as `w`, `mu`, and `sigma`. In addition the return series created from using `Return.portfolio()` is loaded as `preturns`. You will compare this to the matrices.
 
 *** =instructions
 - Calculate the annualized portfolio returns using matrices.
@@ -720,6 +720,8 @@ mu <- as.matrix(apply(returns, 2, "mean"))
 
 # Create a covariance matrix of returns sigma
 sigma <- cov(returns)
+
+preturns <- Return.portfolio(returns)
 ```
 
 
