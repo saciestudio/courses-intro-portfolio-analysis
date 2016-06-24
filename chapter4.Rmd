@@ -502,7 +502,7 @@ In this exercise you will use a for loop to calculate your grid of potential por
 
 
 *** =hint
-hint comes here
+Use the argument `length.out = 50` to set the length of your sequence for `grid`.
 
 *** =pre_exercise_code
 ```{r}
