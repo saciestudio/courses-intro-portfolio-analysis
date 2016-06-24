@@ -535,7 +535,7 @@ for(i in 2:length(grid)) {
   optim <- 
   vpm[i] <- 
   vpsd[i] <- 
-  mweights <- rbind(mweights, optim$pw)
+  mweights[i, ] <- 
 }
 ```
 
@@ -557,9 +557,8 @@ for(i in 2:length(grid)) {
   optim <- portfolio.optim(x = returns , pm = grid[i])
   vpm[i] <- optim$pm
   vpsd[i] <- optim$ps
-  mweights <- rbind(mweights, optim$pw)
+  mweights[i, ] <- optim$pw
 }
-
 
 ```
 
@@ -573,11 +572,12 @@ test_output_contains("for(i in 2:length(grid)) {
   optim <- portfolio.optim(x = returns , pm = grid[i])
   vpm[i] <- optim$pm
   vpsd[i] <- optim$ps
-  mweights <- rbind(mweights, optim$pw)
+  mweights[i, ] <- optim$pw
 }")
 # sct code
 success_msg("Well done!")
 ```
+
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:04255405f1b95fc9587c9350f29c6549b41cc79e
 ## Interpreting the efficient frontier
 
