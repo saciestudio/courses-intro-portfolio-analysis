@@ -1048,6 +1048,9 @@ table.AnnualizedReturns(returns_pf_eval)
 *** =sct
 ```{r}
 # sct code
+test_function("Return.portfolio", c("R", "weights", "rebalance_on"), index = 1)
+test_function("Return.portfolio", c("R", "weights", "rebalance_on"), inde = 2)
+
 test_function("table.AnnualizedReturns","R", index = 1)
 test_function("table.AnnualizedReturns","R", index = 2)
 success_msg("Good job!")
