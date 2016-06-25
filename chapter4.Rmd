@@ -147,18 +147,6 @@ test_function("hist", "x", incorrect_msg = "Oops! Have you plotted the lower tri
 success_msg("Well done!")
 ```
 
-
---- type:VideoExercise lang:r xp:50 skills:1 key:b48ce393f1
-## Modern portfolio theory of Harry Markowitz
-
-
-*** =video_link
-//player.vimeo.com/video/108225030
-
-*** =video_hls
-//videos.datacamp.com/transcoded/985_portfolio_analysis/v2/hls-ch4_1.master.m3u8
-
-
 --- type:NormalExercise lang:r xp:100 skills:1 key:c066b2d5f610d13afdb48831249d18142590def7
 ## Finding the mean-variance efficient portfolio  
 
