@@ -74,7 +74,7 @@ The 1991-2015 monthly returns on the 30 DJIA stocks are available in the workspa
 - Create a vector of row means of `returns` using the function [rowMeans()](http://www.rdocumentation.org/packages/base/functions/colSums). Assign this to `row_means`. Note that you could have used `apply()` here as well.
 - Plot `row_means` using `plot.zoo()`.
 - Create a correlation matrix of the returns called `z`.
-- Plot the histogram of the correlations between the monthly returns of the DJIA stocks. Because of the symmetry of the correlation matrix, you only need the lower triangular elements, which, for any square matrix `z`, you can select using `z[lower.tri(z)]`.
+- Plot a histogram of the correlation matrix, `z`.
 
 *** =hint
 Remeber that you can use `cor()` to create a correlation matrix.
@@ -124,7 +124,7 @@ plot.zoo(row_means)
 z <- cor(returns)
 
 # Plot the histogram of the correlation matrix
-hist(z[lower.tri(z)])
+hist(z)
 ```
 
 *** =sct
@@ -1062,42 +1062,41 @@ success_msg("Good job!")
  
 You made it! This journey showed you how to compute returns, analyze portfolio performance and optimize portfolios. These are important skills, since whenever you hold or manage more than one asset, you have a portfolio to consider. 
 
-It is now time to compound and get extra return by exploring other useful R packages for portfolio analysis like *PortfolioAnalytics*. Instead of optimizing the portfolio by minimizing the variance under a return targetg constraint, this package allows you optimize virtually all objective functions under all possible constraints. Even if the solution to the problem is not feasible, it will give you the best possible solution using heuristics such as differential evolution in the R package *DEoptim*. Since I have been involved in both packages, this last exercise is an act of shameless selfpromotion. 
+It is now time to compound and get extra return by exploring other useful R packages for portfolio analysis like *PortfolioAnalytics*. Instead of optimizing the portfolio by minimizing the variance under a return targetg constraint, this package allows you optimize virtually all objective functions under all possible constraints. Even if the solution to the problem is not feasible, it will give you the best possible solution using heuristics such as differential evolution in the R package [DEoptim](https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Ardia~et~al.pdf). Since I have been involved in both packages, this last exercise is an act of shameless selfpromotion. 
 
 Have fun! 
 
 *** =instructions
 - Load the package PortfolioAnalytics and explore the functionality of this package by entering the instruction `?PortfolioAnalytics`. 
-- Read my article on portfolio optimization with DEoptim. 
+- Read my article on portfolio optimization with [DEoptim](https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Ardia~et~al.pdf). 
 *** =hint
-hint comes here
+
 
 *** =pre_exercise_code
 ```{r}
 # pec
-library(Biobase)
-uri <- "https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Ardia~et~al.pdf"
-download.file(uri,"deoptim.pdf",method="internal",mode="wb")
+#library(Biobase)
+$uri <- "https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Ardia~et~al.pdf"
+#download.file(uri,"deoptim.pdf",method="internal",mode="wb")
 
 ```
 
 *** =sample_code
 ```{r}
-# load and explore the package PortfolioAnalytics
+# Load and explore the package PortfolioAnalytics
 
-# happy reading!
-openPDF("deoptim.pdf")
+# Happy reading!
 ```
 
 *** =solution
 ```{r}
-# solution code
+
 ```
 
 *** =sct
 ```{r}
 # sct code
-success_msg("Well done!")
+success_msg("You have now finished Intro to Portoflio Analysis! Congratulations!")
 ```
 
 
