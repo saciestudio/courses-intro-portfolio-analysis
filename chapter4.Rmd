@@ -592,7 +592,7 @@ Look at the chart to your right and identify which of the following is true.
 - None of the above are true.
 
 *** =hint
-
+The efficient frontier has only one point where return is greatest for its standard deviation.
 
 *** =pre_exercise_code
 ```{r}
