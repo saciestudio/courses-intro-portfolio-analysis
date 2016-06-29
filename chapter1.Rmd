@@ -465,7 +465,7 @@ Below you find three commands to compute the portfolio return of an equally weig
 *** =instructions
 - `preturn <- mean(returns / N)`
 - `preturn <- mean(returns)`
-- `preturn <- rep(mean(returns), N / returns)`
+- `preturn <- rep(mean(returns), N)`
 - None of the above.
 
 
@@ -474,6 +474,9 @@ The portfolio return is a single number.
 
 *** =pre_exercise_code
 ```{r}
+set.seed(1234)
+returns <- rnorm(100,sd=0.1)
+names(returns) <-  paste(rep("As set",100),c(1:100),sep="_")
 # pec
 ```
 
@@ -495,7 +498,7 @@ The corresponding simple return over those two periods is: $(1 +$*$R_1$*$) * (1 
 
 Suppose that you have an investment horizon of two periods. In the first period you make a 10% return. But in the second period you take a loss of 5%. 
 
-Use the R console to compute the end value, and the simple return of an initial investment of a 1000 USD investment.
+Use the R console to compute the end value of a 1000 USD investment.
 
 Which of the three following answers do you obtain?
 
@@ -557,7 +560,7 @@ success_msg("Well done! After 50% loss you would need to double the amount of mo
 --- type:NormalExercise lang:r xp:100 skills:1 key:1d4270da1d39343116d0e77f9b897e6b2127914f
 ## The time series of asset returns  
 
-Calculating the returns for one period is pretty straight forward to do in R. When the returns need to be calculated for different dates the functions [Return.calculate()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.calculate) and [Return.portfolio()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio), in the R package [PerformanceAnalytics](http://www.rdocumentation.org/packages/performanceanalytics/functions/performanceanalytics-package) are extremely helpful. They require the input data to be of the [xts-time series class](http://www.rdocumentation.org/packages/xts/functions/xts-package). You will explore the functionality of the `PerformanceAnalytics` package in this exercise. 
+Calculating the returns for one period is pretty straightforward to do in R. When the returns need to be calculated for different dates the functions [Return.calculate()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.calculate) and [Return.portfolio()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.portfolio), in the R package [PerformanceAnalytics](http://www.rdocumentation.org/packages/performanceanalytics/functions/performanceanalytics-package) are extremely helpful. They require the input data to be of the [xts-time series class](http://www.rdocumentation.org/packages/xts/functions/xts-package). You will explore the functionality of the `PerformanceAnalytics` package in this exercise. 
 
 You have a portfolio invested in Apple stock, and Microsoft stock. The prices for each stock are available in the variables `aapl` and `msft` in your workspace.
 
@@ -567,7 +570,7 @@ You have a portfolio invested in Apple stock, and Microsoft stock. The prices fo
 - Print the first and last six row of `prices` using `head` and `tail`.
 - Use the function `Return.calculate()` with the only argument `prices` to compute for each date the return as the percentage change in the price compared to the previous date, call this `returns`.
 - Print the first six rows of `returns`.
-- Remove the first row of `returns`
+- Remove the first row of `returns`.
  
 
 *** =hint
@@ -668,7 +671,7 @@ In the previous exercise you create a variable called `returns` from the daily p
 
 In the last video you were introduced to two weighting strategies: the buy and hold strategy, and a monthly rebalancing strategy. In this exercise you will create a portfolio in which you don’t rebalance, and one where you rebalance monthly. You will then visualize the portfolio returns of both.
 
-You will use the function `Return.portfolio()` for your calculations. For this function you will provide three arguments: `R`, `weights`, and `rebalance_on`. `R` is a time series of returns, `weights` is a vector of asset returns, and `rebalance_on` specifies which calendar-period to rebalance on.  If you need help be sure to check the documentation by clicking on the function!
+You will use the function `Return.portfolio()` for your calculations. For this function you will provide three arguments: `R`, `weights`, and `rebalance_on`. `R` is a time series of returns, `weights` is a vector of asset returns, and `rebalance_on` specifies which calendar-period to rebalance on.  If you need help, be sure to check the documentation by clicking on the function!
 
 `returns` is pre-loaded in your workspace.
 
@@ -855,7 +858,7 @@ test_output_contains("plot.zoo(eop_weight_rebal$AAPL")
 success_msg("Well done!")
 ```
 
-#--- type:NormalExercise lang:r xp:100 skills:1 #key:e2b13d9ade5d7b168bb6157909da1cffbc6729e1
+#--- type:NormalExercise lang:r xp:100 skills:1 key:e2b13d9ade5d7b168bb6157909da1cffbc6729e1
 ## From daily to monthly portfolio returns
 
 -- WE WOULD LIKE TO REMOVE THIS EXERCISE, because compound returns are not introduced previously and do not occur anymore in the remaindder of this course (except for annualizing, (1+i)^12). Also, the numbers seem to be wriong.--
@@ -868,7 +871,7 @@ The next chapter is devoted to performance evaluation. But before you dive into 
 
 In this exercise you will focus on the evolution of portfolio returns in September 2008. This was an exceptional month for investors. However, the bankruptcy of Lehman Brother on September 15th was an important turning point. Complete the exercise for a closer look.
 
-*** =instructions
+#*** =instructions
 - Print the daily returns in September 2008. This can be done using `preturns["YYYY-MM"]`.
 - In order to see how a one dollar investment evolved over that month, print `cumprod(1+preturns["2008-09"])`. Its $k$-th observation  corresponds to the chain $(1 +$*$R_1$*$) * (1 + $*$R_2$*$) * \ldots * (1+$*$R_K$*$)$ with *$R_i$* the $i$-th return of that month.
 - Compute the return over this month as the simple percentage change between the final and initial value of this one-dollar investment.
@@ -877,10 +880,10 @@ In this exercise you will focus on the evolution of portfolio returns in Septemb
 
 
 
-*** =hint
+#*** =hint
 hint comes here
 
-*** =pre_exercise_code
+#*** =pre_exercise_code
 ```{r}
 library(tseries)
 aapl <- get.hist.quote(instrument="AAPL",start=as.Date("2005-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T)
@@ -900,7 +903,7 @@ weights <- c(0.5,0.5)
 preturns <- Return.portfolio(returns, weights,rebalance_on="days")
 ```
 
-*** =sample_code
+#*** =sample_code
 ```{r}
 # returns is pre-loaded, and the formula for a daily rebalanced equally weighted portfolio is given below
 preturns <- Return.portfolio(returns, weights, rebalance_on= "days")
@@ -918,7 +921,7 @@ preturns <- Return.portfolio(returns, weights, rebalance_on= "days")
 
 ```
 
-*** =solution
+#*** =solution
 ```{r}
 # returns is pre-loaded, and the formula for a daily rebalanced equally weighted portfolio is given below
 preturns <- Return.portfolio(returns, weights, rebalance_on= "days")
@@ -936,7 +939,7 @@ cumprod(1+preturns["2008-09"])
 Return.cumulative(preturns["2008-09"])
 ```
 
-*** =sct
+#*** =sct
 ```{r}
 # sct code
 success_msg("Well done!")
