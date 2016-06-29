@@ -22,7 +22,7 @@ Which of the following statements about the relationship between portfolio perfo
 
 *** =instructions
 - Investing entirely in `returns_equities` has a lower risk than investing in the portfolio. 
-- The portfolio mean return equals the position weighted sum of the component mean returns. This is written as: `all.equal(mean(returns_6040), 0.6 * mean(returns_equities) + 0.4 * mean(returns_bonds))`.
+- The portfolio mean return equals the position weighted sum of the component mean returns. You can test this using: `all.equal(mean(returns_6040), 0.6 * mean(returns_equities) + 0.4 * mean(returns_bonds))`.
 - The investment value evolution of the bond is rather smooth because of the high standard deviation of the bond returns.
 - None of the above statements are correct.
 
