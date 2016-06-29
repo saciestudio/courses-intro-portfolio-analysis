@@ -842,7 +842,7 @@ test_object("weights", incorrect_msg = "Remember that weights need to add to uni
 test_obect("pf_bh", incorrect_msg = "You should set your weights argument equal to `weights` and `verbose = TRUE`!", undefined_msg = "Oops! You forgot to create a portfolio using a buy and hold technique.")
 
 #3
-test_obect("pf_rebal", incorrect_msg = "You should set your `rebalance_on` argument to `months`, and `verbose = TRUE`!" undefined_msg = "Oops! You forgot to create a portfolio using a monthly rebalancing technique.")
+test_obect("pf_rebal", incorrect_msg = "You should set your `rebalance_on` argument to `months`, and `verbose = TRUE`!", undefined_msg = "Oops! You forgot to create a portfolio using a monthly rebalancing technique.")
 
 #4
 test_object("eop_weight_bh", incorrect_msg = "Did you select the `$EOP.Weight` to create your end of period weight vector?", undefined_msg = "Don't forget to create a vector of the end of period weights for your buy and hold portfolio!")
