@@ -16,14 +16,14 @@ description : In addition to studying portfolio performance based on the observe
 
 So far in the previous chapters you have seen that there are three types of drivers for a portfolio's performance: (i) the individual performance of the assets in terms of risk and return, (ii) the portfolio weight of each of the assets, (iii) the correlation between the asset returns. 
   
-You will now explore how the portfolio mean return and volatility depends on the mean returns and volatility of the assets that a portfolio is invested in. In this example you will consider investing—with monthly frequency—in US equities and US bonds. Each asset's returns are stored in your workspace as `returns_equities`, and `returns_bonds`, in addition the portfolio returns are stored as `returns_6040`. You have a portfolio that is invested 60/40, meaning that every month you invest 60% in equities, and 40% bonds.
+You will now explore how the portfolio mean return and volatility depends on the mean returns and volatility of the assets that a portfolio is invested in. In this example you will consider investing—with monthly frequency—in US equities and US bonds. Each asset's returns are stored in your workspace as `returns_equities`, and `returns_bonds`, in addition, the portfolio returns are stored as `returns_6040`. This is a portfolio that is invested 60/40, meaning that every month you invest 60% in equities, and 40% bonds.
 
 Which of the following statements about the relationship between portfolio performance (investing in both equities and bonds) and the individual assets' performance (investing in only one of them) is true. 
 
 *** =instructions
 - Investing entirely in `returns_equities` has a lower risk than investing in the portfolio. 
 - The portfolio mean return equals the position weighted sum of the component mean returns. This is written as: `all.equal(mean(returns_6040), 0.6 * mean(returns_equities) + 0.4 * mean(returns_bonds))`.
-- Investing `returns_bonds` has a lower risk and thus a higher reward!
+- The investment value evolution of the bond is rather smooth because of the high standard deviation of the bond returns.
 - None of the above statements are correct.
 
 *** =hint
