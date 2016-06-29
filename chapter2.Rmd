@@ -1085,7 +1085,7 @@ success_msg("Congratulations! You now know how to report and visualize drawdown 
 
  
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1  key:bdf87df244
+#--- type:MultipleChoiceExercise lang:r xp:50 skills:1  key:bdf87df244
 ## Main take-aways on portfolio performance evaluation
 
 ----THIS NEEDS EDITING / CHANGING ----
