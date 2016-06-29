@@ -855,7 +855,7 @@ test_output_contains("plot.zoo(eop_weight_rebal$AAPL")
 success_msg("Well done!")
 ```
 
---- type:NormalExercise lang:r xp:100 skills:1 key:e2b13d9ade5d7b168bb6157909da1cffbc6729e1
+#--- type:NormalExercise lang:r xp:100 skills:1 #key:e2b13d9ade5d7b168bb6157909da1cffbc6729e1
 ## From daily to monthly portfolio returns
 
 -- WE WOULD LIKE TO REMOVE THIS EXERCISE, because compound returns are not introduced previously and do not occur anymore in the remaindder of this course (except for annualizing, (1+i)^12). Also, the numbers seem to be wriong.--
