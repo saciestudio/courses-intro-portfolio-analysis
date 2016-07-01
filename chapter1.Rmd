@@ -271,10 +271,10 @@ The function `rep(arg1,arg2)` creates a vector in which `arg1` is replicated `ar
 
 *** =sct
 ```{r}
-msg1 <- Not quite! This creates a vector of one value!
-msg2 <- That's right! This creates a vector of length `N`, or 100 where each value is the same! 
-msg3 <- Oops! This creates a vector of length 1.
-msg4 <- Not quite! This creates a vector of length 1, where the value is 1/100!
+msg1 <- "Not quite! This creates a vector of one value!"
+msg2 <- "That's right! This creates a vector of length `N`, or 100 where each value is the same!"
+msg3 <- "Oops! This creates a vector of length 1."
+msg4 <- "Not quite! This creates a vector of length 1, where the value is 1/100!"
 test_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4)) 
 ```
 
