@@ -339,7 +339,7 @@ test_object("marketcaps", incorrect_msg = "Did you use the given values for mark
 test_object("weights", incorrect_msg = "Remember that weights are calculated by taking the market cap of an asset divided by the sum of all market caps.", undefined_msg = "Don't forget to create a vector of asset weights!")
 
 #3rd instruction
-test_student_typed("summary(weights)", not_typed_msg = "Make sure to plot a summary of `weights`!", not_typed_msg = "Make sure you print a summary of the weights!")
+test_student_typed("summary(weights)", not_typed_msg = "Make sure you print a summary of the weights!")
 
 #4th instruction
 test_output_contains("hist(weights)", incorrect_msg = "Make sure to create a histogram of `weights`!")
