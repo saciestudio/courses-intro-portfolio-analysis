@@ -1084,32 +1084,3 @@ success_msg("Congratulations! You now know how to report and visualize drawdown 
 ```
 
  
-
-#--- type:MultipleChoiceExercise lang:r xp:50 skills:1  key:bdf87df244
-## Main take-aways on portfolio performance evaluation
-
-----THIS NEEDS EDITING / CHANGING ----
-
-Does your investment strategy work? This chapter has shown that the answer to this question requires, first of all, to analyzethe portfolio returns, and, secondly, that, often, there is no unique answer to this question.
-
-In fact, very often it depends on how you look at the data. Do you consider the portfolio performance from inception, or only over the most recent 12 months? Do you use standard deviation as the risk measure, or rather the value-at-risk or expected shortfall? And, in terms of performance. Do you consider the average returns, or the returns in excess of some benchmark returns, such as the risk free rate? 
-
-We only scratched at the surface of possible portfolio performance measures. Check the documentation in PerformanceAnalytics to find out which of the following statements is false. 
-
-*** =instructions
-- Like the [SortinoRatio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/SortinoRatio), the [AdjustedSharpeRatio](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/AdjustedSharpeRatio) is an alternative for the Sharpe ratio that the non-normality of the return distribution into account when evaluating the reward received in terms of units of risk. 
-- The larger the [TrackingError](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/TrackingError) of the portfolio returns compared to the returns of a benchmark strategy, the higher the risk that the returns on the portfolio strategy will deviate from the benchmark returns. 
-- When the return distribution is symmetric, the probability of large negative returns is always small.  
-
-*** =hint
-hint
-
-*** =pre_exercise_code
-```{r}
-library(PerformanceAnalytics)
-```
-
-*** =sct
-```{r}
-test_mc(1) 
-```
