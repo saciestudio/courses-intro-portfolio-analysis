@@ -814,11 +814,11 @@ test_obect("pf_rebal", incorrect_msg = "You should set your `rebalance_on` argum
 #test_object("eop_weight_bh", incorrect_msg = "Did you select the `$EOP.Weight` to create your end of period weight #vector?", undefined_msg = "Don't forget to create a vector of the end of period weights for your buy and hold #portfolio!")
 
 #5
-#test_object("eop_weight_rebal", incorrect_msg = "Did you select the `$EOP.Weight` to create your end of period weight #vector?", undefined_msg = "Don't forget to create a vector of the end of period weights for your monthly rebalanced #portfolio!")
+test_object("eop_weight_rebal", incorrect_msg = "Did you select the `$EOP.Weight` to create your end of period weight vector?", undefined_msg = "Don't forget to create a vector of the end of period weights for your monthly rebalanced portfolio!")
 
-#test_output_contains("par(mfrow = c(2,1), mar = c(2, 4, 2, 2))")
-#test_output_contains("plot.zoo(eop_weight_bh$AAPL")
-#test_output_contains("plot.zoo(eop_weight_rebal$AAPL")
+test_output_contains("par(mfrow = c(2,1), mar = c(2, 4, 2, 2))")
+test_output_contains("plot.zoo(eop_weight_bh$AAPL)")
+test_output_contains("plot.zoo(eop_weight_rebal$AAPL)")
 
 success_msg("Well done!")
 ```
