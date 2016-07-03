@@ -605,15 +605,15 @@ returns <- returns[-1, ]
 ```{r}
 # sct code 
 #1st instruction
-test_library_function(xts, not_called_msg = "Make sure to call the xts library!")
-test_library_function(PerformanceAnalytics, not_called_msg = "Make sure to call the PerformanceAnalytics library!")
+#test_library_function(xts, not_called_msg = "Make sure to call the xts library!")
+#test_library_function(PerformanceAnalytics, not_called_msg = "Make sure to call the PerformanceAnalytics library!")
 
 #2nd instruction
-test_object("prices", incorrect_msg = "Did you use the merge function properly? Also, be sure not to alter the `colnames()` function!", undefined_msg = "You need to merge your return series!")
+#test_object("prices", incorrect_msg = "Did you use the merge function properly? Also, be sure not to alter the #`colnames()` function!", undefined_msg = "You need to merge your return series!")
 
 #3rd instruction
-test_output_contains("head(prices)", incorrect_msg = "Oops! Be sure to look at the head of `prices`!")
-test_student_typed("tail(prices)", incorrect_msg = "Oops! Be sure to look at the tail of `prices`!")
+#test_output_contains("head(prices)", incorrect_msg = "Oops! Be sure to look at the head of `prices`!")
+#test_student_typed("tail(prices)", incorrect_msg = "Oops! Be sure to look at the tail of `prices`!")
 
 #4th instruction
 test_object("returns", incorrect_msg = "Did you provide the correct object to `Return.calculate()`?", undefined_msg = "You need to create an object of returns!", index = 1)
