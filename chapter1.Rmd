@@ -612,17 +612,17 @@ returns <- returns[-1, ]
 #test_object("prices", incorrect_msg = "Did you use the merge function properly? Also, be sure not to alter the #`colnames()` function!", undefined_msg = "You need to merge your return series!")
 
 #3rd instruction
-#test_output_contains("head(prices)", incorrect_msg = "Oops! Be sure to look at the head of `prices`!")
-#test_student_typed("tail(prices)", incorrect_msg = "Oops! Be sure to look at the tail of `prices`!")
+test_output_contains("head(prices)", incorrect_msg = "Oops! Be sure to look at the head of `prices`!")
+test_student_typed("tail(prices)", incorrect_msg = "Oops! Be sure to look at the tail of `prices`!")
 
 #4th instruction
-test_object("returns", incorrect_msg = "Did you provide the correct object to `Return.calculate()`?", undefined_msg = "You need to create an object of returns!", index = 1)
+test_object("returns", incorrect_msg = "Did you provide the correct object to `Return.calculate()`?", undefined_msg = "You need to create an object of returns!")
 
 #5th instruction
 test_output_contains("head(returns)", incorrect_msg = "It looks like you didn't print the head of your returns!")
 
 #6th instruction
-test_object("returns", index = 2)
+test_object("returns")
 
 test_error()
 success_msg("Well done! Notice that you removed the first row of your returns because they were `NA` values!")
