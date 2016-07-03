@@ -613,7 +613,7 @@ returns <- returns[-1, ]
 
 #3rd instruction
 test_output_contains("head(prices)", incorrect_msg = "Oops! Be sure to look at the head of `prices`!")
-test_student_typed("tail(prices)", incorrect_msg = "Oops! Be sure to look at the tail of `prices`!")
+test_student_typed("tail(prices)", not_typed_msg = "Oops! Be sure to look at the tail of `prices`!")
 
 #4th instruction
 test_object("returns", incorrect_msg = "Did you provide the correct object to `Return.calculate()`?", undefined_msg = "You need to create an object of returns!")
