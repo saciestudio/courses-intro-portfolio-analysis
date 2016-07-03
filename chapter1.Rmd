@@ -800,113 +800,26 @@ plot.zoo(eop_weight_rebal$AAPL)
 
 *** =sct
 ```{r}
+# sct code
 #1
-#test_object("weights", incorrect_msg = "Remember that weights need to add to unity (1)!", undefined_msg = "Don't forget #to create a vector of weights!")
+test_object("weights", incorrect_msg = "Remember that weights need to add to unity (1)!", undefined_msg = "Don't forget to create a vector of weights!")
 
 #2
-#test_obect("pf_bh", incorrect_msg = "You should set your weights argument equal to `weights` and `verbose = TRUE`!", #undefined_msg = "Oops! You forgot to create a portfolio using a buy and hold technique.")
+test_obect("pf_bh", incorrect_msg = "You should set your weights argument equal to `weights` and `verbose = TRUE`!", undefined_msg = "Oops! You forgot to create a portfolio using a buy and hold technique.")
 
 #3
-#test_obect("pf_rebal", incorrect_msg = "You should set your `rebalance_on` argument to `months`, and `verbose = TRUE`!", #undefined_msg = "Oops! You forgot to create a portfolio using a monthly rebalancing technique.")
+test_obect("pf_rebal", incorrect_msg = "You should set your `rebalance_on` argument to `months`, and `verbose = TRUE`!", undefined_msg = "Oops! You forgot to create a portfolio using a monthly rebalancing technique.")
 
 #4
-test_object("eop_weight_bh", incorrect_msg = "Did you select the `$EOP.Weight` to create your end of period weight vector?", undefined_msg = "Don't forget to create a vector of the end of period weights for your buy and hold portfolio!")
+#test_object("eop_weight_bh", incorrect_msg = "Did you select the `$EOP.Weight` to create your end of period weight #vector?", undefined_msg = "Don't forget to create a vector of the end of period weights for your buy and hold #portfolio!")
 
 #5
-test_object("eop_weight_rebal", incorrect_msg = "Did you select the `$EOP.Weight` to create your end of period weight vector?", undefined_msg = "Don't forget to create a vector of the end of period weights for your monthly rebalanced portfolio!")
+#test_object("eop_weight_rebal", incorrect_msg = "Did you select the `$EOP.Weight` to create your end of period weight #vector?", undefined_msg = "Don't forget to create a vector of the end of period weights for your monthly rebalanced #portfolio!")
 
-test_output_contains("par(mfrow = c(2,1), mar = c(2, 4, 2, 2))")
-test_output_contains("plot.zoo(eop_weight_bh$AAPL")
-test_output_contains("plot.zoo(eop_weight_rebal$AAPL")
+#test_output_contains("par(mfrow = c(2,1), mar = c(2, 4, 2, 2))")
+#test_output_contains("plot.zoo(eop_weight_bh$AAPL")
+#test_output_contains("plot.zoo(eop_weight_rebal$AAPL")
 
-# sct code
-success_msg("Well done!")
-```
-
-#--- type:NormalExercise lang:r xp:100 skills:1 key:e2b13d9ade5d7b168bb6157909da1cffbc6729e1
-## From daily to monthly portfolio returns
-
--- WE WOULD LIKE TO REMOVE THIS EXERCISE, because compound returns are not introduced previously and do not occur anymore in the remaindder of this course (except for annualizing, (1+i)^12). Also, the numbers seem to be wriong.--
-
-You have now plotted the daily return series. In practice, portfolio managers rarely communicate their daily returns, but focus on the total (compound) performance over a longer period, such as a month or a year. 
-Monthly returns can be obtained by using the formula of compound returns. A compound return at the $k$-th period is given by the cumulative product of the returns for periods 1 to $k$, which is given by the chain $(1 +$*$R_1$*$) * (1 + $*$R_2$*$) * \ldots * (1+$*$R_K$*$)$. To get to the return *over* a certain period (let's say the period 1 to $K$), you have to substract the compound return at the $K$-th period  
-
-
-The next chapter is devoted to performance evaluation. But before you dive into that, it would do you well to look at a bit of investment history, using a daily rebalanced portfolio containing the Apple and Microsoft stocks used previously.
-
-In this exercise you will focus on the evolution of portfolio returns in September 2008. This was an exceptional month for investors. However, the bankruptcy of Lehman Brother on September 15th was an important turning point. Complete the exercise for a closer look.
-
-#*** =instructions
-- Print the daily returns in September 2008. This can be done using `preturns["YYYY-MM"]`.
-- In order to see how a one dollar investment evolved over that month, print `cumprod(1+preturns["2008-09"])`. Its $k$-th observation  corresponds to the chain $(1 +$*$R_1$*$) * (1 + $*$R_2$*$) * \ldots * (1+$*$R_K$*$)$ with *$R_i$* the $i$-th return of that month.
-- Compute the return over this month as the simple percentage change between the final and initial value of this one-dollar investment.
-- Verify that you obtain the same number as when using the function `Return.cumulative(preturns["2008-09"])]`.
-
-
-
-
-#*** =hint
-hint comes here
-
-#*** =pre_exercise_code
-```{r}
-library(tseries)
-aapl <- get.hist.quote(instrument="AAPL",start=as.Date("2005-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T)
-msft <- get.hist.quote(instrument="MSFT",start=as.Date("2005-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T)
-# load the packages xts and PerformanceAnalytics 
-library(xts)
-library(PerformanceAnalytics)
-# define prices as the merged time series of aapl and msft
-prices <-  merge(aapl,msft)
-# print the first and last six rows of prices
-returns <-  Return.calculate(prices)  
-# remove the first row
-returns <- returns[-1,]
-# define the vector of equally-weighted portfolio weights
-weights <- c(0.5,0.5)
-# compute portfolio return for each date
-preturns <- Return.portfolio(returns, weights,rebalance_on="days")
-```
-
-#*** =sample_code
-```{r}
-# returns is pre-loaded, and the formula for a daily rebalanced equally weighted portfolio is given below
-preturns <- Return.portfolio(returns, weights, rebalance_on= "days")
-
-# Print the daily returns in September 2008
-
-
-# Print the value evolution of a $1 investment over this month 
-
-
-# Compute the monthly return as the percentage change of final value with respect to the initial value
-
-
-# Verify that this leads to the same results as using the function Return.cumulative
-
-```
-
-#*** =solution
-```{r}
-# returns is pre-loaded, and the formula for a daily rebalanced equally weighted portfolio is given below
-preturns <- Return.portfolio(returns, weights, rebalance_on= "days")
-
-# Print the daily returns in September 2008
-preturns["2008-09"]
-
-# Print the value evolution of a $1 investment over this month 
-cumprod(1+preturns["2008-09"])
-
-# Compute the monthly return as the percentage change of final value with respect to the initial value
-(0.7682575-1)/1
-
-# Verify that this leads to the same results as using the function Return.cumulative
-Return.cumulative(preturns["2008-09"])
-```
-
-#*** =sct
-```{r}
-# sct code
 success_msg("Well done!")
 ```
  
