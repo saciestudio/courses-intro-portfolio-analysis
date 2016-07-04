@@ -252,7 +252,7 @@ success_msg("The volatility and mean return are very important metrics in every 
 
 You just learned how to create descriptive statistics of your portfolio returns. Now you will learn how to evaluate your portfolio's performance! 
 
-Performance evaluation involves comparing your investment choices with an alternative investment choice. Most commonly used is comparison with an **(almost)** risk free asset, such as the US Treasury Bill. The return from a US Treasury Bill is known as a risk free rate, this is because Treasury Bills (T-Bills) are backed by the US Government. 
+Performance evaluation involves comparing your investment choices with an alternative investment choice. ￼Most often the performance is compared with investing in an **(almost)** risk free asset, such as the US Treasury Bill. The return from a US Treasury Bill is known as a risk free rate, this is because Treasury Bills (T-Bills) are backed by the US Government. 
 As you might recall from the video, the Sharpe Ratio is an important metric that tells us the return-to-volatility ratio. It is calculated by taking the mean of excess returns (returns - risk free rate), divided by the volatility of the returns. 
 
 In this exercise you will be asked to annualize the risk free rate by using the compound interest formula. The yearly compounded  interest rate is given by $(1+y)^{12}$. The annual rate is used to estimate a yearly return and is very useful for forecasting. 
@@ -267,7 +267,7 @@ Pre-loaded in your workspace is the object `rf` which contains the one-month rat
 - Calculate the monthly Sharpe ratio, assign it to `sp500_sharpe`. 
 
 *** =hint
-The monthly Sharpe Ratio can be calculated from taking the mean of your excess returns, and dividing by the volatility (standard deviations) of your returns.
+The monthly Sharpe Ratio can be calculated from taking the mean of your excess returns, and dividing by the volatility (standard deviation) of your returns.
 
 *** =pre_exercise_code
 ```{r}
