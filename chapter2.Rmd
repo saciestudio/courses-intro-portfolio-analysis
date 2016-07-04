@@ -372,9 +372,9 @@ success_msg("Well done! Remember that the Sharpe Ratio is calculated by taking t
 
 ## Annualized mean and volatility
 
-The mean and volatility of monthly returns corresponds to the average and standard deviation over a monthly investment horizon. Investors annualize those statistics by mutiplying the mean with 12, and the volatility with the square root of 12. Annualizing the sharpe ratio is also done by multiplying by the square root of 12
+The mean and volatility of monthly returns corresponds to the average and standard deviation over a monthly investment horizon. Investors annualize those statistics statistics to show the performance over an annual investment horizon.
 
-In the previous exercise you calculated the excess returns manually. However the package `PerformanceAnalytics` has a function [Return.annualized()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.annualized) which will compute the returns for you!
+To do so, the package `PerformanceAnalytics` has the function [Return.annualized()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/Return.annualized) and [StdDev.annualized()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/StdDev.annualized) to compute the (geometrically) annualized mean return and annualized standard deviation for you!
 
 *** =instructions
 - Use the function `Return.annualized()` to compute the annualized mean of `sp500_returns`.
@@ -451,129 +451,8 @@ test_function("table.AnnualizedReturns", "R", incorrect_msg = "Be sure to supply
 test_error()
 success_msg("Well done!")
 ```
-
- 
-
---- type:NormalExercise lang:r xp:100 skills:1 key:9d2eb4bc6c13e8cdabe71c739978050d8809058c
-## Don't be fooled by randomness
-
-Portfolio performance evaluation considers that the time series of returns is driven by an underlying process. Performance evaluation aims at inferring future returns from past returns. It attemps to answer questions such as: (i) What is on average the value of a return that will be generated? (ii) What will be the standard deviation of the returns?
-
-It is important to remember that when trying to aswer those questions, you expose yourself to estimation errors. Investors will never know exactly what the underlying processes are, they can only make a guess about them from past returns. It is almost sure that the estimates of the mean and volatility will be different from the true mean and standard deviation.
-
-In this exercise, you will begin to familiarize yourself with uncertainty in estimation. You will do this by drawing random samples from a normal distribution with a mean of 5%, and a standard deviation of 10%. You will see how uncertainty is reduced when the sample size grows. We will use the [rnorm()](http://www.rdocumentation.org/packages/stats/functions/Normal) function with arguments `n`, `mean`, and `sd` to take a sample from the normal distribution.
-
-
-
-*** =instructions
-- Use the function `rnorm()` to sample 12 observations with a mean of 5%, and a standard deviation of 10%. Assign this to `returns`.
-- Compute the mean and standard deviation of `returns`.
-- Use `rnorm()` to sample another 12 observations with a mean of 5%, and a standard deviation of 10% and assign this to `returns2`.
-- Compute the mean and standard deviation of `returns2`.
-- Use `rnorm()` to sample 60 observations with a mean of 5% and a standard deviation of 10% and assign it to `returns3`.
-- Compute the mean and standard deviation of `returns3`.
-- Use `rnorm()` to sample 60 observations with a mean of 5% and standard deviation of 10% and assign it to `returns4`.
-- Compute the mean and standard deviation of `returns4`.
-
-*** =hint
-If you are struggling with the [`rnorm()`](http://www.rdocumentation.org/packages/stats/functions/Normal) function, check out the documentation.
-
-*** =pre_exercise_code
-```{r}
-# pec
-set.seed(0)
-```
-
-*** =sample_code
-```{r}
-# Draw the random sample returns
-
-
-# Compute the mean and standard deviation returns
-  
-  
-
-# Draw a random sample returns2
-
-
-# Compute mean and standard deviation of returns2
-
-
-
-# Draw a random sample of 60 observations returns3
-
-
-# Compute mean and standard deviation of returns3
-
-
-
-# Draw a random sample of 60 observations returns4
-
-
-# Compute mean and standard deviation of returns4
-
-
-```
-
-*** =solution
-```{r}
-# Draw the random sample returns
-returns <- rnorm(12, mean = 0.05, sd = 0.1)
-
-# Compute the mean and standard deviation returns
-mean(returns)
-sd(returns)
-
-# Draw a random sample returns2
-returns2 <- rnorm(12, mean = 0.05, sd = 0.1)
-
-# Compute mean and standard deviation of returns2
-mean(returns2)
-sd(returns2)
-
-# Draw a random sample of 60 observations returns3
-returns3 <- rnorm(60, mean = 0.05, sd = 0.1)
-
-# Compute mean and standard deviation of returns3
-mean(returns3)
-sd(returns3)
-
-# Draw a random sample of 60 observations returns4
-returns4 <- rnorm(60, mean = 0.05, sd = 0.1)
-
-# Compute mean and standard deviation of returns4
-mean(returns4)
-sd(returns4)
-
-
-```
-
-*** =sct
-```{r}
-# sct code
-
-test_function("rnorm", c("n", "mean", "sd"), index = 1)
-test_function("mean", "x", index = 1)
-test_function("sd", "x", index = 1)
-
-test_function("rnorm", c("n", "mean", "sd"), index = 2)
-test_function("mean", "x", index = 2)
-test_function("sd", "x", index = 2)
-
-test_function("rnorm", c("n", "mean", "sd"), index = 3)
-test_function("mean", "x", index = 3)
-test_function("sd", "x", index = 3)
-
-test_function("rnorm", c("n", "mean", "sd"), index = 4)
-test_function("mean", "x", index = 4)
-test_function("sd", "x", index = 4)
-
-success_msg("Well done!")
-```
-
 --- type:VideoExercise lang:r xp:50 skills:1 key:a481e8c772e346eb869ef192f4b17070be61961e
 ## Time-variation in portfolio performance
-
 
 *** =video_link
 //player.vimeo.com/video/108225030
@@ -927,7 +806,7 @@ test_function("kurtosis", "x", index = 2)
 
 
 # sct code
-success_msg("Well done! The excess kurtosis can be thought of as how volatile an asset's volatility is.")
+success_msg("Well done! The excess kurtosis can be thought of as how fat the tails of the return distribution are compared to the normal distribution.")
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:774962285dd78c6a424e6a1eebc8c1cea5949cd3
@@ -943,7 +822,7 @@ In this exercise you will examine the potential risk of the monthly returns of t
 [VaR()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/VaR),
 and [ES()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/ES).
 These functions all require the argument `R`, which is an xts, vector, matrix, data.frame, timeSeries, or zoo object of asset returns. However the `VaR()`, 
-and `ES()` require another argument `p`, or confidence level.
+and `ES()` require another argument `p`, or confidence level, which is `p = 0.95` in case of the 5% VaR and ES.
 
 *** =instructions
 - Compute the [SemiDeviation()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/DownsideDeviation) of the monthly returns.
@@ -951,7 +830,7 @@ and `ES()` require another argument `p`, or confidence level.
 - Use the default implementation in the function `ES()` to estimate the 2.5% and 5% expected shortfall of a monthly investment in S&P 500 returns. 
 
 *** =hint
-The values 2.5%, and 5% should be used for your p-values in `VaR` and `ES`. 
+The values 2.5%, and 5% should be used for your p-argument in `VaR` and `ES`. 
 
 *** =pre_exercise_code
 ```{r}
