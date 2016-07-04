@@ -14,9 +14,10 @@ description : In addition to studying portfolio performance based on the observe
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1   key:27fc122215
 ## Driver 1: The assets' individual performance
 
-So far in the previous chapters you have seen that there are three types of drivers for a portfolio's performance: (i) the individual performance of the assets in terms of risk and return, (ii) the portfolio weight of each of the assets, (iii) the correlation between the asset returns. 
-  
-You will now explore how the portfolio mean return and volatility depends on the mean returns and volatility of the assets that a portfolio is invested in. In this example you will consider investing—with monthly frequency—in US equities and US bonds. Each asset's returns are stored in your workspace as `returns_equities`, and `returns_bonds`, in addition, the portfolio returns are stored as `returns_6040`. This is a portfolio that is invested 60/40, meaning that every month you invest 60% in equities, and 40% bonds.
+The video reviewed the three types of drivers for a portfolio's performance: (i) the individual performance of the assets in terms of risk and return, (ii) the portfolio weight of each of the assets, (iii) the correlation between the asset returns.
+
+Let us now analyze some data to grasp better the intuition of this result. In this example you will consider investing—with monthly frequency—in US equities and US bonds. Each asset's returns are stored in your workspace as `returns_equities`, and
+`returns_bonds`. In addition, we consider the portfolio that is invested 60/40, meaning that every month you invest 60% in equities, and 40% bonds. These portfolio returns are stored as `returns_6040`.
 
 Which of the following statements about the relationship between portfolio performance (investing in both equities and bonds) and the individual assets' performance (investing in only one of them) is true. 
 
@@ -82,13 +83,13 @@ success_msg("Good job!")
 ```
 
 --- type:NormalExercise lang:r xp:100 skills:1     key:69c5664fdb
-## Driver 2: the choice of porfolio weights
+## Driver 2: the choice of portfolio weights
 
 Investors can optimize the choice of weight to obtain the highest risk-adjusted return, as measured by the portfolio Sharpe ratio.
 
 In the special case of investing the total portfolio value in only two assets, there is only one weight to determine, since the weight on the second asset equals one minus the weight of the first asset. 
 
-Let us do this in the case of a portfolio invested US equities and US bonds. We will be using the brute force approach of trying a large number of possible weights and keeping the weight that yields the highest value for the portfolio Sharpe ratio.   
+Let us do this in the case of a portfolio invested US equities and US bonds. We will be using the brute force approach of trying a large number of possible weights and keeping the weight that yields the highest value for the portfolio Sharpe ratio (assuming a zero risk free rate).   
 
 
 *** =instructions
@@ -96,12 +97,12 @@ Let us do this in the case of a portfolio invested US equities and US bonds. We 
 - Initialize empty vector `vsharpe` with the same length as `grid`. A popular way of doing this is by creating a vector that contains NA's using function [rep()](http://www.rdocumentation.org/packages/base/functions/rep). You will replace these NA's in the loop that you will create next.
 - In the for loop, you will compute the Sharpe ratio for each of the possible weights in `grid`.
 - The first command in the for-loop selects the i-th element of grid and stores it in object `weight`, which changes in each iteration.  
-- You want to see how the portfolio return changes with a changing weight. Create an object `preturns` that equals the sum of `weights` times `returns_equities`, and `1-weights` times `returns_bonds`.
+- You want to see how the portfolio return changes with a changing weight. Create an object `preturns` that equals the sum of `weight` times `returns_equities`, and `(1-weight)` times `returns_bonds`.
 - Next, you will replace the NAs in `vsharpe` with the annualized sharpe ratio (`SharpeRatio.annualized()`) of `preturns`.
 - Fill in the plot function where potential weights (`grid`) is plotted on the x-axis, and the Sharpe ratios on the y-axis.
 
 *** =hint
-To calculate your portfolio returns, tour code should look like: `preturns <- weight * returns_equities + (1 - weight) * returns_bonds`.
+To calculate your portfolio returns, your code should look like: `preturns <- weight * returns_equities + (1 - weight) * returns_bonds`.
 
 *** =pre_exercise_code
 ```{r}
@@ -112,8 +113,8 @@ library(xts) # Its function plot.zoo make simple, but attractive, time series pl
 library(PerformanceAnalytics)
 # download adjusted close prices (that is corrected for dividend payments and stock splits)
 # dates have the format "YYYY-MM-DD"
-eq_prices <- get.hist.quote(instrument="SPY",start=as.Date("2003-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
-bond_prices <- get.hist.quote(instrument="AGG",start=as.Date("2003-12-31"),end=Sys.Date(),quote="AdjClose",quiet=T,compression="m")
+eq_prices <- get.hist.quote(instrument="SPY",start=as.Date("2003-12-31"),end=as.Date("2016-06-30"),quote="AdjClose",quiet=T,compression="m")
+bond_prices <- get.hist.quote(instrument="AGG",start=as.Date("2003-12-31"),end=as.Date("2016-06-30"),quote="AdjClose",quiet=T,compression="m")
 eq_prices <- eq_prices/as.numeric(eq_prices[1])
 bond_prices <-  bond_prices/as.numeric(bond_prices[1])
 
@@ -190,7 +191,7 @@ test_function("abline", c("v", "lty"))
 
 
 # sct code
-success_msg("Well done!")
+success_msg("Well done! The portfolio that is 30% invested in equities, 70% in bonds has the largest possible Sharpe ratio.")
 ```
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1     key:f4f41f6b81
@@ -211,7 +212,7 @@ As an exercise, suppose you have an equally weighted portfolio of two assets. Th
 - This cannot be determined with the provided information.
 
 *** =hint
-When correlation increases, potential risk increases. What is one measurement of risk?
+Use the R code and compute yourself how the variance changes.
 
 *** =pre_exercise_code
 ```{r}
@@ -242,8 +243,8 @@ In this exercise you will learn 3 new functions from the PerformanceAnalytics pa
 - Plot the equity returns (`returns_equities`) against the bond returns (`returns_bonds`) using the function `chart.Scatter()` with the bond returns on the x-asis. Do you see a relation? 
 - Compute the correlation between the variables `returns_equities` and `returns_bonds` using `cor()`.
 - Merge `return_equities`, and `returns_bonds` using `merge()`. Call this `returns`.
-- Compute and visualize the correlation again, using [chart.Correlation()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Correlation) with `returns` as the argument. 
-- Commpute the rolling 24-month estimates of the bond-equity correlation using the function `chart.RollingCorrelation()`. Note that `returns_bonds` is the so-called "benchmark asset", and should be included as the second argument.
+- Compute and visualize the correlation again, using [chart.Correlation()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/chart.Correlation) with `returns_bonds` and `returns_equities` as argument, as well as the width argument specifying the length of the rolling estimation window.
+- Compute the rolling 24-month estimates of the bond-equity correlation using the function `chart.RollingCorrelation()`. Note that `returns_bonds` is the so-called "benchmark asset", and should be included as the second argument.
 
 *** =hint
 `chart.RollingCorrelation()` uses two time-series for the argument `R`, and the `width` is the number of months.
@@ -343,8 +344,6 @@ success_msg("Well done!")
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:080c6863fc
 ## Making a risk-reward scatter diagram
-
-Investors know that each asset that they invest in has risk, and that each asset performs differently. That's why you will not only invest in US equities and US bonds, but you will *diversify* your portfolio by investing in real estate, commoditites, among others! 
 
 In this example you have decided to extend your investment opportunity by creating a portfolio that consists of US equities ETF (SPY), US bonds ETF (AGG), a real estate investment trust (VEIEX), and an ETF tracking in the GSCI commodities index (GSG). The plot in the environment displays the performance of these investments.
 
@@ -461,7 +460,7 @@ success_msg("Well done! Take a look the plot you just created. Do you see you an
 --- type:NormalExercise lang:r xp:100 skills:1  key:b7d7806b87
 ## The covariance matrix
 
-The assets' volatilities reflect the individual risks of the asset. This is what matters the most. Investors want to reduce risk while maximizing gains. Volatilities reflect to the investor the amount of risk in a portfolio caused by each asset, which is dependent on the return volatility. 
+The covariance matrix is crucial in determining the portfolio variance in the general case of $N$ assets. Remember that its element on row $i$ and column $j$ corresponds to the covariance of the $i$th and $j$th return. Recall also that the covariance of two return series is is the product between their volatilities and their correlation, and that the covariance of an asset return with itself is its variance.
 
 In this exercise you will compute and analyze the covariance, and correlation matrix on the monthly returns of the four asset classes from the previous exercise. To refresh, these asset classes are: equities, bonds, real-estate, and commoditites. To create these matrices you will use the standard functions `cov()` and `cor()`. 
 
