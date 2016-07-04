@@ -19,7 +19,7 @@ In this chapter you will explore portfolio optimization. For the upcoming exerci
 
 You will be using the sample of monthly returns from January 1991 until December 2015. These return data are available in the workspace as the variable `returns`.   
 
-Assume you are an investor that likes high returns with minimum risk. Which of the following statements is false:
+Assume you are an investor who likes high returns and dislikes risk. You are also constrained to be fully invested in the 30 DJIA stocks and only positive weights are allowed. Which of the following statements is false:
 
 *** =instructions
 - You would rather invest all of your capital in Home Depot (ticker: HD) than in Caterpillar (ticker: CAT) because Home Depot has a higher average return, and lower risk.
@@ -56,9 +56,9 @@ text( stocksd[c("HD","CAT","XOM","AAPL")]  ,  stockmu[c("HD","CAT","XOM","AAPL")
 
 *** =sct
 ```{r}
-msg1 <- "That right! Home Depot has a lower monthly standard deviation and a higher monthly return than Caterpillar."
+msg1 <- "Oops! Try again!"
 msg2 <- "Incorrect! Try again!"
-msg3 <- "Oops! Try again!"
+msg1 <- "That right!"
 msg4 <- "Not quite!"
 test_mc(1) 
 ```
@@ -68,13 +68,14 @@ test_mc(1)
 
 The 1991-2015 monthly returns on the 30 DJIA stocks are available in the workspace as the variable `returns`. This exercise will help you get comfortable with the data that you will be using for the remainder of the exercises.
 
+Recall that, if we compute the means column by column using `colMeans(returns)` or `apply(returns,2,”mean”)`, we then obtain the average return per asset. In this exercise, we will be computing the mean per row. By doing so, we obtain the time series of returns for the equally weighted portfolio.
 
 *** =instructions
 - Verify that `returns` is an object of the xts-class using the function [class()](http://www.rdocumentation.org/packages/base/functions/class).
-- Create a vector of row means of `returns` using the function [rowMeans()](http://www.rdocumentation.org/packages/base/functions/colSums). Assign this to `row_means`. Note that you could have used `apply()` here as well.
-- Plot `row_means` using `plot.zoo()`.
-- Create a correlation matrix of the returns called `z`.
-- Plot a histogram of the correlation matrix, `z`.
+- Create a vector of row means of `returns` using the function [rowMeans()](http://www.rdocumentation.org/packages/base/functions/colSums). Assign this to `ew_preturns`. Note that you could have used `apply()` here as well.
+- Investigate the dimension of `ew_preturns`.
+- The solution obtained from `rowMeans()` is a numeric vector. Cast it back to a xts object using xts with time series stamp equal to the dates in `returns`.
+- Plot `ew_preturns` using `plot.zoo()`.
 
 *** =hint
 Remeber that you can use `cor()` to create a correlation matrix.
@@ -99,13 +100,14 @@ returns <- returns[(-1),]
 # Create a vector of row means
 
 
-# Plot row_means
+# Investigate the dimension of ew_preturns
 
 
-# Create a correlation matrix
+# Cast the numeric vector back to an xts object
+ew_preturns <- xts(___, order.by = time(returns))
 
+# Plot ew_preturns
 
-# Plot the histogram of the correlation matrix
 
 ```
 
@@ -115,16 +117,17 @@ returns <- returns[(-1),]
 class(returns)
 
 # Create a vector of row means
-row_means <- rowMeans(returns)
+ew_preturns <- rowMeans(returns)
 
-# Plot row_means
-plot.zoo(row_means)
+# Investigate the dimension of ew_preturns
+dim(ew_preturns)
 
-# Create a correlation matrix
-z <- cor(returns)
+# Cast the numeric vector back to an xts object
+ew_preturns <- xts(ew_preturns, order.by = time(returns))
 
-# Plot the histogram of the correlation matrix
-hist(z)
+# Plot ew_preturns
+plot.zoo(ew_preturns)
+
 ```
 
 *** =sct
@@ -133,16 +136,16 @@ hist(z)
 test_function("class", "x", not_called_msg = "Did you verify that `returns` is an xts-class object?")
 
 #2
-test_object("row_means", undefined_msg = "Did you calculate the row means of `returns`?", incorrect_msg = "Did you calculate the row means of `returns` correctly?")
+test_object("ew_preturns", undefined_msg = "Did you calculate the row means of `returns`?", incorrect_msg = "Did you calculate the row means of `returns` correctly?")
 
 #3
-test_function("plot.zoo", "x", not_called_msg = "Be sure to plot the row means using `plot.zoo()`!")
+test_function("dim", "x", not_called_msg = "Did you have a look at the dimension of `ew_preturns`?")
 
 #4
-test_object("z", undefined_msg = "Hey, don't forget to create a correlation matrix called `z`!", incorrect_msg = "Did you use the correct function to make your correlation matrix?")
+test_function("xts", c("x", "order.by"), not_called_msg = "Did you convert the numeric vector `ew_preturns` back to an xts object?")
 
 #5
-test_function("hist", "x", incorrect_msg = "Oops! Have you plotted the lower triangle of your correlation matrix properly?")
+test_function("plot.zoo", "x", not_called_msg = "Be sure to plot the row means using `plot.zoo()`!")
 
 success_msg("Well done!")
 ```
@@ -154,15 +157,16 @@ A mean-variance efficient portfolio can be obtained as the solution of minimizin
 Its default implementation finds the mean-variance efficient portfolio weights under the constraint that the portfolio return equals the return on the equally-weighted portfolio. 
 The only argument needed is the monthly return data on the portfolio components for which the weights need to be determined.
 
+The variable `returns` containing the monthly returns of the DJIA stocks is already loaded in the console.
 
 *** =instructions
 - load the library `tseries`. 
-- Create a mean-variance efficient portfolio of monthly returns using `portfolio.optim()`, called `optim`. 
-- Create a vector of weights from your optimized portfolio. Portfolio weights can be found in `optim$pw`. Call this `pf_weights`.
+- Create a mean-variance efficient portfolio of monthly returns using the default of `portfolio.optim()` targeting the equally-weighted portfolio return, and assign the output to the variable `opt`. 
+- Create a vector of weights from your optimized portfolio. Portfolio weights can be found in `opt$pw`. Call this `pf_weights`.
 - Assign the names to the assets using the provided code.
-- Select the optimum weights from `pf_weights` that are greater than or equal to 1%, call this `optim_weights`. 
-- Create a barplot of `optim_weights`.
-- Print the expect portfolio return (`optim$pm`) and volatility (`optim$ps`) of the optimized portfolio. 
+- Select the optimum weights from `pf_weights` that are greater than or equal to 1%, call this `opt_weights`. 
+- Use [barplot](http://www.rdocumentation.org/packages/raster/versions/2.5-2/topics/barplot) to visualize the distribution of `opt_weights`.
+- Print the expect portfolio return (`opt$pm`) and volatility (`opt$ps`) of the optimized portfolio. 
 
 *** =hint
 The optimimum weights can be selected from `pf_weights` using the following code: `optim_weights <- pf_weights[pf_weights >= 0.01]`
@@ -191,12 +195,12 @@ returns <- returns[(-1),]
 
 
 # Assign asset names
+names(pf_weights) <- colnames(returns)
+
+# Select optimum weights opt_weights
 
 
-# Select optimum weights optim_weights
-
-
-# Barplot of optim_weights
+# Barplot of opt_weights
 
 
 # Print expected portfolio return and volatility
@@ -210,23 +214,23 @@ returns <- returns[(-1),]
 library(tseries)
 
 # Create an optimized portfolio of returns
-optim <- portfolio.optim(returns)
+opt <- portfolio.optim(returns)
 
 # Create pf_weights
-pf_weights<- optim$pw
+pf_weights<- opt$pw
 
 # Assign asset names
 names(pf_weights) <- colnames(returns)
 
-# Select optimum weights optim_weights
-optim_weights <- pf_weights[pf_weights >= 0.01]
+# Select optimum weights opt_weights
+opt_weights <- pf_weights[pf_weights >= 0.01]
 
-# Barplot of optim_weights
-barplot(optim_weights)
+# Barplot of opt_weights
+barplot(opt_weights)
 
 # Print expected portfolio return and volatility
-optim$pm
-optim$ps
+opt$pm
+opt$ps
 
 ```
 
