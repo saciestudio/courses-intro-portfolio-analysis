@@ -133,10 +133,10 @@ plot.zoo(ew_preturns)
 *** =sct
 ```{r}
 #1
-#test_function("class", "x", not_called_msg = "Did you verify that `returns` is an xts-class object?")
+test_function("class", "x", not_called_msg = "Did you verify that `returns` is an xts-class object?")
 
 #2
-#test_object("ew_preturns", undefined_msg = "Did you calculate the row means of `returns`?", incorrect_msg = "Did you #calculate the row means of `returns` correctly?")
+test_object("ew_preturns", undefined_msg = "Did you calculate the row means of `returns`?", incorrect_msg = "Did you calculate the row means of `returns` correctly?")
 
 #3
 test_function("dim", "x", not_called_msg = "Did you have a look at the dimension of `ew_preturns`?")
@@ -145,7 +145,7 @@ test_function("dim", "x", not_called_msg = "Did you have a look at the dimension
 test_function("xts", c("x", "order.by"), not_called_msg = "Did you convert the numeric vector `ew_preturns` back to an xts object?")
 
 #5
-#test_function("plot.zoo", "x", not_called_msg = "Be sure to plot the row means using `plot.zoo()`!")
+test_function("plot.zoo", "x", not_called_msg = "Be sure to plot the row means using `plot.zoo()`!")
 
 success_msg("Well done!")
 ```
