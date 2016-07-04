@@ -68,7 +68,7 @@ test_mc(1)
 
 The 1991-2015 monthly returns on the 30 DJIA stocks are available in the workspace as the variable `returns`. This exercise will help you get comfortable with the data that you will be using for the remainder of the exercises.
 
-Recall that, if we compute the means column by column using `colMeans(returns)` or `apply(returns,2,”mean”)`, we then obtain the average return per asset. In this exercise, we will be computing the mean per row. By doing so, we obtain the time series of returns for the equally weighted portfolio.
+Recall that, if we compute the means column by column using `colMeans(returns)` or `apply(returns,2,"mean")`, we then obtain the average return per asset. In this exercise, we will be computing the mean per row. By doing so, we obtain the time series of returns for the equally weighted portfolio.
 
 *** =instructions
 - Verify that `returns` is an object of the xts-class using the function [class()](http://www.rdocumentation.org/packages/base/functions/class).
@@ -139,10 +139,10 @@ test_function("class", "x", not_called_msg = "Did you verify that `returns` is a
 test_object("ew_preturns", undefined_msg = "Did you calculate the row means of `returns`?", incorrect_msg = "Did you calculate the row means of `returns` correctly?")
 
 #3
-test_function("dim", "x", not_called_msg = "Did you have a look at the dimension of `ew_preturns`?")
+#test_function("dim", "x", not_called_msg = "Did you have a look at the dimension of `ew_preturns`?")
 
 #4
-test_function("xts", c("x", "order.by"), not_called_msg = "Did you convert the numeric vector `ew_preturns` back to an xts object?")
+#test_function("xts", c("x", "order.by"), not_called_msg = "Did you convert the numeric vector `ew_preturns` back to an #xts object?")
 
 #5
 test_function("plot.zoo", "x", not_called_msg = "Be sure to plot the row means using `plot.zoo()`!")
