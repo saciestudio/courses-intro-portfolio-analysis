@@ -15,7 +15,7 @@ description : The history of portfolio returns reveals valuable information abou
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:04255405f1b95fc9587c9350f29c6549b41cc79e
 ## Balancing risk and reward 
 
-To the right you see three return distributions. The x-axis corresponds to the return of an asset, and the y-axis corresponds with the volatility.  Take a moment to look over these charts.
+To the right you see three return distributions. The x-axis corresponds to the return of an asset, and the y-axis is the corresponding density, indicating how likely that return value is.  Take a moment to look over these charts.
 
 Notice that the distributions are all symmetric and the center of the distribution corresponds to the average return. 
 
@@ -57,7 +57,7 @@ abline(v=0.15,lty=3)
 ```{r}
 msg1 <- "Distribution A has a somewhat higher average return with low volatility in the tails."
 msg2 <- "Distribution B has a somewat higher average return with a higher volatility in the tails."
-msg3 <- "Thats right! Distribution C has the highest average retun with low volatility in the tails."
+msg3 <- "Thats right! Distribution C has the highest average return with the lowest volatility."
 test_mc(3, feedback_msgs = c(msg1, msg2, msg3)) # if 3 is the correct option.
 ```
 
@@ -70,13 +70,12 @@ For the upcoming exercises you will examine the monthly performance of the S&P 5
 
 A plot of the S&P 500 for the period of 1986 until today is shown to your right. Each observation on this plot is an end-of-day value. This chart shows a number of booms and busts. Take a look at the chart, do you see why the 2000s are so often called the lost decade of investing?
 
-These daily prices are available in your workspace as the variable `sp500`. This variable is an [xts](http://www.rdocumentation.org/packages/xts/) time series class. This means that each observation has a time-stamp. Your job is describe the monthly performance of the S&P 500. To do so, you will first need to aggregate daily price series to end-of-month prices. You will then calculate the monthly returns and visualize them in a table.
+These daily prices are available in your workspace as the variable `sp500`. This variable is of the [xts](http://www.rdocumentation.org/packages/xts/) time series class. This means that each observation has a time-stamp. Your job is describe the monthly performance of the S&P 500. To do so, you will first need to aggregate daily price series to end-of-month prices. You will then calculate the monthly returns and visualize them in a table.
 
 *** =instructions
 - Use the function [to.monthly()](http://www.rdocumentation.org/packages/xts/functions/to.period) with the argument `sp500` and assign this to `sp500_monthly`
 - Print the first six rows of `sp500_monthly`. Notice how aggregating the data has resulted in a table of four columns holding the opening, lowest, highest, and closing price of `sp500` for each month.
 - Create `sp500_returns` using the function `Return.calculate()` on `sp500_monthly` using the *closing prices* (fourth column in `sp500_monthly`).
-- Convert `sp500_returns` to the desired time series format using `xts()`.
 - Use `plot.zoo()` to plot the time series.
 - Use the function [table.CalendarReturns()](http://www.rdocumentation.org/packages/PerformanceAnalytics/functions/table.CalendarReturns) in PerformanceAnalytics to present the monthly return data a table format showing year by month.
 
@@ -103,16 +102,13 @@ plot.zoo(sp500 , main="Value of the S&P 500 portfolio",ylab="", xlab="")
 ```{r}
 # The package PerformanceAnalytics and xts, and the variable sp500 are pre-loaded
 
-# Convert sp500 to monthly returns
+# Convert the daily frequency of sp500 to monthly frequency
 
 
 # Print the first six rows of sp500_monthly
 
 
 # Create sp500_returns using Return.calculate using the closing prices
-
-
-# Convert sp500_returns to a time-series
 
 
 # Time series plot
@@ -126,7 +122,7 @@ plot.zoo(sp500 , main="Value of the S&P 500 portfolio",ylab="", xlab="")
 ```{r}
 # The package PerformanceAnalytics and xts, and the variable sp500 are pre-loaded
 
-# Convert sp500 to monthly returns
+# Convert the daily frequency of sp500 to monthly frequency
 sp500_monthly <- to.monthly(sp500)
 
 # Print the first six rows of sp500_monthly
@@ -134,9 +130,6 @@ head(sp500_monthly)
 
 # Create sp500_returns using Return.calculate using the closing prices
 sp500_returns <- Return.calculate(sp500_monthly[ , 4])
-
-# Convert sp500_returns to a time-series
-sp500_returns <- xts(sp500_returns)
 
 # Time series plot
 plot.zoo(sp500_returns)
@@ -156,9 +149,6 @@ test_output_contains("head(sp500_monthly)", incorrect_msg = "Did you preview the
 
 #3rd instruction
 test_function("Return.calculate", c("prices"), incorrect_msg = "Did you use the correct vector?", not_called_msg = "Make sure you call `Return.calculate`.")
-
-#4th instruction
-test_function("xts", "x", incorrect_msg = "Did you use convert the correct object?" , not_called_msg = "Did you convert `sp500_returns` to `xts`?")
 
 #5th instruction
 test_function("plot.zoo", "x", incorrect_msg = "It looks like you didn't plot the returns!", not_called_msg = "Be sure to plot the returns!")
