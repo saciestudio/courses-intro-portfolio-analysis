@@ -460,7 +460,7 @@ success_msg("Well done! Take a look the plot you just created. Do you see you an
 --- type:NormalExercise lang:r xp:100 skills:1  key:b7d7806b87
 ## The covariance matrix
 
-The covariance matrix is crucial in determining the portfolio variance in the general case of $N$ assets. Remember that its element on row $i$ and column $j$ corresponds to the covariance of the $i$th and $j$th return. Recall also that the covariance of two return series is is the product between their volatilities and their correlation, and that the covariance of an asset return with itself is its variance.
+The covariance matrix is crucial in determining the portfolio variance in the general case of $N$ assets. Remember that its element on row $i$ and column $j$ corresponds to the covariance of the $i$ th and $j$ th return. Recall also that the covariance of two return series is is the product between their volatilities and their correlation, and that the covariance of an asset return with itself is its variance.
 
 In this exercise you will compute and analyze the covariance, and correlation matrix on the monthly returns of the four asset classes from the previous exercise. To refresh, these asset classes are: equities, bonds, real-estate, and commoditites. To create these matrices you will use the standard functions `cov()` and `cor()`. 
 
