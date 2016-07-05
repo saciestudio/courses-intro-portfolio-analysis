@@ -50,11 +50,10 @@ The choice of investment matters even when the underlying risky assets are simil
 The time series plot shows you the value evolution of one dollar invested in each company. As an exercise, plot the time series showing the relative value of an investment in the Coca Cola company, compared to the value of an investment in PepsiCo. To do this exercise, you can us the corresponding price series, available as the variables `ko` and `pep` in your workspace. 
 
 *** =instructions
-- Define `ko_pep` as the ratio expressing the value of the share price of the Coca Cola company in terms
-of the share price of PepsiCo
+- Define `ko_pep` as the ratio expressing the value of the share price of the Coca Cola company in terms of the share price of PepsiCo.
 - Use [plot.zoo()](http://www.rdocumentation.org/packages/zoo/functions/plot.zoo) to visualize the variation in this ratio over time. 
 - Use [abline()](http://www.rdocumentation.org/packages/graphics/functions/abline) to include a horizontal line at `h=1`.
-- Note that when the value of the ratio increases, `ko` outperforms `pep` and vice versa
+- Note that when the value of the ratio increases, `ko` outperforms `pep` and vice versa.
 - Note that when the value of the ratio is larger than 1, the performance of `ko` since January 2003 is higher than that of `pep`. Therefore, as a reference line, use `abline` to include a horizontal line at `h=1`.
 
 
@@ -284,10 +283,10 @@ In a market capitalization weighted portfolio, the weights are given by the indi
 As an exercise, inspect the distribution of market capitalization based weights when the portfolio is invested in 10 stocks. For this exercise you can use market capitalizations of 5, 8, 9, 20, 25, 100, 100, 500, 700 and 2000 million USD. 
 
 *** =instructions
-- Define the vector `marketcaps` holding the market capitalization
-- Calculate the weights of `marketcaps` and assign them to `weights`
-- Print a summary of `weights`
-- Plot a histogram of `weights`
+- Define the vector `marketcaps` holding the market capitalization.
+- Calculate the weights of `marketcaps` and assign them to `weights`.
+- Print a summary of `weights`.
+- Plot a histogram of `weights`.
 
 *** =hint
 You can make a histogram in R using the function [hist()](http://www.rdocumentation.org/packages/graphics/functions/hist).
