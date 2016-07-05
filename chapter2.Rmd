@@ -706,11 +706,11 @@ chart.Histogram(sp500_2014, methods = c("add.density", "add.normal"))
 ```{r}
 #1st
 test_object("sp500_2008", incorrect_msg = "Did you use the correct start and end dates?")
-test_function("window", c("w", "start", "end"))
+test_function("window", c("x", "start", "end"))
 
 #2nd
 test_object("sp500_2014", incorrect_msg = "Did you use the correct start and end dates?")
-test_function("window", c("w", "start", "end"))
+test_function("window", c("x", "start", "end"))
 
 #3rd
 test_function("chart.Histogram", c("R", "methods"))
