@@ -602,24 +602,23 @@ returns <- returns[(-1),]
 stockmu <- colMeans(returns)
 
 # Create a grid of target values
-grid <- seq(min(stockmu), max(stockmu), length.out = 50)  
+grid <- seq(0.01, max(stockmu), length.out = 50)  
 
-# Create empty vectors to store means, deviations and your matrix of weights
-vpm <- c()
-vpsd <- c()
-mweights <- c()
+vpm <- c(NA, length(grid))
+vpsd <- c(NA, length(grid))
+mweights <- matrix(NA, 50, 30)
 
 # Create your for loop
-for(i in 2:length(grid)) {
+for(i in 1:length(grid)) {
   optim <- portfolio.optim(x = returns , pm = grid[i])
-  vpm <- append(vpm, optim$pm)
-  vpsd <- append(vpsd, optim$ps)
-  mweights <- rbind(mweights, optim$pw)
+  vpm[i] <- optim$pm
+  vpsd[i] <- optim$ps
+  mweights[i, ] <- optim$pw
 }
 
 
-plot(vpsd,vpm, xlab="(monthly) Volatility" , ylab="(monthly) average returns", 
-     main="Minimum variance portfolios \n under a return target constraint",type="l",lwd=2)
+
+plot(vpsd,vpm, xlab="(monthly) Volatility" , ylab="(monthly) average returns" ,type="l",lwd=2)
 
 ```
 
