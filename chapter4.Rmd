@@ -68,12 +68,12 @@ test_mc(1)
 
 The 1991-2015 monthly returns on the 30 DJIA stocks are available in the workspace as the variable `returns`. This exercise will help you get comfortable with the data that you will be using for the remainder of the exercises.
 
-Recall that, if we compute the means column by column using `colMeans(returns)` or `apply(returns,2,"mean")`, we then obtain the average return per asset. In this exercise, we will be computing the mean per row. By doing so, we obtain the time series of returns for the equally weighted portfolio.
+Recall that if we compute the means column by column using `colMeans(returns)`, or `apply(returns,2,"mean")`, you then obtain the average return per asset. In this exercise, you will be computing the mean per row. By doing so, you obtain the time series of returns for the equally weighted portfolio.
 
 *** =instructions
 - Verify that `returns` is an object of the xts-class using the function [class()](http://www.rdocumentation.org/packages/base/functions/class).
 - Create a vector of row means of `returns` using the function [rowMeans()](http://www.rdocumentation.org/packages/base/functions/colSums). Assign this to `ew_preturns`. Note that you could have used `apply()` here as well.
-- Investigate the dimension of `ew_preturns`.
+- Investigate the dimensions of `ew_preturns`.
 - The solution obtained from `rowMeans()` is a numeric vector. Cast it back to a xts object using xts with time series stamp equal to the dates in `returns`.
 - Plot `ew_preturns` using `plot.zoo()`.
 
@@ -273,7 +273,7 @@ portfolio.optim(x, pm = mean(x), shorts = FALSE, reshigh = NULL)
 
 The argument `pm` sets the target return, the argument `reshigh` specifies the upper constraints on the portfolio weights, and the argument `shorts` is a logical statement specifying whether negative weights are forbidden or not, by default `shorts = FALSE`. 
 
-You will create a portfolio that is optimized for a target return that hat equals the average value of the return series `returns`. Then you will create a portfolio that has a target return that is 10% higher than the mean return series, and calculate the percent change in risk.
+You will create a portfolio that is optimized for a target return that equals the average value of the return series `returns`. Then you will create a portfolio that has a target return that is 10% higher than the mean return series, and calculate the percent change in risk.
 
 
 *** =instructions
@@ -417,13 +417,13 @@ max_weights2 <- rep(0.1, ncol(returns))
 max_weights3 <- rep(0.05, ncol(returns))
 
 # Create an optimum portfolio with max weights of 100%
-opt1 <- portfolio.optim(returns, reshigh = weights1)
+opt1 <- portfolio.optim(returns, reshigh = max_weights1)
 
 # Create an optimum portfolio with max weights of 10%
-opt2 <- portfolio.optim(returns, reshigh = weights2)
+opt2 <- portfolio.optim(returns, reshigh = max_weights2)
 
 # Create an optimum portfolio with max weights of 5%
-opt3 <- portfolio.optim(returns, reshigh = weights3)
+opt3 <- portfolio.optim(returns, reshigh = max_weights3)
 
 # Calculate how many assets have a weight that is greater than 1% for each portfolio
 sum(opt1$pw > .01)
