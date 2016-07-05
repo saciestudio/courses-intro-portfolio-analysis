@@ -3,7 +3,7 @@ title       : The building blocks
 description : Asset returns and portfolio weights; those are the building blocks of a portfolio return. This chapter is about computing those portfolio weights and returns in R.  
 
 --- type:VideoExercise lang:r xp:50 skills:1 key:b1edf0455cddc24b5691f41bc0bb1b0e9f7e4c1a
-## Welcome to the course
+## Welcome To The Course
 
 *** =video_link
 //player.vimeo.com/video/108225030
@@ -130,7 +130,7 @@ success_msg("Well done!")
 ```
 
 --- type:VideoExercise lang:r xp:50 skills:1 key:8edc78ed1db55bc7450ceaeb586c9c5f4be2ffb2
-## The portfolio weights
+## The Portfolio Weights
 
 *** =video_link
 //player.vimeo.com/video/108225030
@@ -348,7 +348,7 @@ success_msg("Well done! Remember that market capitalizations are the market valu
 
 
 --- type:VideoExercise lang:r xp:50 skills:1 key:e8205bb01833692ce3cb610117bb029180e68ee8
-## The portfolio return
+## The Portfolio Return
    
 
 *** =video_link
@@ -514,7 +514,7 @@ success_msg("Well done! After 50% loss you would need to double the amount of mo
 
 
 --- type:VideoExercise lang:r xp:50 skills:1 key:c9e758551130f685dc22840b3ede8cefc4642902
-## The PerformanceAnalytics package
+## PerformanceAnalytics
 
 
 *** =video_link
