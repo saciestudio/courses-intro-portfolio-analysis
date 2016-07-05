@@ -579,7 +579,7 @@ In the previous exercise you computed the efficient frontier from a grid of pote
 Look at the chart to your right and identify which of the following is true. 
 
 *** =instructions
-- The minimum variance portfolio has a monthly volatility of around 1.05
+- The minimum variance portfolio has a monthly volatility of 0.
 - The maximum return portfolio has a monthly volatility that is lower than the tangency portfolio.
 - The portfolio with the greatest return for its given standard deviation is the tangency portfolio.
 - None of the above are true.
