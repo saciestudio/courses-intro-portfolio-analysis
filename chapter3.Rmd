@@ -334,7 +334,7 @@ success_msg("Well done!")
 
 
 --- type:VideoExercise lang:r xp:50 skills:1 key:a2866e000af4e20577dc0d48d46765e2da1a7d9b
-## The general case using matrix notation
+## Using matrix notation
 
 *** =video_link
 //player.vimeo.com/video/108225030
