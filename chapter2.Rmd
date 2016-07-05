@@ -562,7 +562,7 @@ chart.RollingPerformance(R = sp500_returns, width = 12, FUN = "SharpeRatio.annua
 abline(h = sharpe_ann)
 
 # all three plots together
-charts.RollingPerformance(R = sp500_returns, width = 12, Rf = rf)
+chart.RollingPerformance(R = sp500_returns, width = 12, Rf = rf)
 ```
 
 *** =sct
