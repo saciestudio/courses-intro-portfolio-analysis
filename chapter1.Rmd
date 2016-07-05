@@ -645,7 +645,7 @@ You will use the function `Return.portfolio()` for your calculations. For this f
 - Create a portfolio using the buy and hold strategy using `Return.portfolio()`. Note, you do not need to specify a rebalance period. Call this `pf_bh`.
 - Create a portfolio where you rebalance your weights monthly. Use `Return.portfolio()` with the argument `rebalance_on = "months"`. Call this `pf_rebal`.
 - Plot the time series of each portfolio using `plot.zoo()`. 
-- Note that `par(mfrow=c(2,1),mar=c(2,4,2,2))` is used to organize the plots you create. Do not alter this code.
+- Note that `par(mfrow = c(2, 1),mar = c(2, 4, 2, 2))` is used to organize the plots you create. Do not alter this code.
 
 *** =hint
 - Remember that weights should always add to 1!
@@ -682,7 +682,7 @@ pf_bh <- Return.portfolio(R = ___, weights = ___)
 
 
 # Plot the time-series
-par(mfrow=c(2,1),mar=c(2,4,2,2))
+par(mfrow = c(2, 1),mar=c(2, 4, 2, 2))
 ```
 
 *** =solution
@@ -699,7 +699,7 @@ pf_rebal <- Return.portfolio(returns, weights = weights, rebalance_on = "months"
 
 
 # Plot the time-series
-par(mfrow=c(2,1),mar=c(2,4,2,2))
+par(mfrow = c(2, 1),mar = c(2, 4, 2, 2))
 plot.zoo(pf_bh)
 plot.zoo(pf_rebal)
 ```
@@ -712,8 +712,8 @@ test_object("weights", undefined_msg = "Remember to create a vector of two equal
 test_object("pf_bh", undefined_msg = "Oops! It looks like you forgot to make `pf_bh`!")
 test_object("pf_rebal", undefined_msg = "Uh, oh! You need to make a portfolio that rebalances monthly!", incorrect_msg = "Did you forget to rebalance your portfolio?")
 
-test_function("plot.zoo", "x", index = 1)
-test_function("plot.zoo", "x", index = 2)
+test_function("plot.zoo", "x", eq_condition = "equal", index = 1)
+test_function("plot.zoo", "x", eq_condition = "equal", index = 2)
 
 success_msg("Well done!")
 ```
