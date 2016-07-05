@@ -3,7 +3,7 @@ title       : Analyzing performance
 description : The history of portfolio returns reveals valuable information about how much the investor can expect to gain or lose. This chapter introduces the R functionality to analyze the investment performance based on a statisical analysis of the portfolio returns. It includes graphical analysis and the calculation of performance statistics expressing average return, risk and risk-adjusted return over rolling estimation samples. 
 
 --- type:VideoExercise lang:r xp:50 skills:1 key:c4b994ff53
-## The different dimensions of portfolio performance
+## Dimensions of Portfolio Performance
 
 *** =video_link
 //player.vimeo.com/video/108225030
@@ -237,7 +237,7 @@ success_msg("The volatility and mean return are very important metrics in every 
 
 
 --- type:VideoExercise lang:r xp:50 skills:1  key:5a642fd71c
-## The (annualized) Sharpe ratio
+## The (Annualized) Sharpe Ratio
 
 *** =video_link
 //player.vimeo.com/video/108225030
@@ -452,7 +452,7 @@ test_error()
 success_msg("Well done!")
 ```
 --- type:VideoExercise lang:r xp:50 skills:1 key:a481e8c772e346eb869ef192f4b17070be61961e
-## Time-variation in portfolio performance
+## Time-variation In Portfolio Performance
 
 *** =video_link
 //player.vimeo.com/video/108225030
@@ -723,7 +723,7 @@ test_error()
 success_msg("Well done!")
 ```
 --- type:VideoExercise lang:r xp:50 skills:1 key:1c105a499d956a288a91e9884d2f1765c20a025f
-## The non-normality of the return distribution 
+## Non-Normality of the Return Distribution 
 
 
 *** =video_link
