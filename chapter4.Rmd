@@ -238,7 +238,7 @@ opt$ps
 ```{r}
 #1
 test_library_function("tseries", not_called_msg = "You need to load the `tseries` package!")
-test_object("optim", undefined_msg = "Remember to create your optimized portfolio!", incorrect_msg = "Be sure to supply `returns` to `portfolio.optim()`!")
+test_object("opt", undefined_msg = "Remember to create your optimized portfolio!", incorrect_msg = "Be sure to supply `returns` to `portfolio.optim()`!")
 
 #2
 test_object("pf_weights", undefined_msg = "Oops! It looks like you didn't create a vector of portfolio weights.", incorrect_msg = "Make sure you select the portfolio weights from `optim`.")
@@ -247,14 +247,14 @@ test_object("pf_weights", undefined_msg = "Oops! It looks like you didn't create
 test_student_typed("names(pf_weights) <- colnames(returns)", not_typed_msg = "Oops! Be sure you don't change the code for the name assignmnet!")
 
 #4
-test_object("optim_weights", undefined_msg = "You need to create your optimum weights object!", incorrect_msg = "Remember that optimum weights are greater than or equal to 1%!")
+test_object("opt_weights", undefined_msg = "You need to create your optimum weights object!", incorrect_msg = "Remember that optimum weights are greater than or equal to 1%!")
 
 #5
 test_function("barplot", "height", not_called_msg = "Remember to plot your optimum weights!", incorrect_msg = "Make sure you selected the correct values for your optimum weights.")
 
 #5
-test_output_contains("optim$pm")
-test_output_contains("optim$ps")
+test_output_contains("opt$pm")
+test_output_contains("opt$ps")
 
 # sct code
 success_msg("Well done!")
