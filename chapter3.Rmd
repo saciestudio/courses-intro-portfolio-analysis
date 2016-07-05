@@ -757,6 +757,6 @@ test_object("weights_percrisk", undefined_msg = "It looks like you didn't merge 
 
 #4
 test_output_contains("weights_percrisk")
-success_msg("Well done!")
+success_msg("Well done! Note that the percentage volatility risk caused by the bonds is much less than their portfolio weight")
 ```
 
