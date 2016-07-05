@@ -706,7 +706,15 @@ plot.zoo(pf_rebal)
 
 *** =sct
 ```{r}
-# sct code
+#1
+test_object("weights", undefined_msg = "Remember to create a vector of two equally weighted assets!", incorrect_msg = "Don't forget that asset weights need to sum to unity.")
+#2 
+test_object("pf_bh", undefined_msg = "Oops! It looks like you forgot to make `pf_bh`!")
+test_object("pf_rebal", undefined_msg = "Uh, oh! You need to make a portfolio that rebalances monthly!", incorrect_msg = "Did you forget to rebalance your portfolio?")
+
+test_function("plot.zoo", "x", index = 1)
+test_function("plot.zoo", "x", index = 2)
+
 success_msg("Well done!")
 ```
 
