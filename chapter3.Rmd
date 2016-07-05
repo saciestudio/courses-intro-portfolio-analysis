@@ -675,8 +675,8 @@ You will be using three arguments in the `StdDev()` function to do this calculat
 The object `returns` is loaded in your workspace.
 
 *** =instructions
-- Create a vector of the portfolio weights. 
-- Calculate your volatility budget using `StdDev()`. Set `portfolio_method` = "component" and `weights` equal to the created vector of `weights`. Call this `vol_budget`.
+- Create a vector of the portfolio weights. Remember, order matters! 
+- Calculate your volatility budget using `StdDev()`. Set `portfolio_method = "component"` and `weights` equal to the created vector of `weights`. Call this `vol_budget`.
 - Combine the weights and the percentage risk contributions in a table called `weights_percrisk` using `cbind()`.
 - Print the table and note how different the percentage risk contributions are compared to the portfolio weights. 
 
@@ -722,6 +722,7 @@ print( StdDev(returns,weights=c(0.4,0.4,0.1,0.1)))
 
 # Make a table of weights and risk contribution
 
+colnames(weights_percrisk) <- c("weights", "perc vol contrib")
 
 # Print the table
 
@@ -737,6 +738,7 @@ vol_budget <- StdDev(returns, portfolio_method = "component", weights = weights)
 
 # Make a table of weights and risk contribution
 weights_percrisk <- cbind(weights, vol_budget$pct_contrib_StdDev)
+colnames(weights_percrisk) <- c("weights", "perc vol contrib")
 
 # Print the table
 print(weights_percrisk)
