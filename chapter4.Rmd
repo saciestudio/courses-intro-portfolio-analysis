@@ -962,18 +962,19 @@ success_msg("Well done!")
 
 This example will illustrate how your returns can change based on the weighting created by an optimized portfolio. You will use the estimation portfolio (`pf_estim`) to evaluate the performance of your portfolio on the estimation sample of returns (`returns_eval`).
 
-How severe is the optimality loss? Let's compare on the out-of-sample period the mean and variance on the optimized portfolio weights using the estimation sample and the out-of-sample evaluation data. 
+How severe is the optimality loss? Let's compare, for the portfolio weights in `pf_estim`, the performance you expected using the evaluation sample (`returns_estim`) with the actual return on the out-of-sample period (`returns_eval`).
+
+`pf_estim`, `returns_estim`, and `returns_eval`, are pre-loaded in your workspace. 
 
 *** =instructions
-- Calculate the returns of a portfolio with the estimation sample `returns_estim`, and where the weights are the weights of the optimized portfolio `pf_estim`. Call this `return_pf_estim`.
-- Calculate the returns of a portoflio with the evalutation sample `returns_eval`, and where the weights are the weights of the optimized portfolio `pf_estim`. Call this `returns_pf_eval`.
+- Calculate the returns of the portfolio with monthly rebalance weights `pf_estim$pw`, on the estimation sample `returns_estim`. Call this `returns_pf_estim`.
+- Calculate the returns of the portfolio with monthly rebalance weights `pf_estim$pw`, on the evaluation sample `returns_eval`. Call this `returns_pf_eval`.
 - Use the function `table.AnnualizedReturns()` on `returns_pf_estim`.
 - Use the function `table.AnnualizedReturns()` on `returns_pf_eval`.
 - Compare the return, risk, and sharpe ratio of these portfolios. The results from the `pf_eval` are what you may expect in a real performance.
 
 *** =hint
-The only argument you need to provide is the portfolio return object name.
-
+The only argument you need to provide is the stock return data.
 *** =pre_exercise_code
 ```{r}
 # pec
@@ -1061,13 +1062,13 @@ Have fun!
 - Load the package PortfolioAnalytics and explore the functionality of this package by entering the instruction `?PortfolioAnalytics`. 
 - Read my article on portfolio optimization with [DEoptim](https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Ardia~et~al.pdf). 
 *** =hint
-
+Portfolio analysis is still an active field of research among academics and practitioners.
 
 *** =pre_exercise_code
 ```{r}
 # pec
 #library(Biobase)
-$uri <- "https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Ardia~et~al.pdf"
+#$uri <- "https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Ardia~et~al.pdf"
 #download.file(uri,"deoptim.pdf",method="internal",mode="wb")
 
 ```
