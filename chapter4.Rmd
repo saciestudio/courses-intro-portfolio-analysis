@@ -730,7 +730,7 @@ colnames(mweights.res) = colnames(returns)
 
 
 # 
-plot(stocksd,stockmu,col="gray" , xlab="Standard deviation (monthly)", ylab="Average return (monthly",
+plot(stocksd,stockmu,col="gray" , xlab="(monthly) Volatility" , ylab="(monthly) average returns",
      xlim=c(0.02,0.15), ylim=c(min(stockmu),max(stockmu)))
 text( stocksd ,  stockmu ,  labels=colnames(returns), cex= 0.7)
 # all portfolios offering less return than the minimum variance portfolio should be excluded
