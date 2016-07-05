@@ -585,7 +585,7 @@ test_function("chart.RollingPerformance", c("R", "width", "FUN", "Rf"), index = 
 test_function("abline", "h", index = 3, incorrect_msg = "Make sure you use the correct horizontal reference!")
 
 #5th
-test_function("chart.RollingPerformance", c("R", "width", "Rf"), index = 4)
+test_function("chart.RollingPerformance", c("R", "width", "Rf"))
 success_msg("Well done!")
 ```
 
