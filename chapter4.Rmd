@@ -3,7 +3,7 @@ title       : Optimizing the portfolio
 description : We have up to now considered the portfolio weights as given. In this chapter you learn how to determine in R the portfolio weights that are optimal in terms of achieving a target return with minimum risk, while satisfying constraints on the portfolio weights.  
  
 --- type:VideoExercise lang:r xp:50 skills:1 key:2d45c303bc2e49767a9cd744f15a31938a2ec7d9
-## Modern portfolio theory of Harry Markowitz
+## Modern Portfolio Theory of Harry Markowitz
 
 
 *** =video_link
@@ -467,7 +467,7 @@ success_msg("Well done!")
 ```
 
 --- type:VideoExercise lang:r xp:50 skills:1 key:461436d2ee4b426f97b3c95b6ee39836ae38b34f
-## The efficient frontier
+## The Efficient Frontier
 
 *** =video_link
 //player.vimeo.com/video/108225030
@@ -851,7 +851,7 @@ success_msg("Well done!")
 
 
 --- type:VideoExercise lang:r xp:50 skills:1 key:ca405aabc3c21c142aaae409da6302b77b5210ef
-## In-sample versus out-of-sample evaluation
+## In-Sample vs Out-of-Sample Evaluation
 
 
 *** =video_link
