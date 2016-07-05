@@ -369,7 +369,7 @@ In this exercise you will create three portfolios with different maximum weight 
 - Print the volatilities of the portfolio you created. 
 
 *** =hint
-To compute the number of elements larger than 0.01 in a vector x, you could use `sum(x > 0.1)`
+To compute the number of elements larger than 0.01 in a vector x, you could use `sum(x > 0.1)`.
 
 *** =pre_exercise_code
 ```{r}
@@ -486,8 +486,8 @@ In this exercise you will use a for loop to calculate your grid of potential por
 
 *** =instructions
 - Calculate the column means of `returns`, and call this `stockmu`.
-- Create a sequence (`seq()`) of length 50, that begins at the minimum value of `stockmu` and ends at the maximum value of `stockmu` called `grid`.
-- Initialize 2 empty vectors with the same length as `grid`, where you will store the portfolio means and standard deviations. Call these `vpm` and `vpsd` Note that the first observations of `vpm`, and `vpsd` will remain `NA` because returns cannot be calculated on the initial observation.
+- Create a sequence (`seq()`) of length 50, that begins at a risk free rate of 1% and ends at the maximum value of `stockmu` called `grid`.
+- Initialize 2 empty vectors with the same length as `grid`, where you will store the portfolio means and standard deviations. Call these `vpm` and `vpsd`. 
 - Initialze an empty matrix of 50 rows, and 30 columns. Call this `mweights`. You can use the `matrix()` function to do so.
 - Create a for loop that starts on the second value of `grid` and ends on the last. 
 - The for loop should create a portfolio called `optim` using `returns` and with a target return of `grid`.
@@ -524,7 +524,7 @@ returns <- returns[(-1),]
 
 
 # Create your for loop
-for(i in 2:length(grid)) {
+for(i in 1:length(grid)) {
   optim <- 
   vpm[i] <- 
   vpsd[i] <- 
@@ -538,7 +538,7 @@ for(i in 2:length(grid)) {
 stockmu <- colMeans(returns)
 
 # Create a grid of target values
-grid <- seq(min(stockmu), max(stockmu), length.out = 50)  
+grid <- seq(0.01, max(stockmu), length.out = 50)  
 
 # Create empty vectors to store means, deviations and your matrix of weights
 vpm <- c(NA, length(grid))
@@ -546,7 +546,7 @@ vpsd <- c(NA, length(grid))
 mweights <- matrix(NA, 50, 30)
 
 # Create your for loop
-for(i in 2:length(grid)) {
+for(i in 1:length(grid)) {
   optim <- portfolio.optim(x = returns , pm = grid[i])
   vpm[i] <- optim$pm
   vpsd[i] <- optim$ps
@@ -561,7 +561,7 @@ test_object("vpm")
 test_object("vpsd")
 test_object("mweights")
 
-test_output_contains("for(i in 2:length(grid)) {
+test_output_contains("for(i in 1:length(grid)) {
   optim <- portfolio.optim(x = returns , pm = grid[i])
   vpm[i] <- optim$pm
   vpsd[i] <- optim$ps
