@@ -475,7 +475,7 @@ The function [chart.RollingPerformance()](http://www.rdocumentation.org/packages
 - To see all three plots together, use the function `charts.RollingPerformance()`.
 
 *** =hint
--Use the function `abline()` with the argument `h` set to your horizontal reference. 
+- Use the function `abline()` with the argument `h` set to your horizontal reference. 
 - Do not forget to include the argument `Rf` for `SharpeRatio.annualized()`, `charts.RollingPerformance()` when `FUN = "SharpeRatio.annualized"`, and `charts.RollingPerformance()`.
 
 *** =pre_exercise_code
