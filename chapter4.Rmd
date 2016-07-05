@@ -754,12 +754,12 @@ test_mc(3)
 --- type:NormalExercise lang:r xp:100 skills:1   key:897a83541a
 ## The minimum variance and maximum Sharpe ratio portfolio
 
-In the previous exercises you computed the efficient fronteir using a grid of target returns. The output of your calculation of the efficient fronteir was a series of two vectors, `vpm` (vector of portfolio means), and `vpsd` (vector of standard deviations, or volatilities), and a matrix of weights called `mweights`. You will use these outputs to identify the portfolios with the least volatility, and the greatest sharpe ratio, and then plot them.
+In the previous exercises you computed the efficient frontier using a grid of target returns. The output of your calculation of the efficient frontier was a series of two vectors, `vpm` (vector of portfolio means), and `vpsd` (vector of standard deviations, or volatilities), and a matrix of weights called `mweights`. You will use these outputs to identify the portfolios with the least volatility, and the greatest Sharpe ratio, and then plot their weight allocation.
 
 *** =instructions
-- Create `weights_minvar` as the rows in `mweights` equivalent to the minimum standard deviation in `vpsd`. 
-- Calculate the sharpe ratio of portfolio returns where the risk free rate is *0.75%*. Call this `vsr`.
-- Create `weights_max_sr` as the rows in `mweights` equivalent to the maximum sharpe ratio in `vsr`.
+- Create `weights_minvar` as the row in `mweights` corresponding to the portfolio with the minimum standard deviation in `vpsd`. 
+- Calculate the Sharpe ratio of portfolio returns when the risk free rate is *0.75%*. Call this `vsr`.
+- Create `weights_max_sr` as the row in `mweights` corresponding to the portfolio with the maximum sharpe ratio in `vsr`.
 - Create a barplot of the weights that are greater than 1% in the `weights_minvar` portfolio.
 - Create a barplot of the weights that are greater than 1% in the `weights_max_sr` portfolio.
 
