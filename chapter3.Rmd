@@ -560,14 +560,11 @@ When $w$ is the column-matrix of portfolio weights, $\mu$ the column-matrix of e
 
 You will practice matrix multiplication in R using the `%*%` function, instead of the standard `*`. In addition you will transpose the matrices by using the standard function `t()`. Remember that transposing a matrix is simply changing the rows of the matrix to the columns.
 
-The object `returns` is pre-loaded in your workspace!
-
+The weights, vector of means, and the covariance matrix are pre-loaded in your workspace as,`weights`, `vmeans`, and `sigma`, respectively.
 
 *** =instructions
-- Create a vector of weights that leads to 40% invested in equities, 40% in bonds, 10% in real estate and 10% in commodities. Call this vector `weights`.
 - Convert weights to a matrix called `w` using `as.matrix()`.
-- Calculate the row means of returns using `apply()`, and convert this to a matrix called `mu`.
-- Create a covariance matrix of returns called `sigma`.
+- Convert the vector of means to a matrix called `mu` using `as.matrix()`.
 - Calculate portfolio mean monthly return. Remember the function `t()` transposes a vector.
 - Calculate the portfolio volatility.
 
@@ -604,46 +601,40 @@ colnames(prices) <- c("equities","bonds","realestate","commodities")
 # calculate returns
 returns <- Return.calculate(prices)
 returns <- returns[(-1),]
+# Define a vector of weights
+weights <- c(0.4, 0.4, 0.1, 0.1)
+# create a vector of mean returns
+vmeans <- apply(returns, 2, "mean")
+# Create a covariance matrix of returns sigma
+sigma <- cov(returns)
 ```
 
 *** =sample_code
 ```{r}
-# Define a vector of weights
-
-
 # Create a weight matrix w
 
 
-# Calculate mean returns mu
-
-
-# Create a covariance matrix of returns sigma
+# Create a matrix of returns
 
 
 # Calculate portfolio mean monthly returns
 
 
-# Calculate portfolio volatility
+# Calculate portfolio variance
 ```
 
 *** =solution
 ```{r}
-# Define a vector of weights
-weights <- c(0.4, 0.4, 0.1, 0.1)
-
 # Create a weight matrix w
 w <- as.matrix(weights)
 
-# Calculate mean returns mu
-mu <- as.matrix(apply(returns, 2, "mean"))
-
-# Create a covariance matrix of returns sigma
-sigma <- cov(returns)
+# Create a matrix of returns
+mu <- as.matrix(vmeans)
 
 # Calculate portfolio mean monthly returns
 t(w) %*% mu
 
-# Calculate portfolio volatility
+# Calculate portfolio variance
 sqrt(t(w) %*% sigma %*% w)
 ```
 
@@ -656,8 +647,7 @@ test_object("weights", undefined_msg = "Make sure you create a vector of weights
 test_object("w", undefined_msg = "It looks like you need to make your matrix of weights!", incorrect_msg = "Make sure you use the function `as.matrix()`!")
 #3
 test_object("mu", undefined_msg = "Hey! You forgot to create a matrix of mean returns!", incorrect_msg = "Make sure you convert your calculations to a matrix!")
-#4
-test_object("sigma", undefined_msg = "Oops! You didn't make a covariance matrix!", incorrect_msg = "Whoops! You didn't create your covariance matrix properly. Try using `cov()`!")
+
 #5
 test_output_contains("t(w) %*% mu", incorrect_msg = "Make sure you multiply by the transpose of w!")
 # sct code
