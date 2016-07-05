@@ -646,8 +646,7 @@ Which of the following statements is false.
 - None of the above.
 
 *** =hint
-Even some risky portfolios can have a lower return than a risk-free rate.
-
+In the financial market, not all risks are compensated with a higher return.
 *** =pre_exercise_code
 ```{r}
 library(xts)
