@@ -619,7 +619,7 @@ test_student_typed("tail(prices)", not_typed_msg = "Oops! Be sure to look at the
 test_object("returns", incorrect_msg = "Did you provide the correct object to `Return.calculate()`?", undefined_msg = "You need to create an object of returns!")
 
 #5th instruction
-test_output_contains("head(returns)", incorrect_msg = "It looks like you didn't print the head of your returns!")
+test_function("head", "x", not_called_msg = "It looks like you didn't print the head of your returns!")
 
 #6th instruction
 test_object("returns")
