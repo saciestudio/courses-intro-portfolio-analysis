@@ -740,7 +740,7 @@ The object `returns` is pre-loaded in your workspace.
 - Note that `par(mfrow = c(2, 1), mar = c(2, 4, 2, 2))` is used to organize the plots you create. Do not alter this code.
 
 *** =hint
-
+You can access the end of period weights from your portfolios using `portfolio$EOP.Weight`.
 *** =pre_exercise_code
 ```{r}
 # pec
